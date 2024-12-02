@@ -1,0 +1,90 @@
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile-button .user-name,
+#user-display-name {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+}
+
+.profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--background);
+    position: relative;
+}
+
+.profile-tooltip {
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+    z-index: 1000;
+}
+
+.profile-pic:hover + .profile-tooltip {
+    display: block;
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--surface);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+    min-width: 200px;
+    z-index: 1000;
+    display: none;
+}
+
+.user-menu-dropdown.visible {
+    display: block;
+}
+
+/* Base styles for all menu items */
+.user-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text) !important;
+    text-decoration: none !important;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    font-size: 15px; /* Match the default font size */
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Ensure all menu items have the same styles */
+.user-menu-item.refresh,
+.user-menu-item.logout,
+.user-menu-item.moderation-link {
+    font-size: 15px; /* Match the default font size */
+    font-weight: 400;
+}
+
+.user-menu-item:hover {
+    background-color: var(--background);
+    color: var(--text) !important;
+    text-decoration: none !important;
+}

@@ -1,0 +1,16 @@
+@import 'settings/settings-nav.css';
+@import 'settings/settings-user-menu.css';
+@import 'settings/settings-sidebar.css';
+@import 'settings/settings-modal.css';
+
+/* Settings Page Layout */
+.page {
+    min-height: 100vh;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .advanced-layout {
+        flex-direction: column;
+    }
+}

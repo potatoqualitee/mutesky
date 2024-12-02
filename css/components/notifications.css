@@ -1,0 +1,41 @@
+.notification {
+    position: fixed;
+    top: 80px; /* Increased from 20px to move it below the header */
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: #2ecc71;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.notification.error {
+    background: #e74c3c;
+}
+
+.notification.hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+/* Mobile-friendly adjustments */
+@media screen and (max-width: 768px) {
+    .notification {
+        width: 90%;
+        max-width: 300px;
+        top: 60px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}

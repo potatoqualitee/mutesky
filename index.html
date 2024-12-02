@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutesky - Bluesky Edition</title>
+    <style>
+        /* Critical loading and auth styles */
+        body {
+            visibility: hidden;
+        }
+        .js-loaded {
+            visibility: visible;
+        }
+        /* Hide landing by default if coming from auth */
+        body[data-auth-redirect="true"] #landing-page {
+            display: none !important;
+        }
+        body[data-auth-redirect="true"] #app-interface {
+            display: block !important;
+        }
+    </style>
+    <link rel="preload" href="css/base.css" as="style">
+    <link rel="preload" href="css/index.css" as="style">
+    <script>
+        // Check for auth redirect before any rendering
+        if (sessionStorage.getItem('auth_redirect')) {
+            document.documentElement.setAttribute('data-auth-redirect', 'true');
+            sessionStorage.removeItem('auth_redirect');
+        }
+    </script>
+    <script src="js/themeInit.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+</head>
+
+<body>
+    <!-- Loading State -->
+    <div id="loading-state" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="page">
+        <landing-page></landing-page>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-interface" class="page hidden">
+        <top-nav></top-nav>
+
+        <!-- App Introduction -->
+        <app-intro></app-intro>
+
+        <!-- Simple Mode Interface -->
+        <div id="simple-mode" class="interface-mode">
+            <simple-mode></simple-mode>
+        </div>
+
+        <!-- Advanced Mode Interface -->
+        <div id="advanced-mode" class="interface-mode hidden">
+            <advanced-mode></advanced-mode>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+
+    <!-- Modals -->
+    <settings-modal></settings-modal>
+    <appearance-modal></appearance-modal>
+    <about-modal></about-modal>
+
+    <!-- Load Web Components before main bundle -->
+    <script type="module">
+        // Import and initialize components
+        import * as Components from './js/components/index.js';
+    </script>
+
+    <!-- Main application bundle -->
+    <script type="module" src="./js/bundle.js"></script>
+</body>
+</html>

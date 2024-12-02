@@ -1,0 +1,57 @@
+/* Dark mode scrollbar styles */
+[data-theme="dark"] .categories-sidebar,
+[data-theme="dark"] .categories-grid,
+[data-theme="dark"] .keywords-section,
+[data-theme="dark"] .context-builder,
+[data-theme="dim"] .categories-sidebar,
+[data-theme="dim"] .categories-grid,
+[data-theme="dim"] .keywords-section,
+[data-theme="dim"] .context-builder {
+    scrollbar-width: auto;
+    scrollbar-color: #3f3f4f #1e1e2e;
+}
+
+[data-theme="dark"] .categories-sidebar::-webkit-scrollbar,
+[data-theme="dark"] .categories-grid::-webkit-scrollbar,
+[data-theme="dark"] .keywords-section::-webkit-scrollbar,
+[data-theme="dark"] .context-builder::-webkit-scrollbar,
+[data-theme="dim"] .categories-sidebar::-webkit-scrollbar,
+[data-theme="dim"] .categories-grid::-webkit-scrollbar,
+[data-theme="dim"] .keywords-section::-webkit-scrollbar,
+[data-theme="dim"] .context-builder::-webkit-scrollbar {
+    width: 14px;
+}
+
+[data-theme="dark"] .categories-sidebar::-webkit-scrollbar-track,
+[data-theme="dark"] .categories-grid::-webkit-scrollbar-track,
+[data-theme="dark"] .keywords-section::-webkit-scrollbar-track,
+[data-theme="dark"] .context-builder::-webkit-scrollbar-track,
+[data-theme="dim"] .categories-sidebar::-webkit-scrollbar-track,
+[data-theme="dim"] .categories-grid::-webkit-scrollbar-track,
+[data-theme="dim"] .keywords-section::-webkit-scrollbar-track,
+[data-theme="dim"] .context-builder::-webkit-scrollbar-track {
+    background: #1e1e2e;
+}
+
+[data-theme="dark"] .categories-sidebar::-webkit-scrollbar-thumb,
+[data-theme="dark"] .categories-grid::-webkit-scrollbar-thumb,
+[data-theme="dark"] .keywords-section::-webkit-scrollbar-thumb,
+[data-theme="dark"] .context-builder::-webkit-scrollbar-thumb,
+[data-theme="dim"] .categories-sidebar::-webkit-scrollbar-thumb,
+[data-theme="dim"] .categories-grid::-webkit-scrollbar-thumb,
+[data-theme="dim"] .keywords-section::-webkit-scrollbar-thumb,
+[data-theme="dim"] .context-builder::-webkit-scrollbar-thumb {
+    background: #3f3f4f;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .categories-sidebar::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .categories-grid::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .keywords-section::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .context-builder::-webkit-scrollbar-thumb:hover,
+[data-theme="dim"] .categories-sidebar::-webkit-scrollbar-thumb:hover,
+[data-theme="dim"] .categories-grid::-webkit-scrollbar-thumb:hover,
+[data-theme="dim"] .keywords-section::-webkit-scrollbar-thumb:hover,
+[data-theme="dim"] .context-builder::-webkit-scrollbar-thumb:hover {
+    background: #57576a;
+}

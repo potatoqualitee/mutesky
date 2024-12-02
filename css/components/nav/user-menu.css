@@ -1,0 +1,72 @@
+/* User Menu Styles */
+.user-menu {
+    position: relative;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 8px;
+    border: none;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.profile-button:hover {
+    background: var(--background);
+}
+
+.profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--background);
+    overflow: hidden;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    min-width: 200px;
+    display: none;
+    z-index: 101;
+}
+
+.user-menu.active .user-menu-dropdown {
+    display: block;
+}
+
+.user-menu-item {
+    padding: var(--spacing-md);
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.user-menu-item:hover {
+    background: var(--background);
+    text-decoration: none;
+}
+
+.user-menu-item.logout {
+    color: var(--danger);
+    border-top: 1px solid var(--border);
+}

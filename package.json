@@ -1,0 +1,38 @@
+{
+  "name": "mutesky",
+  "version": "1.0.0",
+  "description": "A web app for managing and filtering unwanted content on Bluesky, featuring curated keyword groups and context-based filtering.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx webpack serve --open",
+    "build": "npx webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bluesky",
+    "content-filter",
+    "muting",
+    "social-media",
+    "moderation",
+    "keyword-filtering",
+    "atproto"
+  ],
+  "author": "Chrissy LeMaire",
+  "license": "MIT",
+  "dependencies": {
+    "@atproto/api": "^0.13.18",
+    "@atproto/oauth-client-browser": "^0.3.2"
+  },
+  "devDependencies": {
+    "buffer": "6.0.3",
+    "copy-webpack-plugin": "11.0.0",
+    "crypto-browserify": "3.12.1",
+    "http-server": "^14.1.1",
+    "process": "0.11.10",
+    "stream-browserify": "3.0.0",
+    "util": "0.12.5",
+    "webpack": "5.96.1",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "^4.15.2"
+  }
+}

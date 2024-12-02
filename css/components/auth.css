@@ -1,0 +1,176 @@
+/* Auth Container */
+.bsky-connect {
+    background: var(--background);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 24px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.bsky-connect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--surface-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bsky-connect:hover::before {
+    opacity: 1;
+}
+
+.sign-in-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 4px 0;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+.bsky-auth-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    margin-top: 12px;
+}
+
+.auth-section {
+    width: 100%;
+}
+
+/* Input Styling */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.input-wrapper::before {
+    content: '@';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 15px;
+    z-index: 1;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.bsky-handle-input {
+    width: 100%;
+    padding: 12px 16px 12px 36px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.bsky-handle-input:hover {
+    border-color: var(--text-secondary);
+    background: var(--background);
+}
+
+.bsky-handle-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--background);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
+}
+
+.bsky-handle-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Auth Button */
+.btn-auth {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--primary);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-auth::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-auth:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-auth:hover::before {
+    opacity: 1;
+}
+
+.btn-auth:active {
+    transform: translateY(0);
+}
+
+/* Auth Message */
+.bsky-auth-message {
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 0 4px;
+}
+
+.bsky-auth-message.error {
+    color: var(--error);
+}
+
+@media (max-width: 768px) {
+    .bsky-connect {
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    .sign-in-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bsky-connect {
+        padding: 16px;
+        margin-top: 16px;
+    }
+
+    .sign-in-title {
+        font-size: 18px;
+    }
+
+    .bsky-handle-input,
+    .btn-auth {
+        padding: 10px 14px 10px 32px;
+    }
+
+    .input-wrapper::before {
+        left: 14px;
+    }
+}

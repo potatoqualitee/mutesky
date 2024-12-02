@@ -1,0 +1,19 @@
+{
+  "client_id": "https://mutesky.app/client-metadata.json",
+  "client_name": "Mutesky",
+  "client_uri": "https://mutesky.app",
+  "redirect_uris": [
+    "https://mutesky.app/callback.html"
+  ],
+  "scope": "atproto transition:generic",
+  "grant_types": [
+    "authorization_code",
+    "refresh_token"
+  ],
+  "response_types": [
+    "code"
+  ],
+  "token_endpoint_auth_method": "none",
+  "application_type": "web",
+  "dpop_bound_access_tokens": true
+}

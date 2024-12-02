@@ -1,0 +1,172 @@
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* Theme Variables */
+:root {
+    /* Light Theme Colors */
+    --primary: #0085ff;
+    --primary-rgb: 0, 133, 255;
+    --primary-hover: #0066cc;
+    --primary-light: #e6f3ff;
+    --surface: #ffffff;
+    --background: #f8fafc;
+    --background-light: #ffffff;
+    --text: #000000;
+    --text-secondary: #536471;
+    --border: #e4e6eb;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --disabled: #e4e6eb;
+    --danger: #f4212e;
+    --error: #dc3545;
+    --like: #f91880;
+    --repost: #00ba7c;
+    --link: #0085ff;
+
+    /* Font Size Variables */
+    --base-font-size: 15px;
+    --font-scale: 1;
+    --font-size-small: calc(0.867rem * var(--font-scale));  /* 13px equivalent */
+    --font-size-default: calc(1rem * var(--font-scale));    /* 15px equivalent */
+    --font-size-large: calc(1.133rem * var(--font-scale));  /* 17px equivalent */
+
+    /* Gradients */
+    --surface-gradient: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 100%);
+
+    /* Shadows */
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Layout */
+    --branding-width: 42%;
+    --content-width: 58%;
+    --min-width: 320px;
+
+    /* Other */
+    --border-radius: 8px;
+    --button-transition: 200ms ease-in-out;
+}
+
+/* Dark Theme (Dim) */
+[data-theme="dim"] {
+    --surface: #15202b;
+    --background: #1e2732;
+    --background-light: #1a2634;
+    --text: #f7f9f9;
+    --text-secondary: #8b98a5;
+    --border: #38444d;
+    --shadow: rgba(255, 255, 255, 0.08);
+    --primary-light: rgba(0, 133, 255, 0.1);
+
+    /* Dark theme specific */
+    --surface-gradient: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.01) 100%);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--base-font-size);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--background);
+    font-size: var(--font-size-default);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* System Theme Detection */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        /* Default to dim theme when system prefers dark */
+        --surface: #15202b;
+        --background: #1e2732;
+        --background-light: #1a2634;
+        --text: #f7f9f9;
+        --text-secondary: #8b98a5;
+        --border: #38444d;
+        --shadow: rgba(255, 255, 255, 0.08);
+        --primary-light: rgba(0, 133, 255, 0.1);
+        --surface-gradient: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.03) 0%,
+            rgba(255, 255, 255, 0.01) 100%);
+        --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+}

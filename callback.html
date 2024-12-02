@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bluesky Auth Callback</title>
+    <style>
+        /* Critical theme styles to prevent flash */
+        body { visibility: hidden; }
+        .js-loaded { visibility: visible; }
+    </style>
+    <link rel="preload" href="./css/base.css" as="style">
+    <link rel="preload" href="./css/callback.css" as="style">
+    <script src="./js/themeInit.js"></script>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/callback.css">
+</head>
+<body>
+    <div class="callback-container">
+        <h2>Authenticating</h2>
+        <p class="status-text">Completing authentication<span class="loading-dots"></span></p>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <p id="error" class="error-message"></p>
+        <a href="/" class="home-link">Return to app</a>
+    </div>
+
+    <script src="./js/bundle.js"></script>
+    <script src="./js/callback.js"></script>
+</body>
+</html>

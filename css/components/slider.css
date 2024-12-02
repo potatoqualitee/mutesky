@@ -1,0 +1,117 @@
+.filter-slider {
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.filter-slider h2,
+.context-selector h2,
+.exceptions-panel h2 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.filter-note {
+    position: relative;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background: var(--warning-bg, rgba(255, 193, 7, 0.1));
+    border-left: 3px solid var(--warning, #ffc107);
+    border-radius: 4px;
+}
+
+.filter-note::before {
+    content: "⚠️";
+    position: absolute;
+    left: 0.75rem;
+    top: 0.75rem;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.filter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    cursor: pointer;
+    transition: var(--button-transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.filter-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+}
+
+.filter-card p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.filter-card:hover {
+    background: var(--background-light);
+}
+
+.filter-card.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.filter-card.active h3,
+.filter-card.active p {
+    color: #ffffff;
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dim"] .filter-card:hover {
+    background: var(--background);
+}
+
+[data-theme="dim"] .filter-card.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Context Builder Styles */
+.context-selector {
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Exception Tags Styles */
+.exceptions-panel {
+    display: none;
+}
+
+.exceptions-panel.visible {
+    display: block;
+}
+
+.exception-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+/* Bottom Spacing */
+.bottom-spacing {
+    height: 60px;
+    width: 100%;
+}

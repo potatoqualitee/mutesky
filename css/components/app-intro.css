@@ -1,0 +1,15 @@
+.app-intro {
+    max-width: 900px;
+    margin: 3.5rem auto 4rem;
+    padding: 0 var(--spacing-md);
+}
+
+.app-intro p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    text-align: left;
+    margin-bottom: var(--spacing-xl);
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+}

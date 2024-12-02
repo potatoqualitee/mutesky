@@ -1,0 +1,9 @@
+/* Settings Modal Styles - Split for maintainability */
+
+/* Order is important - core styles and animations first, then specific components */
+@import 'settings-modal-core.css';
+@import 'settings-modal-warning.css';
+@import 'settings-modal-header.css';
+@import 'settings-modal-controls.css';
+@import 'settings-modal-footer.css';
+@import 'settings-modal-about.css';

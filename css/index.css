@@ -1,0 +1,8 @@
+/* Base styles and variables */
+@import './base.css';
+
+/* Reusable components */
+@import './components.css';
+
+/* Layout and structure */
+@import './layout.css';
