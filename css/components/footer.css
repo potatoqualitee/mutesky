@@ -20,6 +20,16 @@
 
 .footer-left {
     text-align: left;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    visibility: visible;
+}
+
+/* Hide footer-left content when it would overflow */
+.footer-left:not(:hover):has(> *) {
+    max-width: min-content;
 }
 
 .footer-center {
