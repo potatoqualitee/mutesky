@@ -47,6 +47,7 @@
 .nav-group:last-child .hamburger-menu {
     flex-shrink: 1;
     min-width: 0;
+    transition: all 0.5s ease-in-out; /* Slower, smoother transition */
 }
 
 /* When space gets tight, collapse profile section */
@@ -58,6 +59,7 @@
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+    transition: all 0.5s ease-in-out; /* Match transition timing */
 }
 
 /* Ensure dropdown is visible when menu is active */
@@ -68,6 +70,7 @@
     padding: initial;
     margin: initial;
     pointer-events: auto;
+    transition: all 0.5s ease-in-out; /* Consistent transition */
 }
 
 /* Ensure dropdown is always visible when parent is active */
