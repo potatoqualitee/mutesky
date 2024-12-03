@@ -138,10 +138,21 @@
     font-size: 14px;
     color: var(--text-secondary);
     padding: 0 4px;
+    transition: all 0.3s ease;
 }
 
 .bsky-auth-message.error {
     color: var(--error);
+    background: rgba(var(--error-rgb), 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 8px 0;
+}
+
+.auth-error {
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 4px 0;
 }
 
 @media (max-width: 768px) {

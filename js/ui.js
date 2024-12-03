@@ -1,32 +1,34 @@
 export class UIService {
     updateLoginState(isLoggedIn, message = '') {
+        // Update DOM synchronously
+        this.updateDOMElements(isLoggedIn, message);
+
+        // Dispatch event in background
+        setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('blueskyLoginStateChanged', {
+                detail: { isLoggedIn, message }
+            }));
+        }, 0);
+    }
+
+    updateDOMElements(isLoggedIn, message) {
         const loginBtn = document.getElementById('bsky-login-btn');
         const logoutBtn = document.getElementById('bsky-logout-btn');
         const handleInput = document.getElementById('bsky-handle-input');
         const authMessage = document.getElementById('bsky-auth-message');
 
-        if (loginBtn && logoutBtn) {
-            loginBtn.style.display = isLoggedIn ? 'none' : 'block';
-            logoutBtn.style.display = isLoggedIn ? 'block' : 'none';
-        }
+        // Batch DOM updates
+        if (loginBtn) loginBtn.style.display = isLoggedIn ? 'none' : 'block';
+        if (logoutBtn) logoutBtn.style.display = isLoggedIn ? 'block' : 'none';
 
         if (handleInput) {
             handleInput.style.display = isLoggedIn ? 'none' : 'block';
-            if (isLoggedIn) {
-                handleInput.classList.remove('error');
-            } else if (message) {
-                handleInput?.classList.add('error');
-            }
+            handleInput.classList.toggle('error', !isLoggedIn && !!message);
         }
 
-        if (authMessage) {
-            authMessage.textContent = message || '';
+        if (authMessage && message) {
+            authMessage.textContent = message;
         }
-
-        // Dispatch event for other parts of the app
-        window.dispatchEvent(new CustomEvent('blueskyLoginStateChanged', {
-            detail: { isLoggedIn, message }
-        }));
     }
 
     getHandleInput() {
@@ -38,11 +40,7 @@ export class UIService {
         const handleInput = document.getElementById('bsky-handle-input');
         const authMessage = document.getElementById('bsky-auth-message');
 
-        if (handleInput) {
-            handleInput.classList.add('error');
-        }
-        if (authMessage) {
-            authMessage.textContent = message;
-        }
+        if (handleInput) handleInput.classList.add('error');
+        if (authMessage) authMessage.textContent = message;
     }
 }

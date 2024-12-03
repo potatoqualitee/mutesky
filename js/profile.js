@@ -1,5 +1,4 @@
 import { Agent } from '@atproto/api'
-import { blueskyService } from './bluesky.js'
 
 export class ProfileService {
     constructor(session) {
@@ -7,6 +6,7 @@ export class ProfileService {
         this.session = session;
     }
 
+    // Made synchronous - just sets properties
     setSession(session) {
         this.agent = session ? new Agent(session) : null;
         this.session = session;
@@ -25,7 +25,7 @@ export class ProfileService {
         }
     }
 
-    async updateUI(profile) {
+    updateUI(profile) {
         if (!profile) return;
 
         const handleEl = document.getElementById('bsky-handle');
@@ -33,8 +33,8 @@ export class ProfileService {
         const profilePic = document.querySelector('.profile-pic');
 
         if (handleEl) {
-            const userKeywords = await blueskyService.mute.getMutedKeywords();
-            handleEl.textContent = `@${profile.handle} - ${userKeywords.length} mutes`;
+            // Just show handle initially, mute count will update separately
+            handleEl.textContent = `@${profile.handle}`;
         }
 
         if (displayNameEl) {
@@ -45,6 +45,14 @@ export class ProfileService {
             profilePic.style.backgroundImage = `url(${profile.avatar})`;
             profilePic.style.backgroundSize = 'cover';
             profilePic.style.backgroundPosition = 'center';
+        }
+    }
+
+    // New method to update just the mute count
+    updateMuteCount(count) {
+        const handleEl = document.getElementById('bsky-handle');
+        if (handleEl && handleEl.textContent) {
+            handleEl.textContent = `${handleEl.textContent} - ${count} mutes`;
         }
     }
 

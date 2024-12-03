@@ -124,7 +124,7 @@ export async function fetchKeywordGroups(forceFresh = false) {
     try {
         // Get list of category files
         const categoryFiles = await listCategoryFiles();
-        console.log('Found category files:', categoryFiles);
+        console.debug('Found category files:', categoryFiles);
 
         // Get the target count from state or default to 2000
         const targetCount = state.targetKeywordCount || 2000;
@@ -143,7 +143,7 @@ export async function fetchKeywordGroups(forceFresh = false) {
                 // Store the entire category data structure
                 keywordGroups[categoryName] = categoryData;
 
-                console.log(`Loaded ${categoryName} with weight ${categoryData[categoryName].weight} and ${Object.keys(categoryData[categoryName].keywords).length} keywords`);
+                console.debug(`Loaded ${categoryName} with weight ${categoryData[categoryName].weight} and ${Object.keys(categoryData[categoryName].keywords).length} keywords`);
             } catch (error) {
                 console.error(`Failed to load category ${fileName}:`, error);
             }

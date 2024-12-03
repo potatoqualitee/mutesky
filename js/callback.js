@@ -1,82 +1,93 @@
 class CallbackHandler {
     constructor() {
+        console.log('[Callback] Initializing callback handler...');
         this.container = document.querySelector('.callback-container');
         this.errorElement = document.getElementById('error');
         this.titleElement = document.querySelector('h2');
-        this.redirectTimeout = null;
+        this.statusElement = document.querySelector('.status-text');
         this.initialized = false;
-        this.hasError = false;
-        this.errorMessage = '';
     }
 
     init() {
-        // Clear any existing redirect timeout
-        if (this.redirectTimeout) {
-            clearTimeout(this.redirectTimeout);
+        console.log('[Callback] Starting callback processing...');
+        // Get the current URL's query parameters or hash fragment
+        const params = new URLSearchParams(
+            window.location.search || window.location.hash.slice(1)
+        );
+
+        // Check for error in OAuth response
+        if (params.has('error')) {
+            console.log('[Callback] Error found in OAuth response');
+            const error = params.get('error');
+            const errorDescription = params.get('error_description');
+            this.handleError(error, errorDescription);
+            return;
         }
 
-        // Listen for console errors to detect auth failures
-        const originalError = console.error;
-        console.error = (...args) => {
-            const errorMessage = args.join(' ');
-            if (errorMessage.includes('Failed to initialize Bluesky client')) {
-                this.hasError = true;
-                this.errorMessage = errorMessage;
-                this.handleError();
-            }
-            originalError.apply(console, args);
-        };
+        // Check for required OAuth response parameters
+        if (!params.has('code') || !params.has('state')) {
+            console.log('[Callback] Missing required OAuth parameters');
+            this.handleError(
+                'invalid_response',
+                'Missing required OAuth parameters'
+            );
+            return;
+        }
 
-        // Ignore 401/403 errors as they are transient
-        window.addEventListener('unhandledrejection', (event) => {
-            if (event.reason?.toString().includes('401') ||
-                event.reason?.toString().includes('403')) {
-                event.preventDefault();
-            }
-        });
+        console.log('[Callback] OAuth parameters found, storing auth state...');
+        // Store auth state before redirect
+        sessionStorage.setItem('auth_state', params.get('state'));
+        sessionStorage.setItem('auth_code', params.get('code'));
 
-        // Set a timeout to show success if no error occurs
-        setTimeout(() => {
-            if (!this.initialized && !this.hasError) {
-                this.showSuccess();
-            }
-        }, 2000);
+        this.showSuccess();
     }
 
     showSuccess() {
-        if (this.hasError) return;
-
+        console.log('[Callback] Processing successful auth...');
         this.initialized = true;
+
+        // Show auth success for 2 seconds
         this.titleElement.textContent = 'Authentication Successful';
-        this.errorElement.textContent = '';
+        this.statusElement.textContent = 'Verifying credentials';
 
-        // Set auth flag before redirect
-        sessionStorage.setItem('auth_redirect', 'true');
+        // Then show keyword loading for 2 seconds
+        setTimeout(() => {
+            console.log('[Callback] Showing keyword loading state');
+            this.titleElement.textContent = 'Loading Keywords';
+            this.statusElement.textContent = 'This may take a moment';
 
-        // Set redirect timeout
-        this.redirectTimeout = setTimeout(() => {
-            window.location.href = '/';
+            // Then redirect
+            setTimeout(() => {
+                console.log('[Callback] Redirecting to app');
+                window.location.href = '/';
+            }, 2000);
         }, 2000);
     }
 
-    handleError() {
+    handleError(error, description = '') {
+        console.log('[Callback] Handling error:', error, description);
         this.initialized = true;
-        this.hasError = true;
-
-        // Clear any existing redirect timeout
-        if (this.redirectTimeout) {
-            clearTimeout(this.redirectTimeout);
-            this.redirectTimeout = null;
-        }
-
         this.container.classList.add('error');
         this.titleElement.textContent = 'Authentication Failed';
-        this.errorElement.textContent = this.errorMessage || 'Unknown error occurred';
+
+        // Store error state for landing page
+        sessionStorage.setItem('auth_error', error);
+        sessionStorage.setItem('auth_error_description', description);
+
+        const errorMessage = description || error || 'Unknown error occurred';
+        this.errorElement.textContent = errorMessage;
+
+        console.log('[Callback] Redirecting after error...');
+        // Redirect after brief pause to ensure error is visible
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 500);
     }
 }
 
 // Initialize when page loads
 window.addEventListener('load', () => {
+    console.log('[Callback] Page loaded, initializing handler...');
     const handler = new CallbackHandler();
     handler.init();
 });
