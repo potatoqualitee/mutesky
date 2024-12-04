@@ -16,55 +16,42 @@ export class AuthService {
             });
             console.log('[Auth] OAuth client loaded');
 
-            // Check if we have auth state from callback
-            const authState = sessionStorage.getItem('auth_state');
-            const authCode = sessionStorage.getItem('auth_code');
-
-            if (authState && authCode) {
-                console.log('[Auth] Found stored auth state, processing callback...');
-                // Clear auth state immediately to prevent replay
-                sessionStorage.removeItem('auth_state');
-                sessionStorage.removeItem('auth_code');
-
-                try {
-                    // Process the callback with the stored auth code
-                    const result = await this.client.callback({
-                        code: authCode,
-                        state: authState
-                    });
-                    console.log('[Auth] Callback processed successfully');
-
-                    if (result?.session) {
-                        this.session = result.session;
-                        console.log('[Auth] Session established from callback');
-                        return { success: true, session: this.session };
-                    }
-                } catch (error) {
-                    console.error('[Auth] Failed to process auth callback:', error);
-                    return {
-                        success: false,
-                        error: new Error('Failed to complete authentication')
-                    };
-                }
-            }
-
-            console.log('[Auth] No stored auth state, trying normal init');
-            // No callback data, try to initialize normally
+            // Let the client handle initialization and callback processing
             const result = await this.client.init();
             console.log('[Auth] Init result:', result ? 'has result' : 'no result');
 
             if (result?.session) {
                 this.session = result.session;
-                console.log('[Auth] Session established from init');
+                if (result.state) {
+                    console.log('[Auth] Session established from callback');
+                    // Dispatch event for callback page
+                    window.dispatchEvent(new CustomEvent('mutesky:auth:complete', {
+                        detail: { success: true }
+                    }));
+                } else {
+                    console.log('[Auth] Session restored from last active session');
+                }
                 return { success: true, session: this.session };
             }
 
             console.log('[Auth] No session established');
+            // Dispatch event for callback page if we're on the callback page
+            if (window.location.pathname.endsWith('callback.html')) {
+                window.dispatchEvent(new CustomEvent('mutesky:auth:complete', {
+                    detail: { success: false }
+                }));
+            }
             return { success: false };
         } catch (error) {
             console.error('[Auth] Failed to initialize Bluesky client', error);
             this.session = null;
-            return { success: false, error: new Error('[Auth] Failed to initialize Bluesky client') };
+            // Dispatch event for callback page if we're on the callback page
+            if (window.location.pathname.endsWith('callback.html')) {
+                window.dispatchEvent(new CustomEvent('mutesky:auth:complete', {
+                    detail: { success: false, error }
+                }));
+            }
+            return { success: false, error };
         }
     }
 
@@ -79,14 +66,12 @@ export class AuthService {
                 throw new Error('Please enter your Bluesky handle');
             }
 
-            // Get the authorization URL - allow silent auth when possible
-            const url = await this.client.authorize(handle, {
+            // Initiate the OAuth flow
+            await this.client.signIn(handle, {
                 scope: 'atproto transition:generic'
             });
-            console.log('[Auth] Got authorization URL, redirecting...');
-
-            // Redirect to the authorization URL
-            window.location.href = url.href;
+            // Note: The above line will redirect the user, so we won't reach here
+            // unless there's an error or the user navigates back
         } catch (error) {
             console.error('[Auth] Sign in failed:', error);
             throw error;
@@ -106,5 +91,37 @@ export class AuthService {
                 throw error;
             }
         }
+    }
+
+    async refreshSession() {
+        try {
+            console.log('[Auth] Attempting to refresh session...');
+            if (!this.client) {
+                throw new Error('Client not initialized');
+            }
+
+            // Attempt to refresh the session
+            const result = await this.client.init();
+            if (result?.session) {
+                this.session = result.session;
+                console.log('[Auth] Session refreshed successfully');
+                return { success: true, session: this.session };
+            }
+
+            console.log('[Auth] Session refresh failed - no valid session');
+            return { success: false };
+        } catch (error) {
+            console.error('[Auth] Session refresh failed:', error);
+            return { success: false, error };
+        }
+    }
+
+    // Add event listener for session invalidation
+    onSessionInvalidated(callback) {
+        this.client?.addEventListener('deleted', (event) => {
+            const { sub, cause } = event.detail;
+            console.error(`[Auth] Session for ${sub} is no longer available (cause: ${cause})`);
+            callback(sub, cause);
+        });
     }
 }

@@ -2,115 +2,192 @@ import { state, saveState, setTargetKeywordCount } from '../state.js';
 import { getAllKeywordsForCategory } from '../categoryManager.js';
 import { renderInterface } from '../renderer.js';
 
+// Optimized cache with memoization
+const cache = {
+    keywords: new Map(),
+    categoryStates: new Map(),
+    contextKeywords: new Map(),
+    activeKeywordsByCategory: new Map(),
+    lastUpdate: 0,
+
+    getKeywords(category, sortByWeight = false) {
+        const key = `${category}-${sortByWeight}`;
+        if (!this.keywords.has(key)) {
+            const keywords = getAllKeywordsForCategory(category, sortByWeight);
+            this.keywords.set(key, new Set(keywords));
+        }
+        return this.keywords.get(key);
+    },
+
+    getActiveKeywordsForCategory(category) {
+        if (!this.activeKeywordsByCategory.has(category)) {
+            const keywords = this.getKeywords(category);
+            const active = new Set([...keywords].filter(k => state.activeKeywords.has(k)));
+            this.activeKeywordsByCategory.set(category, active);
+        }
+        return this.activeKeywordsByCategory.get(category);
+    },
+
+    getCategoryState(category) {
+        const keywords = this.getKeywords(category);
+        const activeKeywords = this.getActiveKeywordsForCategory(category);
+
+        if (activeKeywords.size === 0) return 'none';
+        if (activeKeywords.size === keywords.size) return 'all';
+        return 'partial';
+    },
+
+    getContextKeywords(contextId, isSelected) {
+        const key = `${contextId}-${isSelected}`;
+        if (!this.contextKeywords.has(key)) {
+            const context = state.contextGroups[contextId];
+            const keywordSet = new Set();
+
+            if (context?.categories) {
+                for (const category of context.categories) {
+                    if (!isSelected || !state.selectedExceptions.has(category)) {
+                        const keywords = this.getKeywords(category, !isSelected);
+                        for (const k of keywords) keywordSet.add(k);
+                    }
+                }
+            }
+            this.contextKeywords.set(key, keywordSet);
+        }
+        return this.contextKeywords.get(key);
+    },
+
+    invalidateCategory(category) {
+        const now = Date.now();
+        if (now - this.lastUpdate < 50) return;
+        this.lastUpdate = now;
+
+        const patterns = [`${category}-true`, `${category}-false`];
+        patterns.forEach(p => this.keywords.delete(p));
+        this.activeKeywordsByCategory.delete(category);
+
+        for (const [key] of this.contextKeywords) {
+            const [contextId] = key.split('-');
+            const context = state.contextGroups[contextId];
+            if (context?.categories?.includes(category)) {
+                this.contextKeywords.delete(key);
+            }
+        }
+    },
+
+    clear() {
+        this.keywords.clear();
+        this.categoryStates.clear();
+        this.contextKeywords.clear();
+        this.activeKeywordsByCategory.clear();
+    }
+};
+
+// Debounced UI updates
+const debouncedUpdate = (() => {
+    let timeout;
+    return (fn) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(fn, 16);
+    };
+})();
+
+// Activate keywords for a context
+function activateContextKeywords(contextId) {
+    const context = state.contextGroups[contextId];
+    if (!context?.categories) return;
+
+    for (const category of context.categories) {
+        if (state.selectedExceptions.has(category)) continue;
+        const keywords = cache.getKeywords(category);
+        for (const keyword of keywords) {
+            state.activeKeywords.add(keyword);
+        }
+    }
+}
+
 export function handleContextToggle(contextId) {
     const isSelected = state.selectedContexts.has(contextId);
     const context = state.contextGroups[contextId];
-    const categories = context.categories;
-
-    console.log(`Toggling context ${contextId}, currently selected: ${isSelected}`);
+    const keywords = cache.getContextKeywords(contextId, isSelected);
 
     if (isSelected) {
-        // Removing context
         state.selectedContexts.delete(contextId);
-        categories.forEach(category => {
-            state.selectedExceptions.delete(category);
-            const keywords = getAllKeywordsForCategory(category);
-            console.log(`Removing ${keywords.length} keywords from ${category}`);
-            keywords.forEach(keyword => state.activeKeywords.delete(keyword));
-        });
+        if (context.categories) {
+            context.categories.forEach(category => {
+                state.selectedExceptions.delete(category);
+                cache.invalidateCategory(category);
+            });
+        }
+        keywords.forEach(k => state.activeKeywords.delete(k));
     } else {
-        // Adding context
         state.selectedContexts.add(contextId);
-        categories.forEach(category => {
-            if (!state.selectedExceptions.has(category)) {
-                // Get keywords sorted by weight and limited by target count
-                const keywords = getAllKeywordsForCategory(category, true);
-                console.log(`Adding ${keywords.length} keywords from ${category} (target: ${state.targetKeywordCount})`);
-                keywords.forEach(keyword => state.activeKeywords.add(keyword));
-            }
-        });
+        keywords.forEach(k => state.activeKeywords.add(k));
+        if (context.categories) {
+            context.categories.forEach(category => cache.invalidateCategory(category));
+        }
     }
 
-    console.log(`Total active keywords after toggle: ${state.activeKeywords.size}`);
-    saveState();
-    renderInterface();
+    debouncedUpdate(() => {
+        saveState();
+        renderInterface();
+    });
 }
 
 export function handleExceptionToggle(category) {
-    console.log(`Toggling exception for ${category}`);
-    console.log(`Current target keyword count: ${state.targetKeywordCount}`);
+    const wasException = state.selectedExceptions.has(category);
+    const keywords = cache.getKeywords(category, !wasException);
 
-    if (state.selectedExceptions.has(category)) {
-        // Removing exception (adding keywords back)
+    if (wasException) {
         state.selectedExceptions.delete(category);
-        // Get keywords sorted by weight and limited by target count
-        const keywords = getAllKeywordsForCategory(category, true);
-        console.log(`Adding ${keywords.length} keywords from ${category}`);
-        keywords.forEach(keyword => state.activeKeywords.add(keyword));
+        keywords.forEach(k => state.activeKeywords.add(k));
     } else {
-        // Adding exception (removing keywords)
         state.selectedExceptions.add(category);
-        const keywords = getAllKeywordsForCategory(category);
-        console.log(`Removing ${keywords.length} keywords from ${category}`);
-        keywords.forEach(keyword => state.activeKeywords.delete(keyword));
+        keywords.forEach(k => state.activeKeywords.delete(k));
     }
 
-    console.log(`Total active keywords after exception toggle: ${state.activeKeywords.size}`);
-    saveState();
-    renderInterface();
+    cache.invalidateCategory(category);
+
+    debouncedUpdate(() => {
+        saveState();
+        renderInterface();
+    });
 }
 
 export function updateSimpleModeState() {
-    // Set initial target count to minimal (100) when in simple mode
     if (state.targetKeywordCount === 2000) {
         setTargetKeywordCount(100);
     }
 
-    // Clear current selections
-    state.selectedContexts.clear();
-    state.selectedExceptions.clear();
-
-    // If there are no active keywords at all, return early
-    if (state.activeKeywords.size === 0) {
+    debouncedUpdate(() => {
         saveState();
         renderInterface();
-        return;
-    }
-
-    // Get all active keywords
-    const activeKeywords = new Set(state.activeKeywords);
-    console.log(`Updating simple mode state with ${activeKeywords.size} active keywords`);
-
-    // For each context group
-    Object.entries(state.contextGroups).forEach(([contextId, context]) => {
-        if (!context.categories) return;
-
-        let hasActiveKeywords = false;
-
-        // Check each category in the context
-        context.categories.forEach(category => {
-            const categoryKeywords = getAllKeywordsForCategory(category, true);
-            const activeInCategory = categoryKeywords.filter(k => activeKeywords.has(k));
-
-            if (activeInCategory.length > 0) {
-                hasActiveKeywords = true;
-                console.log(`Found ${activeInCategory.length} active keywords in ${category}`);
-
-                // If some but not all keywords in category are active, mark for exception
-                if (activeInCategory.length < categoryKeywords.length) {
-                    state.selectedExceptions.add(category);
-                    console.log(`Marking ${category} as exception (partial selection)`);
-                }
-            }
-        });
-
-        // Only select context if it has active keywords
-        if (hasActiveKeywords) {
-            state.selectedContexts.add(contextId);
-            console.log(`Selected context ${contextId} due to active keywords`);
-        }
     });
+}
 
-    saveState();
-    renderInterface();
+// Export for use during initial state load
+export function initializeState() {
+    const saved = localStorage.getItem('calmChaosState');
+    if (saved) {
+        const data = JSON.parse(saved);
+
+        // First restore contexts
+        if (data.selectedContexts) {
+            state.selectedContexts = new Set(data.selectedContexts);
+        }
+
+        // Then restore exceptions
+        if (data.selectedExceptions) {
+            state.selectedExceptions = new Set(data.selectedExceptions);
+        }
+
+        // Activate keywords for all selected contexts
+        for (const contextId of state.selectedContexts) {
+            activateContextKeywords(contextId);
+        }
+
+        // Finally restore any additional active keywords
+        if (data.activeKeywords) {
+            data.activeKeywords.forEach(k => state.activeKeywords.add(k));
+        }
+    }
 }

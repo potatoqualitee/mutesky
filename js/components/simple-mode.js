@@ -1,14 +1,23 @@
+import { state } from '../state.js';
+
 class SimpleMode extends HTMLElement {
     constructor() {
         super();
         this.currentLevel = 0;
+        this.currentExceptions = new Set();
+        console.log('[SimpleMode] Constructor called, initial exceptions:', Array.from(this.currentExceptions));
     }
 
     connectedCallback() {
+        console.log('[SimpleMode] Connected callback starting');
+        console.log('[SimpleMode] State exceptions at connect:', Array.from(state.selectedExceptions));
+
         this.innerHTML = `
             <div class="interface-mode">
                 <div class="context-builder">
                     <div class="context-builder-inner">
+                        <p class="intro-text">Select the content types you want to filter, choose your filtering strength, and set any exceptions. Click the blue "Mute" button at the top right to apply your changes. For more detailed control, try Advanced Mode in the top menu.</p>
+
                         <div class="context-selector">
                             <h2>I want to avoid content about...</h2>
                             <div id="context-options" class="context-options">
@@ -53,7 +62,15 @@ class SimpleMode extends HTMLElement {
             </div>
         `;
 
+        // Initialize from saved state
+        console.log('[SimpleMode] Initializing with filter level:', state.filterLevel);
+        console.log('[SimpleMode] Initializing with exceptions:', Array.from(state.selectedExceptions));
+        this.currentLevel = state.filterLevel;
+        this.currentExceptions = new Set(state.selectedExceptions);
+        console.log('[SimpleMode] After initialization, currentExceptions:', Array.from(this.currentExceptions));
+        this.updateFilterUI();
         this.setupEventListeners();
+        console.log('[SimpleMode] Connected callback complete');
     }
 
     setupEventListeners() {
@@ -75,29 +92,99 @@ class SimpleMode extends HTMLElement {
         });
     }
 
-    setActiveLevel(level) {
-        if (level === this.currentLevel) return;
-
-        this.currentLevel = level;
+    updateFilterUI() {
         const levels = this.querySelectorAll('.filter-card');
+        const warningNote = this.querySelector('.filter-note');
 
         levels.forEach(el => {
-            const isActive = parseInt(el.dataset.level) === level;
+            const isActive = parseInt(el.dataset.level) === this.currentLevel;
             el.classList.toggle('active', isActive);
             el.setAttribute('aria-checked', isActive);
         });
 
-        // Show warning for non-minimal levels, hide for minimal
-        const warningNote = this.querySelector('.filter-note');
         if (warningNote) {
-            warningNote.style.display = level > 0 ? 'block' : 'none';
+            warningNote.style.display = this.currentLevel > 0 ? 'block' : 'none';
         }
+    }
+
+    setActiveLevel(level) {
+        if (level === this.currentLevel) return;
+
+        console.log('[SimpleMode] Changing filter level from', this.currentLevel, 'to', level);
+        this.currentLevel = level;
+        state.filterLevel = level; // Update global state
+        console.log('[SimpleMode] Updated state filter level to:', state.filterLevel);
+        this.updateFilterUI();
 
         // Dispatch custom event for level change
+        console.log('[SimpleMode] Dispatching filterLevelChange event with level:', level);
         this.dispatchEvent(new CustomEvent('filterLevelChange', {
             detail: { level },
             bubbles: true
         }));
+    }
+
+    // Method to update level from outside
+    updateLevel(level) {
+        if (level === this.currentLevel) return;
+        console.log('[SimpleMode] External update changing level from', this.currentLevel, 'to', level);
+        this.currentLevel = level;
+        this.updateFilterUI();
+    }
+
+    // Method to update exceptions from outside
+    updateExceptions(exceptions) {
+        console.log('[SimpleMode] updateExceptions called with:', exceptions);
+        console.log('[SimpleMode] Current exceptions before update:', Array.from(this.currentExceptions));
+        console.log('[SimpleMode] State exceptions:', Array.from(state.selectedExceptions));
+
+        const newExceptions = new Set(exceptions);
+        if (this.areExceptionsEqual(this.currentExceptions, newExceptions)) {
+            console.log('[SimpleMode] Exceptions unchanged, skipping update');
+            return;
+        }
+
+        console.log('[SimpleMode] Exceptions changed, updating from',
+            Array.from(this.currentExceptions), 'to', Array.from(newExceptions));
+        this.currentExceptions = newExceptions;
+
+        // Update exception tags UI if needed
+        const exceptionTags = this.querySelector('#exception-tags');
+        if (exceptionTags) {
+            console.log('[SimpleMode] Found exception tags container, dispatching update event');
+            // Let the contextRenderer handle the actual UI update
+            // This will trigger a re-render through the existing system
+            this.dispatchEvent(new CustomEvent('exceptionsUpdated', {
+                detail: { exceptions: Array.from(newExceptions) },
+                bubbles: true
+            }));
+        } else {
+            console.log('[SimpleMode] Exception tags container not found');
+        }
+
+        console.log('[SimpleMode] Exception update complete. Current exceptions:', Array.from(this.currentExceptions));
+    }
+
+    // Helper to compare exception sets
+    areExceptionsEqual(set1, set2) {
+        console.log('[SimpleMode] Comparing exception sets:',
+            'set1:', Array.from(set1),
+            'set2:', Array.from(set2));
+
+        if (set1.size !== set2.size) {
+            console.log('[SimpleMode] Sets have different sizes:', set1.size, 'vs', set2.size);
+            return false;
+        }
+
+        for (const item of set1) {
+            if (!set2.has(item)) {
+                console.log('[SimpleMode] Set2 missing item:', item);
+                return false;
+            }
+        }
+
+        console.log('[SimpleMode] Sets are equal');
+        return true;
     }
 }
 

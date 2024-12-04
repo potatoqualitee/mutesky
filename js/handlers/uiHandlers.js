@@ -27,10 +27,9 @@ export function switchMode(mode) {
     if (simpleMode) simpleMode.classList.toggle('hidden', mode !== 'simple');
     if (advancedMode) advancedMode.classList.toggle('hidden', mode !== 'advanced');
 
-    // Update simple mode state if needed
-    if (mode === 'simple') {
-        updateSimpleModeState();
-    }
+    // Always update simple mode state when switching modes
+    // This ensures state is properly initialized regardless of which mode we're switching to
+    updateSimpleModeState();
 
     // Update interface
     renderInterface();

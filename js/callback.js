@@ -5,83 +5,56 @@ class CallbackHandler {
         this.errorElement = document.getElementById('error');
         this.titleElement = document.querySelector('h2');
         this.statusElement = document.querySelector('.status-text');
-        this.initialized = false;
+        this.homeLink = document.querySelector('.home-link');
+
+        // Hide the home link initially
+        if (this.homeLink) {
+            this.homeLink.style.display = 'none';
+        }
     }
 
     init() {
         console.log('[Callback] Starting callback processing...');
-        // Get the current URL's query parameters or hash fragment
-        const params = new URLSearchParams(
-            window.location.search || window.location.hash.slice(1)
-        );
+        this.showLoading();
 
-        // Check for error in OAuth response
-        if (params.has('error')) {
-            console.log('[Callback] Error found in OAuth response');
-            const error = params.get('error');
-            const errorDescription = params.get('error_description');
-            this.handleError(error, errorDescription);
-            return;
-        }
+        // Listen for auth completion
+        window.addEventListener('mutesky:auth:complete', (event) => {
+            const { success } = event.detail || {};
+            if (success) {
+                this.showKeywordLoading();
+            } else {
+                // Show error and manual return link on failure
+                this.showError('Authentication failed. Please try again.');
+                if (this.homeLink) {
+                    this.homeLink.style.display = 'block';
+                }
+            }
+        });
 
-        // Check for required OAuth response parameters
-        if (!params.has('code') || !params.has('state')) {
-            console.log('[Callback] Missing required OAuth parameters');
-            this.handleError(
-                'invalid_response',
-                'Missing required OAuth parameters'
-            );
-            return;
-        }
-
-        console.log('[Callback] OAuth parameters found, storing auth state...');
-        // Store auth state before redirect
-        sessionStorage.setItem('auth_state', params.get('state'));
-        sessionStorage.setItem('auth_code', params.get('code'));
-
-        this.showSuccess();
+        // Listen for setup completion
+        window.addEventListener('mutesky:setup:complete', () => {
+            // Redirect back to app
+            window.location.href = '/';
+        });
     }
 
-    showSuccess() {
-        console.log('[Callback] Processing successful auth...');
-        this.initialized = true;
-
-        // Show auth success for 2 seconds
+    showLoading() {
+        console.log('[Callback] Processing auth callback...');
         this.titleElement.textContent = 'Authentication Successful';
         this.statusElement.textContent = 'Verifying credentials';
-
-        // Then show keyword loading for 2 seconds
-        setTimeout(() => {
-            console.log('[Callback] Showing keyword loading state');
-            this.titleElement.textContent = 'Loading Keywords';
-            this.statusElement.textContent = 'This may take a moment';
-
-            // Then redirect
-            setTimeout(() => {
-                console.log('[Callback] Redirecting to app');
-                window.location.href = '/';
-            }, 2000);
-        }, 2000);
     }
 
-    handleError(error, description = '') {
-        console.log('[Callback] Handling error:', error, description);
-        this.initialized = true;
+    showKeywordLoading() {
+        console.log('[Callback] Showing keyword loading state');
+        this.titleElement.textContent = 'Loading Keywords';
+        this.statusElement.textContent = 'This may take a moment';
+    }
+
+    showError(message) {
+        console.log('[Callback] Showing error:', message);
         this.container.classList.add('error');
         this.titleElement.textContent = 'Authentication Failed';
-
-        // Store error state for landing page
-        sessionStorage.setItem('auth_error', error);
-        sessionStorage.setItem('auth_error_description', description);
-
-        const errorMessage = description || error || 'Unknown error occurred';
-        this.errorElement.textContent = errorMessage;
-
-        console.log('[Callback] Redirecting after error...');
-        // Redirect after brief pause to ensure error is visible
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 500);
+        this.errorElement.textContent = message;
     }
 }
 

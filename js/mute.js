@@ -1,5 +1,6 @@
 import { Agent } from '@atproto/api'
 import { loadMuteSettings, getExpirationDate } from './handlers/settingsHandlers.js'
+import { blueskyService } from './bluesky.js'
 
 export class MuteService {
     constructor(session) {
@@ -7,11 +8,11 @@ export class MuteService {
         this.session = session;
         this.cachedKeywords = null;
         this.cachedPreferences = null;
-        console.log('MuteService initialized, has session:', !!session);
+        console.log('[MuteService] MuteService initialized, has session:', !!session);
     }
 
     setSession(session) {
-        console.log('Setting new session in MuteService:', !!session);
+        console.log('[MuteService] Setting new session in MuteService:', !!session);
         this.agent = session ? new Agent(session) : null;
         this.session = session;
         // Clear caches when session changes
@@ -19,21 +20,32 @@ export class MuteService {
         this.cachedPreferences = null;
     }
 
+    async handleSessionRefresh() {
+        console.log('[MuteService] Attempting to refresh expired session...');
+        const result = await blueskyService.auth.refreshSession();
+        if (result.success && result.session) {
+            console.log('[MuteService] Session refreshed successfully, updating agent...');
+            this.setSession(result.session);
+            return true;
+        }
+        return false;
+    }
+
     async getMutedKeywords() {
         if (!this.agent || !this.session) {
-            console.log('Cannot get muted keywords - not logged in');
+            console.log('[MuteService] Cannot get muted keywords - not logged in');
             return [];
         }
 
         // Return cached keywords if available
         if (this.cachedKeywords !== null) {
-            console.log('Returning cached muted keywords');
+            console.log('[MuteService] Returning cached muted keywords');
             return this.cachedKeywords;
         }
 
         try {
             // Get user's preferences from Bluesky
-            console.log('Fetching user preferences from Bluesky...');
+            console.log('[MuteService] Fetching user preferences...');
             const response = await this.agent.api.app.bsky.actor.getPreferences();
             this.cachedPreferences = response.data.preferences;
 
@@ -49,11 +61,18 @@ export class MuteService {
             this.cachedKeywords = mutedKeywords;
 
             // Log the counts
-            console.debug('User muted keywords:', mutedKeywords);
+            console.debug('[MuteService] User muted keywords:', mutedKeywords);
 
             return mutedKeywords;
         } catch (error) {
-            console.error('Failed to get muted keywords:', error);
+            console.error('[MuteService] Failed to get muted keywords:', error);
+            // Try to refresh session if we got a 401
+            if (error.status === 401) {
+                if (await this.handleSessionRefresh()) {
+                    // Retry the operation with refreshed session
+                    return this.getMutedKeywords();
+                }
+            }
             // Clear caches on error
             this.cachedKeywords = null;
             this.cachedPreferences = null;
@@ -74,7 +93,7 @@ export class MuteService {
         try {
             // Get fresh preferences if not cached
             if (!this.cachedPreferences) {
-                console.log('Getting current preferences...');
+                console.log('[MuteService] Getting current preferences...');
                 const response = await this.agent.api.app.bsky.actor.getPreferences();
                 this.cachedPreferences = response.data.preferences;
             }
@@ -116,9 +135,9 @@ export class MuteService {
                 }));
 
             // Log operations for verification
-            console.log('Applied mute settings:', settings);
-            console.log('User custom keywords (will be preserved):', userCustomKeywords.map(i => i.value));
-            console.log('New managed keywords to be set:', newManagedItems.map(i => i.value));
+            console.log('[MuteService] Applied mute settings:', settings);
+            console.log('[MuteService] User custom keywords (will be preserved):', userCustomKeywords.map(i => i.value));
+            console.log('[MuteService] New managed keywords to be set:', newManagedItems.map(i => i.value));
 
             // Combine user's custom keywords with selected managed keywords
             const updatedItems = [
@@ -140,21 +159,32 @@ export class MuteService {
             }
 
             // Log final state
-            console.log('Total keywords after update:', updatedItems.length);
+            console.log('[MuteService] Total keywords after update:', updatedItems.length);
 
-            // Update preferences
-            await this.agent.api.app.bsky.actor.putPreferences({
-                preferences: this.cachedPreferences
-            });
+            try {
+                // Update preferences
+                await this.agent.api.app.bsky.actor.putPreferences({
+                    preferences: this.cachedPreferences
+                });
+            } catch (error) {
+                // Try to refresh session if we got a 401
+                if (error.status === 401) {
+                    if (await this.handleSessionRefresh()) {
+                        // Retry the operation with refreshed session
+                        return this.updateMutedKeywords(selectedKeywords, ourKeywordsList);
+                    }
+                }
+                throw error;
+            }
 
             // Clear caches after successful update
             this.cachedKeywords = null;
             this.cachedPreferences = null;
 
-            console.log('Successfully updated muted keywords');
+            console.log('[MuteService] Successfully updated muted keywords');
             return true;
         } catch (error) {
-            console.error('Failed to update muted keywords:', error);
+            console.error('[MuteService] Failed to update muted keywords:', error);
             // Clear caches on error
             this.cachedKeywords = null;
             this.cachedPreferences = null;

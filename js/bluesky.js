@@ -39,13 +39,14 @@ class BlueskyService {
                     console.log('[Bluesky] All services updated');
 
                     // Only fetch profile initially
-                    this.updateProfile();
+                    await this.updateProfile();
 
-                    // Start mute count update in background after a delay
-                    setTimeout(() => {
-                        console.log('[Bluesky] Loading keywords...');
-                        this.updateMuteCount().catch(console.error);
-                    }, 2000);
+                    // Start mute count update
+                    console.log('[Bluesky] Loading keywords...');
+                    await this.updateMuteCount();
+
+                    // Dispatch setup complete event
+                    window.dispatchEvent(new CustomEvent('mutesky:setup:complete'));
 
                     return result;
                 } else {

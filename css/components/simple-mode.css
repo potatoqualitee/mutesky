@@ -1,0 +1,31 @@
+/* Container styles */
+#simple-mode {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Component styles */
+simple-mode {
+    display: block;
+}
+
+simple-mode .intro-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    text-align: left;
+    margin: 0 auto 2rem;
+    letter-spacing: 0.01em;
+    opacity: 0.95;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+simple-mode .interface-mode {
+    width: 100%;
+}
+
+/* Ensure intro text is visible at the top with reduced spacing */
+simple-mode .context-builder-inner {
+    padding-top: var(--spacing-md);
+}

@@ -16,7 +16,8 @@ export const state = {
     filterMode: 'all',
     menuOpen: false,
     lastModified: null,                 // Last-Modified header from keywords file
-    targetKeywordCount: 100             // Default to minimal keywords since default mode is simple
+    targetKeywordCount: 100,            // Default to minimal keywords since default mode is simple
+    filterLevel: 0                      // Track current filter level
 };
 
 // Helper to get all keywords from our list
@@ -84,13 +85,18 @@ export function saveState() {
     const saveData = {
         activeKeywords: Array.from(state.activeKeywords),
         selectedCategories: Array.from(state.selectedCategories),
+        selectedContexts: Array.from(state.selectedContexts),
+        selectedExceptions: Array.from(state.selectedExceptions),
         mode: state.mode,
         lastModified: state.lastModified,
-        targetKeywordCount: state.targetKeywordCount
+        targetKeywordCount: state.targetKeywordCount,
+        filterLevel: state.filterLevel
     };
 
-    console.debug('Saving state with active keywords:', saveData.activeKeywords);
+    console.debug('[State] Current filter level before save:', state.filterLevel);
+    console.debug('[State] Saving filter level:', saveData.filterLevel);
     localStorage.setItem('calmChaosState', JSON.stringify(saveData));
+    console.debug('[State] Saved filter level in localStorage:', saveData.filterLevel);
 }
 
 export function loadState() {
@@ -107,11 +113,14 @@ export function loadState() {
             const data = JSON.parse(saved);
             state.activeKeywords = new Set(data.activeKeywords || []);
             state.selectedCategories = new Set(data.selectedCategories || []);
+            state.selectedContexts = new Set(data.selectedContexts || []);
+            state.selectedExceptions = new Set(data.selectedExceptions || []);
             state.mode = data.mode || 'simple';
             state.lastModified = data.lastModified || null;
             state.targetKeywordCount = data.targetKeywordCount || (state.mode === 'simple' ? 100 : 2000);
-            console.debug('Loaded active keywords:', Array.from(state.activeKeywords));
-            console.debug('Loaded selected categories:', Array.from(state.selectedCategories));
+            console.debug('[State] Loading filter level from storage:', data.filterLevel);
+            state.filterLevel = data.filterLevel || 0;
+            console.debug('[State] Loaded filter level (with fallback):', state.filterLevel);
         } else {
             console.log('No saved state found');
             // If no saved state, ensure targetKeywordCount matches mode
@@ -138,8 +147,9 @@ export function resetState() {
     state.filterMode = 'all';
     state.menuOpen = false;
     state.lastModified = null;
-    // Set targetKeywordCount to 100 since default mode is simple
     state.targetKeywordCount = 100;
+    console.debug('[State] Resetting filter level to 0');
+    state.filterLevel = 0;
     saveState();
 }
 

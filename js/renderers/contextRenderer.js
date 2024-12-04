@@ -25,15 +25,16 @@ export function renderContextCards() {
 export function renderExceptions() {
     if (!elements.exceptionsPanel || !elements.exceptionTags) return;
 
+    // Show/hide panel based on context selection without clearing exceptions
     if (state.selectedContexts.size > 0) {
         elements.exceptionsPanel.classList.add('visible');
     } else {
         elements.exceptionsPanel.classList.remove('visible');
-        state.selectedExceptions.clear();
         elements.muteButton?.classList.remove('visible');
         return;
     }
 
+    // Get all available categories from selected contexts
     const selectedCategories = new Set();
     state.selectedContexts.forEach(contextId => {
         const context = state.contextGroups[contextId];
@@ -42,6 +43,7 @@ export function renderExceptions() {
         }
     });
 
+    // Render exception tags, preserving selected state
     elements.exceptionTags.innerHTML = Array.from(selectedCategories)
         .map(category => {
             return `
