@@ -1,0 +1,33 @@
+/* Modal Header */
+.modal-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: calc(1.6rem * var(--font-scale));  /* 24px equivalent */
+    cursor: pointer;
+    padding: 0;
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.modal-close:hover {
+    background: var(--background);
+    color: var(--text);
+}

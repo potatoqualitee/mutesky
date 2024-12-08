@@ -1,0 +1,117 @@
+/* Button Base Styles */
+.btn-auth,
+.btn-refresh,
+.btn-mute-keywords,
+.nav-mute-button {
+    padding: 8px 16px;
+    border-radius: 9999px; /* Bluesky uses fully rounded buttons */
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+}
+
+/* Auth Button */
+.btn-auth {
+    background: var(--primary);
+    color: #ffffff;
+    margin: 0 auto;
+    padding: 12px 24px;
+    min-width: 120px;
+}
+
+.btn-auth-small {
+    padding: 8px 16px;
+    margin: 0;
+}
+
+.btn-auth:hover {
+    background: var(--primary-hover);
+}
+
+/* Refresh Button */
+.btn-refresh {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.btn-refresh:hover {
+    background: var(--background);
+    border-color: var(--border);
+}
+
+.btn-refresh:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-secondary);
+}
+
+/* Spinning animation for refresh button */
+.btn-refresh.spinning {
+    position: relative;
+}
+
+.btn-refresh.spinning::before {
+    content: '↻';
+    display: inline-block;
+    margin-right: 4px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Mute Buttons */
+.btn-mute-keywords,
+.nav-mute-button {
+    background: var(--primary);
+    color: #ffffff;
+    display: none;
+}
+
+.btn-mute-keywords.visible,
+.nav-mute-button.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-mute-keywords:hover,
+.nav-mute-button:hover {
+    background: var(--primary-hover);
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--background);
+}
+
+/* Outline Button Style */
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary-light);
+}

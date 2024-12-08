@@ -1,0 +1,141 @@
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 16px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    z-index: 100;
+}
+
+.app-footer p {
+    margin: 0;
+}
+
+.footer-left {
+    text-align: left;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    visibility: visible;
+}
+
+/* Hide footer-left content when it would overflow */
+.footer-left:not(:hover):has(> *) {
+    max-width: min-content;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.app-footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Theme Toggle Switch */
+.theme-toggle {
+    position: relative;
+    width: 64px;
+    height: 32px;
+    border-radius: 50px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    outline: none;
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary);
+}
+
+.theme-toggle::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle.dark::before {
+    transform: translateX(28px);
+}
+
+.theme-toggle .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.theme-toggle .sun-icon {
+    margin-right: auto;
+    transform: translateX(-2px);
+}
+
+.theme-toggle .moon-icon {
+    margin-left: auto;
+    transform: translateX(2px);
+}
+
+/* Hide emoji in dark mode */
+.theme-toggle.dark .sun-icon {
+    opacity: 0.5;
+}
+
+/* Hide emoji in light mode */
+.theme-toggle:not(.dark) .moon-icon {
+    opacity: 0.5;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .theme-toggle,
+    .footer-left {
+        display: none !important;
+    }
+
+    .app-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-center {
+        grid-column: 1;
+    }
+}

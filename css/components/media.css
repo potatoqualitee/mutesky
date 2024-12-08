@@ -1,0 +1,34 @@
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Button Responsiveness */
+    .btn-auth {
+        width: 100%;
+    }
+
+    .btn-auth-small {
+        width: 100%;
+    }
+
+    /* Toggle Controls Responsiveness */
+    .mode-toggle,
+    .toggle-all-controls {
+        width: 100%;
+    }
+
+    /* Auth Container Responsiveness */
+    .bsky-connect {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+
+    .bsky-auth-container {
+        max-width: none;
+        width: 100%;
+    }
+
+    /* Category Section Responsiveness */
+    .category-section .keywords-container {
+        columns: 1;
+    }
+}

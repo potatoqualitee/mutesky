@@ -1,0 +1,246 @@
+/* Mode Toggle in Top Nav */
+.top-nav .mode-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--background);
+    padding: 4px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    width: auto;
+}
+
+.top-nav .mode-switch {
+    padding: 8px 24px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Common hover and active states */
+.mode-switch:hover {
+    color: var(--text);
+}
+
+.mode-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Toggle All Controls */
+.toggle-all-controls {
+    display: flex;
+    gap: 8px;
+    padding: 4px;
+}
+
+.toggle-all-btn {
+    flex: 1;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: var(--surface);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.toggle-all-btn:hover {
+    background: var(--background);
+}
+
+.toggle-all-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Muting Settings Radio Buttons */
+.settings-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 12px;
+    transition: var(--transition);
+    cursor: pointer;
+    background: var(--background);
+    border: 1px solid transparent;
+}
+
+.settings-option:hover {
+    border-color: var(--border);
+}
+
+.settings-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.settings-option .radio-circle {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.settings-option input[type="radio"]:checked + .radio-circle {
+    border-color: var(--primary);
+    border-width: 2px;
+}
+
+.settings-option .radio-circle:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+.settings-option input[type="radio"]:checked + .radio-circle:after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.settings-option label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-left: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Checkbox Styling */
+.settings-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.settings-option .checkbox-box {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 6px;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.settings-option input[type="checkbox"]:checked + .checkbox-box {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.settings-option .checkbox-box:after {
+    content: '';
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform-origin: center;
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+.settings-option input[type="checkbox"]:checked + .checkbox-box:after {
+    transform: translate(-50%, -50%) scale(1) rotate(-45deg);
+}
+
+/* Settings Groups */
+.settings-group {
+    margin-bottom: 16px;
+}
+
+.settings-group h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+/* Appearance Settings */
+#appearance-modal .settings-option {
+    display: flex;
+    background: var(--background);
+    padding: 3px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+}
+
+#appearance-modal .mode-switch,
+#appearance-modal .theme-switch,
+#appearance-modal .font-switch {
+    flex: 1;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+#appearance-modal .mode-switch:hover,
+#appearance-modal .theme-switch:hover,
+#appearance-modal .font-switch:hover {
+    color: var(--text);
+}
+
+#appearance-modal .mode-switch.active,
+#appearance-modal .theme-switch.active,
+#appearance-modal .font-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+}
+
+#appearance-modal p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 6px 0;
+    line-height: 1.4;
+}

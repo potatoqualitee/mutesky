@@ -1,0 +1,47 @@
+/* Simple Mode - Context Builder */
+.context-builder {
+    height: calc(100vh - 72px - 40px); /* Match advanced mode height (accounting for header and footer) */
+    overflow-y: auto; /* Enable native scrollbar behavior - only appears when needed */
+    overflow-x: hidden;
+    position: fixed;
+    top: 72px; /* Match header height */
+    left: 0;
+    right: 0;
+    background: var(--background);
+    padding: var(--spacing-xl) 0; /* Add vertical padding to the scrollable area */
+}
+
+.context-builder-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.context-selector {
+    margin-bottom: var(--spacing-xl);
+}
+
+.context-card {
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--surface);
+}
+
+.context-card:hover {
+    border-color: var(--primary);
+}
+
+.context-card.selected {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+.context-card h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Hide bottom spacing div since we're using padding */
+.bottom-spacing {
+    display: none;
+}

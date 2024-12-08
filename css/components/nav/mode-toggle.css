@@ -1,0 +1,25 @@
+/* Mode Toggle Styles */
+.mode-toggle {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: 4px;
+    background: var(--background);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.mode-switch {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: none;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color var(--button-transition), box-shadow var(--button-transition);
+}
+
+.mode-switch.active {
+    background: var(--surface);
+    color: var(--primary);
+    box-shadow: var(--card-shadow);
+}

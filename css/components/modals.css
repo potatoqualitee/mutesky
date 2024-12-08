@@ -1,0 +1,179 @@
+/* Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* Modal Container */
+.modal-content {
+    position: relative;
+    background: var(--surface);
+    margin: 5vh auto;
+    padding: 20px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid var(--border);
+}
+
+/* Modal Header */
+.modal-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: calc(1.333rem * var(--font-scale));  /* 20px equivalent */
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Modal Body */
+.modal-body {
+    margin-bottom: 16px;
+    color: var(--text);
+    font-size: var(--font-size-default);
+    line-height: 1.4;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Settings Groups */
+.settings-group {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+}
+
+.settings-group:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.settings-group h3 {
+    margin: 0 0 12px 0;
+    font-size: var(--font-size-default);
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+}
+
+/* Settings Options */
+.settings-option {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.settings-option:first-child {
+    margin-top: 0;
+}
+
+.settings-option:last-child {
+    margin-bottom: 0;
+}
+
+.settings-option label {
+    cursor: pointer;
+    color: var(--text);
+    font-size: var(--font-size-default);
+    margin: 0;
+    padding: 0;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+/* Close Button */
+.modal-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text);
+    border: none;
+    background: var(--background);
+    transition: all 0.2s ease;
+    font-size: calc(1.333rem * var(--font-scale));  /* 20px equivalent */
+    border: 1px solid var(--border);
+}
+
+.modal-close:hover {
+    background: var(--border);
+    transform: scale(1.05);
+}
+
+/* Modal Buttons */
+.modal .btn-primary {
+    padding: 8px 16px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-size: var(--font-size-default);
+    font-weight: 600;
+}
+
+.modal .btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.modal .btn-secondary {
+    padding: 8px 16px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: var(--font-size-default);
+    font-weight: 600;
+}
+
+.modal .btn-secondary:hover {
+    background: var(--background);
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal.visible {
+    display: block;
+}
+
+.modal.visible .modal-content {
+    animation: modalFadeIn 0.2s ease-out;
+}

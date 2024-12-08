@@ -1,0 +1,51 @@
+/* Exceptions Panel */
+.exceptions-panel {
+    margin-top: var(--spacing-lg);
+    display: none;
+}
+
+.exceptions-panel.visible {
+    display: block;
+}
+
+.exception-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.exception-tag {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--background);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+.exception-tag:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.exception-tag.selected {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .exception-tags {
+        flex-direction: column;
+    }
+
+    .exception-tag {
+        width: 100%;
+        text-align: center;
+    }
+}

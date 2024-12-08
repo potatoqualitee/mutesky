@@ -1,0 +1,56 @@
+/* Button Groups */
+.button-group {
+    display: flex;
+    background: var(--background);
+    border-radius: 24px;
+    padding: 4px;
+    width: 100%;
+}
+
+/* Theme Mode Switches */
+.button-group .theme-mode-switch {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.button-group .theme-mode-switch:hover {
+    color: var(--text);
+}
+
+.button-group .theme-mode-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Font Switches */
+.button-group .font-switch {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.button-group .font-switch:hover {
+    color: var(--text);
+}
+
+.button-group .font-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

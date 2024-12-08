@@ -1,0 +1,91 @@
+/* Top Navigation Base Styles */
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-logo {
+    width: 32px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* Right nav group with profile handling */
+.nav-group:last-child {
+    min-width: 0;
+}
+
+/* Ensure mute button is always visible and takes priority */
+.btn-mute-keywords {
+    padding: 8px 16px;
+    flex-shrink: 0;
+    order: -1; /* Ensure mute button comes first */
+    white-space: nowrap;
+}
+
+/* Make profile section and hamburger menu shrinkable */
+.nav-group:last-child .user-menu,
+.nav-group:last-child .hamburger-menu {
+    flex-shrink: 1;
+    min-width: 0;
+    transition: all 0.5s ease-in-out; /* Slower, smoother transition */
+}
+
+/* When space gets tight, collapse profile section */
+.nav-group:last-child:has(.btn-mute-keywords:not(.hidden)) .user-menu,
+.nav-group:last-child:has(.btn-mute-keywords:not(.hidden)) .hamburger-menu {
+    width: 0;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out; /* Match transition timing */
+}
+
+/* Ensure dropdown is visible when menu is active */
+.nav-group:last-child .user-menu.active {
+    visibility: visible;
+    opacity: 1;
+    width: auto;
+    padding: initial;
+    margin: initial;
+    pointer-events: auto;
+    transition: all 0.5s ease-in-out; /* Consistent transition */
+}
+
+/* Ensure dropdown is always visible when parent is active */
+.user-menu.active .user-menu-dropdown {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}

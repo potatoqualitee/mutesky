@@ -1,0 +1,27 @@
+/* Settings Warning Message */
+.settings-warning {
+    background: var(--warning-background, #fff3cd);
+    border: 1px solid var(--warning-border, #ffeeba);
+    color: var(--warning-text, #856404);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 16px;
+    font-size: var(--font-size-small);
+    line-height: 1.3;
+    min-height: 40px;
+    align-items: center;
+    flex: 1;
+    display: none !important; /* Hidden by default, let JS control visibility */
+}
+
+/* Only show when JavaScript sets display:flex explicitly */
+.settings-warning.visible {
+    display: flex !important;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Hide warning when not on muting tab */
+.settings-content[data-content="appearance"].active ~ .modal-footer .settings-warning,
+.settings-content[data-content="about"].active ~ .modal-footer .settings-warning {
+    display: none !important;
+}
