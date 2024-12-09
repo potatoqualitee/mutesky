@@ -1,6 +1,8 @@
 # Mutesky - Bulk manage Bluesky mutes with pre-populated keyword lists
 
-Mutesky gives you control over what appears in your Bluesky feed through curated keyword collections. It works directly with Bluesky's native mute system to filter out content you'd rather not see.
+<img align="left" src="images/logo.png" alt="Mutesky Logo" width="245" height="177" style="margin-right: 20px">  Mutesky is a web app that gives you granular control over what appears in your Bluesky feed through curated keyword collections. Working directly with Bluesky's native mute system, it provides an intuitive interface to filter out content you'd rather not see. With over 1,400 pre-populated keywords organized into 20+ smart categories, Mutesky makes content filtering both easy and effective.
+
+&nbsp;
 
 ## Key Features
 

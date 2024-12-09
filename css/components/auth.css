@@ -1,12 +1,11 @@
 /* Auth Container */
 .bsky-connect {
-    background: var(--background);
-    border-radius: 16px;
+    background: var(--surface);
+    border-radius: 20px;
     padding: 24px;
-    margin-top: 24px;
     border: 1px solid var(--border);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .bsky-connect::before {
@@ -15,195 +14,92 @@
     inset: 0;
     background: var(--surface-gradient);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: inherit;
+    pointer-events: none; /* Add this to fix click blocking */
 }
 
 .bsky-connect:hover::before {
     opacity: 1;
 }
 
+/* Sign In Header */
 .sign-in-title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
-    color: var(--text);
-    margin: 0 0 4px 0;
-    letter-spacing: -0.02em;
-    position: relative;
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
 }
 
+/* Auth Container Layout */
 .bsky-auth-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    position: relative;
-    margin-top: 12px;
+    margin-top: 24px;
+    gap: 24px;
 }
 
+/* Auth Section */
 .auth-section {
     width: 100%;
 }
 
-/* Input Styling */
-.input-wrapper {
-    position: relative;
-    width: 100%;
-    margin-top: 16px;
+/* Explanatory Text */
+.bsky-auth-message {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
 }
 
-.input-wrapper::before {
-    content: '@';
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: 15px;
-    z-index: 1;
-    opacity: 0.7;
-    pointer-events: none;
+/* Input & Button Overrides */
+.bsky-handle-input,
+.btn-auth {
+    min-height: 48px;
+    height: auto;
+    padding: 14px 16px;
+    line-height: 1.3;
+    border-radius: 12px;
+    width: 100%;
 }
 
 .bsky-handle-input {
-    width: 100%;
-    padding: 12px 16px 12px 36px;
-    font-size: 15px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-    color: var(--text);
-    transition: var(--transition);
-}
-
-.bsky-handle-input:hover:not(:disabled) {
-    border-color: var(--text-secondary);
     background: var(--background);
+    padding-left: 36px;
 }
 
-.bsky-handle-input:focus:not(:disabled) {
-    outline: none;
-    border-color: var(--primary);
-    background: var(--background);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
-}
-
-.bsky-handle-input.error {
-    border-color: var(--error);
-    background: rgba(var(--error-rgb), 0.05);
-}
-
-.bsky-handle-input.error:focus {
-    box-shadow: 0 0 0 3px rgba(var(--error-rgb), 0.15);
-}
-
-.bsky-handle-input:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background: var(--surface);
-    border-color: var(--border);
-}
-
-.bsky-handle-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.7;
-}
-
-/* Auth Button */
-.btn-auth {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #ffffff;
-    background: var(--primary);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-auth::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.btn-auth:hover:not(:disabled) {
-    background: var(--primary-hover);
-    transform: translateY(-1px);
-}
-
-.btn-auth:hover:not(:disabled)::before {
-    opacity: 1;
-}
-
-.btn-auth:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-.btn-auth:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background: var(--primary);
-}
-
-/* Auth Message */
-.bsky-auth-message {
-    margin-top: 4px;
-    font-size: 14px;
-    color: var(--text-secondary);
-    padding: 0 4px;
-    transition: all 0.3s ease;
-}
-
+/* Error States */
 .bsky-auth-message.error {
     color: var(--error);
     background: rgba(var(--error-rgb), 0.1);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 12px;
     margin: 8px 0;
 }
 
-.auth-error {
-    font-weight: 500;
-    line-height: 1.5;
-    padding: 4px 0;
-}
-
 @media (max-width: 768px) {
     .bsky-connect {
-        margin-top: 20px;
         padding: 20px;
+        border-radius: 16px;
     }
 
-    .sign-in-title {
-        font-size: 20px;
+    .bsky-auth-container {
+        gap: 20px;
     }
 }
 
 @media (max-width: 480px) {
     .bsky-connect {
         padding: 16px;
-        margin-top: 16px;
+        border-radius: 12px;
     }
 
-    .sign-in-title {
-        font-size: 18px;
+    .bsky-auth-container {
+        gap: 16px;
+        margin-top: 20px;
     }
 
-    .bsky-handle-input,
-    .btn-auth {
-        padding: 10px 14px 10px 32px;
-    }
-
-    .input-wrapper::before {
-        left: 14px;
+    .bsky-auth-message {
+        font-size: 14px;
     }
 }

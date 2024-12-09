@@ -19,7 +19,6 @@
     .bsky-connect {
         flex-direction: column;
         width: 100%;
-        padding: 0 var(--spacing-md);
     }
 
     .bsky-auth-container {
