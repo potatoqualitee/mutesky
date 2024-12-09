@@ -1,0 +1,35 @@
+/* Mode Toggle in Top Nav */
+.top-nav .mode-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--background);
+    padding: 4px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    width: auto;
+}
+
+.top-nav .mode-switch {
+    padding: 8px 24px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Common hover and active states */
+.mode-switch:hover {
+    color: var(--text);
+}
+
+.mode-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+}

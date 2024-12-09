@@ -1,0 +1,29 @@
+/* Card Base Styles */
+.feature-card,
+.context-card,
+.category-section {
+    background: var(--surface);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: var(--transition);
+}
+
+/* Hover state for cards */
+.feature-card:hover,
+.context-card:hover {
+    background: var(--background);
+}
+
+/* Avatar */
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-small {
+    width: 32px;
+    height: 32px;
+}

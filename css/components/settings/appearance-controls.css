@@ -1,0 +1,53 @@
+/* Appearance Settings */
+.settings-option {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.settings-option:last-child {
+    margin-bottom: 0;
+}
+
+/* Color Mode Selection */
+.mode-switch,
+.theme-switch,
+.font-switch {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: var(--border-radius);
+    background: var(--background-light);
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-switch:hover,
+.theme-switch:hover,
+.font-switch:hover {
+    background: var(--background);
+    border-color: var(--border-hover);
+}
+
+.mode-switch.active,
+.theme-switch.active,
+.font-switch.active {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.mode-switch.active:hover,
+.theme-switch.active:hover,
+.font-switch.active:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}

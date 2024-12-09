@@ -13,7 +13,7 @@ export const cache = {
     updateThreshold: 16,
 
     getKeywords(category, sortByWeight = false) {
-        const key = `${category}-${sortByWeight}-${state.targetKeywordCount}`;
+        const key = `${category}-${sortByWeight}-${state.filterLevel}`;
         if (!this.keywords.has(key)) {
             this.manageCache(this.keywords);
             const keywords = getAllKeywordsForCategory(category, sortByWeight);
@@ -23,7 +23,7 @@ export const cache = {
     },
 
     getActiveKeywordsForCategory(category) {
-        const key = `active-${category}-${state.targetKeywordCount}`;
+        const key = `active-${category}-${state.filterLevel}`;
         if (!this.activeKeywordsByCategory.has(key)) {
             this.manageCache(this.activeKeywordsByCategory);
             const keywords = this.getKeywords(category, true);
@@ -46,7 +46,7 @@ export const cache = {
     },
 
     getContextKeywords(contextId) {
-        const key = `${contextId}-${state.targetKeywordCount}`;
+        const key = `${contextId}-${state.filterLevel}`;
         if (!this.contextKeywords.has(key)) {
             this.manageCache(this.contextKeywords);
             const context = state.contextGroups[contextId];

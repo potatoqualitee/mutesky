@@ -1,0 +1,10 @@
+/* Category Links */
+.category-name {
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.category-name:hover {
+    color: var(--primary);
+}

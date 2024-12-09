@@ -1,0 +1,18 @@
+/* User Menu Responsive Styles */
+@media (max-width: 768px) {
+    .mobile-mode-switches {
+        display: block;
+    }
+}
+
+@media (max-width: 400px) {
+    .total-mutes {
+        display: none;
+    }
+
+    .user-menu-dropdown {
+        width: calc(100vw - 32px) !important;
+        min-width: auto !important;
+        right: -8px;
+    }
+}

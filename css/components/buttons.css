@@ -18,7 +18,6 @@
 .btn-auth {
     background: var(--primary);
     color: #ffffff;
-    margin: 0 auto;
     padding: 12px 24px;
     min-width: 120px;
 }

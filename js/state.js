@@ -1,6 +1,6 @@
 import { loadState, saveState, resetState, forceRefresh, getStorageKey } from './statePersistence.js';
 import { setUser } from './userState.js';
-import { canUnmuteKeyword, getMuteUnmuteCounts, setTargetKeywordCount } from './keywordState.js';
+import { canUnmuteKeyword, getMuteUnmuteCounts } from './keywordState.js';
 
 // Core state object
 export const state = {
@@ -21,8 +21,7 @@ export const state = {
     filterMode: 'all',
     menuOpen: false,
     lastModified: null,                 // Last-Modified header from keywords file
-    targetKeywordCount: 100,            // Default to minimal keywords since default mode is simple
-    filterLevel: 0,                     // Track current filter level
+    filterLevel: 0,                     // Track current filter level (0=Minimal to 3=Complete)
     lastBulkAction: null                // Track when enable/disable all is used
 };
 
@@ -35,6 +34,5 @@ export {
     setUser,
     canUnmuteKeyword,
     getMuteUnmuteCounts,
-    setTargetKeywordCount,
     getStorageKey
 };

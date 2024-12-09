@@ -1,6 +1,5 @@
 const DEFAULT_APPEARANCE = {
     colorMode: 'system',
-    darkTheme: 'dim',
     font: 'system',
     fontSize: 'default'
 };
@@ -45,29 +44,22 @@ export function applyAppearanceSettings(settings = null) {
     const html = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // Store current UI state
-    const advancedMode = document.getElementById('advanced-mode');
-    const wasAdvancedHidden = advancedMode ? advancedMode.classList.contains('hidden') : true;
-
     // Apply theme
-    let theme = 'light';
-    if (settings.colorMode === 'dark' || (settings.colorMode === 'system' && prefersDark)) {
-        theme = 'dim';
-    }
+    const theme = settings.colorMode === 'dark' || (settings.colorMode === 'system' && prefersDark) ? 'dark' : 'light';
 
     // Apply theme immediately
     html.setAttribute('data-theme', theme);
 
-    // Update UI state
-    if (advancedMode) {
-        advancedMode.classList.toggle('hidden', wasAdvancedHidden);
-    }
-
     // Update footer toggle state
     const footerToggle = document.getElementById('footer-theme-toggle');
     if (footerToggle) {
-        const isDark = theme === 'dim';
-        footerToggle.classList.toggle('dark', isDark);
+        footerToggle.classList.toggle('dark', theme === 'dark');
+    }
+
+    // Update landing page toggle state
+    const landingToggle = document.getElementById('landing-theme-toggle');
+    if (landingToggle) {
+        landingToggle.classList.toggle('dark', theme === 'dark');
     }
 
     // Apply font settings
@@ -77,6 +69,11 @@ export function applyAppearanceSettings(settings = null) {
 
     // Apply font scale using CSS variable
     html.style.setProperty('--font-scale', FONT_SCALES[settings.fontSize]);
+
+    // Dispatch theme change event
+    document.dispatchEvent(new CustomEvent('themeChanged', {
+        detail: { theme }
+    }));
 
     updateAppearanceUI(settings);
 }

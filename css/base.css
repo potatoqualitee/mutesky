@@ -9,7 +9,7 @@
     --primary-hover: #0066cc;
     --primary-light: #e6f3ff;
     --surface: #ffffff;
-    --background: #f8fafc;
+    --background: #eef2f6;
     --background-light: #ffffff;
     --text: #000000;
     --text-secondary: #536471;
@@ -55,8 +55,8 @@
     --button-transition: 200ms ease-in-out;
 }
 
-/* Dark Theme (Dim) */
-[data-theme="dim"] {
+/* Dark Theme */
+[data-theme="dark"] {
     --surface: #15202b;
     --background: #1e2732;
     --background-light: #1a2634;
@@ -154,7 +154,7 @@ a:hover {
 /* System Theme Detection */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-        /* Default to dim theme when system prefers dark */
+        /* Default to dark theme when system prefers dark */
         --surface: #15202b;
         --background: #1e2732;
         --background-light: #1a2634;

@@ -1,7 +1,7 @@
 /* Component Styles */
 @import 'buttons.css';
 @import 'forms.css';
-@import 'cards.css';
+@import 'cards/index.css';
 @import 'toggles.css';
 @import 'auth.css';
 @import 'media.css';

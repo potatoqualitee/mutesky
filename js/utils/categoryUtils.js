@@ -30,7 +30,6 @@ export function extractKeywordsFromCategory(category, categoryData) {
     return Object.entries(categoryInfo.keywords).map(([keyword, data]) => ({
         keyword,
         weight: data.weight || 0,
-        categoryWeight: categoryInfo.weight || 0,
         category
     }));
 }
@@ -60,7 +59,7 @@ export function getAllKeywordsForCategory(category, sortByWeight = false) {
     if (sortByWeight) {
         keywords.sort((a, b) => b.weight - a.weight);
 
-        if (state.targetKeywordCount) {
+        if (state.filterLevel !== undefined) {
             const before = keywords.length;
             keywords = filterByWeight(keywords, category);
             logFilterResults(category, keywords, before);
@@ -73,19 +72,19 @@ export function getAllKeywordsForCategory(category, sortByWeight = false) {
 
 function filterByWeight(keywords, category) {
     return keywords.filter(k => {
-        const threshold = getWeightThreshold(k.categoryWeight, state.targetKeywordCount);
+        const threshold = getWeightThreshold(state.filterLevel);
         const passes = k.weight >= threshold;
         if (passes) {
-            console.debug(`Including ${k.keyword} (weight: ${k.weight}) from ${k.category} (weight: ${k.categoryWeight})`);
+            console.debug(`Including ${k.keyword} (weight: ${k.weight}) from ${k.category}`);
         }
         return passes;
     });
 }
 
 function logFilterResults(category, keywords, beforeCount) {
-    console.debug(`Category ${category} (weight ${keywords[0]?.categoryWeight || 'unknown'}):
-        - Target count: ${state.targetKeywordCount}
-        - Threshold: ${getWeightThreshold(keywords[0]?.categoryWeight, state.targetKeywordCount)}
+    console.debug(`Category ${category}:
+        - Filter level: ${state.filterLevel}
+        - Threshold: ${getWeightThreshold(state.filterLevel)}
         - Filtered from ${beforeCount} to ${keywords.length} keywords
         - Remaining keywords: ${keywords.map(k => `${k.keyword} (${k.weight})`).join(', ')}`);
 }

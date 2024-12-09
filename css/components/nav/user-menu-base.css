@@ -1,0 +1,41 @@
+/* User Menu Base Styles */
+.user-menu {
+    position: relative;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 8px;
+    border: none;
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.profile-button:hover {
+    background: var(--background);
+}
+
+.profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--background);
+    overflow: hidden;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Override any parent constraints */
+.nav-group:last-child .user-menu {
+    min-width: auto !important;
+    width: auto !important;
+}

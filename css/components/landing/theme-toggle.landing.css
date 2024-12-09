@@ -1,0 +1,71 @@
+/* Theme Toggle Switch */
+.theme-toggle {
+    position: relative;
+    width: 64px;
+    height: 32px;
+    border-radius: 50px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    outline: none;
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    transition: all 0.3s ease;
+    margin-left: 8px;
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary);
+}
+
+.theme-toggle::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle.dark::before {
+    transform: translateX(28px);
+}
+
+.theme-toggle .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.theme-toggle .sun-icon {
+    margin-right: auto;
+    transform: translateX(-2px);
+}
+
+.theme-toggle .moon-icon {
+    margin-left: auto;
+    transform: translateX(1px);
+}
+
+/* Hide emoji in dark mode */
+.theme-toggle.dark .sun-icon {
+    opacity: 0.5;
+}
+
+/* Hide emoji in light mode */
+.theme-toggle:not(.dark) .moon-icon {
+    opacity: 0.5;
+}

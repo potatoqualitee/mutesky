@@ -1,0 +1,11 @@
+/* Settings Groups */
+.settings-group {
+    margin-bottom: 16px;
+}
+
+.settings-group h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+}

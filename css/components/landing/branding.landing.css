@@ -1,0 +1,77 @@
+/* Branding Section (Left) */
+.branding-section {
+    flex: 0 0 var(--branding-width);
+    background: var(--background);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.branding-content {
+    text-align: center;
+    max-width: 420px;
+}
+
+.logo {
+    margin-bottom: 24px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.logo img {
+    width: 245px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.branding-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.tagline {
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0 auto;
+    max-width: 360px;
+}
+
+/* Built by Section */
+.built-by-section {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+
+.built-by-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.built-by-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.built-by-content a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.built-by-content a:hover {
+    color: var(--primary-hover);
+}

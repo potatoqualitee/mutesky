@@ -1,0 +1,21 @@
+/* Split Layout for Landing Page */
+.split-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--surface);
+}
+
+/* Content Section (Right) */
+.content-section {
+    flex: 0 0 var(--content-width);
+    background: var(--surface);
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.content-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    width: 100%;
+}

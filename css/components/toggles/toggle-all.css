@@ -1,0 +1,29 @@
+/* Toggle All Controls */
+.toggle-all-controls {
+    display: flex;
+    gap: 8px;
+    padding: 4px;
+}
+
+.toggle-all-btn {
+    flex: 1;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: var(--surface);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.toggle-all-btn:hover {
+    background: var(--background);
+}
+
+.toggle-all-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}

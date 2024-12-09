@@ -1,0 +1,66 @@
+/* Checkbox */
+.keyword-checkbox {
+    display: flex;
+    align-items: center;
+    break-inside: avoid;
+    padding: 8px 0;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 15px;
+    gap: 8px;
+}
+
+.keyword-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+}
+
+.keyword-checkbox input[type="checkbox"]:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.keyword-checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.keyword-checkbox input[type="checkbox"]:indeterminate {
+    background: transparent;
+    border-color: var(--primary);
+}
+
+.keyword-checkbox input[type="checkbox"]:indeterminate::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 2px;
+    background: var(--primary);
+}
+
+.keyword-checkbox input[type="checkbox"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.keyword-checkbox:hover input[type="checkbox"]:not(:checked) {
+    border-color: var(--text);
+}

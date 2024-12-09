@@ -69,22 +69,43 @@ export async function updateSimpleModeState() {
 
 ### 1. Duplicate Keywords
 
-**Problem**: Keywords like "Paris Agreement" appearing multiple times with different cases.
+**Problem**: Keywords like "Paris Agreement" appearing multiple times with different cases, particularly when switching between modes.
 
-**Root Cause**: Case-sensitive keyword storage causing duplicates.
+**Root Cause**: Inconsistent case handling across different parts of the codebase, especially during mode transitions and context handling.
 
-**Solution**: Implemented case-insensitive storage with original case preservation:
+**Solution**: Implemented comprehensive case-insensitive handling across all keyword operations:
 ```javascript
-// Store lowercase for comparison
-const lowerKeyword = keyword.toLowerCase();
-state.originalMutedKeywords.add(lowerKeyword);
+// Helper function for case-insensitive removal
+export function removeKeyword(keyword) {
+    const lowerKeyword = keyword.toLowerCase();
+    for (const activeKeyword of state.activeKeywords) {
+        if (activeKeyword.toLowerCase() === lowerKeyword) {
+            state.activeKeywords.delete(activeKeyword);
+            break;
+        }
+    }
+}
 
-// Preserve original case for display
-const originalCase = ourKeywordsMap.get(lowerKeyword);
-if (originalCase) {
-    state.activeKeywords.add(originalCase);
+// Helper function for case-sensitive addition with deduplication
+function addKeywordWithCase(keyword) {
+    // First remove any existing case variations
+    removeKeyword(keyword);
+    // Then add with original case
+    state.activeKeywords.add(keyword);
 }
 ```
+
+**Implementation Details**:
+- Case-insensitive checks using isKeywordActive()
+- Case-insensitive removal using removeKeyword()
+- Case-preserving addition using addKeywordWithCase()
+- Consistent handling across mode switches and context changes
+
+**Result**:
+- No more duplicate keywords with different cases
+- Maintains proper keyword counts during mode switches
+- Preserves original case for display purposes
+- Consistent behavior across all operations
 
 ### 2. Payload Size Issues
 
@@ -92,7 +113,7 @@ if (originalCase) {
 
 **Root Cause**: Duplicate keywords with different cases inflating payload size.
 
-**Solution**: Case-insensitive deduplication before API calls.
+**Solution**: Case-insensitive deduplication is now handled consistently across all operations, preventing duplicates from being added in the first place.
 
 ## Authentication Issues
 

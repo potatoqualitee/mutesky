@@ -11,7 +11,7 @@ function calculateKeywordsToMute() {
             if (context && context.categories) {
                 context.categories.forEach(category => {
                     if (!state.selectedExceptions.has(category)) {
-                        // Get keywords sorted by weight and limited by target count
+                        // Get keywords sorted and filtered by weight based on current filter level
                         const keywords = getAllKeywordsForCategory(category, true);
                         console.debug(`Adding ${keywords.length} keywords from ${category} to mute list`);
                         keywords.forEach(keyword => keywordsToMute.add(keyword));

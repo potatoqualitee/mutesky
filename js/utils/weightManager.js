@@ -1,22 +1,21 @@
-function getWeightThreshold(categoryWeight, targetCount) {
-    switch(targetCount) {
-        case 100:
-            return categoryWeight === 10 ? 8 :
-                   categoryWeight === 9 ? 8 :
-                   categoryWeight === 8 ? 8 :
-                   categoryWeight === 7 ? 10 : 11;
-        case 300:
-            return categoryWeight === 10 ? 7 :
-                   categoryWeight === 9 ? 7 :
-                   categoryWeight === 8 ? 8 :
-                   categoryWeight === 7 ? 9 : 11;
-        case 500:
-            return categoryWeight === 10 ? 4 :
-                   categoryWeight === 9 ? 5 :
-                   categoryWeight === 8 ? 6 :
-                   categoryWeight === 7 ? 7 : 11;
-        default:
+import { state } from '../state.js';
+
+function getWeightThreshold(filterLevel) {
+    // Get filter level from state if not provided
+    const level = filterLevel ?? state?.filterLevel ?? 0;
+
+    // Map levels to thresholds based on keyword weight of 3
+    switch(level) {
+        case 0: // Minimal (most restrictive)
+            return 3;
+        case 1: // Moderate
+            return 2;
+        case 2: // Extensive
+            return 1;
+        case 3: // Complete (most inclusive)
             return 0;
+        default:
+            return 3; // Default to most restrictive
     }
 }
 

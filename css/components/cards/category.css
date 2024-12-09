@@ -1,0 +1,60 @@
+/* Category Section Specific */
+.category-section {
+    margin-bottom: 16px;
+}
+
+.category-section .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.category-section .category-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-section .category-title h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.category-section .count {
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.category-section .keywords-container {
+    columns: 3;
+    column-gap: 24px;
+    padding: 8px 0;
+}
+
+/* Content Section */
+.content-section {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.content-section:last-child {
+    border-bottom: none;
+}
+
+/* List Items */
+.list-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.list-item:hover {
+    background: var(--background);
+}

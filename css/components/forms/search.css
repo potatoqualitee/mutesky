@@ -1,0 +1,21 @@
+/* Search Input */
+.sidebar-search {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    font-size: 15px;
+    background: transparent;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.sidebar-search::placeholder {
+    color: var(--text-secondary);
+}
+
+.sidebar-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: transparent;
+}

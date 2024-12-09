@@ -25,7 +25,6 @@ const debouncedSave = (() => {
                 manuallyUnchecked: Array.from(state.manuallyUnchecked),
                 mode: state.mode,
                 lastModified: state.lastModified,
-                targetKeywordCount: state.targetKeywordCount,
                 filterLevel: state.filterLevel,
                 lastBulkAction: state.lastBulkAction
             };
@@ -78,15 +77,11 @@ export function loadState() {
             // Load other state properties
             state.mode = data.mode || 'simple';
             state.lastModified = data.lastModified || null;
-            state.targetKeywordCount = data.targetKeywordCount || (state.mode === 'simple' ? 100 : 2000);
             state.filterLevel = typeof data.filterLevel === 'number' ? data.filterLevel : 0;
             state.lastBulkAction = data.lastBulkAction || null;
 
             // Force cache refresh
             keywordCache.clear();
-        } else {
-            // If no saved state, ensure targetKeywordCount matches mode
-            state.targetKeywordCount = state.mode === 'simple' ? 100 : 2000;
         }
     } catch (error) {
         console.error('Error loading saved state:', error);
@@ -118,7 +113,6 @@ export function resetState() {
     state.filterMode = 'all';
     state.menuOpen = false;
     state.lastModified = null;
-    state.targetKeywordCount = 100;
     state.filterLevel = 0;
     state.lastBulkAction = null;
     keywordCache.clear();

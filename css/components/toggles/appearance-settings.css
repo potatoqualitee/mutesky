@@ -1,0 +1,46 @@
+/* Appearance Settings */
+#appearance-modal .settings-option {
+    display: flex;
+    background: var(--background);
+    padding: 3px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+}
+
+#appearance-modal .mode-switch,
+#appearance-modal .theme-switch,
+#appearance-modal .font-switch {
+    flex: 1;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+#appearance-modal .mode-switch:hover,
+#appearance-modal .theme-switch:hover,
+#appearance-modal .font-switch:hover {
+    color: var(--text);
+}
+
+#appearance-modal .mode-switch.active,
+#appearance-modal .theme-switch.active,
+#appearance-modal .font-switch.active {
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 600;
+}
+
+#appearance-modal p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 6px 0;
+    line-height: 1.4;
+}
