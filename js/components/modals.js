@@ -99,7 +99,7 @@ class SettingsModal extends HTMLElement {
                         <div class="settings-group about-content">
                             <div class="about-header">
                                 <div class="creator-image-container">
-                                    <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:oqmead6vafy6py7otaam7whk/bafkreibqosdn5givnkc34j2vmeomf4tpsfo52i6pydviqcwebyhgbhtule@jpeg"
+                                    <img src="https://blog.netnerds.net/logos/logo.png"
                                          alt="Creator"
                                          class="creator-image"
                                          loading="lazy"
