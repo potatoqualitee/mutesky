@@ -1,13 +1,21 @@
 import { state, saveState, getStorageKey } from '../../state.js';
 import { renderInterface } from '../../renderer.js';
 import { cache } from './contextCache.js';
-import { isKeywordActive } from '../keywordHandlers.js';
+import { isKeywordActive, removeKeyword } from '../keywordHandlers.js';
 import {
     rebuildActiveKeywords,
     createDebouncedUpdate,
     activateContextKeywords,
     notifyKeywordChanges
 } from './contextUtils.js';
+
+// Helper function to add keyword with case handling
+function addKeywordWithCase(keyword) {
+    // First remove any existing case variations
+    removeKeyword(keyword);
+    // Then add with original case
+    state.activeKeywords.add(keyword);
+}
 
 export async function updateSimpleModeState() {
     if (!state.authenticated) return;
@@ -70,14 +78,14 @@ export async function updateSimpleModeState() {
 
         // Add only original muted keywords that aren't already active and weren't manually unchecked
         for (const keyword of state.originalMutedKeywords) {
-            if (!state.activeKeywords.has(keyword) && !state.manuallyUnchecked.has(keyword)) {
-                state.activeKeywords.add(keyword);
+            if (!isKeywordActive(keyword) && !state.manuallyUnchecked.has(keyword)) {
+                addKeywordWithCase(keyword);
             }
         }
 
         // Re-apply unchecked status
         for (const keyword of uncheckedKeywords) {
-            state.activeKeywords.delete(keyword);
+            removeKeyword(keyword);
             state.manuallyUnchecked.add(keyword);
         }
     }
@@ -171,14 +179,14 @@ export async function initializeState() {
 
                 // Add only original muted keywords that aren't already active and weren't manually unchecked
                 for (const keyword of state.originalMutedKeywords) {
-                    if (!state.activeKeywords.has(keyword) && !state.manuallyUnchecked.has(keyword)) {
-                        state.activeKeywords.add(keyword);
+                    if (!isKeywordActive(keyword) && !state.manuallyUnchecked.has(keyword)) {
+                        addKeywordWithCase(keyword);
                     }
                 }
 
                 // Re-apply unchecked status
                 for (const keyword of Array.from(state.manuallyUnchecked)) {
-                    state.activeKeywords.delete(keyword);
+                    removeKeyword(keyword);
                 }
             }
 

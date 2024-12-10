@@ -116,7 +116,7 @@ export function isKeywordActive(keyword) {
 }
 
 // Helper to remove keyword (case-insensitive)
-function removeKeyword(keyword) {
+export function removeKeyword(keyword) {
     const lowerKeyword = keyword.toLowerCase();
     for (const activeKeyword of state.activeKeywords) {
         if (activeKeyword.toLowerCase() === lowerKeyword) {
