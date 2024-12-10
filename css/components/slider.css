@@ -81,11 +81,11 @@
 }
 
 /* Dark Theme Adjustments */
-[data-theme="dim"] .filter-card:hover {
+[data-theme="dark"] .filter-card:hover {
     background: var(--background);
 }
 
-[data-theme="dim"] .filter-card.active {
+[data-theme="dark"] .filter-card.active {
     background: var(--primary);
     border-color: var(--primary);
 }

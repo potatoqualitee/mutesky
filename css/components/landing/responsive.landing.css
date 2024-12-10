@@ -1,0 +1,159 @@
+/* Responsive Layout */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        padding: 32px 24px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .split-layout {
+        flex-direction: column;
+    }
+
+    .branding-section {
+        position: relative;
+        flex: 0 0 auto;
+        width: 100%;
+        height: auto;
+        min-height: 50vh;
+        padding: 48px 24px;
+    }
+
+    .content-section {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .content-wrapper {
+        padding: 32px 24px;
+    }
+
+    .branding-content {
+        max-width: 100%;
+    }
+
+    .tagline {
+        max-width: 480px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-blocks {
+        gap: 64px;
+    }
+
+    .section-intro {
+        margin-bottom: 48px;
+    }
+
+    .bsky-connect {
+        margin-bottom: 80px;
+    }
+
+    .bsky-connect:after {
+        bottom: -40px;
+        width: 48px;
+    }
+
+    .built-by-section {
+        margin-top: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        width: 200px;
+    }
+
+    .section-intro h2 {
+        font-size: 32px;
+    }
+
+    .section-intro p {
+        font-size: 16px;
+    }
+
+    .feature-description h3 {
+        font-size: 20px;
+    }
+
+    .feature-description p,
+    .feature-description li {
+        font-size: 15px;
+    }
+
+    .feature-blocks {
+        gap: 48px;
+    }
+
+    .feature-block {
+        gap: 24px;
+    }
+
+    .built-by-section {
+        margin-top: 40px;
+        padding-top: 24px;
+    }
+
+    .built-by-content {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .branding-section {
+        padding: 32px 20px;
+        min-height: auto;
+    }
+
+    .content-wrapper {
+        padding: 24px 20px;
+    }
+
+    .logo img {
+        width: 160px;
+    }
+
+    .branding-content h1 {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .tagline {
+        font-size: 18px;
+    }
+
+    .feature-blocks {
+        gap: 40px;
+    }
+
+    .section-intro {
+        margin-bottom: 40px;
+    }
+
+    .section-intro h2 {
+        font-size: 28px;
+    }
+
+    .bsky-connect {
+        margin-bottom: 64px;
+        padding: 24px;
+    }
+
+    .bsky-connect:after {
+        bottom: -32px;
+        width: 40px;
+    }
+
+    .built-by-section {
+        margin-top: 32px;
+        padding-top: 20px;
+    }
+
+    .built-by-content p {
+        font-size: 14px;
+    }
+}

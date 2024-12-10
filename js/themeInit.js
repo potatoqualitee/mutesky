@@ -11,12 +11,12 @@
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             if (settings.colorMode === 'system') {
-                theme = prefersDark ? 'dim' : 'light';
+                theme = prefersDark ? 'dark' : 'light';
             } else if (settings.colorMode === 'dark') {
-                theme = 'dim';
+                theme = 'dark';
             }
         } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            theme = 'dim';
+            theme = 'dark';
         }
 
         // Apply theme immediately
@@ -29,7 +29,7 @@
             // Set initial footer toggle state
             const footerToggle = document.getElementById('footer-theme-toggle');
             if (footerToggle) {
-                footerToggle.classList.toggle('dark', theme === 'dim');
+                footerToggle.classList.toggle('dark', theme === 'dark');
             }
         });
 
@@ -39,7 +39,7 @@
             if (currentSettings) {
                 const settings = JSON.parse(currentSettings);
                 if (settings.colorMode === 'system') {
-                    const newTheme = e.matches ? 'dim' : 'light';
+                    const newTheme = e.matches ? 'dark' : 'light';
                     html.setAttribute('data-theme', newTheme);
 
                     // Update footer toggle
@@ -59,9 +59,9 @@
                 let newTheme = 'light';
 
                 if (settings.colorMode === 'system') {
-                    newTheme = prefersDark ? 'dim' : 'light';
+                    newTheme = prefersDark ? 'dark' : 'light';
                 } else if (settings.colorMode === 'dark') {
-                    newTheme = 'dim';
+                    newTheme = 'dark';
                 }
 
                 html.setAttribute('data-theme', newTheme);
@@ -69,7 +69,7 @@
                 // Update footer toggle
                 const footerToggle = document.getElementById('footer-theme-toggle');
                 if (footerToggle) {
-                    footerToggle.classList.toggle('dark', newTheme === 'dim');
+                    footerToggle.classList.toggle('dark', newTheme === 'dark');
                 }
             }
         });
