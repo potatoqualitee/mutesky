@@ -84,13 +84,3 @@ export function getMuteUnmuteCounts() {
 
     return { toMute, toUnmute };
 }
-
-// Helper to set target keyword count and trigger refresh
-export function setTargetKeywordCount(count) {
-    const validCounts = new Set([100, 300, 500, 2000]);
-    if (!validCounts.has(count)) {
-        throw new Error('Invalid target keyword count. Must be one of: 100, 300, 500, 2000');
-    }
-    state.targetKeywordCount = count;
-    keywordCache.clear(); // Clear cache when count changes
-}

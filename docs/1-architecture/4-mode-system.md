@@ -3,10 +3,55 @@
 ## Overview
 
 MuteSky operates in two distinct modes:
-- Simple Mode: Context-based filtering with filter levels
+- Simple Mode: Context-based filtering with filter levels (0-3)
 - Advanced Mode: Direct keyword management
 
 The system maintains consistency between these modes while preserving user preferences.
+
+## Weight System Implementation
+
+### 1. Filter Level System
+```javascript
+// Map filter levels to thresholds
+function getWeightThreshold(filterLevel) {
+    switch(filterLevel) {
+        case 0: return 3;  // Minimal (most restrictive)
+        case 1: return 2;  // Moderate
+        case 2: return 1;  // Extensive
+        case 3: return 0;  // Complete (most inclusive)
+        default: return 3;
+    }
+}
+```
+
+### 2. Filter Level Handler
+```javascript
+export function handleFilterLevelChange(event) {
+    const level = event.detail.level;
+    state.filterLevel = level;
+
+    // Store current exceptions
+    const currentExceptions = new Set(state.selectedExceptions);
+
+    // Clear and rebuild active keywords
+    state.activeKeywords.clear();
+    state.selectedContexts.forEach(contextId => {
+        const context = state.contextGroups[contextId];
+        if (context?.categories) {
+            context.categories.forEach(category => {
+                if (!currentExceptions.has(category)) {
+                    const keywords = getAllKeywordsForCategory(category, true);
+                    keywords.forEach(keyword => state.activeKeywords.add(keyword));
+                }
+            });
+        }
+    });
+
+    // Restore exceptions and update UI
+    state.selectedExceptions = currentExceptions;
+    renderInterface();
+}
+```
 
 ## Context System Implementation
 

@@ -1,5 +1,5 @@
 import { elements } from './dom.js';
-import { state, loadState, setTargetKeywordCount } from './state.js';
+import { state, loadState } from './state.js';
 import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig } from './api.js';
 import { renderInterface } from './renderer.js';
 import { debounce } from './utils.js';
@@ -187,22 +187,11 @@ function setupEventListeners() {
     document.addEventListener('filterLevelChange', (event) => {
         const level = event.detail.level;
 
-        // Map intensity levels to keyword counts based on performance thresholds
-        const levelToCount = {
-            0: 100,   // Minimal: ~100 highest weighted keywords
-            1: 300,   // Moderate: ~300 keywords
-            2: 500,   // Extensive: ~500 keywords
-            3: 2000   // Complete: All keywords
-        };
-
-        // Update filter level in state to match event
+        // Update filter level in state
         state.filterLevel = level;
 
         // Store current exceptions
         const currentExceptions = new Set(state.selectedExceptions);
-
-        // Update target keyword count based on intensity level
-        setTargetKeywordCount(levelToCount[level]);
 
         // Clear and rebuild active keywords while preserving exceptions
         state.activeKeywords.clear();
@@ -211,7 +200,7 @@ function setupEventListeners() {
             if (context && context.categories) {
                 context.categories.forEach(category => {
                     if (!currentExceptions.has(category)) {
-                        // Get keywords sorted by weight and limited by new target count
+                        // Get keywords sorted by weight
                         const keywords = getAllKeywordsForCategory(category, true);
                         keywords.forEach(keyword => state.activeKeywords.add(keyword));
                     }

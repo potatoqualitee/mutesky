@@ -126,9 +126,6 @@ export async function fetchKeywordGroups(forceFresh = false) {
         const categoryFiles = await listCategoryFiles();
         console.debug('Found category files:', categoryFiles);
 
-        // Get the target count from state or default to 2000
-        const targetCount = state.targetKeywordCount || 2000;
-
         // Fetch and process each category file
         const keywordGroups = {};
         const results = await Promise.allSettled(categoryFiles.map(async (fileName) => {
@@ -143,7 +140,7 @@ export async function fetchKeywordGroups(forceFresh = false) {
                 // Store the entire category data structure
                 keywordGroups[categoryName] = categoryData;
 
-                console.debug(`Loaded ${categoryName} with weight ${categoryData[categoryName].weight} and ${Object.keys(categoryData[categoryName].keywords).length} keywords`);
+                console.debug(`Loaded ${categoryName} with ${Object.keys(categoryData[categoryName].keywords).length} keywords`);
             } catch (error) {
                 console.error(`Failed to load category ${fileName}:`, error);
             }
@@ -208,7 +205,7 @@ export async function refreshAllData() {
         const selectedCategories = new Set(state.selectedCategories);
         const currentMode = state.mode;
         const menuOpen = state.menuOpen;
-        const targetCount = state.targetKeywordCount;
+        const filterLevel = state.filterLevel;
         // Preserve auth state
         const did = state.did;
         const authenticated = state.authenticated;
@@ -230,7 +227,7 @@ export async function refreshAllData() {
         state.selectedCategories = selectedCategories;
         state.mode = currentMode;
         state.menuOpen = menuOpen;
-        state.targetKeywordCount = targetCount;
+        state.filterLevel = filterLevel;
         // Restore auth state
         state.did = did;
         state.authenticated = authenticated;

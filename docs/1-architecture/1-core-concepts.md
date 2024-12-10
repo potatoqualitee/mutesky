@@ -39,8 +39,7 @@ export const state = {
     lastModified: null,                 // Last-Modified header from keywords file
 
     // Filter Settings
-    targetKeywordCount: 100,            // Target number of keywords (default: minimal)
-    filterLevel: 0,                     // Current filter level (0-3)
+    filterLevel: 0,                     // Current filter level (0=Minimal to 3=Complete)
     lastBulkAction: null                // Track when enable/disable all is used
 }
 ```
@@ -67,7 +66,6 @@ const saveData = {
     manuallyUnchecked: Array.from(state.manuallyUnchecked),
     mode: state.mode,
     lastModified: state.lastModified,
-    targetKeywordCount: state.targetKeywordCount,
     filterLevel: state.filterLevel,
     lastBulkAction: state.lastBulkAction
 }
@@ -103,7 +101,7 @@ try {
    - Mode (returns to 'simple')
    - Selections (contexts, exceptions, categories)
    - UI state (search, filter, menu)
-   - Filter settings (level, target count)
+   - Filter level (returns to 0)
 
 ### Cache Management
 
@@ -145,10 +143,14 @@ const debouncedUpdate = (() => {
 ## Mode System
 
 ### Simple Mode
-- Context-based filtering with filter levels
+- Context-based filtering with filter levels (0-3)
 - Keywords derived from selected contexts
 - Exceptions for granular control
-- Filter levels determine target keyword count
+- Filter levels determine keyword thresholds:
+  * Level 0 (Minimal) = Most restrictive
+  * Level 1 (Moderate) = Balanced filtering
+  * Level 2 (Extensive) = Broader inclusion
+  * Level 3 (Complete) = Most inclusive
 
 ### Advanced Mode
 - Direct keyword management
@@ -179,7 +181,7 @@ const debouncedUpdate = (() => {
 3. Performance
    - Use cache for expensive calculations
    - Throttle rapid updates (50ms threshold)
-   - Clear cache when target count changes
+   - Clear cache on filter level changes
    - Batch process large operations
 
 4. Mode Management

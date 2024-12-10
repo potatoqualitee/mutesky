@@ -10,25 +10,33 @@ Simple mode provides an intuitive interface for content filtering through contex
 ```javascript
 class SimpleMode extends HTMLElement {
     constructor() {
-        this.currentLevel = 0;  // Default level
-        this.levelTargets = {
-            0: 100,    // Minimal
-            1: 300,    // Moderate
-            2: 500,    // Extensive
-            3: 2000    // Complete
-        };
+        this.currentLevel = 0;  // Default level (Minimal/most restrictive)
     }
 
     updateLevel(level) {
         if (level === this.currentLevel) return;
         this.currentLevel = level;
+        state.filterLevel = level;
         this.updateFilterUI();
-        setTargetKeywordCount(this.levelTargets[level]);
     }
 }
 ```
 
-### 2. Context Management System
+### 2. Weight Threshold System
+```javascript
+function getWeightThreshold(filterLevel) {
+    // Map levels to thresholds (0-3)
+    switch(filterLevel) {
+        case 0: return 3;  // Minimal (most restrictive)
+        case 1: return 2;  // Moderate
+        case 2: return 1;  // Extensive
+        case 3: return 0;  // Complete (most inclusive)
+        default: return 3; // Default to most restrictive
+    }
+}
+```
+
+### 3. Context Management System
 
 #### Context Selection Handler
 ```javascript
@@ -94,7 +102,7 @@ export function handleContextToggle(contextId) {
 }
 ```
 
-### 3. Exception System
+### 4. Exception System
 
 #### Exception Toggle Handler
 ```javascript
