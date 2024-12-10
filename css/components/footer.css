@@ -111,7 +111,7 @@
 
 .theme-toggle .moon-icon {
     margin-left: auto;
-    transform: translateX(-2px);
+    transform: translateX(1px);
 }
 
 /* Hide emoji in dark mode */
