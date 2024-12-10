@@ -127,7 +127,16 @@ class BlueskyService {
             await this.auth.signIn(handle);
         } catch (error) {
             console.error('[Bluesky] Sign in failed:', error);
-            this.ui.updateLoginState(false, `Sign in failed: ${error.message || 'Please try again'}`);
+
+            // Check for common service availability errors
+            if (error.message && (
+                error.message.includes('invalid_client_metadata') ||
+                error.message.includes('Failed to resolve OAuth server metadata for issuer: bsky.social')
+            )) {
+                this.ui.updateLoginState(false, 'Bluesky service appears to be down. Please try again in a few minutes.');
+            } else {
+                this.ui.updateLoginState(false, `Sign in failed: ${error.message || 'Please try again'}`);
+            }
         }
     }
 
