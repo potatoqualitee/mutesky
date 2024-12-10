@@ -81,7 +81,7 @@ class LandingPage extends HTMLElement {
                         <div class="detailed-features">
                             <div class="section-intro">
                                 <h2>How It Works</h2>
-                                <p>Take control of your Bluesky experience with our intuitive filtering system</p>
+                                <p>Take control of your Bluesky experience with Mutesky's intuitive filtering system</p>
                             </div>
 
                             <div class="feature-blocks">
@@ -89,7 +89,7 @@ class LandingPage extends HTMLElement {
                                     <div class="feature-image theme-aware-image" data-light-src="images/screenshots/light-simple-mode.png" data-dark-src="images/screenshots/dark-simple-mode.png"></div>
                                     <div class="feature-description">
                                         <h3>Start with Simple Mode</h3>
-                                        <p>Quickly filter content across major topics like politics, healthcare, and global affairs. Choose what you want to see—and what you don't—with just a few clicks.</p>
+                                        <p>Quickly filter content across major topics like politics, healthcare, and global affairs. Choose what you don't want to see with just a few clicks.</p>
                                     </div>
                                 </div>
 
