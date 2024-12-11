@@ -1,0 +1,47 @@
+/* Checkbox Styling */
+.settings-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.settings-option .checkbox-box {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 6px;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.settings-option input[type="checkbox"]:checked + .checkbox-box {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.settings-option .checkbox-box:after {
+    content: '';
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform-origin: center;
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+}
+
+.settings-option input[type="checkbox"]:checked + .checkbox-box:after {
+    transform: translate(-50%, -50%) scale(1) rotate(-45deg);
+}
