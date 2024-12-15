@@ -10,26 +10,30 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    font-size: 16px;
 }
 
 .callback-container {
     background: var(--surface);
-    padding: 32px;
+    padding: clamp(16px, 4vw, 32px);
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px var(--shadow);
     text-align: center;
-    width: 90%;
-    max-width: 400px;
+    width: clamp(280px, 90%, 400px);
+    margin: 16px;
 }
 
 h2 {
     color: var(--text);
     margin-bottom: 16px;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.2;
 }
 
 .status-text {
     color: var(--text-secondary);
     margin: 16px 0;
+    font-size: clamp(1rem, 4vw, 1.125rem);
 }
 
 .progress-container {
@@ -53,6 +57,7 @@ h2 {
     color: var(--error);
     margin: 16px 0;
     display: none;
+    font-size: clamp(0.875rem, 3.5vw, 1rem);
 }
 
 .home-link {
@@ -60,11 +65,16 @@ h2 {
     text-decoration: none;
     display: inline-block;
     margin-top: 16px;
+    font-size: clamp(1rem, 4vw, 1.125rem);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease;
 }
 
 .home-link:hover {
     color: var(--primary-hover);
-    text-decoration: underline;
+    text-decoration: none;
+    background-color: var(--surface-hover);
 }
 
 /* Animations */
