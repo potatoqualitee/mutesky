@@ -5,6 +5,7 @@
     border-radius: 24px;
     padding: 4px;
     width: 100%;
+    gap: 4px;
 }
 
 /* Theme Mode Switches */
@@ -19,6 +20,7 @@
     font-weight: 500;
     border-radius: 20px;
     transition: var(--transition);
+    min-height: 40px; /* Better touch target */
 }
 
 .button-group .theme-mode-switch:hover {
@@ -43,6 +45,7 @@
     font-weight: 500;
     border-radius: 20px;
     transition: var(--transition);
+    min-height: 40px; /* Better touch target */
 }
 
 .button-group .font-switch:hover {
@@ -53,4 +56,54 @@
     background: var(--surface);
     color: var(--text);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .button-group {
+        flex-wrap: wrap;
+        background: none;
+        padding: 0;
+        gap: 8px;
+    }
+
+    /* Make buttons stack on very small screens */
+    @media (max-width: 360px) {
+        .button-group .theme-mode-switch,
+        .button-group .font-switch {
+            flex: 1 0 100%;
+            justify-content: center;
+            min-height: 44px; /* Even larger touch target for very small screens */
+            background: var(--background);
+        }
+    }
+
+    /* Larger buttons for better touch targets */
+    .button-group .theme-mode-switch,
+    .button-group .font-switch {
+        flex: 1 0 auto;
+        min-width: calc(33.33% - 6px); /* 3 buttons per row with gap */
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        background: var(--background);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Active state more prominent on mobile */
+    .button-group .theme-mode-switch.active,
+    .button-group .font-switch.active {
+        background: var(--primary);
+        color: var(--surface);
+        box-shadow: none;
+    }
+
+    /* Improve tap feedback */
+    .button-group .theme-mode-switch:active,
+    .button-group .font-switch:active {
+        transform: scale(0.98);
+        transition: transform 0.1s;
+    }
 }
