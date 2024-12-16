@@ -133,12 +133,15 @@
     .user-menu-dropdown {
         position: fixed;
         top: 55px;
-        right: var(--spacing-sm);
-        left: var(--spacing-sm);
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
         background: var(--surface);
-        border-radius: var(--border-radius);
+        border-radius: 0;
         box-shadow: var(--card-shadow);
         z-index: 1000;
+        overflow-x: hidden;
     }
 
     /* Adjust search and controls area */

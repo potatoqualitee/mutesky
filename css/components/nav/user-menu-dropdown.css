@@ -25,9 +25,9 @@
     border: 1px solid var(--border);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--card-shadow);
-    width: 320px !important;
-    min-width: 320px !important;
-    max-width: calc(100vw - 32px) !important;
+    width: 320px;
+    min-width: 320px;
+    max-width: calc(100vw - 32px);
     display: none;
     z-index: 101;
     flex-shrink: 0;

@@ -11,8 +11,9 @@
     }
 
     .user-menu-dropdown {
-        width: calc(100vw - 32px) !important;
-        min-width: auto !important;
-        right: -8px;
+        width: 100% !important;
+        min-width: 100% !important;
+        right: 0;
+        left: 0;
     }
 }
