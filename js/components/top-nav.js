@@ -80,26 +80,27 @@ class TopNav extends HTMLElement {
         const hamburgerMenu = this.querySelector('.hamburger-menu');
         const userMenu = this.querySelector('.user-menu');
 
-        hamburgerMenu?.addEventListener('click', (e) => {
-            e.stopPropagation();
+        // Handle hamburger menu clicks
+        hamburgerMenu?.addEventListener('click', () => {
             const isActive = hamburgerMenu.classList.contains('active');
-
-            // If menu is active (X is showing), clicking should always close it
             if (isActive) {
                 hamburgerMenu.classList.remove('active');
                 userMenu.classList.remove('active');
             } else {
-                // Only open if it's not already active
                 hamburgerMenu.classList.add('active');
                 userMenu.classList.add('active');
             }
         });
 
-        // Close menu when clicking outside
+        // Handle clicks outside menu
         document.addEventListener('click', (e) => {
-            if (!userMenu.contains(e.target) && !hamburgerMenu.contains(e.target)) {
+            // Only handle clicks outside both hamburger and menu
+            if (e.target !== hamburgerMenu &&
+                !hamburgerMenu?.contains(e.target) &&
+                e.target !== userMenu &&
+                !userMenu?.contains(e.target)) {
                 hamburgerMenu?.classList.remove('active');
-                userMenu.classList.remove('active');
+                userMenu?.classList.remove('active');
             }
         });
 

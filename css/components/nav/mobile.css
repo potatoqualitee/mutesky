@@ -23,11 +23,6 @@
     background: var(--accent);
 }
 
-/* Hide mobile mode switches by default (desktop) */
-.mobile-mode-switches {
-    display: none;
-}
-
 /* Mobile Styles */
 @media (max-width: 768px) {
     .top-nav {
@@ -36,7 +31,13 @@
         justify-content: space-between;
         padding: 0 var(--spacing-sm);
         height: 55px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        z-index: 999;
+        border-bottom: 1px solid var(--border);
     }
 
     .brand {
@@ -52,26 +53,12 @@
     .hamburger-menu {
         display: flex !important;
         position: absolute;
-        top: 16px;
-        right: var(--spacing-sm);
+        top: 18px;
+        right: 16px;
         z-index: 1001;
     }
 
-    /* Ensure dropdown appears below hamburger */
-    .user-menu-dropdown {
-        display: none;
-    }
-
-    .user-menu.active .user-menu-dropdown {
-        display: block;
-    }
-
-    /* Ensure menu is above other content */
-    .user-menu.active {
-        z-index: 1000;
-    }
-
-    /* Hide non-essential elements on mobile */
+    /* Hide desktop elements */
     .mode-toggle,
     .keywords-updated,
     .user-name,
@@ -83,106 +70,57 @@
 
     /* Style nav-mute-button for mobile */
     .nav-mute-button {
-        position: absolute;
-        right: 56px; /* Position to left of hamburger menu */
-        top: 50%;
-        transform: translateY(-50%);
+        margin-right: 48px;
         padding: 8px 12px;
         font-size: 0.9rem;
-        min-height: 36px; /* Ensure good touch target size */
-        display: none; /* Hidden by default */
+        min-height: 36px;
+        display: none;
     }
 
     .nav-mute-button.visible {
-        display: block; /* Show only when there are changes */
-    }
-
-    /* Remove the space the mode-toggle was taking up */
-    .mode-toggle {
-        height: 0;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-
-    /* Show and style mobile mode switches */
-    .mobile-mode-switches {
         display: block;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 8px;
-        padding: 4px 0;
     }
 
-    .mobile-mode-switches .user-menu-item {
+    /* Menu items styling */
+    .user-menu-item {
         display: flex;
         align-items: center;
         gap: 12px;
         padding: 12px 16px;
-        cursor: pointer;
-        transition: var(--transition);
+        color: var(--text);
+        text-decoration: none;
+        transition: background-color 0.2s;
     }
 
-    .mobile-mode-switches .user-menu-item:hover {
+    .user-menu-item:hover {
         background: var(--surface-hover);
     }
 
-    .mobile-mode-switches .user-menu-item svg {
+    .user-menu-item svg {
+        width: 20px;
+        height: 20px;
         flex-shrink: 0;
     }
 
+    /* Ensure dropdown appears below hamburger */
     .user-menu-dropdown {
+        display: none;
         position: fixed;
         top: 55px;
         right: 0;
         left: 0;
         width: 100%;
-        max-width: 100%;
         background: var(--surface);
         border-radius: 0;
         box-shadow: var(--card-shadow);
         z-index: 1000;
-        overflow-x: hidden;
     }
 
-    /* Adjust search and controls area */
-    .sidebar-header {
-        padding: 8px var(--spacing-sm);
-        margin: 0;
-        background: var(--surface);
+    .user-menu.active .user-menu-dropdown {
+        display: block;
     }
 
-    .toggle-all-controls {
-        display: flex;
-        gap: 8px;
-        padding: 8px 0;
-        margin: 0;
-    }
-
-    .sidebar-search {
-        margin: 0;
-        padding: 8px 12px;
-    }
-
-    /* Adjust main content area */
-    .interface-mode {
-        margin-top: 0;
-    }
-
-    .advanced-layout {
-        padding-top: 0;
-    }
-
-    /* Hamburger menu active state */
-    .hamburger-menu.active {
-        display: flex !important;
-    }
-
-    .hamburger-menu.active span {
-        width: 100%;
-        height: 2px;
-        background: var(--text);
-    }
-
+    /* Hamburger animation */
     .hamburger-menu.active span:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
     }
@@ -193,5 +131,10 @@
 
     .hamburger-menu.active span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
+    }
+
+    /* Adjust main content for fixed header */
+    body {
+        padding-top: 55px;
     }
 }

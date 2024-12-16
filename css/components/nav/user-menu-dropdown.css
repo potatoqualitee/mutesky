@@ -1,22 +1,18 @@
 /* User Menu Dropdown Styles */
 
 /* Overlay background when menu is open */
-.user-menu::before {
+.user-menu.active::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
-    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
 }
 
-.user-menu.active::before {
-    display: block;
-}
-
+/* Base dropdown styles for desktop */
 .user-menu-dropdown {
     position: absolute;
     top: calc(100% + 8px);
@@ -26,11 +22,10 @@
     border-radius: var(--border-radius-lg);
     box-shadow: var(--card-shadow);
     width: 320px;
-    min-width: 320px;
+    min-width: 280px;
     max-width: calc(100vw - 32px);
     display: none;
-    z-index: 101;
-    flex-shrink: 0;
+    z-index: 1001;
 }
 
 .user-menu.active .user-menu-dropdown {
@@ -62,5 +57,26 @@
     background: var(--background);
     border-radius: var(--border-radius);
     white-space: nowrap;
-    flex-shrink: 0;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    /* Reset any inherited positioning */
+    .user-menu {
+        position: static;
+    }
+
+    /* Fixed positioning for mobile dropdown */
+    .user-menu-dropdown {
+        position: fixed !important;
+        top: 55px !important;
+        right: 16px !important;
+        left: auto !important;
+        width: 280px !important;
+        min-width: 280px !important;
+        border-radius: var(--border-radius) !important;
+        max-height: calc(100vh - 71px);
+        overflow-y: auto;
+        margin: 0;
+    }
 }

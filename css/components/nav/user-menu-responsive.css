@@ -1,19 +1,11 @@
 /* User Menu Responsive Styles */
 @media (max-width: 768px) {
-    .mobile-mode-switches {
-        display: block;
+    .user-menu {
+        position: static;
     }
-}
 
-@media (max-width: 400px) {
+    /* Hide desktop elements */
     .total-mutes {
         display: none;
-    }
-
-    .user-menu-dropdown {
-        width: 100% !important;
-        min-width: 100% !important;
-        right: 0;
-        left: 0;
     }
 }
