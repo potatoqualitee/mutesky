@@ -31,7 +31,7 @@ class SimpleMode extends HTMLElement {
                         <div class="filter-slider">
                             <h2>Choose your filtering level</h2>
                             <p class="filter-note" style="display: none;">
-                            Adding more words to your mute list can slow Bluesky, especially when viewing posts with many comments. Pick a level that works best for you - more keywords help block unwanted content but reduce speed. Bluesky may slow down if you add more than 200 keywords, especially on mobile.</p>
+                            Adding more words to your mute list can make Bluesky run more slowly, especially when reading posts with many comments. You may notice the Bluesky becomes slower when you have more than 200 muted keywords, especially on mobile devices.</p>
 
                             <div class="filter-grid">
                                 <div class="filter-card active" role="radio" aria-checked="true" tabindex="0" data-level="0">
