@@ -68,6 +68,12 @@
         display: none !important;
     }
 
+    /* Mobile mode switches */
+    .mobile-mode-switches {
+        display: block;
+        border-bottom: 1px solid var(--border);
+    }
+
     /* Style nav-mute-button for mobile */
     .nav-mute-button {
         margin: 0 var(--spacing-sm);
