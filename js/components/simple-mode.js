@@ -54,7 +54,7 @@ class SimpleMode extends HTMLElement {
                         </div>
 
                         <div id="exceptions-panel" class="exceptions-panel">
-                            <h2>Keep Showing me content about...</h2>
+                            <h2>Keep showing me content about...</h2>
                             <div id="exception-tags" class="exception-tags">
                                 <!-- Will be populated by contextRenderer.js -->
                             </div>
