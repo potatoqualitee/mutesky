@@ -39,6 +39,12 @@
     width: 100%;
 }
 
+@media (max-width: 768px) {
+    .filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .filter-card {
     background: var(--surface);
     border: 1px solid var(--border);
