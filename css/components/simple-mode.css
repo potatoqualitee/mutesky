@@ -25,7 +25,21 @@ simple-mode .interface-mode {
     width: 100%;
 }
 
-/* Ensure intro text is visible at the top with reduced spacing */
+/* Keep intro text at top with minimal spacing */
 simple-mode .context-builder-inner {
-    padding-top: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    simple-mode .context-builder-inner {
+        padding-top: 0;
+    }
+
+    simple-mode .intro-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: var(--spacing-sm) 0 var(--spacing-sm) 0; /* Increased top margin slightly */
+        padding: 0 var(--spacing-md);
+    }
 }

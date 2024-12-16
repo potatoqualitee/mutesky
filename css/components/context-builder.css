@@ -8,13 +8,23 @@
     left: 0;
     right: 0;
     background: var(--background);
-    padding: var(--spacing-xl) 0; /* Add vertical padding to the scrollable area */
+    padding: var(--spacing-md) 0; /* Reduced top padding for tighter layout */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .context-builder {
+        top: 56px; /* Reduced header height on mobile */
+        height: calc(100vh - 56px - 32px); /* Adjusted height for mobile */
+        padding: var(--spacing-xs) 0; /* Minimal padding on mobile */
+    }
 }
 
 .context-builder-inner {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
+    padding-top: 0; /* Remove additional top padding */
 }
 
 .context-selector {
