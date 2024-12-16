@@ -30,6 +30,11 @@ simple-mode .context-builder-inner {
     padding-top: var(--spacing-sm);
 }
 
+/* Exceptions panel heading */
+simple-mode #exceptions-panel h2 {
+    position: relative;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
     simple-mode .context-builder-inner {
@@ -41,5 +46,14 @@ simple-mode .context-builder-inner {
         line-height: 1.5;
         margin: var(--spacing-sm) 0 var(--spacing-sm) 0; /* Increased top margin slightly */
         padding: 0 var(--spacing-md);
+    }
+
+    simple-mode #exceptions-panel h2 {
+        font-size: 0;
+    }
+
+    simple-mode #exceptions-panel h2::before {
+        content: "Keep showing...";
+        font-size: 1.5rem;
     }
 }
