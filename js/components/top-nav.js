@@ -82,8 +82,17 @@ class TopNav extends HTMLElement {
 
         hamburgerMenu?.addEventListener('click', (e) => {
             e.stopPropagation();
-            hamburgerMenu.classList.toggle('active');
-            userMenu.classList.toggle('active');
+            const isActive = hamburgerMenu.classList.contains('active');
+
+            // If menu is active (X is showing), clicking should always close it
+            if (isActive) {
+                hamburgerMenu.classList.remove('active');
+                userMenu.classList.remove('active');
+            } else {
+                // Only open if it's not already active
+                hamburgerMenu.classList.add('active');
+                userMenu.classList.add('active');
+            }
         });
 
         // Close menu when clicking outside
