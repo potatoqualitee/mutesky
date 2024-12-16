@@ -70,11 +70,12 @@
 
     /* Style nav-mute-button for mobile */
     .nav-mute-button {
-        margin-right: 48px;
-        padding: 8px 12px;
+        margin: 0 var(--spacing-sm);
+        padding: 8px;
         font-size: 0.9rem;
         min-height: 36px;
         display: none;
+        width: calc(100% - (var(--spacing-sm) * 2));
     }
 
     .nav-mute-button.visible {
