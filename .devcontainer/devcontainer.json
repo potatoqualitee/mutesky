@@ -1,0 +1,21 @@
+{
+  "name": "Chrome Extension Dev Container",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "rooveterinaryinc.roo-cline",
+        "dbatools.search"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "forwardPorts": [443],
+  "runArgs": ["--cap-add=SYS_ADMIN"]
+}
