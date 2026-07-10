@@ -108,6 +108,31 @@ describe('scrubStaleTombstones', () => {
 
         expect(state.removedMyKeywords).toEqual(new Set(['still muted']));
     });
+
+    it('drops the removal opt-out along with a scrubbed tombstone', () => {
+        // Otherwise the manuallyUnchecked entry created on removal survives
+        // as a hidden opt-out that could suppress a same-named keyword a
+        // curated list ships later
+        addMyKeywords('Never Muted');
+        removeMyKeyword('Never Muted');
+        expect(state.manuallyUnchecked.has('Never Muted')).toBe(true);
+
+        scrubStaleTombstones();
+
+        expect(state.removedMyKeywords.size).toBe(0);
+        expect(state.manuallyUnchecked.has('Never Muted')).toBe(false);
+    });
+
+    it('keeps the opt-out while its unmute is still pending', () => {
+        addMyKeywords('Still Muted');
+        state.originalMutedKeywords.add('still muted');
+        removeMyKeyword('Still Muted');
+
+        scrubStaleTombstones();
+
+        expect(state.removedMyKeywords.has('still muted')).toBe(true);
+        expect(state.manuallyUnchecked.has('Still Muted')).toBe(true);
+    });
 });
 
 describe('submit plumbing', () => {

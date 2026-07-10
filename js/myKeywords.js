@@ -177,12 +177,16 @@ export function removeMyKeyword(keyword) {
 // Drop tombstones for keywords that are not actually muted on Bluesky. Runs
 // whenever fresh mute state arrives (initializeKeywordState): there is
 // nothing for such a tombstone to unmute, and letting one linger could later
-// delete an identical mute the user creates in Bluesky's own UI.
+// delete an identical mute the user creates in Bluesky's own UI. The
+// manuallyUnchecked entry created alongside the tombstone goes with it,
+// otherwise it would survive as a hidden opt-out that could suppress a
+// same-named keyword a curated list ships later.
 export function scrubStaleTombstones() {
     let changed = false;
     for (const tombstone of state.removedMyKeywords) {
         if (!state.originalMutedKeywords.has(tombstone)) {
             state.removedMyKeywords.delete(tombstone);
+            clearUncheckedOptOut(tombstone);
             changed = true;
         }
     }
