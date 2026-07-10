@@ -505,7 +505,7 @@ const PHRASE_KEYS = ['bipartisan', 'daysActive', 'display', 'expiresAt',
     'firstSeen', 'heat', 'lastSeen', 'outlets', 'peakHeat'];
 
 export function validateTrending(
-    { category, state, headlines = null, baselinePhrases = null, baselineUpdatedAt = null },
+    { category, state, headlines = null, baselinePhrases = null, baselineUpdatedAt = null, baselineCategory = null },
     tuning = TUNING
 ) {
     const problems = [];
@@ -606,6 +606,39 @@ export function validateTrending(
                 `state ${canon}: added phrase must appear (whole words) in headlines from ${tuning.minOutlets}+ sources`);
             check(!Number.isInteger(phrase?.outlets) || phrase.outlets <= evidence.size,
                 `state ${canon}: outlets overstates the headline evidence`);
+        }
+        // Curation may drop or re-case retained entries, never rewrite their
+        // tracking metadata -- decay math depends on it
+        if (baselinePhrases && Object.hasOwn(baselinePhrases, canon)) {
+            const base = baselinePhrases[canon];
+            for (const field of PHRASE_KEYS) {
+                if (field === 'display') continue;
+                check(phrase?.[field] === base?.[field],
+                    `state ${canon}: ${field} was altered from the heuristic baseline`);
+            }
+        }
+    }
+
+    // Removals and additions must hit both files, or the next heuristic run
+    // silently undoes the curation: a phrase deleted only from trending.json
+    // republishes from state, and a state-only addition never surfaces
+    const publishedCanons = new Set(Object.keys(keywords).map(k => k.toLowerCase()));
+    if (baselineCategory) {
+        const baseKeywords = baselineCategory?.[CATEGORY_NAME]?.keywords || {};
+        for (const basePhrase of Object.keys(baseKeywords)) {
+            const canon = basePhrase.toLowerCase();
+            if (!publishedCanons.has(canon)) {
+                check(!Object.hasOwn(state?.phrases || {}, canon),
+                    `state ${canon}: removed from the published list but still tracked in state`);
+            }
+        }
+    }
+    if (baselinePhrases) {
+        for (const canon of Object.keys(state?.phrases || {})) {
+            if (!Object.hasOwn(baselinePhrases, canon)) {
+                check(publishedCanons.has(canon),
+                    `state ${canon}: added phrase must also be published in trending.json`);
+            }
         }
     }
 

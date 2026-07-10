@@ -20,14 +20,18 @@ const state = await loadJson(path.join(repoRoot, 'keywords', 'trending-state.jso
 let headlines = null;
 let baselinePhrases = null;
 let baselineUpdatedAt = null;
+let baselineCategory = null;
 if (process.env.HEADLINES_FILE && process.env.BASELINE_STATE) {
     headlines = await loadJson(process.env.HEADLINES_FILE);
     const baseline = await loadJson(process.env.BASELINE_STATE);
     baselinePhrases = baseline.phrases || {};
     baselineUpdatedAt = baseline.updatedAt || null;
+    if (process.env.BASELINE_CATEGORY) {
+        baselineCategory = await loadJson(process.env.BASELINE_CATEGORY);
+    }
 }
 
-const problems = validateTrending({ category, state, headlines, baselinePhrases, baselineUpdatedAt });
+const problems = validateTrending({ category, state, headlines, baselinePhrases, baselineUpdatedAt, baselineCategory });
 if (problems.length) {
     console.error(`trending validation failed:\n  ${problems.join('\n  ')}`);
     process.exit(1);

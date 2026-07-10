@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "git: auto-pull every minute",
+            "detail": "Keeps the clone current with the repo's automated commits; skips while the working tree is dirty",
+            "type": "shell",
+            "isBackground": true,
+            "command": "while true; do if [ -z \"$(git status --porcelain)\" ]; then git pull --ff-only --quiet || true; fi; sleep 60; done",
+            "windows": {
+                "command": "while ($true) { if (-not (git status --porcelain)) { git pull --ff-only --quiet }; Start-Sleep -Seconds 60 }"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "echo": false
+            },
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}

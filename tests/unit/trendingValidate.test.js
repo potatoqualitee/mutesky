@@ -218,6 +218,54 @@ describe('validateTrending', () => {
         expect(problems.join()).toContain('war');
     });
 
+    it('rejects retained entries whose tracking metadata was rewritten', () => {
+        const fixture = makeFixture({ platner: makePhrase({ heat: 500, peakHeat: 500 }) });
+        const problems = validateTrending({
+            ...fixture,
+            baselinePhrases: { platner: makePhrase() }
+        });
+        expect(problems.join()).toContain('altered from the heuristic baseline');
+    });
+
+    it('allows display re-casing on retained entries', () => {
+        const fixture = makeFixture({ platner: makePhrase({ display: 'PLATNER' }) });
+        const problems = validateTrending({
+            ...fixture,
+            baselinePhrases: { platner: makePhrase() },
+            baselineCategory: makeFixture().category
+        });
+        expect(problems).toEqual([]);
+    });
+
+    it('rejects removing a phrase from trending.json while state still tracks it', () => {
+        const baseline = makeFixture();
+        const curated = makeFixture();
+        delete curated.category['New Developments'].keywords.Platner;
+        const problems = validateTrending({
+            ...curated,
+            baselinePhrases: baseline.state.phrases,
+            baselineCategory: baseline.category
+        });
+        expect(problems.join()).toContain('still tracked in state');
+    });
+
+    it('rejects state-only additions that are never published', () => {
+        const headline = (title, source) => ({ title, source, lean: 'center' });
+        const added = makePhrase({ display: 'Epstein Files', firstSeen: NOW, outlets: 3 });
+        const fixture = makeFixture({ platner: makePhrase(), 'epstein files': added });
+        delete fixture.category['New Developments'].keywords['Epstein Files'];
+        const problems = validateTrending({
+            ...fixture,
+            baselinePhrases: { platner: makePhrase() },
+            headlines: [
+                headline('New Epstein files released by committee', 'abc'),
+                headline('Epstein files stun Congress', 'fox'),
+                headline('What the Epstein files reveal', 'npr')
+            ]
+        });
+        expect(problems.join()).toContain('must also be published');
+    });
+
     it('skips the headline check for phrases already in the baseline', () => {
         const fixture = makeFixture();
         const problems = validateTrending({

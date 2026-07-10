@@ -59,6 +59,15 @@ jobs:
         with:
           node-version: '22'
 
+      # Install before seeding credentials so npm install scripts never run
+      # with auth.json on disk. The sysctl lifts Ubuntu 24.04's unprivileged
+      # user-namespace restriction, which otherwise breaks codex's bwrap
+      # sandbox (bwrap: loopback: Failed RTM_NEWADDR).
+      - name: Install codex CLI
+        run: |
+          npm install -g @openai/codex
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
       # Authenticated with the ChatGPT subscription, not an API key: run
       # `codex login` locally and store ~/.codex/auth.json as the
       # CODEX_AUTH_JSON secret. Codex refreshes the tokens itself; reseed the
@@ -90,7 +99,6 @@ jobs:
             Request from potatoqualitee:
             ${{ github.event.comment.body || inputs.prompt }}
         run: |
-          npm install -g @openai/codex
           printf '%s' "$PROMPT" | codex exec \
             -C "$GITHUB_WORKSPACE" \
             --sandbox read-only \

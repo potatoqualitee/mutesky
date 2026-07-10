@@ -47,6 +47,16 @@ jobs:
           mkdir -p "$RUNNER_TEMP/trending-heuristic"
           cp keywords/trending.json keywords/trending-state.json "$RUNNER_TEMP/trending-heuristic/"
 
+      # Install before seeding credentials so npm install scripts never run
+      # with auth.json on disk. The sysctl lifts Ubuntu 24.04's unprivileged
+      # user-namespace restriction, which otherwise breaks codex's bwrap
+      # sandbox (bwrap: loopback: Failed RTM_NEWADDR).
+      - name: Install codex CLI
+        if: env.HAS_CODEX_AUTH == 'true'
+        run: |
+          npm install -g @openai/codex
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
       # Authenticated with the ChatGPT subscription: run `codex login`
       # locally and store ~/.codex/auth.json as the CODEX_AUTH_JSON secret
       - name: Seed codex auth (ChatGPT subscription)
@@ -108,7 +118,6 @@ jobs:
             done, run `node scripts/trending/validate.js` and fix anything
             it reports.
         run: |
-          npm install -g @openai/codex
           printf '%s' "$PROMPT" | codex exec \
             -C "$GITHUB_WORKSPACE" \
             --sandbox workspace-write \
@@ -126,6 +135,7 @@ jobs:
         env:
           HEADLINES_FILE: ${{ runner.temp }}/headlines.json
           BASELINE_STATE: ${{ runner.temp }}/trending-heuristic/trending-state.json
+          BASELINE_CATEGORY: ${{ runner.temp }}/trending-heuristic/trending.json
         run: |
           CURATED="$RUNNER_TEMP/trending-curated"
           HEURISTIC="$RUNNER_TEMP/trending-heuristic"
