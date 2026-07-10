@@ -82,11 +82,13 @@ describe('extractPhrasesFromTitle', () => {
         expect(canon).not.toContain('says a');
     });
 
-    it('strips trailing outlet attribution', () => {
+    it('keeps outlet attributions in their own clause where breadth filters kill them', () => {
         const phrases = extractPhrasesFromTitle('Tariff fight escalates - CNN Politics');
         const canon = [...phrases.keys()].map(p => p.toLowerCase());
         expect(canon).toContain('tariff fight');
-        expect(canon).not.toContain('cnn politics');
+        // The attribution survives extraction as its own clause but only ever
+        // comes from one outlet, so the minOutlets rule blocks publication
+        expect(canon).not.toContain('escalates cnn');
     });
 
     it('marks phrases that only appear at the start of the headline', () => {
@@ -130,13 +132,25 @@ describe('scoreCandidates', () => {
             { title: 'Iran strikes kill dozens', source: 'left-0', lean: 'left' },
             { title: 'Airbase strikes escalate conflict', source: 'left-1', lean: 'left' },
             { title: 'Military Strikes Rock Region', source: 'right-0', lean: 'right' },
-            { title: 'Iran vows response', source: 'right-1', lean: 'right' },
+            { title: 'Talks with Iran stall', source: 'right-1', lean: 'right' },
             { title: 'Sanctions on Iran expand', source: 'center-0', lean: 'center' }
         ];
         const scored = scoreCandidates(extractCandidates(headlines));
         const canons = scored.map(s => s.canon);
         expect(canons).not.toContain('strikes');
         expect(canons).toContain('iran');
+    });
+
+    it('one Title Case outlet cannot vouch for a common noun alone', () => {
+        const headlines = [
+            { title: 'Strikes rock the capital', source: 'left-0', lean: 'left' },
+            { title: 'Region Braces As Strikes Widen', source: 'right-0', lean: 'right' },
+            { title: 'Officials Say New Strikes Coming', source: 'right-0', lean: 'right' },
+            { title: 'Strikes continue for third day', source: 'center-0', lean: 'center' }
+        ];
+        // Two capitalized mid-headline sightings, but both from right-0
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).not.toContain('strikes');
     });
 
     it('ignores sentence-initial capitalization as proper-noun evidence', () => {
@@ -257,6 +271,19 @@ describe('updateTrendingState', () => {
         expect(new Date(phrase.expiresAt).getTime()).toBeGreaterThan(new Date(firstExpiry).getTime());
         expect(phrase.daysActive).toBe(2);
         expect(phrase.firstSeen).toBe(NOW); // origin preserved
+    });
+
+    it('is near-idempotent when rerun minutes later on the same coverage', () => {
+        const first = updateTrendingState({ phrases: {} }, bigStory(), NOW);
+        const heatAfterFirst = first.phrases['impeachment inquiry'].heat;
+
+        const fourMinutesLater = '2026-07-10T12:04:00.000Z';
+        const second = updateTrendingState(first, bigStory(), fourMinutesLater);
+        const heatAfterRerun = second.phrases['impeachment inquiry'].heat;
+
+        // Re-processing near-identical coverage must not double the heat
+        expect(heatAfterRerun).toBeLessThan(heatAfterFirst * 1.1);
+        expect(heatAfterRerun).toBeGreaterThan(heatAfterFirst * 0.9);
     });
 
     it('caps the list at maxPhrases keeping the hottest', () => {

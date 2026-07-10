@@ -28,11 +28,14 @@ export const TUNING = {
     minOutlets: 3,            // distinct outlets before a phrase is considered
     addThreshold: 6,          // score needed to enter the muted list
     refreshThreshold: 3,      // score that keeps an existing phrase alive
-    heatDecay: 0.75,          // per-run multiplier (~14h half-life at 4 runs/day)
+    heatDecay: 0.75,          // per-interval multiplier (~14h half-life at 4 runs/day)
+    runIntervalHours: 6,      // nominal cadence; decay/gain scale to actual elapsed time
     minRetentionDays: 3,      // one-day flaps expire quickly
     maxRetentionDays: 30,     // even huge stories eventually age out
     maxPhrases: 60,           // hard cap on the published list
-    headlineMaxAgeHours: 48   // ignore stale feed items
+    headlineMaxAgeHours: 48,  // ignore stale feed items
+    properNounMinSightings: 2, // capitalized mid-headline sightings a unigram needs
+    properNounMinSources: 2    // ...from at least this many distinct outlets
 };
 
 // Words that never form (or start/end) a controversy phrase
@@ -138,11 +141,12 @@ function tokenize(text) {
 
 // Split a headline into clauses: what follows a colon, dash or similar
 // punctuation starts a new "sentence" for capitalization purposes
-// ("Breaking: Strikes hit base" -- that S proves nothing)
+// ("Breaking: Strikes hit base" -- that S proves nothing). Trailing outlet
+// attributions ("... - CNN Politics") become their own clause and are then
+// eliminated by the cross-outlet breadth requirement, since each outlet only
+// stamps its own name.
 function splitClauses(title) {
     return title
-        // Strip trailing attribution ("... - CNN Politics")
-        .replace(/\s+[-|–—]\s+[A-Za-z .]{2,30}$/, '')
         .replace(/[“”"‘’`]/g, '')
         .split(/[:;!?|]+|\s[-–—]\s/)
         .map(clause => clause.trim())
@@ -199,7 +203,8 @@ export function extractCandidates(headlines) {
                     leans: { left: new Set(), center: new Set(), right: new Set() },
                     mentions: 0,
                     midSentenceTotal: 0,
-                    midSentenceCapitalized: 0
+                    midSentenceCapitalized: 0,
+                    midSentenceCapitalizedSources: new Set()
                 };
                 candidates.set(canon, entry);
             }
@@ -211,7 +216,10 @@ export function extractCandidates(headlines) {
             // any word gets capitalized when it starts the headline
             if (!atStart) {
                 entry.midSentenceTotal += 1;
-                if (/^[A-Z]/.test(phrase)) entry.midSentenceCapitalized += 1;
+                if (/^[A-Z]/.test(phrase)) {
+                    entry.midSentenceCapitalized += 1;
+                    entry.midSentenceCapitalizedSources.add(source);
+                }
             }
         }
     }
@@ -235,10 +243,11 @@ function mostCommonDisplay(displayCounts) {
 // A lone word only qualifies when it usually appears capitalized in the
 // MIDDLE of headlines -- a proxy for proper nouns (Trump, Iran, Epstein).
 // Sentence/clause-initial occurrences are ignored (anything is capitalized
-// there), a single sighting is not enough evidence, and sentence-case
-// outlets vote down common nouns Title Case outlets inflate.
-function looksLikeProperNoun(entry) {
-    if (entry.midSentenceTotal < 2) return false;
+// there), the evidence must span distinct outlets (one Title Case feed can't
+// vouch alone), and sentence-case outlets vote down common nouns.
+function looksLikeProperNoun(entry, tuning) {
+    if (entry.midSentenceCapitalized < tuning.properNounMinSightings) return false;
+    if (entry.midSentenceCapitalizedSources.size < tuning.properNounMinSources) return false;
     return entry.midSentenceCapitalized / entry.midSentenceTotal >= 0.7;
 }
 
@@ -247,7 +256,7 @@ export function scoreCandidates(candidates, tuning = TUNING) {
     for (const entry of candidates.values()) {
         const outlets = entry.outlets.size;
         if (outlets < tuning.minOutlets) continue;
-        if (!entry.canon.includes(' ') && !looksLikeProperNoun(entry)) continue;
+        if (!entry.canon.includes(' ') && !looksLikeProperNoun(entry, tuning)) continue;
 
         const left = entry.leans.left.size;
         const right = entry.leans.right.size;
@@ -307,6 +316,18 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
     const scoredByCanon = new Map(scored.map(s => [s.canon, s]));
     const phrases = {};
 
+    // Scale decay and gain to the time actually elapsed since the last run,
+    // so back-to-back reruns are near-idempotent (feeds barely changed in
+    // minutes -- re-adding their full score would double-count coverage) and
+    // long gaps decay proportionally more
+    const intervalMs = tuning.runIntervalHours * 3600 * 1000;
+    const prevUpdatedMs = prevState.updatedAt
+        ? new Date(prevState.updatedAt).getTime()
+        : nowMs - intervalMs;
+    const elapsedIntervals = Math.max(0, (nowMs - prevUpdatedMs) / intervalMs);
+    const decay = Math.pow(tuning.heatDecay, Math.min(elapsedIntervals, 50));
+    const gain = Math.min(1, elapsedIntervals);
+
     // Decay and refresh existing phrases. Entries already past their expiry
     // are NOT refreshable -- a returning story must re-qualify through the
     // newcomer path below (bipartisan + admission threshold).
@@ -314,7 +335,7 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
         if (new Date(prev.expiresAt).getTime() <= nowMs) continue;
         const hit = scoredByCanon.get(canon);
         const score = hit ? hit.score : 0;
-        const heat = prev.heat * tuning.heatDecay + score;
+        const heat = prev.heat * decay + score * gain;
         const peakHeat = Math.max(prev.peakHeat, heat);
         const daysActive = prev.daysActive +
             (score >= tuning.refreshThreshold && prev.lastSeen?.slice(0, 10) !== today ? 1 : 0);
