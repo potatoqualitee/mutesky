@@ -1,25 +1,21 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-10T14:18:14.861Z",
+    "updatedAt": "2026-07-10T14:21:39.759Z",
     "keywords": {
-      "Platner": {
+      "Graham Platner": {
         "weight": 3,
-        "description": "In 21 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 16 outlets across the spectrum (since 2026-07-10)"
       },
       "Air Force One": {
         "weight": 2,
         "description": "In 8 outlets across the spectrum (since 2026-07-10)"
       },
-      "Florida airport": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
-      },
-      "Victor Marx": {
+      "E. Jean Carroll": {
         "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       },
-      "Jean Carroll": {
+      "Reflecting Pool": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       }

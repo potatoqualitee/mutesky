@@ -1,70 +1,48 @@
 {
-  "updatedAt": "2026-07-10T14:18:14.861Z",
+  "updatedAt": "2026-07-10T14:21:39.759Z",
   "phrases": {
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 86.25,
-      "peakHeat": 86.25,
-      "daysActive": 1,
-      "expiresAt": "2026-07-22T11:24:56.544Z",
-      "bipartisan": true,
-      "outlets": 21
-    },
     "graham platner": {
       "display": "Graham Platner",
       "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 57.375,
-      "peakHeat": 57.375,
+      "lastSeen": "2026-07-10T14:21:39.759Z",
+      "heat": 57.84408146116952,
+      "peakHeat": 57.84408146116952,
       "daysActive": 1,
-      "expiresAt": "2026-07-21T09:04:14.115Z",
+      "expiresAt": "2026-07-21T09:38:46.803Z",
       "bipartisan": true,
       "outlets": 16
     },
     "air force one": {
       "display": "Air Force One",
       "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 13.5,
-      "peakHeat": 13.5,
+      "lastSeen": "2026-07-10T14:21:39.759Z",
+      "heat": 13.610372108510475,
+      "peakHeat": 13.610372108510475,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T20:54:19.227Z",
+      "expiresAt": "2026-07-17T21:22:27.031Z",
       "bipartisan": true,
       "outlets": 8
     },
-    "florida airport": {
-      "display": "Florida airport",
+    "e. jean carroll": {
+      "display": "E. Jean Carroll",
       "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 6.25,
-      "peakHeat": 6.25,
+      "lastSeen": "2026-07-10T14:21:39.759Z",
+      "heat": 5.670988378546031,
+      "peakHeat": 5.670988378546031,
       "daysActive": 1,
-      "expiresAt": "2026-07-16T10:27:37.901Z",
+      "expiresAt": "2026-07-16T06:51:30.049Z",
       "bipartisan": true,
-      "outlets": 5
+      "outlets": 4
     },
-    "victor marx": {
-      "display": "Victor Marx",
-      "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 6.25,
-      "peakHeat": 6.25,
+    "reflecting pool": {
+      "display": "Reflecting Pool",
+      "firstSeen": "2026-07-10T14:21:39.759Z",
+      "lastSeen": "2026-07-10T14:21:39.759Z",
+      "heat": 8,
+      "peakHeat": 8,
       "daysActive": 1,
-      "expiresAt": "2026-07-16T10:27:37.901Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "jean carroll": {
-      "display": "Jean Carroll",
-      "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:18:14.861Z",
-      "heat": 5.625,
-      "peakHeat": 5.625,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T06:30:08.439Z",
-      "bipartisan": true,
+      "expiresAt": "2026-07-14T14:21:39.759Z",
+      "bipartisan": false,
       "outlets": 4
     }
   }
