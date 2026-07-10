@@ -2,7 +2,10 @@ import { state, saveState } from '../../state.js';
 import { updateSimpleModeState } from '../contextHandlers.js';
 import { renderInterface } from '../../renderer.js';
 
-// Debounced UI updates with frame timing
+// Debounced UI updates with frame timing. No keywordsUpdated dispatch here:
+// every callback routed through this (toggle and bulk flushes) calls
+// updateSimpleModeState, which notifies -- dispatching again made two events
+// per flush
 export const debouncedUpdate = (() => {
     let timeout;
     let frameRequest;
@@ -13,7 +16,6 @@ export const debouncedUpdate = (() => {
         timeout = setTimeout(() => {
             frameRequest = requestAnimationFrame(() => {
                 fn();
-                notifyKeywordChanges();
             });
         }, 16);
     };

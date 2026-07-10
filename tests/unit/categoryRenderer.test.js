@@ -200,6 +200,21 @@ describe('toggle handlers with scoped rendering', () => {
         expect(grid().querySelector('#category-healthcare-and-public-health')).toBe(untouched);
     });
 
+    it('dispatches keywordsUpdated exactly once per flush', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+
+        let dispatches = 0;
+        const listener = () => { dispatches++; };
+        document.addEventListener('keywordsUpdated', listener);
+
+        handleKeywordToggle('gun control', true);
+        await flushUpdates();
+        document.removeEventListener('keywordsUpdated', listener);
+
+        expect(dispatches).toBe(1);
+    });
+
     it('sidebar counts stay in sync after a keyword toggle', async () => {
         renderAdvancedMode();
         renderCategoryList();
