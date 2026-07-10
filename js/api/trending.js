@@ -7,6 +7,28 @@ export const TRENDING_CONTEXT_ID = 'trending-controversies';
 // install; migrate that selection so it doesn't linger as a ghost entry
 const LEGACY_CATEGORY_NAME = 'Trending Controversies';
 
+// Word-level phrase overlap with singular/plural folding, mirroring
+// scripts/trending/lib.js (kept separate so the app never loads the engine):
+// "Kirk" overlaps "Charlie Kirk", "Trumps" overlaps "Trump", but "art"
+// never matches inside "martial law"
+function tokenMatches(a, b) {
+    return a === b || a === `${b}s` || b === `${a}s`;
+}
+
+function phraseContains(bigger, smaller) {
+    const big = bigger.split(' ');
+    const small = smaller.split(' ');
+    if (small.length > big.length) return false;
+    for (let i = 0; i + small.length <= big.length; i++) {
+        if (small.every((word, j) => tokenMatches(word, big[i + j]))) return true;
+    }
+    return false;
+}
+
+function phraseOverlaps(a, b) {
+    return phraseContains(a, b) || phraseContains(b, a);
+}
+
 // Pure merge so tests can exercise it without network: folds the fetched
 // keywords into the same-named category from calm-the-chaos (normally
 // "New Developments", which already has its own simple-mode card). If the
@@ -23,17 +45,17 @@ export function mergeTrendingIntoState(appState, categoryData) {
         appState.selectedCategories.add(categoryName);
     }
 
-    // Keywords already muted by another category (the permanent lists) are
-    // noise here. The generator excludes them too; this is the offline net
-    // for a stale trending.json
-    const elsewhere = new Set();
+    // Keywords already muted by (or word-overlapping) another category's
+    // permanent list are noise here. The generator excludes them too; this is
+    // the offline net for a stale trending.json
+    const elsewhere = [];
     for (const [name, data] of Object.entries(appState.keywordGroups || {})) {
         if (name === categoryName) continue;
         Object.keys(data?.[name]?.keywords || {})
-            .forEach(keyword => elsewhere.add(keyword.toLowerCase()));
+            .forEach(keyword => elsewhere.push(keyword.toLowerCase()));
     }
-    const fresh = Object.entries(category.keywords)
-        .filter(([keyword]) => !elsewhere.has(keyword.toLowerCase()));
+    const fresh = Object.entries(category.keywords).filter(([keyword]) =>
+        !elsewhere.some(other => phraseOverlaps(keyword.toLowerCase(), other)));
 
     const existing = appState.keywordGroups[categoryName]?.[categoryName];
     if (existing?.keywords) {

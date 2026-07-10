@@ -152,7 +152,10 @@ function tokenize(text) {
 // stamps its own name.
 function splitClauses(title) {
     return title
-        .replace(/[“”"‘’`]/g, '')
+        // curly apostrophes become ASCII (deleting them would glue "Trump’s"
+        // into "Trumps" before the possessive strip in tokenize can run)
+        .replace(/[‘’]/g, "'")
+        .replace(/[“”"`]/g, '')
         .split(/[:;!?|]+|\s[-–—]\s/)
         .map(clause => clause.trim())
         .filter(clause => clause.length > 0);

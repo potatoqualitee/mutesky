@@ -431,4 +431,11 @@ describe('possessive normalization', () => {
         expect(keys).toContain('Trump');
         expect(keys.some(k => k.includes("'"))).toBe(false);
     });
+
+    it('handles typographic apostrophes without gluing the s on', () => {
+        const phrases = extractPhrasesFromTitle('Court blocks Trump’s tariffs plan');
+        const keys = [...phrases.keys()];
+        expect(keys).toContain('Trump');
+        expect(keys).not.toContain('Trumps');
+    });
 });

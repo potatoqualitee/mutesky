@@ -108,12 +108,16 @@ describe('mergeTrendingIntoState', () => {
                 description: 'test',
                 keywords: {
                     'Gun Control': { weight: 3, description: 'dup of Gun Policy keyword' },
+                    'Assault Weapons': { weight: 2, description: 'plural of Gun Policy keyword' },
+                    'Amendment': { weight: 2, description: 'word inside "second amendment"' },
                     'border bill': { weight: 1, description: 'y' }
                 }
             }
         });
         const keywords = state.keywordGroups['New Developments']['New Developments'].keywords;
         expect(keywords['Gun Control']).toBeUndefined();
+        expect(keywords['Assault Weapons']).toBeUndefined();
+        expect(keywords['Amendment']).toBeUndefined();
         expect(keywords['border bill']).toBeDefined();
     });
 

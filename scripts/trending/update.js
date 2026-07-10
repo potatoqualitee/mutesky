@@ -15,7 +15,8 @@ import {
     extractCandidates,
     scoreCandidates,
     updateTrendingState,
-    buildTrendingCategory
+    buildTrendingCategory,
+    phraseOverlaps
 } from './lib.js';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -128,9 +129,21 @@ async function main() {
     const nowIso = new Date().toISOString();
     const prevState = await loadJson(STATE_PATH, { phrases: {} });
     const excludeKeywords = await fetchPermanentKeywords();
+    const excluded = canon =>
+        [...excludeKeywords].some(keyword => phraseOverlaps(canon, keyword));
+
+    // Excluded phrases must not enter (or linger in) state at all -- state is
+    // capped at the hottest maxPhrases, and a permanently-muted "Trump" would
+    // otherwise crowd out eligible phrases. buildTrendingCategory filters
+    // again as the net for runs where the permanent fetch failed.
+    if (excludeKeywords.size > 0) {
+        prevState.phrases = Object.fromEntries(
+            Object.entries(prevState.phrases || {}).filter(([canon]) => !excluded(canon))
+        );
+    }
 
     const candidates = extractCandidates(headlines);
-    const scored = scoreCandidates(candidates);
+    const scored = scoreCandidates(candidates).filter(hit => !excluded(hit.canon));
     const state = updateTrendingState(prevState, scored, nowIso);
     const category = buildTrendingCategory(state, { excludeKeywords });
 
