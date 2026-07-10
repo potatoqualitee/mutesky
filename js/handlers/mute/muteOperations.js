@@ -74,6 +74,12 @@ export async function handleMuteSubmit() {
     } catch (error) {
         console.error('[handleMuteSubmit] Failed to process mutes:', error);
 
+        // Size errors carry a complete, user-friendly message already
+        if (error.name === 'PreferencesSizeError') {
+            showNotification(error.message, 'error');
+            return;
+        }
+
         // Convert technical errors into user-friendly messages
         let userMessage = 'Failed to update mutes. ';
         if (error.message.includes('not logged in')) {

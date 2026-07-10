@@ -1,6 +1,37 @@
 import { Agent } from '@atproto/api'
 import { loadMuteSettings, getExpirationDate } from './handlers/settingsHandlers.js'
 
+// The PDS rejects XRPC JSON bodies larger than 150KB (jsonLimit in
+// bluesky-social/atproto packages/pds/src/index.ts). The whole preferences
+// document counts against it, not just muted words, so leave headroom for
+// other preferences growing and for serialization differences.
+export const PDS_JSON_LIMIT_BYTES = 150 * 1024;
+const SIZE_SAFETY_MARGIN_BYTES = 10 * 1024;
+export const MAX_PREFERENCES_BYTES = PDS_JSON_LIMIT_BYTES - SIZE_SAFETY_MARGIN_BYTES;
+
+export function measureJsonBytes(value) {
+    return new TextEncoder().encode(JSON.stringify(value)).length;
+}
+
+export class PreferencesSizeError extends Error {
+    constructor({ payloadBytes, limitBytes, mutedWordCount, mutedWordsBytes }) {
+        const overBytes = payloadBytes - limitBytes;
+        const avgItemBytes = mutedWordCount > 0 ? mutedWordsBytes / mutedWordCount : 60;
+        const keywordsToRemove = Math.max(1, Math.ceil(overBytes / avgItemBytes));
+        const payloadKb = Math.round(payloadBytes / 1024);
+        const limitKb = Math.floor(limitBytes / 1024);
+        super(
+            `This selection is too large for Bluesky to store. ` +
+            `Your settings would be about ${payloadKb} KB, but Bluesky accepts at most ~${limitKb} KB. ` +
+            `Try deselecting roughly ${keywordsToRemove.toLocaleString()} keywords (or whole categories) and muting again.`
+        );
+        this.name = 'PreferencesSizeError';
+        this.payloadBytes = payloadBytes;
+        this.limitBytes = limitBytes;
+        this.keywordsToRemove = keywordsToRemove;
+    }
+}
+
 export class MuteService {
     constructor(session) {
         this.agent = session ? new Agent(session) : null;
@@ -152,6 +183,19 @@ export class MuteService {
             // Log final state
             console.debug('[MuteService] Total keywords after update:', updatedItems.length);
 
+            // Pre-flight size check: measure the exact JSON body we are about to
+            // send and fail gracefully instead of letting the PDS return a 413
+            const payloadBytes = measureJsonBytes({ preferences: this.cachedPreferences });
+            if (payloadBytes > MAX_PREFERENCES_BYTES) {
+                console.warn(`[MuteService] Preferences payload ${payloadBytes} bytes exceeds safe limit ${MAX_PREFERENCES_BYTES}`);
+                throw new PreferencesSizeError({
+                    payloadBytes,
+                    limitBytes: MAX_PREFERENCES_BYTES,
+                    mutedWordCount: updatedItems.length,
+                    mutedWordsBytes: measureJsonBytes(updatedItems)
+                });
+            }
+
             try {
                 // Update preferences using fresh agent
                 await agent.app.bsky.actor.putPreferences({
@@ -163,6 +207,15 @@ export class MuteService {
                     const refreshEvent = new CustomEvent('mutesky:session:refresh:needed');
                     window.dispatchEvent(refreshEvent);
                     throw error; // Let BlueskyService handle the retry
+                }
+                if (error.status === 413 || /entity too large/i.test(error.message || '')) {
+                    // Server-side backstop in case the pre-flight margin was too optimistic
+                    throw new PreferencesSizeError({
+                        payloadBytes,
+                        limitBytes: MAX_PREFERENCES_BYTES,
+                        mutedWordCount: updatedItems.length,
+                        mutedWordsBytes: measureJsonBytes(updatedItems)
+                    });
                 }
                 throw error;
             }
@@ -178,6 +231,10 @@ export class MuteService {
             // Clear caches on error
             this.cachedKeywords = null;
             this.cachedPreferences = null;
+            // Preserve typed errors so callers can present them properly
+            if (error instanceof PreferencesSizeError) {
+                throw error;
+            }
             // Extract API error message if available
             const apiError = error.message || 'Failed to update muted keywords';
             throw new Error(apiError);
