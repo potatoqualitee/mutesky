@@ -22,30 +22,11 @@ export function removeKeyword(keyword) {
     }
 }
 
-// Batch process keywords
+// Process keywords synchronously, then persist. Chunking across animation
+// frames caused races: callers continued before all keywords were processed.
 export function processBatchKeywords(keywords, operation) {
-    const chunkSize = 100;
-    const chunks = Array.from(keywords);
-
-    let index = 0;
-    function processChunk() {
-        const chunk = chunks.slice(index, index + chunkSize);
-        if (chunk.length === 0) {
-            // Save state after all chunks are processed
-            saveState();
-            return;
-        }
-
-        chunk.forEach(operation);
-        index += chunkSize;
-
-        if (index < chunks.length) {
-            requestAnimationFrame(processChunk);
-        } else {
-            // Save state after final chunk
-            saveState();
-        }
+    for (const keyword of keywords) {
+        operation(keyword);
     }
-
-    processChunk();
+    saveState();
 }

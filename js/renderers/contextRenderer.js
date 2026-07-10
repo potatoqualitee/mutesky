@@ -1,15 +1,20 @@
 import { elements } from '../dom.js';
 import { state } from '../state.js';
+import { getContextSelectionState } from '../handlers/context/selectionModel.js';
 
 export function renderContextCards() {
     if (!elements.contextOptions) return;
 
     elements.contextOptions.innerHTML = Object.entries(state.contextGroups)
         .map(([id, context]) => {
-            // Only check if the context is in selectedContexts
-            const isSelected = state.selectedContexts.has(id);
+            // Honest tri-state display derived from actual keyword state:
+            // fully selected, partially selected (some keywords active), or off
+            const selectionState = getContextSelectionState(id);
+            const stateClass = selectionState === 'all' ? 'selected'
+                : selectionState === 'partial' ? 'partial'
+                : '';
             return `
-                <div class="context-card ${isSelected ? 'selected' : ''}"
+                <div class="context-card ${stateClass}"
                      data-context="${id}"
                      onclick="handleContextToggle('${id}')">
                     <h3>${context.title}</h3>

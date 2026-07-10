@@ -1,8 +1,8 @@
 import { elements } from './dom.js';
-import { state, loadState } from './state.js';
+import { state, loadState, saveState } from './state.js';
 import { renderInterface } from './renderer.js';
 import { debounce } from './utils.js';
-import { getAllKeywordsForCategory } from './categoryManager.js';
+import { applyFilterLevel } from './handlers/context/selectionModel.js';
 import { blueskyService } from './bluesky.js';
 import {
     handleAuth,
@@ -64,39 +64,17 @@ export function setupEventListeners() {
         }));
     }
 
-    // Handle filter level changes from simple mode
+    // Handle filter level changes from simple mode. Only keywords belonging
+    // to selected contexts are re-leveled -- advanced-mode picks and existing
+    // Bluesky mutes outside those contexts survive the slider.
     document.addEventListener('filterLevelChange', (event) => {
-        const level = event.detail.level;
+        state.filterLevel = event.detail.level;
 
-        // Update filter level in state
-        state.filterLevel = level;
+        applyFilterLevel();
 
-        // Store current exceptions
-        const currentExceptions = new Set(state.selectedExceptions);
-
-        // Clear and rebuild active keywords while preserving exceptions
-        state.activeKeywords.clear();
-        state.selectedContexts.forEach(contextId => {
-            const context = state.contextGroups[contextId];
-            if (context && context.categories) {
-                context.categories.forEach(category => {
-                    if (!currentExceptions.has(category)) {
-                        // Get keywords sorted by weight
-                        const keywords = getAllKeywordsForCategory(category, true);
-                        keywords.forEach(keyword => state.activeKeywords.add(keyword));
-                    }
-                });
-            }
-        });
-
-        // Notify about keyword changes
         notifyKeywordChanges();
-
-        // Restore exceptions
-        state.selectedExceptions = currentExceptions;
-
-        // Update interface with new filtered keywords
         renderInterface();
+        saveState();
     });
 
     elements.profileButton?.addEventListener('click', () => {

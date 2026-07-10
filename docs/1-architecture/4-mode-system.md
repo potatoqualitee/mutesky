@@ -6,289 +6,106 @@ MuteSky operates in two distinct modes:
 - Simple Mode: Context-based filtering with filter levels (0-3)
 - Advanced Mode: Direct keyword management
 
-The system maintains consistency between these modes while preserving user preferences.
+Both modes are views over the same underlying state. There is exactly one
+source of truth:
 
-## Weight System Implementation
+- `state.activeKeywords` — the keywords that will be muted on submit
+- `state.manuallyUnchecked` — sticky individual opt-outs made in advanced mode
 
-### 1. Filter Level System
+`state.selectedContexts` and `state.selectedExceptions` are simple-mode UI
+conveniences **derived from the keywords**, never the other way around. No
+code path may clear `activeKeywords` and rebuild it from contexts — that
+pattern (used before the 2026 rework) destroyed advanced-mode partial
+selections on every mode switch and made context cards "unclick themselves."
+
+All of this logic lives in `js/handlers/context/selectionModel.js`.
+
+## Weight System
+
+### Filter Level → Weight Threshold
 ```javascript
-// Map filter levels to thresholds
-function getWeightThreshold(filterLevel) {
-    switch(filterLevel) {
-        case 0: return 3;  // Minimal (most restrictive)
-        case 1: return 2;  // Moderate
-        case 2: return 1;  // Extensive
-        case 3: return 0;  // Complete (most inclusive)
-        default: return 3;
-    }
-}
+// js/utils/weightManager.js
+case 0: return 3;  // Minimal (most restrictive)
+case 1: return 2;  // Moderate
+case 2: return 1;  // Extensive
+case 3: return 0;  // Complete (most inclusive)
 ```
 
-### 2. Filter Level Handler
-```javascript
-export function handleFilterLevelChange(event) {
-    const level = event.detail.level;
-    state.filterLevel = level;
+`getAllKeywordsForCategory(category, true)` returns the category's keywords
+at the current filter level; `(category, false)` returns all of them.
 
-    // Store current exceptions
-    const currentExceptions = new Set(state.selectedExceptions);
+## Derived Selection State
 
-    // Clear and rebuild active keywords
-    state.activeKeywords.clear();
-    state.selectedContexts.forEach(contextId => {
-        const context = state.contextGroups[contextId];
-        if (context?.categories) {
-            context.categories.forEach(category => {
-                if (!currentExceptions.has(category)) {
-                    const keywords = getAllKeywordsForCategory(category, true);
-                    keywords.forEach(keyword => state.activeKeywords.add(keyword));
-                }
-            });
-        }
-    });
+Every category and context has a tri-state derived from `activeKeywords`:
 
-    // Restore exceptions and update UI
-    state.selectedExceptions = currentExceptions;
-    renderInterface();
-}
-```
+- `all` — every keyword (at the current filter level) is active
+- `partial` — some keywords are active
+- `none` — no keywords are active
 
-## Context System Implementation
+Context cards render this honestly: `selected` when `all`, a dashed `partial`
+style when partially selected, unstyled when `none`.
 
-### 1. Context Toggle Handler
-```javascript
-export async function handleContextToggle(contextId) {
-    // Store currently unchecked keywords
-    const uncheckedKeywords = new Set(state.manuallyUnchecked);
+`syncDerivedContexts()` recomputes `state.selectedContexts` (a context is
+selected exactly when its derived state is `all`). It runs after every
+mutation and never touches keywords.
 
-    if (state.selectedContexts.has(contextId)) {
-        // Unchecking context
-        state.selectedContexts.delete(contextId);
+## Mutations
 
-        // Remove exceptions for this context
-        context.categories.forEach(category => {
-            state.selectedExceptions.delete(category);
-            cache.invalidateCategory(category);
-        });
+All mutations are local (they only touch the keywords they are about) and
+synchronous (no chunking across animation frames — the old chunked processing
+let follow-up steps race against a half-built keyword set).
 
-        // Mark keywords for removal but keep temporarily for getMuteUnmuteCounts
-        const keywordsToRemove = new Set();
-        for (const category of context.categories) {
-            if (!state.selectedExceptions.has(category)) {
-                const keywords = cache.getKeywords(category, true);
-                for (const keyword of keywords) {
-                    if (!uncheckedKeywords.has(keyword)) {
-                        keywordsToRemove.add(keyword);
-                    }
-                }
-            }
-        }
+### Context toggle (`contextToggleHandler.js`)
+- **Selecting** (card was `none` or `partial`): activate every non-excepted
+  category at the current filter level, clearing `manuallyUnchecked` for those
+  keywords. Clearing is what makes the click predictable — without it, a
+  context containing one manually unchecked keyword could never stay selected.
+- **Deselecting** (card was `all`): deactivate its categories — except
+  categories that another selected context still claims, so deselecting one
+  context never silently flips a sibling to partial.
 
-        // Remove after counts are calculated
-        for (const keyword of keywordsToRemove) {
-            state.activeKeywords.delete(keyword);
-        }
-    } else {
-        // Checking context
-        state.selectedContexts.add(contextId);
+### Exception toggle (`exceptionToggleHandler.js`)
+- **Adding**: deactivate exactly that category's keywords.
+- **Removing**: if any selected context claims the category, activate it
+  (clearing opt-outs, same explicit-intent rule as context selection).
 
-        // Add keywords while respecting unchecked state
-        for (const category of context.categories) {
-            if (!state.selectedExceptions.has(category)) {
-                const keywords = cache.getKeywords(category, true);
-                for (const keyword of keywords) {
-                    if (!uncheckedKeywords.has(keyword)) {
-                        state.activeKeywords.add(keyword);
-                    }
-                }
-            }
-        }
-    }
+### Keyword / category toggle (advanced mode, `keywords/core-handlers.js`)
+- Checking removes the keyword from `manuallyUnchecked` and activates it.
+- Unchecking adds it to `manuallyUnchecked` and deactivates it.
+- Afterwards `updateSimpleModeState()` re-derives the context cards.
 
-    // Update UI with debouncing
-    const debouncedUpdate = createDebouncedUpdate();
-    await debouncedUpdate(async () => {
-        renderInterface();
-        await saveState();
-    });
-}
-```
+### Filter level change (`events.js` → `applyFilterLevel()`)
+For each non-excepted category of each selected context: keywords at the new
+level turn on (respecting `manuallyUnchecked`), keywords above it turn off.
+Keywords outside selected contexts — advanced-mode picks, existing Bluesky
+mutes — are untouched.
 
-### 2. Exception Handler
-```javascript
-export async function handleExceptionToggle(category) {
-    // Store unchecked state
-    const uncheckedKeywords = new Set(state.manuallyUnchecked);
+### Deactivation always uses the unfiltered list
+Deactivating a category removes keywords at **all** weights, not just the
+current level, so keywords activated at a broader level can never linger as
+unremovable orphans.
 
-    const wasException = state.selectedExceptions.has(category);
-    if (wasException) {
-        state.selectedExceptions.delete(category);
-    } else {
-        state.selectedExceptions.add(category);
-    }
+## Startup and Sync
 
-    cache.invalidateCategory(category);
+1. `loadState()` restores the persisted sets for the current DID.
+2. `initializeKeywordState()` fetches the user's real muted words from
+   Bluesky into `originalMutedKeywords`, then `seedActiveFromMutedKeywords()`
+   adds them to the pending selection (unless manually unchecked) so mutes
+   made elsewhere show up checked.
+3. `syncDerivedContexts()` derives the simple-mode view.
 
-    // Only rebuild keywords in simple mode
-    if (state.mode === 'simple') {
-        // Clear and rebuild active keywords
-        state.activeKeywords.clear();
-        for (const contextId of state.selectedContexts) {
-            activateContextKeywords(contextId, cache);
-        }
+## Caching
 
-        // Re-apply original muted keywords
-        for (const keyword of state.originalMutedKeywords) {
-            if (!state.activeKeywords.has(keyword)) {
-                state.activeKeywords.add(keyword);
-            }
-        }
-
-        // Re-apply unchecked status
-        for (const keyword of uncheckedKeywords) {
-            state.activeKeywords.delete(keyword);
-            state.manuallyUnchecked.add(keyword);
-        }
-    }
-}
-```
-
-## Mode-Specific State Management
-
-### 1. Simple Mode State Updates
-```javascript
-export async function updateSimpleModeState() {
-    if (!state.authenticated) return;
-
-    // Only rebuild keywords in simple mode
-    if (state.mode === 'simple') {
-        // Check contexts
-        for (const contextId of Array.from(state.selectedContexts)) {
-            const contextState = cache.getContextState(contextId);
-            if (contextState === 'none') {
-                state.selectedContexts.delete(contextId);
-            }
-        }
-
-        cache.clear();
-        rebuildActiveKeywords();
-    }
-
-    await debouncedUpdate(async () => {
-        renderInterface();
-        await saveState();
-    });
-}
-```
-
-### 2. Advanced Mode State
-```javascript
-export function handleKeywordToggle(keyword, enabled) {
-    if (enabled) {
-        state.activeKeywords.add(keyword);
-        state.manuallyUnchecked.delete(keyword);
-    } else {
-        state.activeKeywords.delete(keyword);
-        state.manuallyUnchecked.add(keyword);
-    }
-
-    cache.invalidateCategory(getKeywordCategory(keyword));
-    notifyKeywordChanges();
-}
-```
-
-## State Preservation
-
-### 1. Keyword State Preservation
-```javascript
-// Store unchecked state before changes
-const uncheckedKeywords = new Set(state.manuallyUnchecked);
-
-// Re-apply after changes
-for (const keyword of uncheckedKeywords) {
-    state.activeKeywords.delete(keyword);
-    state.manuallyUnchecked.add(keyword);
-}
-```
-
-### 2. Context State Tracking
-```javascript
-getContextState(contextId) {
-    const context = state.contextGroups[contextId];
-    if (!context?.categories) return 'none';
-
-    let allNone = true;
-    for (const category of context.categories) {
-        // Skip excepted categories
-        if (state.selectedExceptions.has(category)) continue;
-
-        const categoryState = this.getCategoryState(category);
-        if (categoryState !== 'none') {
-            allNone = false;
-            break;
-        }
-    }
-    return allNone ? 'none' : 'partial';
-}
-```
-
-## Performance Optimizations
-
-### 1. Cache System
-```javascript
-const cache = {
-    keywords: new Map(),
-    categoryStates: new Map(),
-    contextKeywords: new Map(),
-    activeKeywordsByCategory: new Map(),
-
-    invalidateCategory(category) {
-        const now = Date.now();
-        if (now - this.lastUpdate < 50) return;
-        this.lastUpdate = now;
-        this.keywords.delete(category);
-        this.categoryStates.delete(category);
-        this.contextKeywords.delete(category);
-        this.activeKeywordsByCategory.delete(category);
-    }
-};
-```
-
-### 2. Debounced Updates
-```javascript
-const createDebouncedUpdate = () => {
-    let timeout;
-    return async (fn) => {
-        if (timeout) clearTimeout(timeout);
-        timeout = setTimeout(async () => {
-            await fn();
-        }, 16);
-    };
-};
-```
+`contextCache` memoizes keyword lists and per-category active counts keyed by
+filter level. **Invalidation is never throttled** — the old 16ms gate dropped
+all but the first invalidation when handlers looped over categories, leaving
+stale keyword sets that mis-rendered checkboxes.
 
 ## Best Practices
 
-### 1. State Updates
-- Store unchecked state before changes
-- Re-apply unchecked state after changes
-- Use proper cache invalidation
-- Maintain mode-specific behavior
-
-### 2. Performance
-- Use caching for expensive operations
-- Debounce UI updates
-- Throttle cache invalidation
-- Batch related operations
-
-### 3. Mode Synchronization
-- Respect mode hierarchy
-- Preserve exceptions when valid
-- Update UI immediately
-- Defer persistence to mute/unmute
-
-### 4. Error Prevention
-- Validate state before changes
-- Handle edge cases properly
-- Maintain consistent state
-- Provide clear feedback
+- Mutate keywords through `selectionModel.js` helpers.
+- After any mutation: invalidate affected cache categories, call
+  `syncDerivedContexts()`, then render/save (debounced).
+- Never rebuild `activeKeywords` from `selectedContexts`.
+- Case-insensitive comparisons for anything that may have come from Bluesky
+  (`isKeywordActive`, `removeKeyword`, `isManuallyUnchecked`).

@@ -2,90 +2,46 @@ import { renderInterface } from '../../renderer.js';
 import { state, saveState } from '../../state.js';
 import { cache } from './contextCache.js';
 import {
-    activateContextKeywords,
     createDebouncedUpdate,
     notifyKeywordChanges
 } from './contextUtils.js';
+import {
+    getContextCategories,
+    activateCategory,
+    deactivateCategory,
+    syncDerivedContexts
+} from './selectionModel.js';
 
 export async function handleExceptionToggle(category) {
-    console.debug('[handleExceptionToggle] Starting toggle for category:', category);
+    console.debug('[handleExceptionToggle] Toggle for category:', category);
     if (!state.authenticated) return;
 
-    // Store currently unchecked keywords before exception change
-    const uncheckedKeywords = new Set(state.manuallyUnchecked);
-
     const wasException = state.selectedExceptions.has(category);
-    console.debug('[handleExceptionToggle] Was exception:', wasException);
 
     if (wasException) {
+        // Re-including a topic the user had excepted: activate it if any
+        // selected context claims it. Explicit intent clears sticky opt-outs.
         state.selectedExceptions.delete(category);
-        console.debug('[handleExceptionToggle] Removed exception');
-    } else {
-        state.selectedExceptions.add(category);
-        console.debug('[handleExceptionToggle] Added exception');
-
-        // Check if any keywords in this category are currently muted
-        if (state.mode === 'simple') {
-            const categoryKeywords = cache.getKeywords(category, true);
-            for (const keyword of categoryKeywords) {
-                if (state.originalMutedKeywords.has(keyword)) {
-                    state.activeKeywords.delete(keyword);
-                }
-            }
-            // Notify immediately of keyword changes to update mute button
-            notifyKeywordChanges();
+        const claimed = Array.from(state.selectedContexts).some(contextId =>
+            getContextCategories(contextId).includes(category)
+        );
+        if (claimed) {
+            activateCategory(category, { clearUnchecked: true });
         }
+    } else {
+        // Excepting a topic: deactivate exactly that category's keywords.
+        // No wholesale rebuild -- other selections stay untouched.
+        state.selectedExceptions.add(category);
+        deactivateCategory(category);
     }
 
     cache.invalidateCategory(category);
-    console.debug('[handleExceptionToggle] Invalidated category cache');
+    syncDerivedContexts();
+    notifyKeywordChanges();
 
-    // Only rebuild keywords in simple mode
-    if (state.mode === 'simple') {
-        console.debug('[handleExceptionToggle] Rebuilding keywords in simple mode');
-
-        // Clear and rebuild active keywords
-        state.activeKeywords.clear();
-        for (const contextId of state.selectedContexts) {
-            activateContextKeywords(contextId, cache);
-        }
-
-        // Add only original muted keywords that aren't in excepted categories
-        for (const keyword of state.originalMutedKeywords) {
-            if (!state.activeKeywords.has(keyword)) {
-                let isExcepted = false;
-                for (const exceptedCategory of state.selectedExceptions) {
-                    const exceptedKeywords = cache.getKeywords(exceptedCategory, true);
-                    if (exceptedKeywords.has(keyword)) {
-                        isExcepted = true;
-                        break;
-                    }
-                }
-                if (!isExcepted) {
-                    state.activeKeywords.add(keyword);
-                }
-            }
-        }
-
-        // Re-apply unchecked status
-        for (const keyword of uncheckedKeywords) {
-            state.activeKeywords.delete(keyword);
-            state.manuallyUnchecked.add(keyword);
-        }
-
-        console.debug('[handleExceptionToggle] Keyword counts after rebuild:', {
-            activeKeywords: state.activeKeywords.size,
-            manuallyUnchecked: state.manuallyUnchecked.size
-        });
-    }
-
-    // Create a new debounced update for this call
-    console.debug('[handleExceptionToggle] Creating debounced update');
     const debouncedUpdate = createDebouncedUpdate();
     await debouncedUpdate(async () => {
-        console.debug('[handleExceptionToggle] Executing debounced update');
         renderInterface();
         await saveState();
-        console.debug('[handleExceptionToggle] Completed interface render and state save');
     });
 }

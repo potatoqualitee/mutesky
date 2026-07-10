@@ -30,23 +30,13 @@ export function handleEnableAll() {
             ...Object.keys(state.displayConfig.combinedCategories || {})
         ];
 
-        // Enable all contexts first
+        // Enable all contexts and drop exceptions -- "enable all" means all
         Object.keys(state.contextGroups).forEach(contextId => {
             state.selectedContexts.add(contextId);
         });
+        state.selectedExceptions.clear();
 
-        let processedCount = 0;
-        function processNextCategory() {
-            if (processedCount >= allCategories.length) {
-                debouncedUpdate(() => {
-                    updateSimpleModeState();
-                    renderInterface();
-                    saveState();
-                });
-                return;
-            }
-
-            const category = allCategories[processedCount++];
+        for (const category of allCategories) {
             const keywords = keywordCache.getKeywordsForCategory(category);
             processBatchKeywords(keywords, keyword => {
                 // First remove any existing case variations
@@ -56,12 +46,7 @@ export function handleEnableAll() {
                     state.activeKeywords.add(keyword);
                 }
             });
-
-            requestAnimationFrame(processNextCategory);
         }
-
-        processNextCategory();
-        return; // Early return since updates are handled in processNextCategory
     }
 
     debouncedUpdate(() => {

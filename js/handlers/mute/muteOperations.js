@@ -4,6 +4,8 @@ import { renderInterface } from '../../renderer.js';
 import { showNotification } from '../../utils/notifications.js';
 import { muteCache } from './muteCache.js';
 import { debouncedUpdate } from './muteUIUtils.js';
+import { getKeywordsWithCase } from '../../keywordState.js';
+import { seedActiveFromMutedKeywords, syncDerivedContexts } from '../context/selectionModel.js';
 
 // Process all keywords immediately without batching
 function processKeywords(keywords, operation) {
@@ -121,6 +123,12 @@ export async function initializeKeywordState() {
             state.originalMutedKeywords.add(lowerKeyword);
         });
         console.debug('[initializeKeywordState] Final originalMutedKeywords size:', state.originalMutedKeywords.size);
+
+        // Reflect real Bluesky mutes into the pending selection (the old
+        // clear-and-rebuild path used to do this as a side effect) and
+        // re-derive which context cards show selected
+        seedActiveFromMutedKeywords(getKeywordsWithCase());
+        syncDerivedContexts();
 
     } catch (error) {
         console.error('[initializeKeywordState] Failed to initialize keyword state:', error);

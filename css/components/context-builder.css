@@ -47,6 +47,13 @@
     border-color: var(--primary);
 }
 
+/* Some (but not all) of this context's keywords are active */
+.context-card.partial {
+    background: var(--surface);
+    border-color: var(--primary);
+    border-style: dashed;
+}
+
 .context-card h3 {
     margin-bottom: var(--spacing-sm);
 }

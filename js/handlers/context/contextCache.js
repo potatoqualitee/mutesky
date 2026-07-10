@@ -102,8 +102,9 @@ export const cache = {
     },
 
     invalidateCategory(category) {
-        if (!this.shouldUpdate()) return;
-
+        // Never throttle invalidation: the old 16ms gate silently skipped all
+        // but the first category when handlers invalidated several in a loop,
+        // leaving stale keyword sets behind
         const keywordKeys = Array.from(this.keywords.keys())
             .filter(key => key.startsWith(`${category}-`));
         const activeKeys = Array.from(this.activeKeywordsByCategory.keys())
