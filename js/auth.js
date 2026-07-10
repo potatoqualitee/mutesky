@@ -4,7 +4,7 @@ export class AuthService {
     constructor() {
         this.client = null;
         this.session = null;
-        this.sessionInvalidatedCallback = null;
+        this.sessionInvalidatedCallbacks = new Set();
     }
 
     async setup() {
@@ -16,7 +16,7 @@ export class AuthService {
                 // Session hooks replaced the old 'deleted' event in @atproto/oauth-client-browser 0.4.x
                 onDelete: (sub, cause) => {
                     console.error(`[Auth] Session for ${sub} is no longer available (cause: ${cause})`);
-                    this.sessionInvalidatedCallback?.(sub, cause);
+                    this.sessionInvalidatedCallbacks.forEach(cb => cb(sub, cause));
                 }
             });
 
@@ -118,6 +118,6 @@ export class AuthService {
 
     // Register a callback for session invalidation (wired to the onDelete session hook)
     onSessionInvalidated(callback) {
-        this.sessionInvalidatedCallback = callback;
+        this.sessionInvalidatedCallbacks.add(callback);
     }
 }

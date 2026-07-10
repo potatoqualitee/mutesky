@@ -5,16 +5,22 @@ const fs = require('fs');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
+// Serve HTTPS on mutesky.app in development only when the local mkcert files
+// exist; otherwise fall back to plain-HTTP localhost so dev still works
+const useHttps = isDevelopment
+    && fs.existsSync('mutesky.app+3-key.pem')
+    && fs.existsSync('mutesky.app+3.pem');
+
 const devServerConfig = {
     static: {
         directory: path.join(__dirname, '/'),
         publicPath: '/'
     },
-    port: 443,
+    port: useHttps ? 443 : 8080,
     hot: true,
-    host: 'mutesky.app',
+    host: useHttps ? 'mutesky.app' : 'localhost',
     open: {
-        target: ['https://mutesky.app']
+        target: [useHttps ? 'https://mutesky.app' : 'http://localhost:8080']
     },
     devMiddleware: {
         publicPath: '/'
@@ -22,9 +28,7 @@ const devServerConfig = {
     historyApiFallback: true
 };
 
-// Only add HTTPS configuration in development mode, and only when the local
-// mkcert files exist -- a production build should not require dev certificates
-if (isDevelopment && fs.existsSync('mutesky.app+3-key.pem') && fs.existsSync('mutesky.app+3.pem')) {
+if (useHttps) {
     devServerConfig.server = {
         type: 'https',
         options: {
