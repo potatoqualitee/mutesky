@@ -70,8 +70,9 @@ export function resetStateWithFixtures({
     state.authenticated = authenticated;
     state.did = 'did:plc:test-user';
     state.mode = mode;
-    state.keywordGroups = KEYWORD_GROUPS;
-    state.contextGroups = CONTEXT_GROUPS;
+    // Clone so tests mutating state never pollute the shared fixtures
+    state.keywordGroups = structuredClone(KEYWORD_GROUPS);
+    state.contextGroups = structuredClone(CONTEXT_GROUPS);
     state.displayConfig = { displayNames: {}, combinedCategories: {} };
     state.activeKeywords = new Set();
     state.originalMutedKeywords = new Set();

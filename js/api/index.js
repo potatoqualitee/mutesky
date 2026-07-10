@@ -1,7 +1,8 @@
 import { state, forceRefresh } from '../state.js';
 import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig } from './fetchers.js';
+import { fetchTrendingKeywords, ensureTrendingContext } from './trending.js';
 
-export { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig };
+export { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords };
 
 export async function refreshAllData() {
     try {
@@ -24,8 +25,11 @@ export async function refreshAllData() {
         await Promise.all([
             fetchKeywordGroups(true),
             fetchContextGroups(true),
-            fetchDisplayConfig(true)
+            fetchDisplayConfig(true),
+            fetchTrendingKeywords()
         ]);
+        // Context groups may have been replaced wholesale; re-attach trending
+        ensureTrendingContext();
 
         // Restore previous state
         state.activeKeywords = activeKeywords;

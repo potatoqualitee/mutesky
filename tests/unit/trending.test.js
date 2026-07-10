@@ -1,0 +1,216 @@
+import { describe, it, expect } from 'vitest';
+import {
+    TUNING,
+    parseFeedXml,
+    filterFreshHeadlines,
+    extractPhrasesFromTitle,
+    extractCandidates,
+    scoreCandidates,
+    retentionDays,
+    updateTrendingState,
+    buildTrendingCategory
+} from '../../scripts/trending/lib.js';
+
+const NOW = '2026-07-10T12:00:00.000Z';
+
+function headlinesFor(phrase, { left = 0, center = 0, right = 0, extraMentions = 0 } = {}) {
+    const headlines = [];
+    let n = 0;
+    for (const [lean, count] of [['left', left], ['center', center], ['right', right]]) {
+        for (let i = 0; i < count; i++) {
+            headlines.push({ title: `Senators clash over ${phrase} in heated hearing`, source: `${lean}-${i}`, lean });
+        }
+    }
+    for (let i = 0; i < extraMentions; i++) {
+        headlines.push({ title: `More fallout from ${phrase} today`, source: 'left-0', lean: 'left' });
+        n++;
+    }
+    return headlines;
+}
+
+describe('parseFeedXml', () => {
+    it('parses RSS items with CDATA and entities', () => {
+        const xml = `<?xml version="1.0"?><rss><channel>
+            <item><title><![CDATA[Trump &amp; Biden spar over debate rules]]></title>
+                <pubDate>Thu, 09 Jul 2026 12:00:00 GMT</pubDate></item>
+            <item><title>Senate votes on budget</title></item>
+        </channel></rss>`;
+        const items = parseFeedXml(xml);
+        expect(items).toHaveLength(2);
+        expect(items[0].title).toBe('Trump & Biden spar over debate rules');
+        expect(items[0].pubDate).toMatch(/^2026-07-09/);
+        expect(items[1].pubDate).toBeNull();
+    });
+
+    it('parses Atom entries', () => {
+        const xml = `<feed><entry><title>Border bill collapses</title>
+            <updated>2026-07-10T01:00:00Z</updated></entry></feed>`;
+        const items = parseFeedXml(xml);
+        expect(items).toHaveLength(1);
+        expect(items[0].title).toBe('Border bill collapses');
+    });
+});
+
+describe('filterFreshHeadlines', () => {
+    it('drops stale items but keeps undated ones', () => {
+        const now = new Date(NOW).getTime();
+        const items = [
+            { title: 'fresh', pubDate: new Date(now - 3600e3).toISOString() },
+            { title: 'stale', pubDate: new Date(now - 100 * 3600e3).toISOString() },
+            { title: 'undated', pubDate: null }
+        ];
+        const fresh = filterFreshHeadlines(items, now);
+        expect(fresh.map(i => i.title)).toEqual(['fresh', 'undated']);
+    });
+});
+
+describe('extractPhrasesFromTitle', () => {
+    it('extracts n-grams with meaningful boundaries', () => {
+        const phrases = extractPhrasesFromTitle('Supreme Court blocks student loan plan');
+        expect(phrases.has('student loan')).toBe(true);
+        expect(phrases.has('student loan plan')).toBe(true);
+        // "supreme court" alone is on the evergreen blocklist
+        expect([...phrases].some(p => p.toLowerCase() === 'supreme court')).toBe(false);
+    });
+
+    it('never emits stopword-bounded or generic phrases', () => {
+        const phrases = [...extractPhrasesFromTitle('Breaking News: the White House says a deal is near')];
+        const canon = phrases.map(p => p.toLowerCase());
+        expect(canon).not.toContain('breaking news');
+        expect(canon).not.toContain('white house');
+        expect(canon).not.toContain('the white');
+        expect(canon).not.toContain('says a');
+    });
+
+    it('strips trailing outlet attribution', () => {
+        const phrases = extractPhrasesFromTitle('Tariff fight escalates - CNN Politics');
+        const canon = [...phrases].map(p => p.toLowerCase());
+        expect(canon).toContain('tariff fight');
+        expect(canon).not.toContain('cnn politics');
+    });
+});
+
+describe('scoreCandidates', () => {
+    it('requires minimum outlet breadth', () => {
+        const candidates = extractCandidates(headlinesFor('debt ceiling', { left: 2 }));
+        expect(scoreCandidates(candidates).find(s => s.canon === 'debt ceiling')).toBeUndefined();
+    });
+
+    it('rewards bipartisan coverage far above one-sided coverage', () => {
+        const bipartisan = scoreCandidates(
+            extractCandidates(headlinesFor('debt ceiling', { left: 2, center: 1, right: 2 }))
+        ).find(s => s.canon === 'debt ceiling');
+        const oneSided = scoreCandidates(
+            extractCandidates(headlinesFor('debt ceiling', { left: 5 }))
+        ).find(s => s.canon === 'debt ceiling');
+
+        expect(bipartisan.bipartisan).toBe(true);
+        expect(oneSided.bipartisan).toBe(false);
+        expect(bipartisan.score).toBeGreaterThan(oneSided.score * 2);
+    });
+
+    it('prefers the more specific phrase when scores are comparable', () => {
+        const scored = scoreCandidates(
+            extractCandidates(headlinesFor('classified documents trial', { left: 2, center: 1, right: 2 }))
+        );
+        const canons = scored.map(s => s.canon);
+        expect(canons).toContain('classified documents trial');
+        expect(canons).not.toContain('classified documents');
+        expect(canons).not.toContain('documents trial');
+    });
+});
+
+describe('retentionDays', () => {
+    it('gives short retention to one-day flaps and long to sustained stories', () => {
+        const flap = retentionDays(TUNING.addThreshold, 1);
+        const sustained = retentionDays(TUNING.addThreshold * 20, 14);
+        expect(flap).toBeGreaterThanOrEqual(TUNING.minRetentionDays);
+        expect(flap).toBeLessThan(7);
+        expect(sustained).toBeGreaterThan(15);
+        expect(sustained).toBeLessThanOrEqual(TUNING.maxRetentionDays);
+    });
+});
+
+describe('updateTrendingState', () => {
+    const bigStory = () => scoreCandidates(
+        extractCandidates(headlinesFor('impeachment inquiry', { left: 3, center: 2, right: 3, extraMentions: 4 }))
+    );
+
+    it('admits bipartisan phrases above the threshold', () => {
+        const state = updateTrendingState({ phrases: {} }, bigStory(), NOW);
+        const phrase = state.phrases['impeachment inquiry'];
+        expect(phrase).toBeDefined();
+        expect(phrase.firstSeen).toBe(NOW);
+        expect(new Date(phrase.expiresAt).getTime()).toBeGreaterThan(new Date(NOW).getTime());
+    });
+
+    it('rejects one-sided phrases regardless of volume', () => {
+        const scored = scoreCandidates(
+            extractCandidates(headlinesFor('impeachment inquiry', { left: 8, extraMentions: 10 }))
+        );
+        const state = updateTrendingState({ phrases: {} }, scored, NOW);
+        expect(state.phrases['impeachment inquiry']).toBeUndefined();
+    });
+
+    it('decays heat and drops phrases after they expire', () => {
+        let state = updateTrendingState({ phrases: {} }, bigStory(), NOW);
+        const startHeat = state.phrases['impeachment inquiry'].heat;
+
+        // Story goes quiet: run the engine again 2 days later with no hits
+        const later = '2026-07-12T12:00:00.000Z';
+        state = updateTrendingState(state, [], later);
+        expect(state.phrases['impeachment inquiry'].heat).toBeLessThan(startHeat);
+
+        // Way past expiry with no coverage: gone
+        const wayLater = '2026-09-01T12:00:00.000Z';
+        state = updateTrendingState(state, [], wayLater);
+        expect(state.phrases['impeachment inquiry']).toBeUndefined();
+    });
+
+    it('extends retention while coverage continues', () => {
+        let state = updateTrendingState({ phrases: {} }, bigStory(), NOW);
+        const firstExpiry = state.phrases['impeachment inquiry'].expiresAt;
+
+        const nextDay = '2026-07-11T12:00:00.000Z';
+        state = updateTrendingState(state, bigStory(), nextDay);
+        const phrase = state.phrases['impeachment inquiry'];
+        expect(new Date(phrase.expiresAt).getTime()).toBeGreaterThan(new Date(firstExpiry).getTime());
+        expect(phrase.daysActive).toBe(2);
+        expect(phrase.firstSeen).toBe(NOW); // origin preserved
+    });
+
+    it('caps the list at maxPhrases keeping the hottest', () => {
+        const phrases = {};
+        for (let i = 0; i < 100; i++) {
+            phrases[`phrase ${i}`] = {
+                display: `phrase ${i}`, firstSeen: NOW, lastSeen: NOW,
+                heat: i, peakHeat: i, daysActive: 1,
+                expiresAt: '2026-12-31T00:00:00.000Z', bipartisan: true, outlets: 5
+            };
+        }
+        const state = updateTrendingState({ phrases }, [], NOW);
+        const kept = Object.values(state.phrases);
+        expect(kept.length).toBe(TUNING.maxPhrases);
+        expect(kept.some(p => p.display === 'phrase 99')).toBe(true);
+        expect(kept.some(p => p.display === 'phrase 10')).toBe(false);
+    });
+});
+
+describe('buildTrendingCategory', () => {
+    it('produces calm-the-chaos category format with percentile weights', () => {
+        const phrases = {};
+        for (let i = 0; i < 10; i++) {
+            phrases[`phrase ${i}`] = {
+                display: `Phrase ${i}`, firstSeen: NOW, lastSeen: NOW,
+                heat: 100 - i * 10, peakHeat: 100, daysActive: 2,
+                expiresAt: '2026-12-31T00:00:00.000Z', bipartisan: true, outlets: 6
+            };
+        }
+        const category = buildTrendingCategory({ updatedAt: NOW, phrases });
+        const data = category['Trending Controversies'];
+        expect(data.keywords['Phrase 0'].weight).toBe(3);   // hottest
+        expect(data.keywords['Phrase 4'].weight).toBe(2);   // middle
+        expect(data.keywords['Phrase 9'].weight).toBe(1);   // coolest
+        expect(data.keywords['Phrase 0'].description).toContain('6 outlets');
+    });
+});

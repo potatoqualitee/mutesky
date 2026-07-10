@@ -1,0 +1,60 @@
+{
+  "Trending Controversies": {
+    "description": "Today's controversies from across the news spectrum, updated automatically",
+    "updatedAt": "2026-07-10T03:06:41.244Z",
+    "keywords": {
+      "Trump": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Platner": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Iran": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Graham": {
+        "weight": 2,
+        "description": "In 8 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Graham Platner": {
+        "weight": 2,
+        "description": "In 8 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Maine": {
+        "weight": 2,
+        "description": "In 7 outlets across the spectrum (since 2026-07-10)"
+      },
+      "World Cup": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Senate race": {
+        "weight": 1,
+        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
+      },
+      "strikes": {
+        "weight": 1,
+        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
+      },
+      "replace": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Kirk": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Maine Senate": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Air Force One": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      }
+    }
+  }
+}

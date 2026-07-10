@@ -1,0 +1,116 @@
+#!/usr/bin/env node
+// Fetch political headlines across the spectrum, score the day's
+// controversies, and refresh keywords/trending.json + trending-state.json.
+// Run by .github/workflows/trending.yml every 6 hours. No dependencies --
+// plain Node 22 with built-in fetch.
+
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+    FEEDS,
+    TUNING,
+    parseFeedXml,
+    filterFreshHeadlines,
+    extractCandidates,
+    scoreCandidates,
+    updateTrendingState,
+    buildTrendingCategory
+} from './lib.js';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const STATE_PATH = path.join(repoRoot, 'keywords', 'trending-state.json');
+const OUTPUT_PATH = path.join(repoRoot, 'keywords', 'trending.json');
+const FETCH_TIMEOUT_MS = 15000;
+
+async function fetchFeed({ source, lean, url }) {
+    const response = await fetch(url, {
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: { 'User-Agent': 'MuteSky-Trending/1.0 (+https://mutesky.app)' }
+    });
+    if (!response.ok) throw new Error(`${source}: HTTP ${response.status}`);
+    const xml = await response.text();
+    const items = filterFreshHeadlines(parseFeedXml(xml), Date.now());
+    return items.map(item => ({ title: item.title, source, lean }));
+}
+
+// Optional enrichment: Brave News search when a key is configured. The
+// pipeline works from RSS alone; this just widens coverage.
+async function fetchBraveNews(apiKey) {
+    const url = 'https://api.search.brave.com/res/v1/news/search?q=politics+controversy&freshness=pd&count=50';
+    const response = await fetch(url, {
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: { 'X-Subscription-Token': apiKey, Accept: 'application/json' }
+    });
+    if (!response.ok) throw new Error(`brave: HTTP ${response.status}`);
+    const data = await response.json();
+    return (data.results || []).map(result => ({
+        title: result.title || '',
+        source: `brave:${result.meta_url?.hostname || 'unknown'}`,
+        lean: 'center'
+    })).filter(h => h.title);
+}
+
+async function loadJson(filePath, fallback) {
+    try {
+        return JSON.parse(await readFile(filePath, 'utf8'));
+    } catch {
+        return fallback;
+    }
+}
+
+async function main() {
+    const results = await Promise.allSettled(FEEDS.map(fetchFeed));
+    const headlines = [];
+    let failed = 0;
+    results.forEach((result, i) => {
+        if (result.status === 'fulfilled') {
+            headlines.push(...result.value);
+        } else {
+            failed++;
+            console.warn(`feed failed: ${FEEDS[i].source} -- ${result.reason?.message || result.reason}`);
+        }
+    });
+
+    if (process.env.BRAVE_API_KEY) {
+        try {
+            headlines.push(...await fetchBraveNews(process.env.BRAVE_API_KEY));
+            console.log('brave news enrichment: on');
+        } catch (error) {
+            console.warn(`brave enrichment failed: ${error.message}`);
+        }
+    }
+
+    console.log(`headlines: ${headlines.length} from ${FEEDS.length - failed}/${FEEDS.length} feeds`);
+
+    // A network-wide outage must not wipe the published list: bail without
+    // writing rather than decay everything against an empty day
+    if (headlines.length < 20) {
+        console.error('too few headlines fetched; refusing to update state');
+        process.exit(1);
+    }
+
+    const nowIso = new Date().toISOString();
+    const prevState = await loadJson(STATE_PATH, { phrases: {} });
+
+    const candidates = extractCandidates(headlines);
+    const scored = scoreCandidates(candidates);
+    const state = updateTrendingState(prevState, scored, nowIso);
+    const category = buildTrendingCategory(state);
+
+    await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
+    await writeFile(STATE_PATH, JSON.stringify(state, null, 2) + '\n');
+    await writeFile(OUTPUT_PATH, JSON.stringify(category, null, 2) + '\n');
+
+    const phraseCount = Object.keys(state.phrases).length;
+    const top = Object.values(state.phrases)
+        .sort((a, b) => b.heat - a.heat)
+        .slice(0, 10)
+        .map(p => `${p.display} (heat ${p.heat.toFixed(1)}, until ${p.expiresAt.slice(0, 10)})`);
+    console.log(`tracking ${phraseCount} phrases; hottest:\n  ${top.join('\n  ') || '(none)'}`);
+}
+
+main().catch(error => {
+    console.error(error);
+    process.exit(1);
+});

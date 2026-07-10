@@ -1,6 +1,6 @@
 import { elements } from './dom.js';
 import { state, loadState } from './state.js';
-import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig } from './api.js';
+import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords, ensureTrendingContext } from './api.js';
 import { renderInterface } from './renderer.js';
 import { blueskyService } from './bluesky.js';
 import {
@@ -42,8 +42,11 @@ export async function init() {
             await Promise.all([
                 fetchDisplayConfig(),
                 fetchKeywordGroups(),
-                fetchContextGroups()
+                fetchContextGroups(),
+                fetchTrendingKeywords()
             ]);
+            // Context groups may have loaded after trending; re-attach its card
+            ensureTrendingContext();
 
             await showApp();
             // Initialize keyword state after authentication
