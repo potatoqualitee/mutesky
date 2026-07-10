@@ -34,6 +34,12 @@ describe('mergeTrendingIntoState', () => {
             .toEqual(['Trending Controversies']);
     });
 
+    it('registers the category in a persisted selectedCategories set', () => {
+        state.selectedCategories = new Set(['Gun Policy']);
+        mergeTrendingIntoState(state, TRENDING);
+        expect(state.selectedCategories.has('Trending Controversies')).toBe(true);
+    });
+
     it('skips empty or malformed payloads', () => {
         expect(mergeTrendingIntoState(state, null)).toBe(false);
         expect(mergeTrendingIntoState(state, {})).toBe(false);

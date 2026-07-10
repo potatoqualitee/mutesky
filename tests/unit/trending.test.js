@@ -109,6 +109,22 @@ describe('scoreCandidates', () => {
         expect(bipartisan.score).toBeGreaterThan(oneSided.score * 2);
     });
 
+    it('rejects lone common nouns but keeps proper-noun unigrams', () => {
+        // Sentence-case outlets write "strikes" lowercase; Title Case outlets
+        // capitalize it. Mixed evidence must fail the proper-noun test.
+        const headlines = [
+            { title: 'Iran strikes kill dozens', source: 'left-0', lean: 'left' },
+            { title: 'Airbase strikes escalate conflict', source: 'left-1', lean: 'left' },
+            { title: 'Military Strikes Rock Region', source: 'right-0', lean: 'right' },
+            { title: 'Iran vows response', source: 'right-1', lean: 'right' },
+            { title: 'Sanctions on Iran expand', source: 'center-0', lean: 'center' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        const canons = scored.map(s => s.canon);
+        expect(canons).not.toContain('strikes');
+        expect(canons).toContain('iran');
+    });
+
     it('prefers the more specific phrase when scores are comparable', () => {
         const scored = scoreCandidates(
             extractCandidates(headlinesFor('classified documents trial', { left: 2, center: 1, right: 2 }))
@@ -165,6 +181,30 @@ describe('updateTrendingState', () => {
         const wayLater = '2026-09-01T12:00:00.000Z';
         state = updateTrendingState(state, [], wayLater);
         expect(state.phrases['impeachment inquiry']).toBeUndefined();
+    });
+
+    it('makes expired phrases re-qualify instead of resurrecting on weak coverage', () => {
+        const expired = {
+            phrases: {
+                'impeachment inquiry': {
+                    display: 'impeachment inquiry', firstSeen: '2026-06-01T00:00:00.000Z',
+                    lastSeen: '2026-06-02T00:00:00.000Z', heat: 1, peakHeat: 20,
+                    daysActive: 2, expiresAt: '2026-06-10T00:00:00.000Z',
+                    bipartisan: true, outlets: 8
+                }
+            }
+        };
+        // Weak one-sided coverage after expiry: must NOT come back
+        const weak = scoreCandidates(
+            extractCandidates(headlinesFor('impeachment inquiry', { left: 3, extraMentions: 1 }))
+        );
+        let state = updateTrendingState(expired, weak, NOW);
+        expect(state.phrases['impeachment inquiry']).toBeUndefined();
+
+        // Full bipartisan resurgence: re-admitted as a fresh story
+        state = updateTrendingState(expired, bigStory(), NOW);
+        expect(state.phrases['impeachment inquiry']).toBeDefined();
+        expect(state.phrases['impeachment inquiry'].firstSeen).toBe(NOW);
     });
 
     it('extends retention while coverage continues', () => {

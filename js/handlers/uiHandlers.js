@@ -4,7 +4,6 @@ import { renderInterface } from '../renderer.js';
 import { refreshAllData } from '../api.js';
 import { updateSimpleModeState } from './contextHandlers.js';
 import { updateStatusCounts, updateMuteButton, updateEnableDisableButtons, updateLastUpdate } from '../renderers/uiRenderer.js';
-import { isKeywordActive } from './keywordHandlers.js';
 
 // Function to ensure mode toggles always reflect current state
 export function updateModeToggles() {
@@ -65,14 +64,9 @@ export async function handleRefreshData() {
 
         await refreshAllData();
 
-        // Instead of full renderInterface, do targeted updates
-        // Update checkbox states without full redraw
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            if (checkbox.hasAttribute('onchange')) {
-                const keyword = checkbox.parentElement.textContent.trim();
-                checkbox.checked = isKeywordActive(keyword);
-            }
-        });
+        // Full rerender: refreshed data can add or remove whole categories
+        // (e.g. new trending phrases), which targeted checkbox updates miss
+        renderInterface();
 
         // Update counts and status
         updateStatusCounts();

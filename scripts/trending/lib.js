@@ -11,7 +11,7 @@ export const FEEDS = [
     { source: 'motherjones', lean: 'left', url: 'https://www.motherjones.com/politics/feed/' },
     { source: 'huffpost', lean: 'left', url: 'https://chaski.huffpost.com/us/auto/vertical/politics' },
     { source: 'msnbc', lean: 'left', url: 'https://www.msnbc.com/feeds/latest' },
-    { source: 'cnn', lean: 'left', url: 'http://rss.cnn.com/rss/cnn_allpolitics.rss' },
+    { source: 'vox', lean: 'left', url: 'https://www.vox.com/rss/politics/index.xml' },
     { source: 'bbc', lean: 'center', url: 'https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml' },
     { source: 'thehill', lean: 'center', url: 'https://thehill.com/homenews/feed/' },
     { source: 'abc', lean: 'center', url: 'https://abcnews.go.com/abcnews/politicsheadlines' },
@@ -207,11 +207,25 @@ function mostCommonDisplay(displayCounts) {
 // A phrase is "the controversy of the day" when many outlets carry it AND
 // both wings of the press are shouting about it. One-sided stories score
 // a fraction of bipartisan ones.
+// A lone word only qualifies when it usually appears capitalized -- a proxy
+// for proper nouns (Trump, Iran, Epstein). Sentence-case outlets vote down
+// common nouns ("strikes", "replace") that Title Case outlets capitalize.
+function looksLikeProperNoun(displayCounts) {
+    let capitalized = 0;
+    let total = 0;
+    for (const [display, count] of displayCounts) {
+        total += count;
+        if (/^[A-Z]/.test(display)) capitalized += count;
+    }
+    return total > 0 && capitalized / total >= 0.7;
+}
+
 export function scoreCandidates(candidates, tuning = TUNING) {
     const scored = [];
     for (const entry of candidates.values()) {
         const outlets = entry.outlets.size;
         if (outlets < tuning.minOutlets) continue;
+        if (!entry.canon.includes(' ') && !looksLikeProperNoun(entry.displayCounts)) continue;
 
         const left = entry.leans.left.size;
         const right = entry.leans.right.size;
@@ -271,8 +285,11 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
     const scoredByCanon = new Map(scored.map(s => [s.canon, s]));
     const phrases = {};
 
-    // Decay and refresh existing phrases
+    // Decay and refresh existing phrases. Entries already past their expiry
+    // are NOT refreshable -- a returning story must re-qualify through the
+    // newcomer path below (bipartisan + admission threshold).
     for (const [canon, prev] of Object.entries(prevState.phrases || {})) {
+        if (new Date(prev.expiresAt).getTime() <= nowMs) continue;
         const hit = scoredByCanon.get(canon);
         const score = hit ? hit.score : 0;
         const heat = prev.heat * tuning.heatDecay + score;

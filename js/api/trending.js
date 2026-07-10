@@ -15,6 +15,12 @@ export function mergeTrendingIntoState(appState, categoryData) {
 
     appState.keywordGroups[categoryName] = categoryData;
 
+    // Advanced mode only shows categories in selectedCategories once that set
+    // is non-empty (persisted sessions), so register the new category there
+    if (appState.selectedCategories?.size > 0) {
+        appState.selectedCategories.add(categoryName);
+    }
+
     // fetchContextGroups replaces the contextGroups object, so this runs after
     // both fetches (whichever finishes last) to survive the overwrite
     if (Object.keys(appState.contextGroups || {}).length > 0) {
