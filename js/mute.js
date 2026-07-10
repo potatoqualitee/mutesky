@@ -3,10 +3,11 @@ import { loadMuteSettings, getExpirationDate } from './handlers/settingsHandlers
 
 // The PDS rejects XRPC JSON bodies larger than 150KB (jsonLimit in
 // bluesky-social/atproto packages/pds/src/index.ts). The whole preferences
-// document counts against it, not just muted words, so leave headroom for
-// other preferences growing and for serialization differences.
+// document counts against it, not just muted words. Preferences are plain
+// JSON (no blobs/CIDs), so JSON.stringify produces the same bytes the atproto
+// client puts on the wire; a small margin absorbs any residual difference.
 export const PDS_JSON_LIMIT_BYTES = 150 * 1024;
-const SIZE_SAFETY_MARGIN_BYTES = 10 * 1024;
+const SIZE_SAFETY_MARGIN_BYTES = 2 * 1024;
 export const MAX_PREFERENCES_BYTES = PDS_JSON_LIMIT_BYTES - SIZE_SAFETY_MARGIN_BYTES;
 
 export function measureJsonBytes(value) {
@@ -14,21 +15,32 @@ export function measureJsonBytes(value) {
 }
 
 export class PreferencesSizeError extends Error {
-    constructor({ payloadBytes, limitBytes, mutedWordCount, mutedWordsBytes }) {
-        const overBytes = payloadBytes - limitBytes;
-        const avgItemBytes = mutedWordCount > 0 ? mutedWordsBytes / mutedWordCount : 60;
-        const keywordsToRemove = Math.max(1, Math.ceil(overBytes / avgItemBytes));
+    constructor({ payloadBytes, limitBytes, mutedWordCount, mutedWordsBytes, serverRejected = false }) {
         const payloadKb = Math.round(payloadBytes / 1024);
         const limitKb = Math.floor(limitBytes / 1024);
-        super(
-            `This selection is too large for Bluesky to store. ` +
-            `Your settings would be about ${payloadKb} KB, but Bluesky accepts at most ~${limitKb} KB. ` +
-            `Try deselecting roughly ${keywordsToRemove.toLocaleString()} keywords (or whole categories) and muting again.`
-        );
+        let message;
+        let keywordsToRemove = null;
+        if (serverRejected) {
+            // The pre-flight check passed but the server still said 413, so we
+            // cannot honestly compute "N keywords over" -- give generic guidance
+            message =
+                `Bluesky rejected this update as too large (about ${payloadKb} KB of settings). ` +
+                `Try deselecting some keywords or whole categories and muting again.`;
+        } else {
+            const overBytes = payloadBytes - limitBytes;
+            const avgItemBytes = mutedWordCount > 0 ? mutedWordsBytes / mutedWordCount : 60;
+            keywordsToRemove = Math.max(1, Math.ceil(overBytes / avgItemBytes));
+            message =
+                `This selection is too large for Bluesky to store. ` +
+                `Your settings would be about ${payloadKb} KB, but Bluesky accepts at most ~${limitKb} KB. ` +
+                `Try deselecting roughly ${keywordsToRemove.toLocaleString()} keywords (or whole categories) and muting again.`;
+        }
+        super(message);
         this.name = 'PreferencesSizeError';
         this.payloadBytes = payloadBytes;
         this.limitBytes = limitBytes;
         this.keywordsToRemove = keywordsToRemove;
+        this.serverRejected = serverRejected;
     }
 }
 
@@ -214,7 +226,8 @@ export class MuteService {
                         payloadBytes,
                         limitBytes: MAX_PREFERENCES_BYTES,
                         mutedWordCount: updatedItems.length,
-                        mutedWordsBytes: measureJsonBytes(updatedItems)
+                        mutedWordsBytes: measureJsonBytes(updatedItems),
+                        serverRejected: true
                     });
                 }
                 throw error;
