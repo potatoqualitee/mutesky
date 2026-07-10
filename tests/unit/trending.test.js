@@ -8,7 +8,8 @@ import {
     scoreCandidates,
     retentionDays,
     updateTrendingState,
-    buildTrendingCategory
+    buildTrendingCategory,
+    phraseOverlaps
 } from '../../scripts/trending/lib.js';
 
 const NOW = '2026-07-10T12:00:00.000Z';
@@ -357,5 +358,77 @@ describe('buildTrendingCategory', () => {
         expect(data.keywords['Phrase 4'].weight).toBe(2);   // middle
         expect(data.keywords['Phrase 9'].weight).toBe(1);   // coolest
         expect(data.keywords['Phrase 0'].description).toContain('6 outlets');
+    });
+
+    function phrase(canon, display, heat) {
+        return [canon, {
+            display, firstSeen: NOW, lastSeen: NOW, heat, peakHeat: heat,
+            daysActive: 1, expiresAt: '2026-12-31T00:00:00.000Z',
+            bipartisan: true, outlets: 5
+        }];
+    }
+
+    it('drops phrases overlapping the permanent keyword lists', () => {
+        const state = {
+            updatedAt: NOW,
+            phrases: Object.fromEntries([
+                phrase('trump', 'Trump', 100),        // exact permanent match
+                phrase('trumps', 'Trumps', 20),       // plural of a permanent keyword
+                phrase('kirk', 'Kirk', 30),           // word inside permanent "charlie kirk"
+                phrase('trump tariffs', 'Trump tariffs', 25), // contains permanent "trump"
+                phrase('platner', 'Platner', 90)
+            ])
+        };
+        const category = buildTrendingCategory(state, {
+            excludeKeywords: ['Trump', 'Charlie Kirk']
+        });
+        expect(Object.keys(category['New Developments'].keywords)).toEqual(['Platner']);
+    });
+
+    it('keeps only the hottest of overlapping trending phrases', () => {
+        const state = {
+            updatedAt: NOW,
+            phrases: Object.fromEntries([
+                phrase('graham', 'Graham', 80),
+                phrase('graham platner', 'Graham Platner', 50),
+                phrase('maine', 'Maine', 40),
+                phrase('maine senate', 'Maine Senate', 20),
+                phrase('world cup', 'World Cup', 10)
+            ])
+        };
+        const category = buildTrendingCategory(state);
+        expect(Object.keys(category['New Developments'].keywords))
+            .toEqual(['Graham', 'Maine', 'World Cup']);
+    });
+
+    it('never emits blocklisted fragments lingering in state', () => {
+        const state = {
+            updatedAt: NOW,
+            phrases: Object.fromEntries([
+                phrase('white', 'White', 50),
+                phrase('platner', 'Platner', 40)
+            ])
+        };
+        const category = buildTrendingCategory(state);
+        expect(Object.keys(category['New Developments'].keywords)).toEqual(['Platner']);
+    });
+});
+
+describe('phraseOverlaps', () => {
+    it('matches whole words and singular/plural variants only', () => {
+        expect(phraseOverlaps('maine senate', 'maine')).toBe(true);
+        expect(phraseOverlaps('trumps', 'trump')).toBe(true);
+        expect(phraseOverlaps('kirk', 'charlie kirk')).toBe(true);
+        expect(phraseOverlaps('martial law', 'art')).toBe(false); // substring, not a word
+        expect(phraseOverlaps('iran', 'iraq')).toBe(false);
+    });
+});
+
+describe('possessive normalization', () => {
+    it("treats Trump's as Trump", () => {
+        const phrases = extractPhrasesFromTitle("Court blocks Trump's tariffs plan");
+        const keys = [...phrases.keys()];
+        expect(keys).toContain('Trump');
+        expect(keys.some(k => k.includes("'"))).toBe(false);
     });
 });

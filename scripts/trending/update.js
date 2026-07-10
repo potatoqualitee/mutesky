@@ -59,6 +59,41 @@ async function loadJson(filePath, fallback) {
     }
 }
 
+// The permanent calm-the-chaos lists already mute the big recurring names
+// (Trump, Iran, Charlie Kirk...); trending must not re-list them. Best-effort:
+// on failure we publish without exclusions and the app dedupes client-side.
+const CALM_THE_CHAOS = 'https://raw.githubusercontent.com/potatoqualitee/calm-the-chaos/main/keywords';
+
+async function fetchPermanentKeywords() {
+    const keywords = new Set();
+    try {
+        const listing = await fetch(
+            'https://api.github.com/repos/potatoqualitee/calm-the-chaos/contents/keywords/categories',
+            { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), headers: { 'User-Agent': 'MuteSky-Trending/1.0' } }
+        );
+        if (!listing.ok) throw new Error(`listing: HTTP ${listing.status}`);
+        const files = (await listing.json())
+            .map(file => file.name)
+            .filter(name => name.endsWith('.json'));
+
+        const results = await Promise.allSettled(files.map(async name => {
+            const response = await fetch(`${CALM_THE_CHAOS}/categories/${name}`, {
+                signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            const category = data[Object.keys(data)[0]];
+            Object.keys(category?.keywords || {}).forEach(kw => keywords.add(kw.toLowerCase()));
+        }));
+        const failed = results.filter(r => r.status === 'rejected').length;
+        if (failed) console.warn(`permanent keyword lists: ${failed}/${files.length} files failed`);
+    } catch (error) {
+        console.warn(`permanent keyword fetch failed (publishing without exclusions): ${error.message}`);
+    }
+    console.log(`permanent keywords for exclusion: ${keywords.size}`);
+    return keywords;
+}
+
 async function main() {
     const results = await Promise.allSettled(FEEDS.map(fetchFeed));
     const headlines = [];
@@ -92,11 +127,12 @@ async function main() {
 
     const nowIso = new Date().toISOString();
     const prevState = await loadJson(STATE_PATH, { phrases: {} });
+    const excludeKeywords = await fetchPermanentKeywords();
 
     const candidates = extractCandidates(headlines);
     const scored = scoreCandidates(candidates);
     const state = updateTrendingState(prevState, scored, nowIso);
-    const category = buildTrendingCategory(state);
+    const category = buildTrendingCategory(state, { excludeKeywords });
 
     await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
     await writeFile(STATE_PATH, JSON.stringify(state, null, 2) + '\n');

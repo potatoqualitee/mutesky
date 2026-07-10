@@ -88,6 +88,68 @@ describe('mergeTrendingIntoState', () => {
         expect(state.selectedCategories.has('New Developments')).toBe(false);
     });
 
+    it('merges keyword collisions case-insensitively', () => {
+        installUpstreamNewDevelopments();
+        mergeTrendingIntoState(state, {
+            'New Developments': {
+                description: 'test',
+                keywords: { 'Drone Sightings': { weight: 3, description: 'fresh' } }
+            }
+        });
+        const keywords = state.keywordGroups['New Developments']['New Developments'].keywords;
+        expect(keywords['Drone Sightings'].weight).toBe(3);
+        expect(keywords['drone sightings']).toBeUndefined();
+    });
+
+    it('drops trending keywords already muted by another category', () => {
+        installUpstreamNewDevelopments();
+        mergeTrendingIntoState(state, {
+            'New Developments': {
+                description: 'test',
+                keywords: {
+                    'Gun Control': { weight: 3, description: 'dup of Gun Policy keyword' },
+                    'border bill': { weight: 1, description: 'y' }
+                }
+            }
+        });
+        const keywords = state.keywordGroups['New Developments']['New Developments'].keywords;
+        expect(keywords['Gun Control']).toBeUndefined();
+        expect(keywords['border bill']).toBeDefined();
+    });
+
+    it('migrates legacy Trending Controversies selections', () => {
+        installUpstreamNewDevelopments();
+        state.selectedCategories = new Set(['Gun Policy', 'Trending Controversies']);
+        state.selectedContexts = new Set(['violence', TRENDING_CONTEXT_ID]);
+        mergeTrendingIntoState(state, TRENDING);
+        expect(state.selectedCategories.has('Trending Controversies')).toBe(false);
+        expect(state.selectedCategories.has('New Developments')).toBe(true);
+        // The upstream card covers the category, so the old card id is a ghost
+        expect(state.selectedContexts.has(TRENDING_CONTEXT_ID)).toBe(false);
+        expect(state.selectedContexts.has('violence')).toBe(true);
+    });
+
+    it('keeps a legacy context selection when the fallback card is used', () => {
+        // No upstream New Developments card -> fallback card reuses the id
+        state.selectedContexts = new Set([TRENDING_CONTEXT_ID]);
+        mergeTrendingIntoState(state, TRENDING);
+        expect(state.contextGroups[TRENDING_CONTEXT_ID]).toBeDefined();
+        expect(state.selectedContexts.has(TRENDING_CONTEXT_ID)).toBe(true);
+    });
+
+    it('advances the keywords-updated stamp when trending is newer', () => {
+        installUpstreamNewDevelopments();
+        state.lastModified = 'Jan 29, 2025, 11:33 PM';
+        mergeTrendingIntoState(state, {
+            'New Developments': {
+                description: 'test',
+                updatedAt: '2026-07-10T07:38:25.985Z',
+                keywords: { 'border bill': { weight: 1, description: 'y' } }
+            }
+        });
+        expect(new Date(state.lastModified).getFullYear()).toBe(2026);
+    });
+
     it('skips empty or malformed payloads', () => {
         expect(mergeTrendingIntoState(state, null)).toBe(false);
         expect(mergeTrendingIntoState(state, {})).toBe(false);

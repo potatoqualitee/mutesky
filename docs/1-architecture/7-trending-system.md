@@ -63,7 +63,19 @@ The published list is capped at the 60 hottest phrases.
 
 ## Output
 
-`keywords/trending.json` uses the same category format as calm-the-chaos.
+`keywords/trending.json` uses the same category format as calm-the-chaos,
+named **New Developments** so the app folds it into that existing category.
+Before publishing, the list is deduplicated:
+
+- Phrases overlapping the permanent calm-the-chaos keywords are dropped —
+  "Trump", "Iran", and anything word-overlapping them ("Trumps",
+  "Kirk" vs "Charlie Kirk") are already muted by those lists. `update.js`
+  fetches the permanent lists each run (best-effort; the app also dedupes
+  client-side as a net).
+- Of trending phrases that word-overlap each other ("Maine" / "Maine
+  Senate"), only the hottest survives. Overlap is word-level with
+  singular/plural folding, so "art" never matches inside "martial law".
+
 Weights map heat percentile to the app's filter levels: the top 20% get
 weight 3 (visible even at the "Minimal" level), the next 30% weight 2, the
 rest weight 1.

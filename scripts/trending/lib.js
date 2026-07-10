@@ -71,7 +71,10 @@ const GENERIC_PHRASES = new Set([
     'election day', 'poll', 'polls', 'lawmakers', 'federal', 'state', 'states',
     'new york', 'los angeles', 'san francisco', 'this week', 'next week',
     // Single common nouns spike constantly and over-mute badly on their own;
-    // the specific multi-word phrase ("government shutdown") still qualifies
+    // the specific multi-word phrase ("government shutdown") still qualifies.
+    // 'white'/'supreme'/'capitol' leak out of the blocklisted institution
+    // phrases above via proper-noun evidence ("White House" -> "White")
+    'white', 'supreme', 'capitol',
     'world', 'campaign', 'race', 'races', 'city', 'country', 'government',
     'official', 'officials', 'leader', 'leaders', 'voters', 'voter', 'court',
     'courts', 'judge', 'law', 'laws', 'money', 'people', 'today', 'tonight',
@@ -135,6 +138,8 @@ export function filterFreshHeadlines(items, nowMs, maxAgeHours = TUNING.headline
 function tokenize(text) {
     return text
         .split(/[^A-Za-z0-9'&.-]+/)
+        // "Trump's tariffs" is about Trump, not a distinct phrase "trump's"
+        .map(w => w.replace(/['’]s$/i, ''))
         .map(w => w.replace(/^[-'.&]+|[-'.&]+$/g, ''))
         .filter(w => w.length > 0);
 }
@@ -399,15 +404,49 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
 
 // --- output ---
 
+// Word-level phrase overlap, treating singular/plural as the same token, so
+// "Maine Senate"~"Maine", "Trumps"~"Trump", "Charlie Kirk"~"Kirk" all match
+// but "art" never matches inside "martial law"
+function tokenMatches(a, b) {
+    return a === b || a === `${b}s` || b === `${a}s`;
+}
+
+function phraseContains(bigger, smaller) {
+    const big = bigger.split(' ');
+    const small = smaller.split(' ');
+    if (small.length > big.length) return false;
+    for (let i = 0; i + small.length <= big.length; i++) {
+        if (small.every((word, j) => tokenMatches(word, big[i + j]))) return true;
+    }
+    return false;
+}
+
+export function phraseOverlaps(a, b) {
+    return phraseContains(a, b) || phraseContains(b, a);
+}
+
 // Map heat percentile onto mutesky weights: weight 3 phrases surface even at
 // the app's "Minimal" filter level, so reserve it for the top of the list.
 // The category name matches calm-the-chaos's "New Developments" so the app
-// merges these phrases into that existing card (js/api/trending.js)
-export function buildTrendingCategory(state, categoryName = 'New Developments') {
-    const entries = Object.values(state.phrases || {}).sort((a, b) => b.heat - a.heat);
+// merges these phrases into that existing card (js/api/trending.js).
+// excludeKeywords carries the permanent calm-the-chaos keywords: anything
+// already muted there (or overlapping it, like "Kirk" vs "Charlie Kirk")
+// stays off the trending list, and overlapping trending phrases keep only
+// the hottest variant ("Maine" wins over "Maine Senate").
+export function buildTrendingCategory(state, { categoryName = 'New Developments', excludeKeywords = [] } = {}) {
+    const excluded = Array.from(excludeKeywords, keyword => keyword.toLowerCase());
+    const entries = Object.entries(state.phrases || {}).sort(([, a], [, b]) => b.heat - a.heat);
+    const kept = [];
+    for (const [canon, entry] of entries) {
+        if (GENERIC_PHRASES.has(canon)) continue;
+        if (excluded.some(keyword => phraseOverlaps(canon, keyword))) continue;
+        if (kept.some(([keptCanon]) => phraseOverlaps(canon, keptCanon))) continue;
+        kept.push([canon, entry]);
+    }
+
     const keywords = {};
-    entries.forEach((entry, index) => {
-        const percentile = entries.length === 1 ? 0 : index / entries.length;
+    kept.forEach(([, entry], index) => {
+        const percentile = kept.length === 1 ? 0 : index / kept.length;
         const weight = percentile < 0.2 ? 3 : percentile < 0.5 ? 2 : 1;
         keywords[entry.display] = {
             weight,
