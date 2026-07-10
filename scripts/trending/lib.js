@@ -4,29 +4,44 @@
 
 // Balanced roster across the political spectrum. The controversy signal
 // REQUIRES a phrase to be hot on both left- and right-leaning outlets, so
-// keep the roster balanced when editing.
+// keep the roster balanced when editing. Every URL here was probed live
+// before inclusion; msnbc (empty feed), washingtontimes (403) and newsmax
+// (timeouts) were dropped 2026-07 after going dark.
 export const FEEDS = [
     { source: 'npr', lean: 'left', url: 'https://feeds.npr.org/1014/rss.xml' },
     { source: 'guardian', lean: 'left', url: 'https://www.theguardian.com/us-news/rss' },
     { source: 'motherjones', lean: 'left', url: 'https://www.motherjones.com/politics/feed/' },
     { source: 'huffpost', lean: 'left', url: 'https://chaski.huffpost.com/us/auto/vertical/politics' },
-    { source: 'msnbc', lean: 'left', url: 'https://www.msnbc.com/feeds/latest' },
     { source: 'vox', lean: 'left', url: 'https://www.vox.com/rss/politics/index.xml' },
+    { source: 'slate', lean: 'left', url: 'https://slate.com/feeds/news-and-politics.rss' },
+    { source: 'newrepublic', lean: 'left', url: 'https://newrepublic.com/rss.xml' },
+    { source: 'dailybeast', lean: 'left', url: 'https://www.thedailybeast.com/arc/outboundfeeds/rss/articles/' },
+    { source: 'cnn', lean: 'left', url: 'http://rss.cnn.com/rss/cnn_allpolitics.rss' },
     { source: 'bbc', lean: 'center', url: 'https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml' },
     { source: 'thehill', lean: 'center', url: 'https://thehill.com/homenews/feed/' },
     { source: 'abc', lean: 'center', url: 'https://abcnews.go.com/abcnews/politicsheadlines' },
     { source: 'cbs', lean: 'center', url: 'https://www.cbsnews.com/latest/rss/politics' },
+    { source: 'politico', lean: 'center', url: 'https://rss.politico.com/politics-news.xml' },
+    { source: 'axios', lean: 'center', url: 'https://api.axios.com/feed/' },
+    { source: 'nbc', lean: 'center', url: 'https://feeds.nbcnews.com/nbcnews/public/politics' },
+    { source: 'upi', lean: 'center', url: 'https://rss.upi.com/news/us_news.rss' },
+    { source: 'memeorandum', lean: 'center', url: 'https://www.memeorandum.com/feed.xml' },
     { source: 'foxnews', lean: 'right', url: 'https://moxie.foxnews.com/google-publisher/politics.xml' },
-    { source: 'washingtontimes', lean: 'right', url: 'https://www.washingtontimes.com/rss/headlines/news/politics/' },
-    { source: 'newsmax', lean: 'right', url: 'https://www.newsmax.com/rss/Politics/1/' },
     { source: 'breitbart', lean: 'right', url: 'https://feeds.feedburner.com/breitbart' },
-    { source: 'dailywire', lean: 'right', url: 'https://www.dailywire.com/feeds/rss.xml' }
+    { source: 'dailywire', lean: 'right', url: 'https://www.dailywire.com/feeds/rss.xml' },
+    { source: 'nypost', lean: 'right', url: 'https://nypost.com/politics/feed/' },
+    { source: 'nationalreview', lean: 'right', url: 'https://www.nationalreview.com/feed/' },
+    { source: 'thefederalist', lean: 'right', url: 'https://thefederalist.com/feed/' },
+    { source: 'dailycaller', lean: 'right', url: 'https://dailycaller.com/feed/' },
+    { source: 'freebeacon', lean: 'right', url: 'https://freebeacon.com/feed/' },
+    { source: 'theblaze', lean: 'right', url: 'https://www.theblaze.com/feeds/feed.rss' }
 ];
 
 // Tuning knobs for scoring and retention
 export const TUNING = {
     minOutlets: 3,            // distinct outlets before a phrase is considered
-    addThreshold: 6,          // score needed to enter the muted list
+    addThreshold: 5,          // score needed to enter the muted list
+    broadOutlets: 6,          // outlet breadth that admits a non-bipartisan story
     refreshThreshold: 3,      // score that keeps an existing phrase alive
     heatDecay: 0.75,          // per-interval multiplier (~14h half-life at 4 runs/day)
     runIntervalHours: 6,      // nominal cadence; decay/gain scale to actual elapsed time
@@ -55,7 +70,20 @@ const STOPWORDS = new Set([
     'before', 'between', 'through', 'under', 'until', 'says', 'say', 'said',
     'new', 'first', 'last', 'latest', 'top', 'big', 'gets', 'get', 'got',
     'make', 'makes', 'made', 'take', 'takes', 'took', 'goes', 'going', 'go',
-    'amid', 'despite', 'via', 'per', 'still', 'also', 'even', 'ever', 'never'
+    'amid', 'despite', 'via', 'per', 'still', 'also', 'even', 'ever', 'never',
+    // Headline-speak verbs: Title Case outlets capitalize them mid-headline,
+    // which briefly published "Reveals" as a muted keyword. A verb never
+    // names a controversy, so none may bound a phrase.
+    'reveals', 'reveal', 'revealed', 'announces', 'announced', 'warns',
+    'warned', 'claims', 'claimed', 'admits', 'admitted', 'denies', 'denied',
+    'confirms', 'confirmed', 'responds', 'reacts', 'slams', 'slammed',
+    'blasts', 'blasted', 'rips', 'mocks', 'touts', 'urges', 'urged', 'vows',
+    'vowed', 'pledges', 'demands', 'demanded', 'accuses', 'accused',
+    'defends', 'defended', 'faces', 'facing', 'seeks', 'seeking', 'sought',
+    'eyes', 'weighs', 'pushes', 'pushed', 'calls', 'calling', 'called',
+    'tells', 'telling', 'told', 'asks', 'asked', 'sparks', 'sparked',
+    'threatens', 'threatened', 'breaks', 'broke', 'wins', 'won', 'loses',
+    'lost', 'dies', 'died', 'sues', 'sued', 'hits', 'backs', 'backed'
 ]);
 
 // News-speak and evergreen institutions that spike constantly without being
@@ -73,15 +101,46 @@ const GENERIC_PHRASES = new Set([
     // Single common nouns spike constantly and over-mute badly on their own;
     // the specific multi-word phrase ("government shutdown") still qualifies.
     // 'white'/'supreme'/'capitol' leak out of the blocklisted institution
-    // phrases above via proper-noun evidence ("White House" -> "White")
-    'white', 'supreme', 'capitol',
+    // phrases above via proper-noun evidence ("White House" -> "White"),
+    // and 'york'/'jersey'/'england'... leak the same way out of two-word
+    // place names whose first word is a stopword ("New York" -> "York")
+    'white', 'supreme', 'capitol', 'york', 'jersey', 'hampshire', 'orleans',
+    'england', 'carolina', 'dakota', 'vegas', 'angeles',
+    'american', 'democratic', 'black', 'force',
+    'south', 'north', 'east', 'west',
     'world', 'campaign', 'race', 'races', 'city', 'country', 'government',
     'official', 'officials', 'leader', 'leaders', 'voters', 'voter', 'court',
     'courts', 'judge', 'law', 'laws', 'money', 'people', 'today', 'tonight',
     'morning', 'week', 'year', 'years', 'day', 'days', 'time', 'times',
     'news', 'story', 'stories', 'debate', 'hearing', 'bill', 'vote', 'votes',
     'ruling', 'trial', 'report', 'deal', 'plan', 'plans', 'budget', 'party',
-    'election', 'elections', 'primary', 'nominee', 'candidate', 'candidates'
+    'election', 'elections', 'primary', 'nominee', 'candidate', 'candidates',
+    // Month names read as proper nouns mid-headline ("Fourth of July"
+    // briefly published "July"); holiday phrases live in the bundled
+    // us-holidays list, which isn't part of the permanent-keyword fetch
+    'january', 'february', 'march', 'april', 'june', 'july',
+    'august', 'september', 'october', 'november', 'december',
+    'fourth of july',
+    // Bare state and big-city names over-mute badly (vacation photos, sports,
+    // weather); the specific phrase ("maine senate") still qualifies. The
+    // curation pass used to catch these one at a time -- block them all.
+    'alabama', 'alaska', 'arizona', 'arkansas', 'california', 'colorado',
+    'connecticut', 'delaware', 'florida', 'georgia', 'hawaii', 'idaho',
+    'illinois', 'indiana', 'iowa', 'kansas', 'kentucky', 'louisiana',
+    'maine', 'maryland', 'massachusetts', 'michigan', 'minnesota',
+    'mississippi', 'missouri', 'montana', 'nebraska', 'nevada',
+    'new hampshire', 'new jersey', 'new mexico', 'north carolina',
+    'north dakota', 'ohio', 'oklahoma', 'oregon', 'pennsylvania',
+    'rhode island', 'south carolina', 'south dakota', 'tennessee', 'texas',
+    'utah', 'vermont', 'virginia', 'west virginia', 'wisconsin', 'wyoming',
+    'chicago', 'houston', 'phoenix', 'philadelphia', 'dallas', 'austin',
+    'boston', 'seattle', 'denver', 'miami', 'atlanta', 'detroit',
+    'portland', 'minneapolis', 'baltimore', 'las vegas', 'new orleans',
+    // Sports and entertainment evergreens spike broadly without being
+    // controversies ("World Cup" made the list during the 2026 tournament)
+    'world cup', 'super bowl', 'olympics', 'olympic games', 'world series',
+    'nba', 'nfl', 'mlb', 'nhl', 'ncaa', 'playoffs', 'grammys', 'oscars',
+    'box office'
 ]);
 
 // --- feed parsing ---
@@ -144,19 +203,19 @@ function tokenize(text) {
         .filter(w => w.length > 0);
 }
 
-// Split a headline into clauses: what follows a colon, dash or similar
-// punctuation starts a new "sentence" for capitalization purposes
+// Split a headline into clauses: what follows a colon, dash, parenthesis or
+// similar punctuation starts a new "sentence" for capitalization purposes
 // ("Breaking: Strikes hit base" -- that S proves nothing). Trailing outlet
-// attributions ("... - CNN Politics") become their own clause and are then
-// eliminated by the cross-outlet breadth requirement, since each outlet only
-// stamps its own name.
+// attributions ("... - CNN Politics", memeorandum's "(Author/Outlet)")
+// become their own clause and are then eliminated by the cross-outlet
+// breadth requirement, since each outlet only stamps its own name.
 function splitClauses(title) {
     return title
         // curly apostrophes become ASCII (deleting them would glue "Trump’s"
         // into "Trumps" before the possessive strip in tokenize can run)
         .replace(/[‘’]/g, "'")
         .replace(/[“”"`]/g, '')
-        .split(/[:;!?|]+|\s[-–—]\s/)
+        .split(/[:;!?|()[\]]+|\s[-–—]\s/)
         .map(clause => clause.trim())
         .filter(clause => clause.length > 0);
 }
@@ -165,6 +224,27 @@ function isUsableWord(word) {
     if (word.length < 2) return false;
     if (/^\d+$/.test(word)) return false;
     return !STOPWORDS.has(word.toLowerCase());
+}
+
+// Title Case outlets capitalize every headline word, so a mid-headline
+// capital there proves nothing about proper-noun-ness -- two Title Case
+// feeds once vouched "Reveals" into the published list. A headline only
+// supplies capitalization evidence when its own mid-clause words follow a
+// sentence-case pattern: with 2+ non-stopword words past the clause start,
+// 75%+ of them capitalized reads as house style, not names.
+export function titleIsTitleCase(title) {
+    let candidates = 0;
+    let capitalized = 0;
+    for (const clause of splitClauses(title)) {
+        const words = tokenize(clause);
+        for (let i = 1; i < words.length; i++) {
+            if (!/^[A-Za-z]/.test(words[i])) continue;
+            if (STOPWORDS.has(words[i].toLowerCase())) continue;
+            candidates += 1;
+            if (/^[A-Z]/.test(words[i])) capitalized += 1;
+        }
+    }
+    return candidates >= 2 && capitalized / candidates >= 0.75;
 }
 
 // Candidate phrases: 1-3 word n-grams whose boundary words carry meaning.
@@ -200,6 +280,7 @@ export function extractPhrasesFromTitle(title) {
 export function extractCandidates(headlines) {
     const candidates = new Map(); // canon -> aggregate
     for (const { title, source, lean } of headlines) {
+        const titleCase = titleIsTitleCase(title);
         for (const [phrase, { atStart }] of extractPhrasesFromTitle(title)) {
             const canon = phrase.toLowerCase();
             let entry = candidates.get(canon);
@@ -220,9 +301,10 @@ export function extractCandidates(headlines) {
             entry.outlets.add(source);
             if (entry.leans[lean]) entry.leans[lean].add(source);
             entry.mentions += 1;
-            // Only mid-headline occurrences are evidence of proper-noun-ness:
-            // any word gets capitalized when it starts the headline
-            if (!atStart) {
+            // Only mid-headline occurrences in sentence-case headlines are
+            // evidence of proper-noun-ness: any word gets capitalized when it
+            // starts the headline, and Title Case outlets capitalize all of them
+            if (!atStart && !titleCase) {
                 entry.midSentenceTotal += 1;
                 if (/^[A-Z]/.test(phrase)) {
                     entry.midSentenceCapitalized += 1;
@@ -246,8 +328,9 @@ function mostCommonDisplay(displayCounts) {
 // --- scoring ---
 
 // A phrase is "the controversy of the day" when many outlets carry it AND
-// both wings of the press are shouting about it. One-sided stories score
-// a fraction of bipartisan ones.
+// both wings of the press are shouting about it. A wing plus broad center
+// coverage scores decently (mainstream story the other wing words
+// differently); pure one-wing stories score a fraction of bipartisan ones.
 // A lone word only qualifies when it usually appears capitalized in the
 // MIDDLE of headlines -- a proxy for proper nouns (Trump, Iran, Epstein).
 // Sentence/clause-initial occurrences are ignored (anything is capitalized
@@ -268,8 +351,15 @@ export function scoreCandidates(candidates, tuning = TUNING) {
 
         const left = entry.leans.left.size;
         const right = entry.leans.right.size;
+        const center = entry.leans.center.size;
         const bipartisan = left >= 1 && right >= 1;
-        const spectrumFactor = bipartisan ? 1 + Math.min(left, right) * 0.25 : 0.35;
+        // A wing plus solid center pickup is a mainstream story even when the
+        // other wing frames it under different words ("Maine Senate" on the
+        // left is "Platner" on the right); pure one-wing outrage stays crushed
+        const mainstream = center >= 2 && (left >= 1 || right >= 1);
+        const spectrumFactor = bipartisan ? 1 + Math.min(left, right) * 0.25
+            : mainstream ? 0.75
+            : 0.35;
 
         const base = outlets + 0.5 * (entry.mentions - outlets);
         const score = base * spectrumFactor;
@@ -282,7 +372,8 @@ export function scoreCandidates(candidates, tuning = TUNING) {
             leftOutlets: left,
             rightOutlets: right,
             mentions: entry.mentions,
-            bipartisan
+            bipartisan,
+            mainstream
         });
     }
 
@@ -379,10 +470,13 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
         };
     }
 
-    // Admit newcomers: strong enough AND carried by both wings
+    // Admit newcomers: strong enough AND either carried by both wings or so
+    // broadly covered (wing + center mainstream) that one wing's silence
+    // doesn't disqualify it
     for (const hit of scored) {
         if (phrases[hit.canon]) continue;
-        if (hit.score < tuning.addThreshold || !hit.bipartisan) continue;
+        if (hit.score < tuning.addThreshold) continue;
+        if (!hit.bipartisan && !(hit.mainstream && hit.outlets >= tuning.broadOutlets)) continue;
         const ttlMs = retentionDays(hit.score, 1, tuning) * 86400 * 1000;
         phrases[hit.canon] = {
             display: hit.display,
@@ -392,7 +486,7 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
             peakHeat: hit.score,
             daysActive: 1,
             expiresAt: new Date(nowMs + ttlMs).toISOString(),
-            bipartisan: true,
+            bipartisan: hit.bipartisan,
             outlets: hit.outlets
         };
     }

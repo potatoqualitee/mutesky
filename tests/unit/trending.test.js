@@ -10,7 +10,8 @@ import {
     updateTrendingState,
     buildTrendingCategory,
     phraseOverlaps,
-    excludePermanent
+    excludePermanent,
+    titleIsTitleCase
 } from '../../scripts/trending/lib.js';
 
 const NOW = '2026-07-10T12:00:00.000Z';
@@ -193,6 +194,32 @@ describe('scoreCandidates', () => {
         expect(scored.map(s => s.canon)).not.toContain('strikes');
     });
 
+    it('ignores capitalization evidence from Title Case headlines', () => {
+        // Every capitalized mid-headline sighting comes from a Title Case
+        // outlet; sentence-case outlets only use the word headline-initial.
+        // Without the Title Case guard, "shutdown" (like the once-published
+        // "Reveals") qualified as a proper noun on those two votes alone.
+        const headlines = [
+            { title: 'Government Shutdown Looms Over Capitol Talks', source: 'right-0', lean: 'right' },
+            { title: 'Markets Brace For Another Shutdown Fight', source: 'right-1', lean: 'right' },
+            { title: 'Shutdown talks stall in congress', source: 'left-0', lean: 'left' },
+            { title: 'Shutdown fears grow among agencies', source: 'center-0', lean: 'center' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).not.toContain('shutdown');
+    });
+
+    it('never emits bare state names, only the specific phrase', () => {
+        const headlines = [
+            { title: 'Voters flock to Maine Senate contest', source: 'left-0', lean: 'left' },
+            { title: 'Fallout grows in Maine Senate battle', source: 'right-0', lean: 'right' },
+            { title: 'Donors pour into Maine Senate fight', source: 'center-0', lean: 'center' }
+        ];
+        const canons = scoreCandidates(extractCandidates(headlines)).map(s => s.canon);
+        expect(canons).toContain('maine senate');
+        expect(canons).not.toContain('maine');
+    });
+
     it('prefers the more specific phrase when scores are comparable', () => {
         const scored = scoreCandidates(
             extractCandidates(headlinesFor('classified documents trial', { left: 2, center: 1, right: 2 }))
@@ -234,6 +261,26 @@ describe('updateTrendingState', () => {
         );
         const state = updateTrendingState({ phrases: {} }, scored, NOW);
         expect(state.phrases['impeachment inquiry']).toBeUndefined();
+    });
+
+    it('admits broadly-covered mainstream stories one wing ignores', () => {
+        // One wing plus five center outlets: the other wing's silence (it
+        // words the same story differently) must not disqualify it
+        const scored = scoreCandidates(extractCandidates(
+            headlinesFor('offshore drilling ban', { left: 1, center: 5, extraMentions: 3 })
+        ));
+        expect(scored.find(s => s.canon === 'offshore drilling ban').bipartisan).toBe(false);
+        const state = updateTrendingState({ phrases: {} }, scored, NOW);
+        expect(state.phrases['offshore drilling ban']).toBeDefined();
+        expect(state.phrases['offshore drilling ban'].bipartisan).toBe(false);
+    });
+
+    it('still rejects one-wing volume without center pickup', () => {
+        const scored = scoreCandidates(extractCandidates(
+            headlinesFor('offshore drilling ban', { left: 6, extraMentions: 6 })
+        ));
+        const state = updateTrendingState({ phrases: {} }, scored, NOW);
+        expect(state.phrases['offshore drilling ban']).toBeUndefined();
     });
 
     it('decays heat and drops phrases after they expire', () => {
@@ -392,14 +439,14 @@ describe('buildTrendingCategory', () => {
             phrases: Object.fromEntries([
                 phrase('graham', 'Graham', 80),
                 phrase('graham platner', 'Graham Platner', 50),
-                phrase('maine', 'Maine', 40),
-                phrase('maine senate', 'Maine Senate', 20),
-                phrase('world cup', 'World Cup', 10)
+                phrase('epstein files', 'Epstein Files', 40),
+                phrase('epstein', 'Epstein', 20),
+                phrase('tariff fight', 'Tariff Fight', 10)
             ])
         };
         const category = buildTrendingCategory(state);
         expect(Object.keys(category['New Developments'].keywords))
-            .toEqual(['Graham', 'Maine', 'World Cup']);
+            .toEqual(['Graham', 'Epstein Files', 'Tariff Fight']);
     });
 
     it('never emits blocklisted fragments lingering in state', () => {
@@ -407,6 +454,8 @@ describe('buildTrendingCategory', () => {
             updatedAt: NOW,
             phrases: Object.fromEntries([
                 phrase('white', 'White', 50),
+                phrase('maine', 'Maine', 45),
+                phrase('world cup', 'World Cup', 42),
                 phrase('platner', 'Platner', 40)
             ])
         };
@@ -455,6 +504,45 @@ describe('phraseOverlaps', () => {
         expect(phraseOverlaps('kirk', 'charlie kirk')).toBe(true);
         expect(phraseOverlaps('martial law', 'art')).toBe(false); // substring, not a word
         expect(phraseOverlaps('iran', 'iraq')).toBe(false);
+    });
+});
+
+describe('headline-verb stopwords', () => {
+    it('keeps headline verbs from bounding phrases', () => {
+        const canon = [...extractPhrasesFromTitle('Epstein files reveal secret meeting').keys()]
+            .map(p => p.toLowerCase());
+        expect(canon).toContain('epstein files');
+        expect(canon).toContain('secret meeting');
+        expect(canon).not.toContain('reveal');
+        expect(canon).not.toContain('files reveal');
+    });
+
+    it('blocks sports evergreens and bare states at extraction', () => {
+        const canon = [...extractPhrasesFromTitle('Fans mob Florida stadium after World Cup upset').keys()]
+            .map(p => p.toLowerCase());
+        expect(canon).not.toContain('world cup');
+        expect(canon).not.toContain('florida');
+        expect(canon).toContain('florida stadium');
+    });
+});
+
+describe('titleIsTitleCase', () => {
+    it('detects Title Case house style without flagging sentence case', () => {
+        expect(titleIsTitleCase('Military Strikes Rock Region')).toBe(true);
+        expect(titleIsTitleCase('Iran strikes kill dozens near Baghdad')).toBe(false);
+        // Too few mid-clause words to judge: assume sentence case
+        expect(titleIsTitleCase('Trump slams Biden')).toBe(false);
+    });
+});
+
+describe('clause splitting', () => {
+    it('treats parenthesized attributions as their own clause', () => {
+        const canon = [...extractPhrasesFromTitle('Senate blocks funding measure (Jane Doe/Some Outlet)').keys()]
+            .map(p => p.toLowerCase());
+        // Extracted -- outlet breadth will kill it -- but never glued onto
+        // the story phrase across the parenthesis
+        expect(canon).toContain('jane doe');
+        expect(canon).not.toContain('measure jane');
     });
 });
 

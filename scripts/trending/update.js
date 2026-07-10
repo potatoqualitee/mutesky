@@ -23,6 +23,9 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 const STATE_PATH = path.join(repoRoot, 'keywords', 'trending-state.json');
 const OUTPUT_PATH = path.join(repoRoot, 'keywords', 'trending.json');
 const FETCH_TIMEOUT_MS = 15000;
+// Prolific feeds (Daily Beast ships 100 items) must not out-shout everyone
+// else: mentions feed the score, so cap each outlet at its newest items
+const MAX_ITEMS_PER_FEED = 40;
 
 async function fetchFeed({ source, lean, url }) {
     const response = await fetch(url, {
@@ -31,7 +34,8 @@ async function fetchFeed({ source, lean, url }) {
     });
     if (!response.ok) throw new Error(`${source}: HTTP ${response.status}`);
     const xml = await response.text();
-    const items = filterFreshHeadlines(parseFeedXml(xml), Date.now());
+    const items = filterFreshHeadlines(parseFeedXml(xml), Date.now())
+        .slice(0, MAX_ITEMS_PER_FEED);
     return items.map(item => ({ title: item.title, source, lean }));
 }
 

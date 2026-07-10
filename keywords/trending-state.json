@@ -1,38 +1,71 @@
 {
-  "updatedAt": "2026-07-10T14:07:29.237Z",
+  "updatedAt": "2026-07-10T14:18:14.861Z",
   "phrases": {
+    "platner": {
+      "display": "Platner",
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 86.25,
+      "peakHeat": 86.25,
+      "daysActive": 1,
+      "expiresAt": "2026-07-22T11:24:56.544Z",
+      "bipartisan": true,
+      "outlets": 21
+    },
     "graham platner": {
       "display": "Graham Platner",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:07:29.237Z",
-      "heat": 45.20998431304676,
-      "peakHeat": 45.20998431304676,
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 57.375,
+      "peakHeat": 57.375,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T06:36:27.151Z",
+      "expiresAt": "2026-07-21T09:04:14.115Z",
       "bipartisan": true,
-      "outlets": 8
+      "outlets": 16
     },
     "air force one": {
       "display": "Air Force One",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:07:29.237Z",
-      "heat": 13.414586671261768,
-      "peakHeat": 13.414586671261768,
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 13.5,
+      "peakHeat": 13.5,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T11:26:30.855Z",
+      "expiresAt": "2026-07-17T20:54:19.227Z",
+      "bipartisan": true,
+      "outlets": 8
+    },
+    "florida airport": {
+      "display": "Florida airport",
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 6.25,
+      "peakHeat": 6.25,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T10:27:37.901Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
+    "victor marx": {
+      "display": "Victor Marx",
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 6.25,
+      "peakHeat": 6.25,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T10:27:37.901Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
+    "jean carroll": {
+      "display": "Jean Carroll",
+      "firstSeen": "2026-07-10T14:18:14.861Z",
+      "lastSeen": "2026-07-10T14:18:14.861Z",
+      "heat": 5.625,
+      "peakHeat": 5.625,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T06:30:08.439Z",
       "bipartisan": true,
       "outlets": 4
-    },
-    "reflecting pool": {
-      "display": "Reflecting Pool",
-      "firstSeen": "2026-07-10T14:07:29.237Z",
-      "lastSeen": "2026-07-10T14:07:29.237Z",
-      "heat": 9,
-      "peakHeat": 9,
-      "daysActive": 1,
-      "expiresAt": "2026-07-14T14:07:29.237Z",
-      "bipartisan": false,
-      "outlets": 3
     }
   }
 }
