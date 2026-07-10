@@ -75,12 +75,12 @@ export function handleCategoryToggle(category, currentState) {
             state.manuallyUnchecked.add(keyword);
             removeKeyword(keyword);
         }
-    });
 
-    // Sidebar rows can be combined categories; the grid renders their source
-    // categories as separate sections
-    const sources = state.displayConfig.combinedCategories?.[category];
-    (sources || [category]).forEach(c => pendingSections.add(c));
+        // Every section showing this keyword must refresh: that covers the
+        // toggled category itself, the source sections behind a combined
+        // sidebar row, and duplicate-keyword sections in other categories
+        categoriesContainingKeyword(keyword).forEach(c => pendingSections.add(c));
+    });
 
     debouncedUpdate(flushToggleUpdate);
 }

@@ -93,13 +93,19 @@ describe('renderCategorySections', () => {
         expect(grid().querySelector('#category-healthcare-and-public-health')).toBe(untouchedBefore);
     });
 
-    it('falls back to a full render for an unknown section', () => {
+    it('falls back to a full render when the DOM and filtered view disagree', () => {
+        // Render under a search that hides Political Rhetoric, then clear it:
+        // the filtered view now has a section the DOM lacks
+        state.searchTerm = 'gun';
         renderAdvancedMode();
-        state.activeKeywords.add('gun control');
+        expect(grid().querySelector('#category-political-rhetoric')).toBe(null);
 
-        renderCategorySections(['No Such Category']);
+        state.searchTerm = '';
+        state.activeKeywords.add('culture war');
+        renderCategorySections(['Political Rhetoric']);
         const fallback = gridSnapshot();
 
+        expect(grid().querySelector('#category-political-rhetoric')).not.toBe(null);
         renderAdvancedMode();
         expect(fallback).toEqual(gridSnapshot());
     });
@@ -108,6 +114,21 @@ describe('renderCategorySections', () => {
         state.activeKeywords.add('gun control');
         renderCategorySections(['Gun Policy']);
         expect(grid().innerHTML).toBe('');
+    });
+
+    it('skips a section hidden by the current search instead of full-rendering', () => {
+        // 'gun' matches the Gun Policy category name only: Political Rhetoric
+        // has no section, but it still contains the duplicate 'assault weapon'
+        state.searchTerm = 'gun';
+        renderAdvancedMode();
+        expect(grid().querySelector('#category-political-rhetoric')).toBe(null);
+
+        state.activeKeywords.add('assault weapon');
+        renderCategorySections(['Gun Policy', 'Political Rhetoric']);
+        const scoped = gridSnapshot();
+
+        renderAdvancedMode();
+        expect(scoped).toEqual(gridSnapshot());
     });
 });
 
@@ -158,8 +179,25 @@ describe('toggle handlers with scoped rendering', () => {
 
         const checkbox = grid().querySelector('input[data-category="Gun Policy"]');
         expect(checkbox.dataset.state).toBe('all');
-        // Cross-category keyword: Political Rhetoric now shows 1/3 active
+        // Cross-category keyword: Political Rhetoric now shows 1/3 active.
+        // This must come from the scoped render itself -- the snapshot was
+        // taken before the fresh full render above
         expect(scoped.html).toContain('(1/3)');
+    });
+
+    it('never schedules a hidden full render behind the scoped flush', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+        const untouched = grid().querySelector('#category-healthcare-and-public-health');
+
+        handleKeywordToggle('gun control', true);
+        handleCategoryToggle('Political Rhetoric', 'none');
+        await flushUpdates();
+        // Second settle window: a delayed debounced renderInterface (the old
+        // updateSimpleModeState behavior) would land here and rebuild the grid
+        await flushUpdates();
+
+        expect(grid().querySelector('#category-healthcare-and-public-health')).toBe(untouched);
     });
 
     it('sidebar counts stay in sync after a keyword toggle', async () => {

@@ -93,6 +93,10 @@ export function renderCategorySections(categories) {
         const section = elements.categoriesGrid.querySelector(`#${CSS.escape(id)}`);
         const keywords = filteredGroups[category];
 
+        // Hidden on both sides (e.g. a duplicate keyword's other category is
+        // filtered out by the current search): nothing stale to patch
+        if (!section && !keywords) continue;
+
         if (!section || !keywords || keywords.length === 0) {
             renderAdvancedMode();
             return;
