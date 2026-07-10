@@ -16,7 +16,14 @@ export class AuthService {
                 // Session hooks replaced the old 'deleted' event in @atproto/oauth-client-browser 0.4.x
                 onDelete: (sub, cause) => {
                     console.error(`[Auth] Session for ${sub} is no longer available (cause: ${cause})`);
-                    this.sessionInvalidatedCallbacks.forEach(cb => cb(sub, cause));
+                    // Isolate subscribers so one throwing callback can't starve the rest
+                    this.sessionInvalidatedCallbacks.forEach(cb => {
+                        try {
+                            cb(sub, cause);
+                        } catch (err) {
+                            console.error('[Auth] Session-invalidated callback failed:', err);
+                        }
+                    });
                 }
             });
 

@@ -6,7 +6,10 @@ const fs = require('fs');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Serve HTTPS on mutesky.app in development only when the local mkcert files
-// exist; otherwise fall back to plain-HTTP localhost so dev still works
+// exist; otherwise fall back to plain-HTTP localhost so dev still works.
+// Note: OAuth sign-in only completes on https://mutesky.app (the client
+// metadata and redirect URIs are origin-bound) -- the HTTP fallback is for
+// UI work without certificates, not for testing the login flow.
 const useHttps = isDevelopment
     && fs.existsSync('mutesky.app+3-key.pem')
     && fs.existsSync('mutesky.app+3.pem');
