@@ -12,27 +12,34 @@ export function getStorageKey() {
     return `muteskyState-${state.did}`;
 }
 
+// Everything debouncedSave persists, as a comparable string. Set-derived
+// arrays are sorted so two snapshots of the same logical state always
+// compare equal: Set iteration order depends on insertion history, which
+// loadState resets when it rebuilds the sets from storage.
+export function serializeState() {
+    return JSON.stringify({
+        activeKeywords: Array.from(state.activeKeywords).sort(),
+        selectedCategories: Array.from(state.selectedCategories).sort(),
+        selectedContexts: Array.from(state.selectedContexts).sort(),
+        selectedExceptions: Array.from(state.selectedExceptions).sort(),
+        manuallyUnchecked: Array.from(state.manuallyUnchecked).sort(),
+        myKeywords: Array.from(state.myKeywords).sort(),
+        removedMyKeywords: Array.from(state.removedMyKeywords).sort(),
+        mode: state.mode,
+        lastModified: state.lastModified,
+        filterLevel: state.filterLevel,
+        lastBulkAction: state.lastBulkAction
+    });
+}
+
 // Debounced save state with shorter delay
 const debouncedSave = (() => {
     let timeout;
     return () => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
-            const saveData = {
-                activeKeywords: Array.from(state.activeKeywords),
-                selectedCategories: Array.from(state.selectedCategories),
-                selectedContexts: Array.from(state.selectedContexts),
-                selectedExceptions: Array.from(state.selectedExceptions),
-                manuallyUnchecked: Array.from(state.manuallyUnchecked),
-                myKeywords: Array.from(state.myKeywords),
-                removedMyKeywords: Array.from(state.removedMyKeywords),
-                mode: state.mode,
-                lastModified: state.lastModified,
-                filterLevel: state.filterLevel,
-                lastBulkAction: state.lastBulkAction
-            };
             try {
-                localStorage.setItem(getStorageKey(), JSON.stringify(saveData));
+                localStorage.setItem(getStorageKey(), serializeState());
             } catch (error) {
                 console.error('Error saving state:', error);
             }

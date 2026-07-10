@@ -1,5 +1,5 @@
 import { elements } from './dom.js';
-import { state, loadState, saveState } from './state.js';
+import { state, loadState, saveState, serializeState } from './state.js';
 import { renderInterface } from './renderer.js';
 import { debounce } from './utils.js';
 import { applyFilterLevel } from './handlers/context/selectionModel.js';
@@ -104,11 +104,16 @@ export function setupEventListeners() {
         if (document.visibilityState === 'visible' && state.did) {
             // loadState also re-syncs the projected My Keywords category, so
             // edits made in another tab are picked up here
+            const before = serializeState();
             loadState();
 
-            // Re-render interface with restored state
-            renderInterface();
-            // Re-apply mode
+            // Refocus happens constantly; a full re-render costs a rebuild of
+            // the whole grid plus the user's focus and text selection, so
+            // only pay for it when another tab actually changed the state
+            if (serializeState() === before) return;
+
+            // switchMode re-applies mode visibility and ends with
+            // renderInterface, so it is the single render on this path
             switchMode(state.mode);
 
             // Update SimpleMode component with current state

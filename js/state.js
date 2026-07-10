@@ -1,4 +1,4 @@
-import { loadState, saveState, resetState, forceRefresh, getStorageKey } from './statePersistence.js';
+import { loadState, saveState, resetState, forceRefresh, getStorageKey, serializeState } from './statePersistence.js';
 import { setUser } from './userState.js';
 import { canUnmuteKeyword, getMuteUnmuteCounts } from './keywordState.js';
 
@@ -36,5 +36,6 @@ export {
     setUser,
     canUnmuteKeyword,
     getMuteUnmuteCounts,
-    getStorageKey
+    getStorageKey,
+    serializeState
 };
