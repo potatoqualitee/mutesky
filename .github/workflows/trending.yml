@@ -72,10 +72,16 @@ jobs:
       # which headlines are controversial, and light on plan rate limits at
       # 4 runs/day. continue-on-error keeps an outage from blocking the
       # update -- the heuristic output publishes on its own.
+      # HEADLINES_FILE/BASELINE_* let codex's own `node
+      # scripts/trending/validate.js` self-check run the same evidence rules
+      # the gate below enforces
       - name: Curate controversies with codex (gpt-5.6-luna)
         if: env.HAS_CODEX_AUTH == 'true'
         continue-on-error: true
         env:
+          HEADLINES_FILE: ${{ runner.temp }}/headlines.json
+          BASELINE_STATE: ${{ runner.temp }}/trending-heuristic/trending-state.json
+          BASELINE_CATEGORY: ${{ runner.temp }}/trending-heuristic/trending.json
           PROMPT: |
             You are the editorial layer of MuteSky's trending-controversy
             pipeline. A heuristic script just refreshed keywords/trending.json
@@ -98,16 +104,21 @@ jobs:
                person or event phrase instead.
             3. Add controversies clearly present in the headlines that the
                extractor missed: covered by 3+ outlets, ideally across left
-               AND right leans. Skip big recurring names the permanent
-               calm-the-chaos lists already mute (Trump, Iran, and similar).
-               An added phrase must appear verbatim (case-insensitive) in at
-               least one headline. Mirror the existing schema exactly: the
+               AND right leans. Never add names the permanent calm-the-chaos
+               lists already mute (Trump, Iran, Charlie Kirk, and similar
+               recurring figures). An added or newly published phrase must
+               appear as whole words (case-insensitive) in headlines from at
+               least 3 distinct sources, and its outlets field must not
+               exceed the count of distinct sources whose headline titles
+               contain it -- count them in /tmp/headlines.json before
+               setting the number. Mirror the existing schema exactly: the
                state key is the lowercased phrase, copy the field set of an
                existing entry, copy the state file's updatedAt value for
                firstSeen and lastSeen, set heat roughly 6-20 by breadth of
                coverage and expiresAt about 4 days out, and give the phrase
                weight 1-3 in trending.json with a description in the exact
-               format the others use.
+               format the others use. Never alter any other field of an
+               entry that already exists.
             4. Fix display casing to match how the phrase appears in
                headlines.
 
@@ -116,7 +127,9 @@ jobs:
             files valid JSON with the same schema. Change nothing outside
             keywords/trending.json and keywords/trending-state.json. When
             done, run `node scripts/trending/validate.js` and fix anything
-            it reports.
+            it reports -- the environment is already set so it runs the
+            exact checks the workflow will gate your output on, including
+            headline evidence.
         run: |
           printf '%s' "$PROMPT" | codex exec \
             -C "$GITHUB_WORKSPACE" \

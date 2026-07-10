@@ -641,6 +641,20 @@ export function validateTrending(
             }
         }
     }
+    // A dormant phrase (tracked but deliberately left unpublished by the
+    // heuristics) needs the same fresh-headline evidence as a new one
+    // before curation may publish it
+    if (baselineCategory && loweredTitles && baselinePhrases) {
+        const basePublished = new Set(
+            Object.keys(baselineCategory?.[CATEGORY_NAME]?.keywords || {}).map(k => k.toLowerCase())
+        );
+        for (const canon of publishedCanons) {
+            if (!basePublished.has(canon) && Object.hasOwn(baselinePhrases, canon)) {
+                check(onWordBoundary(canon).size >= tuning.minOutlets,
+                    `${canon}: republished dormant phrase must appear (whole words) in headlines from ${tuning.minOutlets}+ sources`);
+            }
+        }
+    }
 
     return problems;
 }

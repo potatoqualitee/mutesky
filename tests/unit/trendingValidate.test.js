@@ -266,6 +266,35 @@ describe('validateTrending', () => {
         expect(problems.join()).toContain('must also be published');
     });
 
+    it('requires headline evidence to republish a dormant tracked phrase', () => {
+        const headline = (title, source) => ({ title, source, lean: 'center' });
+        const dormant = makePhrase({ display: 'Dormant Topic' });
+        // Baseline run tracked the phrase but did not publish it
+        const baseline = makeFixture({ platner: makePhrase() });
+        const curated = makeFixture({ platner: makePhrase(), 'dormant topic': dormant });
+        const args = {
+            ...curated,
+            baselinePhrases: { platner: makePhrase(), 'dormant topic': dormant },
+            baselineCategory: baseline.category
+        };
+
+        const unsupported = validateTrending({
+            ...args,
+            headlines: [headline('Unrelated headline', 'abc')]
+        });
+        expect(unsupported.join()).toContain('dormant topic');
+
+        const supported = validateTrending({
+            ...args,
+            headlines: [
+                headline('Dormant topic roars back', 'abc'),
+                headline('The dormant topic fight resumes', 'fox'),
+                headline('Dormant topic splits Congress', 'npr')
+            ]
+        });
+        expect(supported).toEqual([]);
+    });
+
     it('skips the headline check for phrases already in the baseline', () => {
         const fixture = makeFixture();
         const problems = validateTrending({
