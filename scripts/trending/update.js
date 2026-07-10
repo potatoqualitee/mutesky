@@ -34,7 +34,11 @@ async function fetchFeed({ source, lean, url }) {
     });
     if (!response.ok) throw new Error(`${source}: HTTP ${response.status}`);
     const xml = await response.text();
-    const items = filterFreshHeadlines(parseFeedXml(xml), Date.now())
+    const now = Date.now();
+    // Feeds aren't guaranteed newest-first: order by date (undated items
+    // count as now, matching the freshness filter) before keeping the cap
+    const items = filterFreshHeadlines(parseFeedXml(xml), now)
+        .sort((a, b) => (b.pubDate ? Date.parse(b.pubDate) : now) - (a.pubDate ? Date.parse(a.pubDate) : now))
         .slice(0, MAX_ITEMS_PER_FEED);
     return items.map(item => ({ title: item.title, source, lean }));
 }

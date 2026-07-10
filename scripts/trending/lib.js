@@ -16,7 +16,7 @@ export const FEEDS = [
     { source: 'slate', lean: 'left', url: 'https://slate.com/feeds/news-and-politics.rss' },
     { source: 'newrepublic', lean: 'left', url: 'https://newrepublic.com/rss.xml' },
     { source: 'dailybeast', lean: 'left', url: 'https://www.thedailybeast.com/arc/outboundfeeds/rss/articles/' },
-    { source: 'cnn', lean: 'left', url: 'http://rss.cnn.com/rss/cnn_allpolitics.rss' },
+    { source: 'theintercept', lean: 'left', url: 'https://theintercept.com/feed/?rss' },
     { source: 'bbc', lean: 'center', url: 'https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml' },
     { source: 'thehill', lean: 'center', url: 'https://thehill.com/homenews/feed/' },
     { source: 'abc', lean: 'center', url: 'https://abcnews.go.com/abcnews/politicsheadlines' },
@@ -228,11 +228,11 @@ function isUsableWord(word) {
 
 // Title Case outlets capitalize every headline word, so a mid-headline
 // capital there proves nothing about proper-noun-ness -- two Title Case
-// feeds once vouched "Reveals" into the published list. A headline only
-// supplies capitalization evidence when its own mid-clause words follow a
-// sentence-case pattern: with 2+ non-stopword words past the clause start,
-// 75%+ of them capitalized reads as house style, not names.
-export function titleIsTitleCase(title) {
+// feeds once vouched "Reveals" into the published list. Capitalization
+// only counts as evidence when the mid-clause words around it follow a
+// sentence-case pattern: 75%+ of non-stopword words past the clause start
+// capitalized reads as house style, not names.
+function titleCaseSignal(title) {
     let candidates = 0;
     let capitalized = 0;
     for (const clause of splitClauses(title)) {
@@ -244,6 +244,11 @@ export function titleIsTitleCase(title) {
             if (/^[A-Z]/.test(words[i])) capitalized += 1;
         }
     }
+    return { candidates, capitalized };
+}
+
+export function titleIsTitleCase(title) {
+    const { candidates, capitalized } = titleCaseSignal(title);
     return candidates >= 2 && capitalized / candidates >= 0.75;
 }
 
@@ -279,8 +284,29 @@ export function extractPhrasesFromTitle(title) {
 // headlines: [{ title, source, lean }]
 export function extractCandidates(headlines) {
     const candidates = new Map(); // canon -> aggregate
+
+    // A short headline ("Court Backs Gerrymander") has too few words to
+    // judge its case style alone, so style is also decided per source over
+    // its whole batch: an outlet whose headlines are overwhelmingly
+    // capitalized writes Title Case as house style, and none of its
+    // headlines supply capitalization evidence. The per-title check still
+    // matters for aggregators (memeorandum) that mix styles in one feed.
+    const styleBySource = new Map();
+    for (const { title, source } of headlines) {
+        const agg = styleBySource.get(source) || { candidates: 0, capitalized: 0 };
+        const signal = titleCaseSignal(title);
+        agg.candidates += signal.candidates;
+        agg.capitalized += signal.capitalized;
+        styleBySource.set(source, agg);
+    }
+    const titleCaseSources = new Set(
+        [...styleBySource].filter(([, agg]) =>
+            agg.candidates >= 2 && agg.capitalized / agg.candidates >= 0.75
+        ).map(([source]) => source)
+    );
+
     for (const { title, source, lean } of headlines) {
-        const titleCase = titleIsTitleCase(title);
+        const titleCase = titleCaseSources.has(source) || titleIsTitleCase(title);
         for (const [phrase, { atStart }] of extractPhrasesFromTitle(title)) {
             const canon = phrase.toLowerCase();
             let entry = candidates.get(canon);

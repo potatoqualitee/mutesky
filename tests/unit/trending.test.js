@@ -209,6 +209,21 @@ describe('scoreCandidates', () => {
         expect(scored.map(s => s.canon)).not.toContain('shutdown');
     });
 
+    it('inherits Title Case style from the source when a headline is too short to judge', () => {
+        // 'Court Backs Gerrymander' alone is inconclusive (one usable mid
+        // word), but its outlet's longer headlines expose Title Case house
+        // style -- the short headline must not sneak in as evidence
+        const headlines = [
+            { title: 'Lawmakers Spar Over Budget Deal In Late Session', source: 'right-0', lean: 'right' },
+            { title: 'Court Backs Gerrymander', source: 'right-0', lean: 'right' },
+            { title: 'Governors Push Tax Overhaul Through Committee', source: 'right-1', lean: 'right' },
+            { title: 'Newsom Slams Gerrymander', source: 'right-1', lean: 'right' },
+            { title: 'Gerrymander fight heads back to court', source: 'left-0', lean: 'left' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).not.toContain('gerrymander');
+    });
+
     it('never emits bare state names, only the specific phrase', () => {
         const headlines = [
             { title: 'Voters flock to Maine Senate contest', source: 'left-0', lean: 'left' },
