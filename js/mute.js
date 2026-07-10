@@ -37,7 +37,7 @@ export class MuteService {
 
             // Get user's preferences from Bluesky
             console.debug('[MuteService] Fetching user preferences...');
-            const response = await agent.api.app.bsky.actor.getPreferences();
+            const response = await agent.app.bsky.actor.getPreferences();
             this.cachedPreferences = response.data.preferences;
 
             // Find the muted words preference
@@ -86,7 +86,7 @@ export class MuteService {
 
             // Always get fresh preferences for updates
             console.debug('[MuteService] Getting current preferences...');
-            const response = await agent.api.app.bsky.actor.getPreferences();
+            const response = await agent.app.bsky.actor.getPreferences();
             this.cachedPreferences = response.data.preferences;
 
             // Find current muted words pref
@@ -154,7 +154,7 @@ export class MuteService {
 
             try {
                 // Update preferences using fresh agent
-                await agent.api.app.bsky.actor.putPreferences({
+                await agent.app.bsky.actor.putPreferences({
                     preferences: this.cachedPreferences
                 });
             } catch (error) {

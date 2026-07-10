@@ -22,8 +22,9 @@ const devServerConfig = {
     historyApiFallback: true
 };
 
-// Only add HTTPS configuration in development mode
-if (isDevelopment) {
+// Only add HTTPS configuration in development mode, and only when the local
+// mkcert files exist -- a production build should not require dev certificates
+if (isDevelopment && fs.existsSync('mutesky.app+3-key.pem') && fs.existsSync('mutesky.app+3.pem')) {
     devServerConfig.server = {
         type: 'https',
         options: {
@@ -48,20 +49,10 @@ module.exports = {
     },
     devServer: devServerConfig,
     resolve: {
-        extensions: ['.js'],
-        fallback: {
-            "crypto": require.resolve("crypto-browserify"),
-            "stream": require.resolve("stream-browserify"),
-            "buffer": require.resolve("buffer/"),
-            "util": require.resolve("util/"),
-            "path": false,
-            "fs": false
-        }
+        extensions: ['.js']
     },
     plugins: [
         new webpack.ProvidePlugin({
-            Buffer: ['buffer', 'Buffer'],
-            process: 'process/browser',
             blueskyService: ['./js/bluesky.js', 'blueskyService']
         }),
         new CopyPlugin({

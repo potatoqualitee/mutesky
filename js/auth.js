@@ -4,6 +4,7 @@ export class AuthService {
     constructor() {
         this.client = null;
         this.session = null;
+        this.sessionInvalidatedCallback = null;
     }
 
     async setup() {
@@ -11,7 +12,12 @@ export class AuthService {
             // Initialize the OAuth client with production configuration
             this.client = await BrowserOAuthClient.load({
                 clientId: 'https://mutesky.app/client-metadata.json',
-                handleResolver: 'https://bsky.social/'
+                handleResolver: 'https://bsky.social/',
+                // Session hooks replaced the old 'deleted' event in @atproto/oauth-client-browser 0.4.x
+                onDelete: (sub, cause) => {
+                    console.error(`[Auth] Session for ${sub} is no longer available (cause: ${cause})`);
+                    this.sessionInvalidatedCallback?.(sub, cause);
+                }
             });
 
             // Let the client handle initialization and callback processing
@@ -110,12 +116,8 @@ export class AuthService {
         }
     }
 
-    // Add event listener for session invalidation
+    // Register a callback for session invalidation (wired to the onDelete session hook)
     onSessionInvalidated(callback) {
-        this.client?.addEventListener('deleted', (event) => {
-            const { sub, cause } = event.detail;
-            console.error(`[Auth] Session for ${sub} is no longer available (cause: ${cause})`);
-            callback(sub, cause);
-        });
+        this.sessionInvalidatedCallback = callback;
     }
 }
