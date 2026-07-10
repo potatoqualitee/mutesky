@@ -298,6 +298,32 @@ describe('updateTrendingState', () => {
         expect(heatAfterRerun).toBeGreaterThan(heatAfterFirst * 0.9);
     });
 
+    it('accumulates the same heat whether an interval runs once or in parts', () => {
+        const story = bigStory();
+        const canon = 'impeachment inquiry';
+        const t0 = '2026-07-10T12:00:00.000Z';
+        const tHalf = '2026-07-10T15:00:00.000Z';
+        const t1 = '2026-07-10T18:00:00.000Z';
+
+        const seed = updateTrendingState({ phrases: {} }, story, t0);
+
+        // One combined 6h step vs two 3h steps over identical coverage
+        const combined = updateTrendingState(seed, story, t1);
+        const partitioned = updateTrendingState(updateTrendingState(seed, story, tHalf), story, t1);
+
+        expect(partitioned.phrases[canon].heat)
+            .toBeCloseTo(combined.phrases[canon].heat, 6);
+    });
+
+    it('handles a no-decay tuning without corrupting heat', () => {
+        const noDecay = { ...TUNING, heatDecay: 1 };
+        const state = updateTrendingState({ phrases: {} }, bigStory(), NOW, noDecay);
+        const later = updateTrendingState(state, bigStory(), '2026-07-10T18:00:00.000Z', noDecay);
+        expect(Number.isFinite(later.phrases['impeachment inquiry'].heat)).toBe(true);
+        expect(later.phrases['impeachment inquiry'].heat)
+            .toBeGreaterThan(state.phrases['impeachment inquiry'].heat);
+    });
+
     it('caps the list at maxPhrases keeping the hottest', () => {
         const phrases = {};
         for (let i = 0; i < 100; i++) {
