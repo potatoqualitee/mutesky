@@ -1,49 +1,82 @@
 {
-  "updatedAt": "2026-07-10T14:21:39.759Z",
+  "updatedAt": "2026-07-10T14:32:31.880Z",
   "phrases": {
     "graham platner": {
       "display": "Graham Platner",
       "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 57.84408146116952,
-      "peakHeat": 57.84408146116952,
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 59.367431957392746,
+      "peakHeat": 59.367431957392746,
       "daysActive": 1,
-      "expiresAt": "2026-07-21T09:38:46.803Z",
+      "expiresAt": "2026-07-21T11:29:09.861Z",
       "bipartisan": true,
-      "outlets": 16
+      "outlets": 17
     },
     "air force one": {
       "display": "Air Force One",
       "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 13.610372108510475,
-      "peakHeat": 13.610372108510475,
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 13.959651089319793,
+      "peakHeat": 13.959651089319793,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T21:22:27.031Z",
+      "expiresAt": "2026-07-17T22:50:34.601Z",
       "bipartisan": true,
       "outlets": 8
+    },
+    "reflecting pool": {
+      "display": "Reflecting Pool",
+      "firstSeen": "2026-07-10T14:21:39.759Z",
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 8.034590958029888,
+      "peakHeat": 8.034590958029888,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T20:53:41.149Z",
+      "bipartisan": false,
+      "outlets": 4
+    },
+    "florida airport": {
+      "display": "Florida airport",
+      "firstSeen": "2026-07-10T14:32:31.880Z",
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 6.25,
+      "peakHeat": 6.25,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T10:41:54.920Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
+    "election commission": {
+      "display": "election commission",
+      "firstSeen": "2026-07-10T14:32:31.880Z",
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 5.625,
+      "peakHeat": 5.625,
+      "daysActive": 1,
+      "expiresAt": "2026-07-16T06:44:25.458Z",
+      "bipartisan": true,
+      "outlets": 4
     },
     "e. jean carroll": {
       "display": "E. Jean Carroll",
       "firstSeen": "2026-07-10T14:18:14.861Z",
       "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 5.670988378546031,
+      "heat": 5.6219471482984655,
       "peakHeat": 5.670988378546031,
       "daysActive": 1,
       "expiresAt": "2026-07-16T06:51:30.049Z",
       "bipartisan": true,
       "outlets": 4
     },
-    "reflecting pool": {
-      "display": "Reflecting Pool",
-      "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 8,
-      "peakHeat": 8,
+    "ice shooting": {
+      "display": "ICE Shooting",
+      "firstSeen": "2026-07-10T14:32:31.880Z",
+      "lastSeen": "2026-07-10T14:32:31.880Z",
+      "heat": 6,
+      "peakHeat": 6,
       "daysActive": 1,
-      "expiresAt": "2026-07-14T14:21:39.759Z",
-      "bipartisan": false,
-      "outlets": 4
+      "expiresAt": "2026-07-14T14:32:31.880Z",
+      "bipartisan": true,
+      "outlets": 3
     }
   }
 }
