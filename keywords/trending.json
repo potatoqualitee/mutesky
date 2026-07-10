@@ -1,35 +1,47 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-10T14:32:31.880Z",
+    "updatedAt": "2026-07-10T18:55:25.297Z",
     "keywords": {
-      "Graham Platner": {
+      "Platner": {
         "weight": 3,
-        "description": "In 17 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 21 outlets across the spectrum (since 2026-07-10)"
       },
       "Air Force One": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
       },
-      "Reflecting Pool": {
+      "NATO": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
+      },
+      "housing bill": {
+        "weight": 2,
+        "description": "In 8 outlets across the spectrum (since 2026-07-10)"
       },
       "Florida airport": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-10)"
       },
-      "election commission": {
+      "Reflecting Pool": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      },
+      "ICE Shooting": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Election Assistance Commission": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Victor Marx": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       },
       "E. Jean Carroll": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-10)"
-      },
-      "ICE Shooting": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-10)"
       }
     }
   }
