@@ -48,8 +48,10 @@ export function handleMyKeywordsAdd() {
 export function handleMyKeywordsRemove(keyword) {
     if (!removeMyKeyword(keyword)) return;
 
-    const pendingUnmute = state.removedMyKeywords.has(keyword.toLowerCase());
-    setFeedback(pendingUnmute
+    // Wording only: the removal is safe either way, this just avoids
+    // promising an unmute for a keyword that never reached Bluesky
+    const isMuted = state.originalMutedKeywords.has(keyword.toLowerCase());
+    setFeedback(isMuted
         ? `Removed "${keyword}" — it will be unmuted when you press Mute`
         : `Removed "${keyword}"`);
     renderMyKeywordsModal();

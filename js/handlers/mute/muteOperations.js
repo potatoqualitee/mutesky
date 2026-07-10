@@ -6,7 +6,7 @@ import { muteCache } from './muteCache.js';
 import { debouncedUpdate } from './muteUIUtils.js';
 import { getKeywordsWithCase } from '../../keywordState.js';
 import { seedActiveFromMutedKeywords, syncDerivedContexts } from '../context/selectionModel.js';
-import { getSubmittableKeywords, getManagedKeywordsForSubmit, clearRemovedMyKeywords } from '../../myKeywords.js';
+import { getSubmittableKeywords, getManagedKeywordsForSubmit, clearRemovedMyKeywords, scrubStaleTombstones } from '../../myKeywords.js';
 
 // Process all keywords immediately without batching
 function processKeywords(keywords, operation) {
@@ -128,6 +128,9 @@ export async function initializeKeywordState() {
             state.originalMutedKeywords.add(lowerKeyword);
         });
         console.debug('[initializeKeywordState] Final originalMutedKeywords size:', state.originalMutedKeywords.size);
+
+        // With fresh mute state, tombstones that have nothing to unmute can go
+        scrubStaleTombstones();
 
         // Reflect real Bluesky mutes into the pending selection (the old
         // clear-and-rebuild path used to do this as a side effect) and

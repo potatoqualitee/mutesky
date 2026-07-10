@@ -1,8 +1,13 @@
 import { state, saveState } from './state.js';
 import { keywordCache } from './stateCache.js';
-import { addKeywordWithCase, clearManuallyUnchecked } from './handlers/context/selectionModel.js';
 import { removeKeyword } from './handlers/keywords/keyword-utils.js';
 import { muteCache } from './handlers/mute/muteCache.js';
+
+// statePersistence.js (part of the unbundled browser module graph via
+// state.js) imports this file, so it must never import anything that reaches
+// a bare specifier like @atproto/api -- that's why the two selectionModel
+// helpers below are reimplemented here instead of imported (selectionModel
+// pulls in the render pipeline and blueskyService transitively).
 
 // User-defined keywords live in state.myKeywords and are projected into
 // state.keywordGroups as the synthetic category below, so every existing
@@ -27,6 +32,20 @@ function findCased(set, keyword) {
         if (entry.toLowerCase() === lower) return entry;
     }
     return null;
+}
+
+// Mirrors selectionModel.addKeywordWithCase: replace any case variant
+function activateKeyword(keyword) {
+    removeKeyword(keyword);
+    state.activeKeywords.add(keyword);
+}
+
+// Mirrors selectionModel.clearManuallyUnchecked: case-insensitive delete
+function clearUncheckedOptOut(keyword) {
+    const cased = findCased(state.manuallyUnchecked, keyword);
+    if (cased !== null) {
+        state.manuallyUnchecked.delete(cased);
+    }
 }
 
 function clearKeywordCaches() {
@@ -115,15 +134,15 @@ export function addMyKeywords(rawText) {
         if (curatedCase) {
             // Already in a curated list: check that one instead of creating a
             // duplicate entry with a second owner
-            clearManuallyUnchecked(curatedCase);
-            addKeywordWithCase(curatedCase);
+            clearUncheckedOptOut(curatedCase);
+            activateKeyword(curatedCase);
             result.activated.push(curatedCase);
             continue;
         }
 
         state.myKeywords.add(keyword);
-        clearManuallyUnchecked(keyword);
-        addKeywordWithCase(keyword);
+        clearUncheckedOptOut(keyword);
+        activateKeyword(keyword);
         result.added.push(keyword);
     }
 
@@ -134,28 +153,42 @@ export function addMyKeywords(rawText) {
     return result;
 }
 
-// Delete a keyword from the list. If it ever reached Bluesky it is unmuted on
-// the next Mute submit via its tombstone, and the manuallyUnchecked entry
-// keeps seedActiveFromMutedKeywords from re-checking it after a reload that
-// happens before that submit. A keyword that was never muted gets no
-// tombstone: a lingering one could later delete an identical mute the user
-// creates in Bluesky itself.
+// Delete a keyword from the list. It always tombstones: deciding from
+// originalMutedKeywords here would be a race (the UI is usable before the
+// mute-state fetch finishes, and the fetch can fail), and a lost tombstone
+// strands the keyword muted-but-invisible on Bluesky. The manuallyUnchecked
+// entry keeps seedActiveFromMutedKeywords from re-checking it after a reload
+// that happens before the next submit. scrubStaleTombstones() below disposes
+// of tombstones that turn out to have nothing to unmute.
 export function removeMyKeyword(keyword) {
     const cased = findCased(state.myKeywords, keyword);
     if (!cased) return false;
 
-    const lower = cased.toLowerCase();
     state.myKeywords.delete(cased);
     removeKeyword(cased);
-
-    if (state.originalMutedKeywords.has(lower) || state.sessionMutedKeywords.has(lower)) {
-        state.removedMyKeywords.add(lower);
-        state.manuallyUnchecked.add(cased);
-    }
+    state.removedMyKeywords.add(cased.toLowerCase());
+    state.manuallyUnchecked.add(cased);
 
     syncMyKeywordsCategory();
     saveState();
     return true;
+}
+
+// Drop tombstones for keywords that are not actually muted on Bluesky. Runs
+// whenever fresh mute state arrives (initializeKeywordState): there is
+// nothing for such a tombstone to unmute, and letting one linger could later
+// delete an identical mute the user creates in Bluesky's own UI.
+export function scrubStaleTombstones() {
+    let changed = false;
+    for (const tombstone of state.removedMyKeywords) {
+        if (!state.originalMutedKeywords.has(tombstone)) {
+            state.removedMyKeywords.delete(tombstone);
+            changed = true;
+        }
+    }
+    if (changed) {
+        saveState();
+    }
 }
 
 // Selection to submit: active keywords minus tombstoned removals, so a

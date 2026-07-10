@@ -85,7 +85,9 @@ describe('My Keywords modal', () => {
         expect(document.getElementById('my-keywords-feedback').textContent)
             .toBe('Removed "spoilers"');
         expect(state.myKeywords.size).toBe(0);
-        expect(state.removedMyKeywords.size).toBe(0);
+        // The tombstone still exists (removal must survive mute-state races);
+        // scrubStaleTombstones disposes of it when fresh mute state arrives
+        expect(state.removedMyKeywords.has('spoilers')).toBe(true);
     });
 
     it('removes a muted keyword and reports the pending unmute', () => {

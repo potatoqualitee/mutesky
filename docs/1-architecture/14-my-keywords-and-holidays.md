@@ -40,8 +40,14 @@ levels). Because the category looks exactly like a fetched one, everything
 downstream — checkboxes, counts, `getOurKeywords()`,
 `muteCache.getOurKeywordsMap()`, MuteService's managed list — picks the
 keywords up with no special cases. The projection is rebuilt after anything
-that replaces the `keywordGroups` object (initial load, refresh, tab
-visibility restore).
+that replaces the `keywordGroups` object or the source sets: initial load,
+refresh, and inside `loadState()` itself, so switching DIDs can never leave a
+previous account's list in `keywordGroups` or the managed-keyword caches.
+
+Because `statePersistence.js` (reachable from `state.js`, which the unbundled
+components import) now imports `js/myKeywords.js`, that module must stay free
+of imports that reach bare specifiers — the two selectionModel helpers it
+needs are reimplemented locally for exactly this reason.
 
 ### Add semantics
 
@@ -60,13 +66,18 @@ it muted-forever on Bluesky. So removal:
 
 1. deletes it from `myKeywords` (and the synthetic category),
 2. removes it from `activeKeywords`,
-3. **only if the keyword ever reached Bluesky** (present in
-   `originalMutedKeywords`/`sessionMutedKeywords`): adds a lowercase tombstone
-   to `removedMyKeywords` and adds it to `manuallyUnchecked` (so
-   `seedActiveFromMutedKeywords()` cannot re-check it after a reload that
-   happens before the next submit). A never-submitted keyword gets no
-   tombstone — a lingering one could later delete an identical mute the user
-   creates in Bluesky's own UI.
+3. adds a lowercase tombstone to `removedMyKeywords` — **always**: deciding
+   from `originalMutedKeywords` at removal time would race the mute-state
+   fetch (the UI is usable before it finishes, and it can fail), and a lost
+   tombstone strands the keyword muted-but-invisible,
+4. adds it to `manuallyUnchecked` (so `seedActiveFromMutedKeywords()` cannot
+   re-check it after a reload that happens before the next submit).
+
+The counterweight to "always tombstone" is `scrubStaleTombstones()`, run by
+`initializeKeywordState()` whenever fresh mute state arrives: a tombstone
+whose string is not actually muted on Bluesky has nothing to unmute and is
+dropped, so it can never delete an identical mute the user later creates in
+Bluesky's own UI.
 
 On submit, `getSubmittableKeywords()` filters tombstoned strings out of the
 selection and `getManagedKeywordsForSubmit()` appends the tombstones to the

@@ -2,6 +2,7 @@ import { KEYWORDS_BASE_URL, CONTEXT_GROUPS_URL, DISPLAY_CONFIG_URL } from './con
 import { state } from './state.js';
 import { keywordCache } from './stateCache.js';
 import { getKeywordsWithCase } from './keywordState.js';
+import { syncMyKeywordsCategory } from './myKeywords.js';
 
 // Helper to get storage key for current user
 export function getStorageKey() {
@@ -101,6 +102,11 @@ export function loadState() {
         resetState();
         state.manuallyUnchecked = unchecked;
     }
+
+    // Rebuild (or drop) the projected My Keywords category and its cache
+    // entries for whatever DID just loaded, so a previous account's list
+    // never lingers in keywordGroups or the managed-keyword caches
+    syncMyKeywordsCategory();
 }
 
 export function resetState() {

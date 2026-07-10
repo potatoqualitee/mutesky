@@ -10,7 +10,8 @@ import {
     syncMyKeywordsCategory,
     getSubmittableKeywords,
     getManagedKeywordsForSubmit,
-    clearRemovedMyKeywords
+    clearRemovedMyKeywords,
+    scrubStaleTombstones
 } from '../../js/myKeywords.js';
 
 beforeEach(() => {
@@ -66,7 +67,6 @@ describe('addMyKeywords', () => {
 
     it('re-adding a removed keyword clears its tombstone', () => {
         addMyKeywords('spoilers');
-        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         expect(state.removedMyKeywords.has('spoilers')).toBe(true);
 
@@ -77,9 +77,11 @@ describe('addMyKeywords', () => {
 });
 
 describe('removeMyKeyword', () => {
-    it('removes case-insensitively, unchecks, and tombstones a muted keyword', () => {
+    it('removes case-insensitively, unchecks, and always tombstones', () => {
+        // Always tombstoning is deliberate: deciding from originalMutedKeywords
+        // at removal time races the mute-state fetch, and a lost tombstone
+        // strands the keyword muted-but-invisible on Bluesky
         addMyKeywords('Eras Tour');
-        state.originalMutedKeywords.add('eras tour');
         expect(removeMyKeyword('eras tour')).toBe(true);
 
         expect(state.myKeywords.size).toBe(0);
@@ -90,26 +92,27 @@ describe('removeMyKeyword', () => {
         expect(state.keywordGroups[MY_KEYWORDS_CATEGORY]).toBeUndefined();
     });
 
-    it('leaves no tombstone for a keyword that never reached Bluesky', () => {
-        // A lingering tombstone could later delete an identical mute the user
-        // creates in Bluesky itself
-        addMyKeywords('spoilers');
-        expect(removeMyKeyword('spoilers')).toBe(true);
-
-        expect(state.removedMyKeywords.size).toBe(0);
-        expect(state.manuallyUnchecked.has('spoilers')).toBe(false);
-        expect(state.activeKeywords.has('spoilers')).toBe(false);
-    });
-
     it('returns false for keywords not in the list', () => {
         expect(removeMyKeyword('never added')).toBe(false);
+    });
+});
+
+describe('scrubStaleTombstones', () => {
+    it('keeps tombstones with a live mute and drops the rest', () => {
+        // Stale tombstones must not linger: one could later delete an
+        // identical mute the user creates in Bluesky's own UI
+        state.removedMyKeywords = new Set(['still muted', 'never muted']);
+        state.originalMutedKeywords = new Set(['still muted']);
+
+        scrubStaleTombstones();
+
+        expect(state.removedMyKeywords).toEqual(new Set(['still muted']));
     });
 });
 
 describe('submit plumbing', () => {
     it('getSubmittableKeywords filters tombstoned keywords out of the selection', () => {
         addMyKeywords('spoilers');
-        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         // Simulate mute seeding or Enable All re-activating the string
         state.activeKeywords.add('Spoilers');
@@ -141,7 +144,6 @@ describe('submit plumbing', () => {
 describe('persistence and sync', () => {
     it('round-trips myKeywords and tombstones through localStorage', async () => {
         addMyKeywords('spoilers, Eras Tour');
-        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         await flushUpdates();
 
@@ -155,7 +157,6 @@ describe('persistence and sync', () => {
 
     it('never leaks keywords or tombstones into a DID with no saved state', async () => {
         addMyKeywords('spoilers');
-        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         addMyKeywords('Eras Tour');
         await flushUpdates();
@@ -166,6 +167,9 @@ describe('persistence and sync', () => {
 
         expect(state.myKeywords.size).toBe(0);
         expect(state.removedMyKeywords.size).toBe(0);
+        // The projected category and its managed-keyword cache entries are
+        // rebuilt for the new DID too, so a submit can't ship the old list
+        expect(state.keywordGroups[MY_KEYWORDS_CATEGORY]).toBeUndefined();
     });
 
     it('syncMyKeywordsCategory rebuilds the category after keywordGroups are replaced', () => {
