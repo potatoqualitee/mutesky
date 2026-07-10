@@ -2,6 +2,7 @@ import { elements } from '../dom.js';
 import { state } from '../state.js';
 import { getDisplayName, getCategoryState, getCheckboxClass, filterKeywordGroups, getAllKeywordsForCategory } from '../categoryManager.js';
 import { isKeywordActive } from '../handlers/keywordHandlers.js';
+import { escapeHtml, escapeJsAttr } from '../utils/escape.js';
 
 export function renderAdvancedMode() {
     if (!elements.categoriesGrid) return;
@@ -19,7 +20,7 @@ export function renderAdvancedMode() {
             const sectionId = category === 'US Political Figures - Full Name' ? 'politicians' : category.replace(/\s+/g, '-').toLowerCase();
 
             return `
-                <div class="category-section" id="category-${sectionId}">
+                <div class="category-section" id="category-${escapeHtml(sectionId)}">
                     <div class="category-header">
                         <div class="category-title">
                             <div class="keyword-checkbox">
@@ -27,12 +28,12 @@ export function renderAdvancedMode() {
                                     type="checkbox"
                                     class="category-checkbox"
                                     ${categoryState === 'all' ? 'checked' : ''}
-                                    data-category="${category}"
+                                    data-category="${escapeHtml(category)}"
                                     data-state="${categoryState}"
-                                    onclick="handleCategoryToggle('${category}', '${categoryState}')"
+                                    onclick="handleCategoryToggle('${escapeJsAttr(category)}', '${categoryState}')"
                                 >
                             </div>
-                            <h3>${displayName}</h3>
+                            <h3>${escapeHtml(displayName)}</h3>
                             <span class="count">(${activeCount}/${keywords.length})</span>
                         </div>
                     </div>
@@ -42,9 +43,9 @@ export function renderAdvancedMode() {
                                 <input
                                     type="checkbox"
                                     ${isKeywordActive(keyword) ? 'checked' : ''}
-                                    onchange="handleKeywordToggle('${keyword}', this.checked)"
+                                    onchange="handleKeywordToggle('${escapeJsAttr(keyword)}', this.checked)"
                                 >
-                                ${keyword}
+                                ${escapeHtml(keyword)}
                             </label>
                         `).join('')}
                     </div>
@@ -96,21 +97,21 @@ export function renderCategoryList() {
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
     const html = categories.map(({ category, displayName, activeKeywords, totalKeywords, state }) => `
-        <div class="category-item" data-category="${category}">
+        <div class="category-item" data-category="${escapeHtml(category)}">
             <div class="keyword-checkbox">
                 <input
                     type="checkbox"
                     class="category-checkbox"
                     ${state === 'all' ? 'checked' : ''}
-                    data-category="${category}"
+                    data-category="${escapeHtml(category)}"
                     data-state="${state}"
-                    onclick="handleCategoryToggle('${category}', '${state}')"
+                    onclick="handleCategoryToggle('${escapeJsAttr(category)}', '${state}')"
                 >
             </div>
-            <a href="#category-${category.replace(/\s+/g, '-').toLowerCase()}"
+            <a href="#category-${escapeHtml(category.replace(/\s+/g, '-').toLowerCase())}"
                class="category-name"
-               onclick="const el = document.getElementById('category-${category.replace(/\s+/g, '-').toLowerCase()}'); if (el) el.scrollIntoView({behavior: 'smooth'})">
-                ${displayName}
+               onclick="const el = document.getElementById('category-${escapeJsAttr(category.replace(/\s+/g, '-').toLowerCase())}'); if (el) el.scrollIntoView({behavior: 'smooth'})">
+                ${escapeHtml(displayName)}
             </a>
             <span class="category-count">${activeKeywords}/${totalKeywords}</span>
         </div>

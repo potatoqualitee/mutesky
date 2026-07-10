@@ -60,9 +60,21 @@ export class ProfileService {
         }
 
         if (profilePic && profile.avatar) {
-            profilePic.style.backgroundImage = `url(${profile.avatar})`;
-            profilePic.style.backgroundSize = 'cover';
-            profilePic.style.backgroundPosition = 'center';
+            // The avatar URL comes from the network; only accept https and
+            // escape CSS string delimiters before inlining it into a style
+            let avatarUrl = null;
+            try {
+                const parsed = new URL(profile.avatar);
+                if (parsed.protocol === 'https:') avatarUrl = parsed.href;
+            } catch {
+                avatarUrl = null;
+            }
+            if (avatarUrl) {
+                const cssSafeUrl = avatarUrl.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+                profilePic.style.backgroundImage = `url("${cssSafeUrl}")`;
+                profilePic.style.backgroundSize = 'cover';
+                profilePic.style.backgroundPosition = 'center';
+            }
         }
     }
 

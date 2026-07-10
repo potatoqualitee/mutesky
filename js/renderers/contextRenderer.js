@@ -1,6 +1,7 @@
 import { elements } from '../dom.js';
 import { state } from '../state.js';
 import { getContextSelectionState } from '../handlers/context/selectionModel.js';
+import { escapeHtml, escapeJsAttr } from '../utils/escape.js';
 
 export function renderContextCards() {
     if (!elements.contextOptions) return;
@@ -15,10 +16,10 @@ export function renderContextCards() {
                 : '';
             return `
                 <div class="context-card ${stateClass}"
-                     data-context="${id}"
-                     onclick="handleContextToggle('${id}')">
-                    <h3>${context.title}</h3>
-                    <p>${context.description}</p>
+                     data-context="${escapeHtml(id)}"
+                     onclick="handleContextToggle('${escapeJsAttr(id)}')">
+                    <h3>${escapeHtml(context.title)}</h3>
+                    <p>${escapeHtml(context.description)}</p>
                 </div>
             `;
         }).join('');
@@ -55,8 +56,8 @@ export function renderExceptions() {
         .map(category => {
             return `
                 <button class="exception-tag ${state.selectedExceptions.has(category) ? 'selected' : ''}"
-                        onclick="handleExceptionToggle('${category}')">
-                    ${category}
+                        onclick="handleExceptionToggle('${escapeJsAttr(category)}')">
+                    ${escapeHtml(category)}
                 </button>
             `;
         }).join('');
