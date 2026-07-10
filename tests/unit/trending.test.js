@@ -86,9 +86,21 @@ describe('extractPhrasesFromTitle', () => {
         const phrases = extractPhrasesFromTitle('Tariff fight escalates - CNN Politics');
         const canon = [...phrases.keys()].map(p => p.toLowerCase());
         expect(canon).toContain('tariff fight');
-        // The attribution survives extraction as its own clause but only ever
-        // comes from one outlet, so the minOutlets rule blocks publication
+        // The dash starts a new clause: the attribution IS extracted but never
+        // crosses the clause boundary into the story phrase
+        expect(canon).toContain('cnn politics');
         expect(canon).not.toContain('escalates cnn');
+
+        // ...and because only CNN's own feed carries it, outlet breadth keeps
+        // it out of the published candidates
+        const headlines = [
+            { title: 'Tariff fight escalates - CNN Politics', source: 'cnn', lean: 'left' },
+            { title: 'Tariff fight hits farmers', source: 'right-0', lean: 'right' },
+            { title: 'Tariff fight splits senate', source: 'center-0', lean: 'center' }
+        ];
+        const published = scoreCandidates(extractCandidates(headlines)).map(s => s.canon);
+        expect(published).toContain('tariff fight');
+        expect(published).not.toContain('cnn politics');
     });
 
     it('marks phrases that only appear at the start of the headline', () => {

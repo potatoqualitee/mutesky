@@ -326,7 +326,10 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
         : nowMs - intervalMs;
     const elapsedIntervals = Math.max(0, (nowMs - prevUpdatedMs) / intervalMs);
     const decay = Math.pow(tuning.heatDecay, Math.min(elapsedIntervals, 50));
-    const gain = Math.min(1, elapsedIntervals);
+    // Geometric-series gain keeps heat invariant to rerun frequency: n runs
+    // covering one nominal interval accumulate the same heat as a single run
+    // (gain(1) = 1, gain(x)+gain(y)*decay(x) = gain(x+y))
+    const gain = (1 - decay) / (1 - tuning.heatDecay);
 
     // Decay and refresh existing phrases. Entries already past their expiry
     // are NOT refreshable -- a returning story must re-qualify through the
