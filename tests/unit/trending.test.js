@@ -224,6 +224,24 @@ describe('scoreCandidates', () => {
         expect(scored.map(s => s.canon)).not.toContain('gerrymander');
     });
 
+    it('trusts a conclusive sentence-case headline from a mostly Title Case source', () => {
+        // An aggregator's batch can skew Title Case overall while items keep
+        // their original outlet's style: the sentence-case Platner items are
+        // conclusive on their own and must beat the source-level verdict
+        const headlines = [
+            { title: 'Senators Advance Sweeping Energy Overhaul Package', source: 'agg-0', lean: 'center' },
+            { title: 'Governors Demand Emergency Border Funding Deal', source: 'agg-0', lean: 'center' },
+            { title: 'Fallout spreads from Platner scandal in congress', source: 'agg-0', lean: 'center' },
+            { title: 'Lawmakers Weigh Sweeping Ethics Crackdown Package', source: 'agg-1', lean: 'center' },
+            { title: 'Mayors Demand Emergency Transit Funding Fix', source: 'agg-1', lean: 'center' },
+            { title: 'Donors flee from Platner as scandal widens', source: 'agg-1', lean: 'center' },
+            { title: 'Platner scandal deepens overnight', source: 'left-0', lean: 'left' },
+            { title: 'Platner fury boils over', source: 'right-0', lean: 'right' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).toContain('platner');
+    });
+
     it('never emits bare state names, only the specific phrase', () => {
         const headlines = [
             { title: 'Voters flock to Maine Senate contest', source: 'left-0', lean: 'left' },

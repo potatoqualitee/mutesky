@@ -288,9 +288,10 @@ export function extractCandidates(headlines) {
     // A short headline ("Court Backs Gerrymander") has too few words to
     // judge its case style alone, so style is also decided per source over
     // its whole batch: an outlet whose headlines are overwhelmingly
-    // capitalized writes Title Case as house style, and none of its
-    // headlines supply capitalization evidence. The per-title check still
-    // matters for aggregators (memeorandum) that mix styles in one feed.
+    // capitalized writes Title Case as house style. The source verdict is
+    // only a fallback for inconclusive headlines -- aggregators
+    // (memeorandum) mix styles in one feed, and a conclusively
+    // sentence-case item there still carries real evidence.
     const styleBySource = new Map();
     for (const { title, source } of headlines) {
         const agg = styleBySource.get(source) || { candidates: 0, capitalized: 0 };
@@ -306,7 +307,10 @@ export function extractCandidates(headlines) {
     );
 
     for (const { title, source, lean } of headlines) {
-        const titleCase = titleCaseSources.has(source) || titleIsTitleCase(title);
+        const signal = titleCaseSignal(title);
+        const titleCase = signal.candidates >= 2
+            ? signal.capitalized / signal.candidates >= 0.75
+            : titleCaseSources.has(source);
         for (const [phrase, { atStart }] of extractPhrasesFromTitle(title)) {
             const canon = phrase.toLowerCase();
             let entry = candidates.get(canon);
