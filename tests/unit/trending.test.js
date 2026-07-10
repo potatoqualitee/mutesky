@@ -95,6 +95,13 @@ describe('extractPhrasesFromTitle', () => {
         const onlyStart = extractPhrasesFromTitle('Strikes hit Tehran overnight');
         expect(onlyStart.get('Strikes').atStart).toBe(true);
     });
+
+    it('treats words after colons and dashes as clause-initial', () => {
+        const phrases = extractPhrasesFromTitle('Breaking today: Strikes hit airbase');
+        expect(phrases.get('Strikes').atStart).toBe(true);
+        const dashed = extractPhrasesFromTitle('Analysis - Strikes reshape the region');
+        expect(dashed.get('Strikes').atStart).toBe(true);
+    });
 });
 
 describe('scoreCandidates', () => {
@@ -139,6 +146,19 @@ describe('scoreCandidates', () => {
             { title: 'Strikes rock the capital', source: 'left-0', lean: 'left' },
             { title: 'Strikes escalate overnight', source: 'left-1', lean: 'left' },
             { title: 'Strikes draw condemnation', source: 'right-0', lean: 'right' },
+            { title: 'Strikes continue for third day', source: 'center-0', lean: 'center' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).not.toContain('strikes');
+    });
+
+    it('requires more than one mid-headline sighting as evidence', () => {
+        // Headline-initial everywhere except one Title Case outlet: one
+        // capitalized mid-headline sighting must not flip it to proper noun
+        const headlines = [
+            { title: 'Strikes rock the capital', source: 'left-0', lean: 'left' },
+            { title: 'Strikes escalate overnight', source: 'left-1', lean: 'left' },
+            { title: 'Region Braces As Strikes Widen', source: 'right-0', lean: 'right' },
             { title: 'Strikes continue for third day', source: 'center-0', lean: 'center' }
         ];
         const scored = scoreCandidates(extractCandidates(headlines));

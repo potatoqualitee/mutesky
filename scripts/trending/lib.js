@@ -129,14 +129,24 @@ export function filterFreshHeadlines(items, nowMs, maxAgeHours = TUNING.headline
 
 // --- phrase extraction ---
 
-function tokenize(title) {
+function tokenize(text) {
+    return text
+        .split(/[^A-Za-z0-9'&.-]+/)
+        .map(w => w.replace(/^[-'.&]+|[-'.&]+$/g, ''))
+        .filter(w => w.length > 0);
+}
+
+// Split a headline into clauses: what follows a colon, dash or similar
+// punctuation starts a new "sentence" for capitalization purposes
+// ("Breaking: Strikes hit base" -- that S proves nothing)
+function splitClauses(title) {
     return title
         // Strip trailing attribution ("... - CNN Politics")
         .replace(/\s+[-|–—]\s+[A-Za-z .]{2,30}$/, '')
         .replace(/[“”"‘’`]/g, '')
-        .split(/[^A-Za-z0-9'&.-]+/)
-        .map(w => w.replace(/^[-'.&]+|[-'.&]+$/g, ''))
-        .filter(w => w.length > 0);
+        .split(/[:;!?|]+|\s[-–—]\s/)
+        .map(clause => clause.trim())
+        .filter(clause => clause.length > 0);
 }
 
 function isUsableWord(word) {
@@ -151,22 +161,24 @@ function isUsableWord(word) {
 // phrase -> { atStart } where atStart means every occurrence in this title
 // began the headline (sentence-initial capitalization proves nothing).
 export function extractPhrasesFromTitle(title) {
-    const words = tokenize(title);
     const phrases = new Map();
 
-    for (let n = 1; n <= 3; n++) {
-        for (let i = 0; i + n <= words.length; i++) {
-            const slice = words.slice(i, i + n);
-            if (!isUsableWord(slice[0]) || !isUsableWord(slice[n - 1])) continue;
-            // interior stopwords are fine ("secretary of state")
-            const phrase = slice.join(' ');
-            if (phrase.length < 4) continue;
-            const canon = phrase.toLowerCase();
-            if (GENERIC_PHRASES.has(canon)) continue;
-            const atStart = i === 0;
-            const existing = phrases.get(phrase);
-            // a non-initial occurrence anywhere in the title wins
-            phrases.set(phrase, { atStart: existing ? existing.atStart && atStart : atStart });
+    for (const clause of splitClauses(title)) {
+        const words = tokenize(clause);
+        for (let n = 1; n <= 3; n++) {
+            for (let i = 0; i + n <= words.length; i++) {
+                const slice = words.slice(i, i + n);
+                if (!isUsableWord(slice[0]) || !isUsableWord(slice[n - 1])) continue;
+                // interior stopwords are fine ("secretary of state")
+                const phrase = slice.join(' ');
+                if (phrase.length < 4) continue;
+                const canon = phrase.toLowerCase();
+                if (GENERIC_PHRASES.has(canon)) continue;
+                const atStart = i === 0;
+                const existing = phrases.get(phrase);
+                // a non-initial occurrence anywhere in the title wins
+                phrases.set(phrase, { atStart: existing ? existing.atStart && atStart : atStart });
+            }
         }
     }
     return phrases;
@@ -222,10 +234,11 @@ function mostCommonDisplay(displayCounts) {
 // a fraction of bipartisan ones.
 // A lone word only qualifies when it usually appears capitalized in the
 // MIDDLE of headlines -- a proxy for proper nouns (Trump, Iran, Epstein).
-// Sentence-initial occurrences are ignored (anything is capitalized there),
-// and sentence-case outlets vote down common nouns Title Case outlets inflate.
+// Sentence/clause-initial occurrences are ignored (anything is capitalized
+// there), a single sighting is not enough evidence, and sentence-case
+// outlets vote down common nouns Title Case outlets inflate.
 function looksLikeProperNoun(entry) {
-    if (entry.midSentenceTotal === 0) return false;
+    if (entry.midSentenceTotal < 2) return false;
     return entry.midSentenceCapitalized / entry.midSentenceTotal >= 0.7;
 }
 
