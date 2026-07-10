@@ -27,7 +27,13 @@ beforeAll(async () => {
         await import('../../js/renderers/categoryRenderer.js'));
     ({ handleKeywordToggle, handleCategoryToggle } =
         await import('../../js/handlers/keywords/core-handlers.js'));
-});
+
+    // Attaches the delegated grid/sidebar listeners to the containers above
+    const { setupEventListeners } = await import('../../js/events.js');
+    setupEventListeners();
+    // Generous timeout: events.js pulls in the full handler graph, which is
+    // slow to import on WSL's /mnt/c filesystem
+}, 120000);
 
 beforeEach(() => {
     resetStateWithFixtures({ mode: 'advanced' });
@@ -224,5 +230,85 @@ describe('toggle handlers with scoped rendering', () => {
 
         const sidebarRow = document.querySelector('.category-item[data-category="Gun Policy"] .category-count');
         expect(sidebarRow.textContent).toBe('1/4');
+    });
+});
+
+describe('delegated grid and sidebar events', () => {
+    it('checking a keyword checkbox activates the keyword', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+
+        grid().querySelector('input[data-keyword="gun control"]').click();
+        await flushUpdates();
+
+        expect(state.activeKeywords.has('gun control')).toBe(true);
+        // The scoped re-render replaced the checkbox; the new one is checked
+        expect(grid().querySelector('input[data-keyword="gun control"]').checked).toBe(true);
+    });
+
+    it('unchecking a keyword checkbox deactivates it and records the opt-out', async () => {
+        state.activeKeywords.add('gun control');
+        renderAdvancedMode();
+        renderCategoryList();
+
+        grid().querySelector('input[data-keyword="gun control"]').click();
+        await flushUpdates();
+
+        expect(state.activeKeywords.has('gun control')).toBe(false);
+        expect(state.manuallyUnchecked.has('gun control')).toBe(true);
+    });
+
+    it('grid category checkbox cycles none -> all -> none', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+
+        grid().querySelector('input[data-category="Gun Policy"]').click();
+        await flushUpdates();
+        expect(grid().querySelector('input[data-category="Gun Policy"]').dataset.state).toBe('all');
+        expect(state.activeKeywords.size).toBe(4);
+
+        grid().querySelector('input[data-category="Gun Policy"]').click();
+        await flushUpdates();
+        expect(grid().querySelector('input[data-category="Gun Policy"]').dataset.state).toBe('none');
+        expect(state.activeKeywords.size).toBe(0);
+    });
+
+    it('a partial category checkbox selects the whole category', async () => {
+        // The browser flips an indeterminate checkbox to checked before the
+        // delegated handler runs; the handler must still read the pre-click
+        // 'partial' state and therefore enable, not disable
+        state.activeKeywords.add('gun control');
+        renderAdvancedMode();
+        renderCategoryList();
+
+        const checkbox = grid().querySelector('input[data-category="Gun Policy"]');
+        expect(checkbox.dataset.state).toBe('partial');
+        checkbox.click();
+        await flushUpdates();
+
+        expect(state.activeKeywords.size).toBe(4);
+        expect(grid().querySelector('input[data-category="Gun Policy"]').dataset.state).toBe('all');
+    });
+
+    it('sidebar category checkbox toggles through delegation too', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+
+        document.querySelector('#category-list input[data-category="Gun Policy"]').click();
+        await flushUpdates();
+
+        expect(state.activeKeywords.size).toBe(4);
+        expect(document.querySelector('#category-list input[data-category="Gun Policy"]').dataset.state).toBe('all');
+    });
+
+    it('clicking the keyword label text toggles via the synthesized input click', async () => {
+        renderAdvancedMode();
+        renderCategoryList();
+
+        const label = grid().querySelector('input[data-keyword="open carry"]').closest('label');
+        label.click();
+        await flushUpdates();
+
+        expect(state.activeKeywords.has('open carry')).toBe(true);
     });
 });

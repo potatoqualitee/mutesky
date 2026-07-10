@@ -2,8 +2,13 @@ import { elements } from '../dom.js';
 import { state } from '../state.js';
 import { getDisplayName, getCategoryState, getCheckboxClass, filterKeywordGroups, getAllKeywordsForCategory } from '../categoryManager.js';
 import { isKeywordActive } from '../handlers/keywords/keyword-utils.js';
-import { escapeHtml, escapeJsAttr } from '../utils/escape.js';
+import { escapeHtml } from '../utils/escape.js';
 import { MY_KEYWORDS_CATEGORY } from '../myKeywords.js';
+
+// No inline onclick/onchange in this markup: the grid and sidebar re-render
+// wholesale, so per-checkbox inline handlers would be re-parsed and
+// re-compiled on every render (~1,600 of them for the full grid). events.js
+// attaches delegated listeners to the two static containers instead.
 
 function sectionIdFor(category) {
     // Special case: give US Political Figures the ID that matches the politicians link
@@ -27,14 +32,12 @@ function buildCategorySection(category, keywords) {
                             ${categoryState === 'all' ? 'checked' : ''}
                             data-category="${escapeHtml(category)}"
                             data-state="${categoryState}"
-                            onclick="handleCategoryToggle('${escapeJsAttr(category)}', '${categoryState}')"
                         >
                     </div>
                     <h3>${escapeHtml(displayName)}</h3>
                     <span class="count">(${activeCount}/${keywords.length})</span>
                     ${category === MY_KEYWORDS_CATEGORY ? `
-                        <button class="my-keywords-manage"
-                            onclick="window.myKeywordsHandlers.handleMyKeywordsModalToggle()">Manage</button>
+                        <button class="my-keywords-manage">Manage</button>
                     ` : ''}
                 </div>
             </div>
@@ -43,8 +46,8 @@ function buildCategorySection(category, keywords) {
                     <label class="keyword-checkbox">
                         <input
                             type="checkbox"
+                            data-keyword="${escapeHtml(keyword)}"
                             ${isKeywordActive(keyword) ? 'checked' : ''}
-                            onchange="handleKeywordToggle('${escapeJsAttr(keyword)}', this.checked)"
                         >
                         ${escapeHtml(keyword)}
                     </label>
@@ -152,12 +155,10 @@ export function renderCategoryList() {
                     ${state === 'all' ? 'checked' : ''}
                     data-category="${escapeHtml(category)}"
                     data-state="${state}"
-                    onclick="handleCategoryToggle('${escapeJsAttr(category)}', '${state}')"
                 >
             </div>
             <a href="#category-${escapeHtml(category.replace(/\s+/g, '-').toLowerCase())}"
-               class="category-name"
-               onclick="const el = document.getElementById('category-${escapeJsAttr(category.replace(/\s+/g, '-').toLowerCase())}'); if (el) el.scrollIntoView({behavior: 'smooth'})">
+               class="category-name">
                 ${escapeHtml(displayName)}
             </a>
             <span class="category-count">${activeKeywords}/${totalKeywords}</span>

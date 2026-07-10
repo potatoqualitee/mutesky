@@ -3,8 +3,6 @@ import { setupEventListeners } from './events.js';
 import {
     handleContextToggle,
     handleExceptionToggle,
-    handleCategoryToggle,
-    handleKeywordToggle,
     handleSettingsModalToggle,
     handleFooterThemeToggle,
     handleMyKeywordsModalToggle,
@@ -13,11 +11,11 @@ import {
     switchMode
 } from './handlers/index.js';
 
-// Make handlers available globally
+// Make handlers available globally for the remaining inline-handler markup
+// (context cards, modals, top-nav). The grid/sidebar keyword and category
+// toggles moved to delegated listeners in events.js.
 window.handleContextToggle = handleContextToggle;
 window.handleExceptionToggle = handleExceptionToggle;
-window.handleCategoryToggle = handleCategoryToggle;
-window.handleKeywordToggle = handleKeywordToggle;
 window.settingsHandlers = {
     handleSettingsModalToggle,
     handleFooterThemeToggle

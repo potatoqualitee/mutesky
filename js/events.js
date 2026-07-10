@@ -8,6 +8,9 @@ import {
     handleAuth,
     handleLogout,
     handleMuteSubmit,
+    handleKeywordToggle,
+    handleCategoryToggle,
+    handleMyKeywordsModalToggle,
     switchMode,
     handleEnableAll,
     handleDisableAll,
@@ -93,6 +96,45 @@ export function setupEventListeners() {
         state.searchTerm = e.target.value.toLowerCase();
         renderInterface();
     }, 300));
+
+    // Delegated listeners for the advanced-mode grid and sidebar. Their
+    // contents re-render wholesale, so per-checkbox inline handlers would be
+    // re-parsed on every render; the two containers themselves are static.
+    elements.categoriesGrid?.addEventListener('change', (event) => {
+        const keywordCheckbox = event.target.closest('input[data-keyword]');
+        if (keywordCheckbox) {
+            handleKeywordToggle(keywordCheckbox.dataset.keyword, keywordCheckbox.checked);
+        }
+    });
+
+    // Category checkboxes read dataset.state, the render-time state, rather
+    // than the checked property the browser just flipped -- that keeps the
+    // tri-state cycle identical to the old inline handlers, which baked the
+    // pre-click state into their arguments at render time
+    const handleCategoryCheckboxClick = (event) => {
+        const categoryCheckbox = event.target.closest('input.category-checkbox');
+        if (!categoryCheckbox) return false;
+        handleCategoryToggle(categoryCheckbox.dataset.category, categoryCheckbox.dataset.state);
+        return true;
+    };
+
+    elements.categoriesGrid?.addEventListener('click', (event) => {
+        if (handleCategoryCheckboxClick(event)) return;
+        if (event.target.closest('.my-keywords-manage')) {
+            handleMyKeywordsModalToggle();
+        }
+    });
+
+    elements.categoryList?.addEventListener('click', (event) => {
+        if (handleCategoryCheckboxClick(event)) return;
+        const link = event.target.closest('a.category-name');
+        if (link) {
+            // Same as the old inline handler: smooth-scroll layered on the
+            // default hash navigation, and no-op if the section is filtered out
+            const target = document.getElementById(link.getAttribute('href').slice(1));
+            target?.scrollIntoView?.({ behavior: 'smooth' });
+        }
+    });
 
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
