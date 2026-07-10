@@ -119,15 +119,15 @@ Check out [US Politician Labeler](https://bsky.app/profile/did:plc:bxnuth7kms5l5
 
 And the [Calm the Chaos Browser extension](https://chromewebstore.google.com/detail/calm-the-chaos/cholkigafekgccbkfgcmcigihipbnjoe?authuser=0&hl=en)
 
-## 📈 Trending Now: Automatic Controversy Detection
+## 📈 New Developments: Automatic Controversy Detection
 
 MuteSky scours political headlines from 15 news feeds across the spectrum
 (left, center, and right) every 6 hours and detects "the controversy of the
 day" — phrases that are hot on **both** sides of the press at once. Each
 detected phrase gets a retention window that scales with how big and how
 sustained the story is (a one-day flap expires in ~3 days; a major sustained
-story can stay muted for up to 30), and it appears in the app as the
-**Trending Now** context.
+story can stay muted for up to 30), and the phrases feed the app's
+**New Developments** context, keeping it current automatically.
 
 The engine lives in `scripts/trending/` and runs via GitHub Actions
 (`.github/workflows/trending.yml`). It needs no API keys; if a `BRAVE_API_KEY`

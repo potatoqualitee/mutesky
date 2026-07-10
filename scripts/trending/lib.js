@@ -400,8 +400,10 @@ export function updateTrendingState(prevState, scored, nowIso, tuning = TUNING) 
 // --- output ---
 
 // Map heat percentile onto mutesky weights: weight 3 phrases surface even at
-// the app's "Minimal" filter level, so reserve it for the top of the list
-export function buildTrendingCategory(state, categoryName = 'Trending Controversies') {
+// the app's "Minimal" filter level, so reserve it for the top of the list.
+// The category name matches calm-the-chaos's "New Developments" so the app
+// merges these phrases into that existing card (js/api/trending.js)
+export function buildTrendingCategory(state, categoryName = 'New Developments') {
     const entries = Object.values(state.phrases || {}).sort((a, b) => b.heat - a.heat);
     const keywords = {};
     entries.forEach((entry, index) => {

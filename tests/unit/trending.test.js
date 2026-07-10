@@ -352,7 +352,7 @@ describe('buildTrendingCategory', () => {
             };
         }
         const category = buildTrendingCategory({ updatedAt: NOW, phrases });
-        const data = category['Trending Controversies'];
+        const data = category['New Developments'];
         expect(data.keywords['Phrase 0'].weight).toBe(3);   // hottest
         expect(data.keywords['Phrase 4'].weight).toBe(2);   // middle
         expect(data.keywords['Phrase 9'].weight).toBe(1);   // coolest

@@ -5,7 +5,10 @@ from news headlines and publishes them as muted phrases. It runs on GitHub
 Actions every 6 hours (`.github/workflows/trending.yml`), commits
 `keywords/trending.json` + `keywords/trending-state.json`, and the app fetches
 the result from `raw.githubusercontent.com` at startup (see
-`js/api/trending.js`), exposing it as the **Trending Now** context card.
+`js/api/trending.js`), merging the phrases into the existing **New
+Developments** category so that context card stays current automatically. If
+the upstream category or card is ever missing, the app installs a standalone
+fallback card instead.
 
 ## Pipeline (each run)
 
