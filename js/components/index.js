@@ -2,7 +2,7 @@ import LandingPage from './landing-page.js';
 import TopNav from './top-nav.js';
 import SimpleMode from './simple-mode.js';
 import AdvancedMode from './advanced-mode.js';
-import { SettingsModal } from './modals.js';
+import { SettingsModal, MyKeywordsModal } from './modals.js';
 import AppFooter from './footer.js';
 import AppIntro from './app-intro.js';
 
@@ -13,6 +13,7 @@ export {
     SimpleMode,
     AdvancedMode,
     SettingsModal,
+    MyKeywordsModal,
     AppFooter,
     AppIntro
 };

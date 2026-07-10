@@ -1,0 +1,551 @@
+{
+    "US Holidays": {
+        "description": "American holiday chatter and seasonal creep — Christmas, Thanksgiving, Halloween, July 4th, and more",
+        "keywords": {
+            "Christmas": {
+                "weight": 3,
+                "description": "Peak seasonal creep term"
+            },
+            "Xmas": {
+                "weight": 3,
+                "description": "Peak seasonal creep term"
+            },
+            "Santa Claus": {
+                "weight": 3,
+                "description": "Peak seasonal creep term"
+            },
+            "Thanksgiving": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "Black Friday": {
+                "weight": 3,
+                "description": "High-volume shopping event"
+            },
+            "Cyber Monday": {
+                "weight": 3,
+                "description": "High-volume shopping event"
+            },
+            "Halloween": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "Valentine's Day": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "Easter": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "New Year's Eve": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "Fourth of July": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "4th of July": {
+                "weight": 3,
+                "description": "Major US holiday variant"
+            },
+            "Independence Day": {
+                "weight": 3,
+                "description": "Major US holiday"
+            },
+            "New Year's Day": {
+                "weight": 2,
+                "description": "Major US holiday"
+            },
+            "Mother's Day": {
+                "weight": 2,
+                "description": "Major US holiday"
+            },
+            "Father's Day": {
+                "weight": 2,
+                "description": "Major US holiday"
+            },
+            "Memorial Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "Labor Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "Veterans Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "Presidents Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "MLK Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "Juneteenth": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "Columbus Day": {
+                "weight": 2,
+                "description": "Federal holiday"
+            },
+            "St. Patrick's Day": {
+                "weight": 2,
+                "description": "Popular US holiday"
+            },
+            "Mardi Gras": {
+                "weight": 2,
+                "description": "Popular US holiday"
+            },
+            "Cinco de Mayo": {
+                "weight": 2,
+                "description": "Popular US holiday"
+            },
+            "April Fools": {
+                "weight": 2,
+                "description": "Popular US holiday"
+            },
+            "Hanukkah": {
+                "weight": 2,
+                "description": "Widely observed holiday"
+            },
+            "Kwanzaa": {
+                "weight": 2,
+                "description": "Widely observed holiday"
+            },
+            "Passover": {
+                "weight": 2,
+                "description": "Widely observed holiday"
+            },
+            "Ash Wednesday": {
+                "weight": 2,
+                "description": "Widely observed holiday"
+            },
+            "Friendsgiving": {
+                "weight": 2,
+                "description": "Thanksgiving spin-off"
+            },
+            "spooky season": {
+                "weight": 2,
+                "description": "Halloween season term"
+            },
+            "trick or treat": {
+                "weight": 2,
+                "description": "Halloween term"
+            },
+            "candy corn": {
+                "weight": 2,
+                "description": "Halloween food term"
+            },
+            "pumpkin spice": {
+                "weight": 2,
+                "description": "Fall seasonal creep icon"
+            },
+            "eggnog": {
+                "weight": 2,
+                "description": "Holiday food term"
+            },
+            "gingerbread": {
+                "weight": 2,
+                "description": "Holiday food term"
+            },
+            "candy cane": {
+                "weight": 2,
+                "description": "Holiday food term"
+            },
+            "candy canes": {
+                "weight": 2,
+                "description": "Holiday food term"
+            },
+            "mistletoe": {
+                "weight": 2,
+                "description": "Holiday decoration term"
+            },
+            "nativity": {
+                "weight": 2,
+                "description": "Holiday scene term"
+            },
+            "secret santa": {
+                "weight": 2,
+                "description": "Holiday gifting term"
+            },
+            "ugly sweater": {
+                "weight": 2,
+                "description": "Holiday party term"
+            },
+            "advent calendar": {
+                "weight": 2,
+                "description": "Holiday countdown term"
+            },
+            "elf on the shelf": {
+                "weight": 2,
+                "description": "Holiday tradition term"
+            },
+            "jingle bells": {
+                "weight": 2,
+                "description": "Holiday music term"
+            },
+            "Silent Night": {
+                "weight": 2,
+                "description": "Holiday music term"
+            },
+            "Feliz Navidad": {
+                "weight": 2,
+                "description": "Holiday greeting"
+            },
+            "Happy Holidays": {
+                "weight": 2,
+                "description": "Holiday greeting"
+            },
+            "Santa": {
+                "weight": 1,
+                "description": "Also matches place names like Santa Monica"
+            },
+            "Kris Kringle": {
+                "weight": 1,
+                "description": "Holiday figure"
+            },
+            "Mrs. Claus": {
+                "weight": 1,
+                "description": "Holiday figure"
+            },
+            "Saint Nick": {
+                "weight": 1,
+                "description": "Holiday figure"
+            },
+            "Rudolph": {
+                "weight": 1,
+                "description": "Holiday figure - also a name"
+            },
+            "reindeer": {
+                "weight": 1,
+                "description": "Holiday animal term"
+            },
+            "North Pole": {
+                "weight": 1,
+                "description": "Also matches Arctic coverage"
+            },
+            "Yuletide": {
+                "weight": 1,
+                "description": "Holiday season term"
+            },
+            "yule log": {
+                "weight": 1,
+                "description": "Holiday tradition term"
+            },
+            "fruitcake": {
+                "weight": 1,
+                "description": "Holiday food - also used as an insult"
+            },
+            "figgy pudding": {
+                "weight": 1,
+                "description": "Holiday food term"
+            },
+            "mulled wine": {
+                "weight": 1,
+                "description": "Holiday drink term"
+            },
+            "wassail": {
+                "weight": 1,
+                "description": "Holiday drink term"
+            },
+            "mince pies": {
+                "weight": 1,
+                "description": "Holiday food term"
+            },
+            "cookie exchange": {
+                "weight": 1,
+                "description": "Holiday tradition term"
+            },
+            "tree lighting": {
+                "weight": 1,
+                "description": "Holiday event term"
+            },
+            "holiday season": {
+                "weight": 1,
+                "description": "Seasonal phrase"
+            },
+            "holiday shopping": {
+                "weight": 1,
+                "description": "Seasonal phrase"
+            },
+            "holiday cheer": {
+                "weight": 1,
+                "description": "Seasonal phrase"
+            },
+            "holiday party": {
+                "weight": 1,
+                "description": "Seasonal phrase"
+            },
+            "good tidings": {
+                "weight": 1,
+                "description": "Holiday greeting phrase"
+            },
+            "Season's Greetings": {
+                "weight": 1,
+                "description": "Holiday greeting phrase"
+            },
+            "Noel": {
+                "weight": 1,
+                "description": "Holiday term - also a name"
+            },
+            "carols": {
+                "weight": 1,
+                "description": "Holiday music term"
+            },
+            "carolers": {
+                "weight": 1,
+                "description": "Holiday music term"
+            },
+            "caroling": {
+                "weight": 1,
+                "description": "Holiday music term"
+            },
+            "sleigh": {
+                "weight": 1,
+                "description": "Holiday term"
+            },
+            "snow globe": {
+                "weight": 1,
+                "description": "Holiday decoration term"
+            },
+            "tinsel": {
+                "weight": 1,
+                "description": "Holiday decoration term"
+            },
+            "wreath": {
+                "weight": 1,
+                "description": "Holiday decoration - also memorial wreaths"
+            },
+            "ornaments": {
+                "weight": 1,
+                "description": "Holiday decoration term"
+            },
+            "baubles": {
+                "weight": 1,
+                "description": "Holiday decoration term"
+            },
+            "stocking stuffer": {
+                "weight": 1,
+                "description": "Holiday gifting term"
+            },
+            "stocking stuffers": {
+                "weight": 1,
+                "description": "Holiday gifting term"
+            },
+            "wrapping paper": {
+                "weight": 1,
+                "description": "Holiday gifting term"
+            },
+            "gift wrap": {
+                "weight": 1,
+                "description": "Holiday gifting term"
+            },
+            "gift guide": {
+                "weight": 1,
+                "description": "Holiday shopping term"
+            },
+            "gift exchange": {
+                "weight": 1,
+                "description": "Holiday gifting term"
+            },
+            "white elephant": {
+                "weight": 1,
+                "description": "Gift game - also an idiom"
+            },
+            "Chanukah": {
+                "weight": 1,
+                "description": "Hanukkah variant spelling"
+            },
+            "menorah": {
+                "weight": 1,
+                "description": "Hanukkah term"
+            },
+            "dreidel": {
+                "weight": 1,
+                "description": "Hanukkah term"
+            },
+            "ball drop": {
+                "weight": 1,
+                "description": "New Year's Eve term"
+            },
+            "New Year's resolution": {
+                "weight": 1,
+                "description": "New Year term"
+            },
+            "Auld Lang Syne": {
+                "weight": 1,
+                "description": "New Year music term"
+            },
+            "turkey trot": {
+                "weight": 1,
+                "description": "Thanksgiving event term"
+            },
+            "turkey pardon": {
+                "weight": 1,
+                "description": "Thanksgiving event term"
+            },
+            "pumpkin pie": {
+                "weight": 1,
+                "description": "Thanksgiving food term"
+            },
+            "cranberry sauce": {
+                "weight": 1,
+                "description": "Thanksgiving food term"
+            },
+            "pumpkin patch": {
+                "weight": 1,
+                "description": "Fall activity term"
+            },
+            "corn maze": {
+                "weight": 1,
+                "description": "Fall activity term"
+            },
+            "hayride": {
+                "weight": 1,
+                "description": "Fall activity term"
+            },
+            "jack-o-lantern": {
+                "weight": 1,
+                "description": "Halloween term"
+            },
+            "haunted house": {
+                "weight": 1,
+                "description": "Halloween term"
+            },
+            "costume party": {
+                "weight": 1,
+                "description": "Halloween term"
+            },
+            "egg hunt": {
+                "weight": 1,
+                "description": "Easter term"
+            },
+            "Good Friday": {
+                "weight": 1,
+                "description": "Also matches 'have a good Friday'"
+            },
+            "Valentine": {
+                "weight": 1,
+                "description": "Holiday term - also a name"
+            },
+            "Valentines": {
+                "weight": 1,
+                "description": "Holiday term"
+            },
+            "Cupid": {
+                "weight": 1,
+                "description": "Valentine's term"
+            },
+            "Galentine's Day": {
+                "weight": 1,
+                "description": "Valentine's spin-off"
+            },
+            "conversation hearts": {
+                "weight": 1,
+                "description": "Valentine's food term"
+            },
+            "candy hearts": {
+                "weight": 1,
+                "description": "Valentine's food term"
+            },
+            "Saint Patrick's Day": {
+                "weight": 1,
+                "description": "St. Patrick's Day variant"
+            },
+            "Paddy's Day": {
+                "weight": 1,
+                "description": "St. Patrick's Day variant"
+            },
+            "leprechaun": {
+                "weight": 1,
+                "description": "St. Patrick's term"
+            },
+            "shamrock": {
+                "weight": 1,
+                "description": "St. Patrick's term"
+            },
+            "green beer": {
+                "weight": 1,
+                "description": "St. Patrick's term"
+            },
+            "Fat Tuesday": {
+                "weight": 1,
+                "description": "Mardi Gras term"
+            },
+            "Groundhog Day": {
+                "weight": 1,
+                "description": "Holiday - also a repetition idiom"
+            },
+            "Martin Luther King Day": {
+                "weight": 1,
+                "description": "MLK Day variant"
+            },
+            "Indigenous Peoples Day": {
+                "weight": 1,
+                "description": "Federal holiday observance"
+            },
+            "fireworks": {
+                "weight": 1,
+                "description": "Also matches celebrations and metaphors"
+            },
+            "sparklers": {
+                "weight": 1,
+                "description": "July 4th term"
+            },
+            "holiday": {
+                "weight": 0,
+                "description": "Very broad - matches any holiday mention"
+            },
+            "holidays": {
+                "weight": 0,
+                "description": "Very broad - matches any holiday mention"
+            },
+            "festive": {
+                "weight": 0,
+                "description": "Very broad seasonal term"
+            },
+            "carol": {
+                "weight": 0,
+                "description": "Very broad - also a common name"
+            },
+            "turkey": {
+                "weight": 0,
+                "description": "Very broad - also the country"
+            },
+            "stuffing": {
+                "weight": 0,
+                "description": "Very broad food term"
+            },
+            "chestnuts": {
+                "weight": 0,
+                "description": "Broad food term"
+            },
+            "stockings": {
+                "weight": 0,
+                "description": "Very broad - also clothing"
+            },
+            "icicles": {
+                "weight": 0,
+                "description": "Broad winter term"
+            },
+            "snowman": {
+                "weight": 0,
+                "description": "Broad winter term"
+            },
+            "cookout": {
+                "weight": 0,
+                "description": "Very broad summer term"
+            },
+            "Lent": {
+                "weight": 0,
+                "description": "Very broad - also past tense of lend"
+            }
+        }
+    }
+}

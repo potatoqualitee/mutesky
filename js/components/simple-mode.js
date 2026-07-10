@@ -26,6 +26,10 @@ class SimpleMode extends HTMLElement {
                             <div id="context-options" class="context-options">
                                 <!-- Will be populated by contextRenderer.js -->
                             </div>
+                            <p class="my-keywords-hint">Have your own words to mute?
+                                <button type="button" class="link-button"
+                                    onclick="window.myKeywordsHandlers.handleMyKeywordsModalToggle()">Add My Keywords</button>
+                            </p>
                         </div>
 
                         <div class="filter-slider">

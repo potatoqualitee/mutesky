@@ -1,6 +1,7 @@
 import { elements } from './dom.js';
 import { state, loadState } from './state.js';
-import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords, ensureTrendingContext } from './api.js';
+import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords, ensureTrendingContext, ensureHolidaysCategory } from './api.js';
+import { syncMyKeywordsCategory } from './myKeywords.js';
 import { renderInterface } from './renderer.js';
 import { blueskyService } from './bluesky.js';
 import {
@@ -45,6 +46,10 @@ export async function init() {
                 fetchContextGroups(),
                 fetchTrendingKeywords()
             ]);
+            // Bundled and user-defined categories go in before the trending
+            // re-merge so trending's overlap dedup can see their keywords
+            ensureHolidaysCategory();
+            syncMyKeywordsCategory();
             // Context groups may have loaded after trending; re-attach its card
             ensureTrendingContext();
 

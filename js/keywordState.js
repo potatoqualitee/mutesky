@@ -82,5 +82,13 @@ export function getMuteUnmuteCounts() {
         }
     }
 
+    // Removed My Keywords are no longer in ourKeywords (their category entry
+    // is gone), but their tombstones still unmute them on the next submit
+    for (const removed of state.removedMyKeywords) {
+        if (!ourKeywords.has(removed) && originalLowerKeywords.has(removed)) {
+            toUnmute++;
+        }
+    }
+
     return { toMute, toUnmute };
 }

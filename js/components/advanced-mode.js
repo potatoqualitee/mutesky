@@ -15,6 +15,8 @@ class AdvancedMode extends HTMLElement {
                                 <button id="enable-all" class="toggle-all-btn">Enable All</button>
                                 <button id="disable-all" class="toggle-all-btn">Disable All</button>
                             </div>
+                            <button class="toggle-all-btn my-keywords-btn"
+                                onclick="window.myKeywordsHandlers.handleMyKeywordsModalToggle()">+ My Keywords</button>
                         </div>
 
                         <div class="category-list" id="category-list">

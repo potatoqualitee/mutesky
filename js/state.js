@@ -14,6 +14,8 @@ export const state = {
     originalMutedKeywords: new Set(),   // All user's muted keywords (for safety check)
     sessionMutedKeywords: new Set(),    // New keywords muted this session
     manuallyUnchecked: new Set(),       // Keywords that user has manually unchecked
+    myKeywords: new Set(),              // User-added custom keywords (original case)
+    removedMyKeywords: new Set(),       // Deleted custom keywords awaiting unmute on next submit (lowercase)
     selectedContexts: new Set(),
     selectedExceptions: new Set(),
     selectedCategories: new Set(),

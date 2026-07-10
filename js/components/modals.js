@@ -1,1 +1,1 @@
-export { SettingsModal } from './modals/index.js';
+export { SettingsModal, MyKeywordsModal } from './modals/index.js';

@@ -7,6 +7,9 @@ import {
     handleKeywordToggle,
     handleSettingsModalToggle,
     handleFooterThemeToggle,
+    handleMyKeywordsModalToggle,
+    handleMyKeywordsAdd,
+    handleMyKeywordsRemove,
     switchMode
 } from './handlers/index.js';
 
@@ -18,6 +21,11 @@ window.handleKeywordToggle = handleKeywordToggle;
 window.settingsHandlers = {
     handleSettingsModalToggle,
     handleFooterThemeToggle
+};
+window.myKeywordsHandlers = {
+    handleMyKeywordsModalToggle,
+    handleMyKeywordsAdd,
+    handleMyKeywordsRemove
 };
 window.switchMode = switchMode;
 

@@ -3,6 +3,7 @@ import { state } from '../state.js';
 import { getDisplayName, getCategoryState, getCheckboxClass, filterKeywordGroups, getAllKeywordsForCategory } from '../categoryManager.js';
 import { isKeywordActive } from '../handlers/keywordHandlers.js';
 import { escapeHtml, escapeJsAttr } from '../utils/escape.js';
+import { MY_KEYWORDS_CATEGORY } from '../myKeywords.js';
 
 export function renderAdvancedMode() {
     if (!elements.categoriesGrid) return;
@@ -35,6 +36,10 @@ export function renderAdvancedMode() {
                             </div>
                             <h3>${escapeHtml(displayName)}</h3>
                             <span class="count">(${activeCount}/${keywords.length})</span>
+                            ${category === MY_KEYWORDS_CATEGORY ? `
+                                <button class="my-keywords-manage"
+                                    onclick="window.myKeywordsHandlers.handleMyKeywordsModalToggle()">Manage</button>
+                            ` : ''}
                         </div>
                     </div>
                     <div class="keywords-container">

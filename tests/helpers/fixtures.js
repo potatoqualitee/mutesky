@@ -78,6 +78,8 @@ export function resetStateWithFixtures({
     state.originalMutedKeywords = new Set();
     state.sessionMutedKeywords = new Set();
     state.manuallyUnchecked = new Set();
+    state.myKeywords = new Set();
+    state.removedMyKeywords = new Set();
     state.selectedContexts = new Set();
     state.selectedExceptions = new Set();
     state.selectedCategories = new Set();

@@ -3,3 +3,4 @@ export { cache } from './api/cache.js';
 export { getLastModifiedDate, listCategoryFiles } from './api/github.js';
 export { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, refreshAllData } from './api/index.js';
 export { fetchTrendingKeywords, ensureTrendingContext } from './api/trending.js';
+export { ensureHolidaysCategory, mergeHolidaysIntoState, HOLIDAYS_CONTEXT_ID } from './api/holidays.js';

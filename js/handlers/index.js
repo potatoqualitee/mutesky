@@ -5,6 +5,11 @@ export { handleMuteSubmit, initializeKeywordState } from './muteHandlers.js';
 export { switchMode, handleRefreshData, showApp } from './uiHandlers.js';
 export { handleFooterThemeToggle } from './themeHandlers.js';
 export {
+    handleMyKeywordsModalToggle,
+    handleMyKeywordsAdd,
+    handleMyKeywordsRemove
+} from './myKeywordsHandlers.js';
+export {
     handleSettingsModalToggle,
     applyAppearanceSettings,
     loadAppearanceSettings,

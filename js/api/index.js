@@ -1,6 +1,8 @@
 import { state, forceRefresh } from '../state.js';
 import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig } from './fetchers.js';
 import { fetchTrendingKeywords, ensureTrendingContext } from './trending.js';
+import { ensureHolidaysCategory } from './holidays.js';
+import { syncMyKeywordsCategory } from '../myKeywords.js';
 
 export { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords };
 
@@ -44,9 +46,12 @@ export async function refreshAllData() {
         state.originalMutedKeywords = originalMutedKeywords;
         state.sessionMutedKeywords = sessionMutedKeywords;
 
-        // AFTER restoring the snapshots: re-attach the trending context and
-        // register its category in the (restored) selectedCategories set --
-        // doing this earlier would be clobbered by the restore above
+        // AFTER restoring the snapshots: re-attach the bundled/user categories
+        // and the trending context, registering them in the (restored)
+        // selectedCategories set -- doing this earlier would be clobbered by
+        // the restore above
+        ensureHolidaysCategory();
+        syncMyKeywordsCategory();
         ensureTrendingContext();
 
         console.debug('Data refreshed successfully');

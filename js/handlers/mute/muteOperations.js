@@ -6,6 +6,7 @@ import { muteCache } from './muteCache.js';
 import { debouncedUpdate } from './muteUIUtils.js';
 import { getKeywordsWithCase } from '../../keywordState.js';
 import { seedActiveFromMutedKeywords, syncDerivedContexts } from '../context/selectionModel.js';
+import { getSubmittableKeywords, getManagedKeywordsForSubmit, clearRemovedMyKeywords } from '../../myKeywords.js';
 
 // Process all keywords immediately without batching
 function processKeywords(keywords, operation) {
@@ -18,14 +19,15 @@ export async function handleMuteSubmit() {
     try {
         console.debug('[handleMuteSubmit] Starting mute operation');
 
-        // Get selected keywords efficiently
-        const selectedKeywords = Array.from(state.activeKeywords);
+        // Get selected keywords efficiently (minus pending My Keywords removals)
+        const selectedKeywords = getSubmittableKeywords();
         console.debug('[handleMuteSubmit] Selected keywords:', selectedKeywords.length);
 
-        // Use cached keyword map
+        // Use cached keyword map, extended with removal tombstones so Bluesky
+        // drops deleted My Keywords instead of preserving them as unmanaged
         const ourKeywordsMap = muteCache.getOurKeywordsMap();
-        const ourKeywords = new Set(Array.from(ourKeywordsMap.keys()));
-        console.debug('[handleMuteSubmit] Our keywords total:', ourKeywords.size);
+        const ourKeywords = getManagedKeywordsForSubmit(ourKeywordsMap.keys());
+        console.debug('[handleMuteSubmit] Our keywords total:', ourKeywords.length);
 
         // Get the counts before update
         const { toMute, toUnmute } = getMuteUnmuteCounts();
@@ -33,8 +35,11 @@ export async function handleMuteSubmit() {
 
         // Update muted keywords
         console.debug('[handleMuteSubmit] Updating keywords on Bluesky');
-        await blueskyService.mute.updateMutedKeywords(selectedKeywords, Array.from(ourKeywords));
+        await blueskyService.mute.updateMutedKeywords(selectedKeywords, ourKeywords);
         console.debug('[handleMuteSubmit] Bluesky update complete');
+
+        // Removals are live on Bluesky now; their tombstones are done
+        clearRemovedMyKeywords();
 
         // If this mute/unmute follows an enable/disable all action, clear exceptions
         if (state.lastBulkAction) {

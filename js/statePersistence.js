@@ -23,6 +23,8 @@ const debouncedSave = (() => {
                 selectedContexts: Array.from(state.selectedContexts),
                 selectedExceptions: Array.from(state.selectedExceptions),
                 manuallyUnchecked: Array.from(state.manuallyUnchecked),
+                myKeywords: Array.from(state.myKeywords),
+                removedMyKeywords: Array.from(state.removedMyKeywords),
                 mode: state.mode,
                 lastModified: state.lastModified,
                 filterLevel: state.filterLevel,
@@ -73,6 +75,11 @@ export function loadState() {
                     return keywordMap.get(keyword.toLowerCase()) || keyword;
                 })
             );
+            // Kept as saved: user case for their own keywords, lowercase tombstones
+            state.myKeywords = new Set(data.myKeywords || []);
+            state.removedMyKeywords = new Set(
+                (data.removedMyKeywords || []).map(keyword => keyword.toLowerCase())
+            );
 
             // Load other state properties
             state.mode = data.mode || 'simple';
@@ -105,7 +112,8 @@ export function resetState() {
     state.activeKeywords.clear();
     state.originalMutedKeywords.clear();
     state.sessionMutedKeywords.clear();
-    // Don't clear manuallyUnchecked - let it persist
+    // Don't clear manuallyUnchecked or myKeywords/removedMyKeywords - the
+    // user's own list and sticky opt-outs survive resets and data refreshes
     state.selectedContexts.clear();
     state.selectedExceptions.clear();
     state.selectedCategories.clear();

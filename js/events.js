@@ -3,6 +3,7 @@ import { state, loadState, saveState } from './state.js';
 import { renderInterface } from './renderer.js';
 import { debounce } from './utils.js';
 import { applyFilterLevel } from './handlers/context/selectionModel.js';
+import { syncMyKeywordsCategory } from './myKeywords.js';
 import { blueskyService } from './bluesky.js';
 import {
     handleAuth,
@@ -103,6 +104,8 @@ export function setupEventListeners() {
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && state.did) {
             loadState();
+            // Another tab may have edited My Keywords; rebuild its category
+            syncMyKeywordsCategory();
 
             // Re-render interface with restored state
             renderInterface();
