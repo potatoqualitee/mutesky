@@ -1,192 +1,82 @@
 {
-  "updatedAt": "2026-07-10T07:38:25.985Z",
+  "updatedAt": "2026-07-10T13:09:32.200Z",
   "phrases": {
-    "trump": {
-      "display": "Trump",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 79.36801765917912,
-      "peakHeat": 79.36801765917912,
-      "daysActive": 1,
-      "expiresAt": "2026-07-21T11:30:44.252Z",
-      "bipartisan": true,
-      "outlets": 10
-    },
     "platner": {
       "display": "Platner",
       "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 53.31487379066332,
-      "peakHeat": 53.31487379066332,
+      "lastSeen": "2026-07-10T13:09:32.200Z",
+      "heat": 75.09477160007542,
+      "peakHeat": 75.09477160007542,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T10:17:52.109Z",
-      "bipartisan": true,
-      "outlets": 9
-    },
-    "iran": {
-      "display": "Iran",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 35.59064784083492,
-      "peakHeat": 35.59064784083492,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T09:42:55.222Z",
+      "expiresAt": "2026-07-21T13:28:28.273Z",
       "bipartisan": true,
       "outlets": 11
-    },
-    "graham": {
-      "display": "Graham",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 31.875017024224782,
-      "peakHeat": 31.875017024224782,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T03:14:05.041Z",
-      "bipartisan": true,
-      "outlets": 8
     },
     "graham platner": {
       "display": "Graham Platner",
       "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 30.173453034605117,
-      "peakHeat": 30.173453034605117,
+      "lastSeen": "2026-07-10T13:09:32.200Z",
+      "heat": 43.38447634050862,
+      "peakHeat": 43.38447634050862,
       "daysActive": 1,
-      "expiresAt": "2026-07-19T00:03:05.771Z",
+      "expiresAt": "2026-07-20T03:07:41.010Z",
       "bipartisan": true,
-      "outlets": 7
+      "outlets": 8
     },
     "maine": {
       "display": "Maine",
       "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 26.08595133218264,
-      "peakHeat": 26.08595133218264,
+      "lastSeen": "2026-07-10T13:09:32.200Z",
+      "heat": 31.645484176601883,
+      "peakHeat": 31.645484176601883,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T15:44:53.175Z",
+      "expiresAt": "2026-07-19T08:19:55.848Z",
       "bipartisan": true,
-      "outlets": 7
+      "outlets": 6
+    },
+    "air force one": {
+      "display": "Air Force One",
+      "firstSeen": "2026-07-10T03:28:11.147Z",
+      "lastSeen": "2026-07-10T13:09:32.200Z",
+      "heat": 12.983953186962491,
+      "peakHeat": 12.983953186962491,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T08:55:21.916Z",
+      "bipartisan": true,
+      "outlets": 4
     },
     "world cup": {
       "display": "World Cup",
       "firstSeen": "2026-07-10T03:28:11.147Z",
       "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 14.648442820070246,
+      "heat": 11.242976012294834,
       "peakHeat": 14.648442820070246,
       "daysActive": 1,
       "expiresAt": "2026-07-17T09:13:28.139Z",
       "bipartisan": true,
       "outlets": 4
     },
-    "kirk": {
-      "display": "Kirk",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 12.484382802769694,
-      "peakHeat": 12.484382802769694,
+    "reveals": {
+      "display": "Reveals",
+      "firstSeen": "2026-07-10T13:09:32.200Z",
+      "lastSeen": "2026-07-10T13:09:32.200Z",
+      "heat": 6.875,
+      "peakHeat": 6.875,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T01:33:27.467Z",
-      "bipartisan": true,
-      "outlets": 6
-    },
-    "senate race": {
-      "display": "Senate race",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 11.125005674741594,
-      "peakHeat": 11.125005674741594,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T20:16:04.491Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "air force one": {
-      "display": "Air Force One",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 10.101568529412944,
-      "peakHeat": 10.101568529412944,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T16:00:02.013Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "israel": {
-      "display": "Israel",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 9.648442820070244,
-      "peakHeat": 9.648442820070244,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T14:01:25.740Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "charlie": {
-      "display": "Charlie",
-      "firstSeen": "2026-07-10T07:38:25.985Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 9.375,
-      "peakHeat": 9.375,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T12:48:10.971Z",
-      "bipartisan": true,
-      "outlets": 6
-    },
-    "nato": {
-      "display": "NATO",
-      "firstSeen": "2026-07-10T07:38:25.985Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 8.125,
-      "peakHeat": 8.125,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T06:55:51.389Z",
+      "expiresAt": "2026-07-16T06:01:57.970Z",
       "bipartisan": true,
       "outlets": 4
     },
-    "charlie kirk": {
-      "display": "Charlie Kirk",
-      "firstSeen": "2026-07-10T07:38:25.985Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 6.875,
-      "peakHeat": 6.875,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T00:30:51.755Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "white": {
-      "display": "White",
-      "firstSeen": "2026-07-10T07:38:25.985Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
-      "heat": 6.875,
-      "peakHeat": 6.875,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T00:30:51.755Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "trumps": {
-      "display": "Trumps",
-      "firstSeen": "2026-07-10T07:38:25.985Z",
-      "lastSeen": "2026-07-10T07:38:25.985Z",
+    "florida": {
+      "display": "Florida",
+      "firstSeen": "2026-07-10T13:09:32.200Z",
+      "lastSeen": "2026-07-10T13:09:32.200Z",
       "heat": 6.25,
       "peakHeat": 6.25,
       "daysActive": 1,
-      "expiresAt": "2026-07-15T21:04:06.325Z",
+      "expiresAt": "2026-07-16T02:35:12.540Z",
       "bipartisan": true,
-      "outlets": 3
-    },
-    "maine senate": {
-      "display": "Maine Senate",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T03:28:11.147Z",
-      "heat": 6.1321873155708975,
-      "peakHeat": 6.25,
-      "daysActive": 1,
-      "expiresAt": "2026-07-15T16:53:51.487Z",
-      "bipartisan": false,
-      "outlets": 3
+      "outlets": 5
     }
   }
 }
