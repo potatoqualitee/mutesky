@@ -3,7 +3,6 @@ export {
     keywordCache,
     debouncedUpdate,
     notifyKeywordChanges,
-    updateCheckboxes,
     standardUpdate,
     isKeywordActive,
     removeKeyword,

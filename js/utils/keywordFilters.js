@@ -1,6 +1,8 @@
 import { state } from '../state.js';
 import { getAllKeywordsForCategory } from './categoryUtils.js';
-import { isKeywordActive } from '../handlers/keywordHandlers.js';
+// keyword-utils rather than the keywordHandlers barrel: the barrel pulls in
+// the toggle handlers, which import the renderers, which import this file
+import { isKeywordActive } from '../handlers/keywords/keyword-utils.js';
 
 export function filterKeywordGroups(isRightPanel = false) {
     const filtered = {};

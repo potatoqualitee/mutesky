@@ -1,5 +1,5 @@
 import { state } from './state.js';
-import { getDisplayName, getCategoryState, getCheckboxClass, getAllKeywordsForCategory } from './utils/categoryUtils.js';
+import { getDisplayName, getCategoryState, getCheckboxClass, getAllKeywordsForCategory, categoriesContainingKeyword } from './utils/categoryUtils.js';
 import { filterKeywordGroups } from './utils/keywordFilters.js';
 
 function calculateKeywordsToMute() {
@@ -36,6 +36,7 @@ export {
     getCheckboxClass,
     filterKeywordGroups,
     getAllKeywordsForCategory,
+    categoriesContainingKeyword,
     calculateKeywordsToMute,
     calculateKeywordCount
 };

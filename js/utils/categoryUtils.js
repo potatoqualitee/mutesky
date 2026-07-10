@@ -1,6 +1,8 @@
 import { state } from '../state.js';
 import { getWeightThreshold } from './weightManager.js';
-import { isKeywordActive } from '../handlers/keywordHandlers.js';
+// keyword-utils rather than the keywordHandlers barrel: the barrel pulls in
+// the toggle handlers, which import the renderers, which import this file
+import { isKeywordActive } from '../handlers/keywords/keyword-utils.js';
 
 export function getDisplayName(category) {
     return state.displayConfig.displayNames[category] || category;
@@ -40,6 +42,22 @@ export function extractKeywordsFromCombinedSources(combinedSources, keywordGroup
         if (!categoryData?.[source]) return [];
         return extractKeywordsFromCategory(source, categoryData);
     });
+}
+
+// Grid categories (regular keywordGroups entries, including the projected
+// My Keywords category) whose keyword list contains the given keyword.
+// Case-insensitive because active-keyword tracking is case-insensitive.
+export function categoriesContainingKeyword(keyword) {
+    const lower = keyword.toLowerCase();
+    const matches = [];
+    for (const [category, categoryData] of Object.entries(state.keywordGroups)) {
+        const keywords = categoryData?.[category]?.keywords;
+        if (!keywords) continue;
+        if (Object.keys(keywords).some(k => k.toLowerCase() === lower)) {
+            matches.push(category);
+        }
+    }
+    return matches;
 }
 
 export function getAllKeywordsForCategory(category, sortByWeight = false) {

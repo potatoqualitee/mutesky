@@ -2,7 +2,6 @@ export { keywordCache } from './cache.js';
 export {
     debouncedUpdate,
     notifyKeywordChanges,
-    updateCheckboxes,
     standardUpdate
 } from './ui-utils.js';
 export {
