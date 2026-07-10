@@ -9,7 +9,8 @@ import {
     retentionDays,
     updateTrendingState,
     buildTrendingCategory,
-    phraseOverlaps
+    phraseOverlaps,
+    excludePermanent
 } from '../../scripts/trending/lib.js';
 
 const NOW = '2026-07-10T12:00:00.000Z';
@@ -411,6 +412,39 @@ describe('buildTrendingCategory', () => {
         };
         const category = buildTrendingCategory(state);
         expect(Object.keys(category['New Developments'].keywords)).toEqual(['Platner']);
+    });
+});
+
+describe('excludePermanent', () => {
+    const entry = heat => ({
+        display: 'x', firstSeen: NOW, lastSeen: NOW, heat, peakHeat: heat,
+        daysActive: 1, expiresAt: '2026-12-31T00:00:00.000Z',
+        bipartisan: true, outlets: 5
+    });
+
+    it('prunes overlapping phrases from carried state and fresh scores', () => {
+        const { prevState, scored } = excludePermanent(
+            { updatedAt: NOW, phrases: { trump: entry(100), trumps: entry(20), platner: entry(90) } },
+            [{ canon: 'kirk', score: 10 }, { canon: 'maine', score: 8 }],
+            new Set(['trump', 'charlie kirk'])
+        );
+        expect(Object.keys(prevState.phrases)).toEqual(['platner']);
+        expect(scored.map(s => s.canon)).toEqual(['maine']);
+    });
+
+    it('is a no-op without exclusions', () => {
+        const state = { updatedAt: NOW, phrases: { trump: entry(100) } };
+        const scored = [{ canon: 'trump', score: 10 }];
+        expect(excludePermanent(state, scored, new Set())).toEqual({ prevState: state, scored });
+    });
+
+    it('frees maxPhrases slots for eligible phrases', () => {
+        // Without exclusion, red-hot "trump" would take one of the two slots
+        const tuning = { ...TUNING, maxPhrases: 2 };
+        const carried = { updatedAt: NOW, phrases: { trump: entry(1000), maine: entry(5), platner: entry(4) } };
+        const { prevState, scored } = excludePermanent(carried, [], new Set(['trump']));
+        const state = updateTrendingState(prevState, scored, NOW, tuning);
+        expect(Object.keys(state.phrases).sort()).toEqual(['maine', 'platner']);
     });
 });
 

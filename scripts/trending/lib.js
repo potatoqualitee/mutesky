@@ -428,6 +428,25 @@ export function phraseOverlaps(a, b) {
     return phraseContains(a, b) || phraseContains(b, a);
 }
 
+// Strip phrases overlapping the permanent keyword lists from both the carried
+// state and the fresh scores BEFORE updateTrendingState runs its maxPhrases
+// cap -- a permanently-muted "Trump" must not occupy a slot an eligible
+// phrase could use. Pure so update.js stays orchestration-only.
+export function excludePermanent(prevState, scored, excludeKeywords) {
+    const excludeList = Array.from(excludeKeywords, keyword => keyword.toLowerCase());
+    if (excludeList.length === 0) return { prevState, scored };
+    const excluded = canon => excludeList.some(keyword => phraseOverlaps(canon, keyword));
+    return {
+        prevState: {
+            ...prevState,
+            phrases: Object.fromEntries(
+                Object.entries(prevState.phrases || {}).filter(([canon]) => !excluded(canon))
+            )
+        },
+        scored: scored.filter(hit => !excluded(hit.canon))
+    };
+}
+
 // Map heat percentile onto mutesky weights: weight 3 phrases surface even at
 // the app's "Minimal" filter level, so reserve it for the top of the list.
 // The category name matches calm-the-chaos's "New Developments" so the app
