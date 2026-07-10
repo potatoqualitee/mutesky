@@ -484,3 +484,130 @@ export function buildTrendingCategory(state, { categoryName = 'New Developments'
         }
     };
 }
+
+// Schema gate for the codex curation pass (scripts/trending/validate.js).
+// Curated files must keep the exact shape the functions above emit -- no
+// extra fields, descriptions derived exactly from state, bounded numbers,
+// ordered timestamps -- so the model can't smuggle freeform content into
+// the published list. When headlines + baselinePhrases are given, any
+// phrase codex added (a state key absent from the heuristic baseline) must
+// appear on a word boundary in headlines from minOutlets distinct sources.
+// Returns an array of problems; empty means valid.
+const CATEGORY_NAME = 'New Developments';
+const CATEGORY_DESCRIPTION = "Today's controversies from across the news spectrum, updated automatically";
+const MAX_PHRASE_LENGTH = 60;
+const MAX_HEAT = 10000;
+const MAX_OUTLETS = 100;
+const MAX_DAYS_ACTIVE = 3650;
+const CATEGORY_KEYS = ['description', 'keywords', 'updatedAt'];
+const STATE_KEYS = ['phrases', 'updatedAt'];
+const PHRASE_KEYS = ['bipartisan', 'daysActive', 'display', 'expiresAt',
+    'firstSeen', 'heat', 'lastSeen', 'outlets', 'peakHeat'];
+
+export function validateTrending(
+    { category, state, headlines = null, baselinePhrases = null, baselineUpdatedAt = null },
+    tuning = TUNING
+) {
+    const problems = [];
+    const check = (condition, message) => { if (!condition) problems.push(message); };
+    const isDate = value => typeof value === 'string' && !Number.isNaN(Date.parse(value));
+    const isPlainObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+    const sameKeys = (obj, expected) =>
+        JSON.stringify(Object.keys(obj || {}).sort()) === JSON.stringify(expected);
+
+    const names = Object.keys(category || {});
+    check(names.length === 1 && names[0] === CATEGORY_NAME,
+        `expected single "${CATEGORY_NAME}" category, got [${names.join(', ')}]`);
+    const entry = (category || {})[CATEGORY_NAME] || {};
+    check(sameKeys(entry, CATEGORY_KEYS), 'category has missing or unexpected fields');
+    check(entry.description === CATEGORY_DESCRIPTION, 'category description was altered');
+    check(isDate(entry.updatedAt), 'category updatedAt is not a date');
+
+    check(sameKeys(state, STATE_KEYS), 'state has missing or unexpected fields');
+    check(isDate(state?.updatedAt), 'state updatedAt is not a date');
+    check(entry.updatedAt === state?.updatedAt, 'trending.json and state updatedAt differ');
+    check(baselineUpdatedAt === null || state?.updatedAt === baselineUpdatedAt,
+        'state updatedAt differs from the heuristic baseline');
+    check(isPlainObject(entry.keywords), 'keywords must be a plain object');
+    check(isPlainObject(state?.phrases), 'state phrases must be a plain object');
+    const updatedMs = Date.parse(state?.updatedAt);
+
+    const keywords = isPlainObject(entry.keywords) ? entry.keywords : {};
+    check(Object.keys(keywords).length <= tuning.maxPhrases,
+        `more than ${tuning.maxPhrases} keywords published`);
+    check(Object.keys((isPlainObject(state?.phrases) && state.phrases) || {}).length <= tuning.maxPhrases,
+        `more than ${tuning.maxPhrases} phrases tracked`);
+    for (const [phrase, meta] of Object.entries(keywords)) {
+        check(phrase === phrase.trim() && phrase.trim().length >= 2,
+            `"${phrase.slice(0, 80)}": phrase is empty or has stray whitespace`);
+        check(phrase.length <= MAX_PHRASE_LENGTH, `"${phrase.slice(0, 80)}": phrase too long`);
+        check(sameKeys(meta, ['description', 'weight']),
+            `${phrase}: keyword has missing or unexpected fields`);
+        check(Number.isInteger(meta?.weight) && meta.weight >= 1 && meta.weight <= 3,
+            `${phrase}: weight must be an integer 1-3`);
+        const stateEntry = (state?.phrases || {})[phrase.toLowerCase()];
+        check(stateEntry?.display === phrase,
+            `${phrase}: no matching state entry (published phrases must be tracked)`);
+        // Derived exactly from validated state fields so the description
+        // carries no free numbers or text of its own
+        if (stateEntry) {
+            const derived = `In ${stateEntry.outlets} outlets across the spectrum (since ${String(stateEntry.firstSeen).slice(0, 10)})`;
+            check(meta?.description === derived,
+                `${phrase}: description must be derived from its state entry`);
+        }
+    }
+
+    const loweredTitles = headlines === null
+        ? null
+        : headlines.map(h => ({ title: String(h?.title || '').toLowerCase(), source: String(h?.source || '') }));
+    const onWordBoundary = canon => {
+        const escaped = canon.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const pattern = new RegExp(`(?<![a-z0-9])${escaped}(?![a-z0-9])`);
+        return new Set(loweredTitles.filter(h => pattern.test(h.title)).map(h => h.source));
+    };
+    const maxRetentionMs = (tuning.maxRetentionDays + 1) * 86400000;
+    for (const [canon, phrase] of Object.entries(state?.phrases || {})) {
+        check(canon === canon.toLowerCase(), `state ${canon}: key must be lowercase`);
+        check(canon === canon.trim() && canon.trim().length >= 2,
+            `state "${canon.slice(0, 80)}": key is empty or has stray whitespace`);
+        check(sameKeys(phrase, PHRASE_KEYS), `state ${canon}: missing or unexpected fields`);
+        check(typeof phrase?.display === 'string' && phrase.display.toLowerCase() === canon,
+            `state ${canon}: display must be a casing of the key`);
+        check(Number.isFinite(phrase?.heat) && phrase.heat >= 0 && phrase.heat <= MAX_HEAT,
+            `state ${canon}: heat must be a number in 0-${MAX_HEAT}`);
+        check(Number.isFinite(phrase?.peakHeat) && phrase.peakHeat >= phrase.heat - 1e-9
+            && phrase.peakHeat <= MAX_HEAT,
+            `state ${canon}: peakHeat must be >= heat and <= ${MAX_HEAT}`);
+        check(Number.isInteger(phrase?.daysActive) && phrase.daysActive >= 1
+            && phrase.daysActive <= MAX_DAYS_ACTIVE,
+            `state ${canon}: daysActive must be a positive integer <= ${MAX_DAYS_ACTIVE}`);
+        check(typeof phrase?.bipartisan === 'boolean', `state ${canon}: bipartisan must be a boolean`);
+        check(Number.isInteger(phrase?.outlets) && phrase.outlets >= 1 && phrase.outlets <= MAX_OUTLETS,
+            `state ${canon}: outlets must be a positive integer <= ${MAX_OUTLETS}`);
+        check(isDate(phrase?.firstSeen), `state ${canon}: firstSeen is not a date`);
+        check(isDate(phrase?.lastSeen), `state ${canon}: lastSeen is not a date`);
+        check(isDate(phrase?.expiresAt), `state ${canon}: expiresAt is not a date`);
+        if (isDate(phrase?.firstSeen) && isDate(phrase?.lastSeen) && isDate(phrase?.expiresAt)) {
+            const firstMs = Date.parse(phrase.firstSeen);
+            const lastMs = Date.parse(phrase.lastSeen);
+            const expiresMs = Date.parse(phrase.expiresAt);
+            check(firstMs <= lastMs, `state ${canon}: firstSeen is after lastSeen`);
+            check(Number.isNaN(updatedMs) || lastMs <= updatedMs,
+                `state ${canon}: lastSeen is after the state update time`);
+            check(expiresMs > lastMs, `state ${canon}: already expired at lastSeen`);
+            check(Number.isNaN(updatedMs) || expiresMs > updatedMs,
+                `state ${canon}: already expired at the state update time`);
+            check(expiresMs - lastMs <= maxRetentionMs,
+                `state ${canon}: expiresAt exceeds the ${tuning.maxRetentionDays}-day retention cap`);
+        }
+        if (loweredTitles && baselinePhrases && !Object.hasOwn(baselinePhrases, canon)) {
+            const evidence = onWordBoundary(canon);
+            check(evidence.size >= tuning.minOutlets,
+                `state ${canon}: added phrase must appear (whole words) in headlines from ${tuning.minOutlets}+ sources`);
+            check(!Number.isInteger(phrase?.outlets) || phrase.outlets <= evidence.size,
+                `state ${canon}: outlets overstates the headline evidence`);
+        }
+    }
+
+    return problems;
+}

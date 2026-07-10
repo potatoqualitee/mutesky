@@ -126,6 +126,11 @@ async function main() {
         process.exit(1);
     }
 
+    // Raw headlines for the codex curation pass in trending.yml
+    if (process.env.HEADLINES_OUT) {
+        await writeFile(process.env.HEADLINES_OUT, JSON.stringify(headlines, null, 2) + '\n');
+    }
+
     const nowIso = new Date().toISOString();
     const loadedState = await loadJson(STATE_PATH, { phrases: {} });
     const excludeKeywords = await fetchPermanentKeywords();

@@ -80,6 +80,35 @@ Weights map heat percentile to the app's filter levels: the top 20% get
 weight 3 (visible even at the "Minimal" level), the next 30% weight 2, the
 rest weight 1.
 
+## Codex curation pass
+
+After the heuristic script runs, `trending.yml` hands the result to the
+codex CLI (`gpt-5.6-luna` at `medium` effort — the volume tier, light on
+plan limits at 4 runs/day) along with the raw headlines (`HEADLINES_OUT`
+dump from `update.js`). It removes trending-but-not-controversial topics
+(sports, entertainment) and over-broad terms, and adds controversies the
+n-gram extractor missed.
+
+Auth uses the ChatGPT subscription, not an API key: `codex login` locally,
+then store `~/.codex/auth.json` as the `CODEX_AUTH_JSON` repo secret (also
+used by `codex.yml`, the `@codex` mention responder, which is locked to
+potatoqualitee and runs `gpt-5.6-sol` at `high` effort). Codex refreshes
+the tokens itself; if runs start failing with 401s, re-login and reseed the
+secret. The curation step is skipped when the secret is absent.
+
+Containment: the checkout persists no git credentials while codex runs, and
+afterwards the workflow copies the two keyword files aside, hard-resets the
+workspace (discarding any other writes, including a tampered validator),
+restores them, and runs `scripts/trending/validate.js`. The validator
+(`validateTrending` in `lib.js`, covered by
+`tests/unit/trendingValidate.test.js`) enforces the exact schema the
+heuristics emit — category name, description formats, weight range, no
+extra fields, ordered timestamps, published-phrase↔state correspondence —
+and any phrase codex added must literally appear in a fetched headline, so
+curation can't smuggle freeform content into the published list. On any validation
+failure the workflow falls back to the checkpointed heuristic output, and
+the codex step is `continue-on-error` so an outage never blocks publishing.
+
 ## Tuning
 
 All knobs live in `TUNING` in `scripts/trending/lib.js`; false positives go

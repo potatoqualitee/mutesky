@@ -4,7 +4,9 @@ import { state } from '../../js/state.js';
 // - "Gun Policy" is shared by two contexts (violence + politics)
 // - "assault weapon" appears in BOTH Gun Policy and Political Rhetoric
 //   (cross-category keyword overlap)
-// - weights span 1..3 so filter levels matter
+// - weights span 0..3 so filter levels matter
+// - "World Leaders" is all weight 0, mirroring the real category that only
+//   surfaces at the Complete level (empty at every other level)
 export const KEYWORD_GROUPS = {
     'Gun Policy': {
         'Gun Policy': {
@@ -36,6 +38,15 @@ export const KEYWORD_GROUPS = {
                 'public option': { weight: 1 }
             }
         }
+    },
+    'World Leaders': {
+        'World Leaders': {
+            description: 'Heads of state',
+            keywords: {
+                'president exemplar': { weight: 0 },
+                'chancellor exemplar': { weight: 0 }
+            }
+        }
     }
 };
 
@@ -54,6 +65,13 @@ export const CONTEXT_GROUPS = {
         title: 'Healthcare',
         description: 'Health policy debates',
         categories: ['Healthcare and Public Health']
+    },
+    // Mirrors the real Global Affairs context: one category is empty at
+    // every level below Complete
+    'world': {
+        title: 'Global Affairs',
+        description: 'International disputes',
+        categories: ['Political Rhetoric', 'World Leaders']
     }
 };
 

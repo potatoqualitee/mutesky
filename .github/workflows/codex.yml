@@ -1,0 +1,111 @@
+name: Codex
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Task for codex'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: codex-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  codex:
+    # Locked to potatoqualitee: trigger with "@codex ..." in an issue or PR
+    # comment, or a manual run
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.actor == 'potatoqualitee') ||
+      (github.event_name == 'issue_comment' &&
+       github.event.comment.user.login == 'potatoqualitee' &&
+       contains(github.event.comment.body, '@codex'))
+    runs-on: ubuntu-latest
+    steps:
+      # Fork PRs are untrusted code; never run codex over them while the
+      # subscription credentials are on the runner
+      - name: Refuse fork PRs
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          HEAD_REPO=$(gh pr view "${{ github.event.issue.number }}" --repo "${{ github.repository }}" \
+            --json headRepository,headRepositoryOwner \
+            -q '.headRepositoryOwner.login + "/" + .headRepository.name')
+          if [ "$HEAD_REPO" != "${{ github.repository }}" ]; then
+            echo "::error::codex is disabled for PRs from forks (untrusted code + subscription credentials)"
+            exit 1
+          fi
+
+      # No credentials on disk while codex runs; the reply step gets the
+      # token through its own env instead
+      - name: Checkout (PR head when commenting on a PR)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.issue.pull_request && format('refs/pull/{0}/head', github.event.issue.number) || '' }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      # Authenticated with the ChatGPT subscription, not an API key: run
+      # `codex login` locally and store ~/.codex/auth.json as the
+      # CODEX_AUTH_JSON secret. Codex refreshes the tokens itself; reseed the
+      # secret if runs start failing with 401s.
+      - name: Seed codex auth (ChatGPT subscription)
+        env:
+          CODEX_AUTH_JSON: ${{ secrets.CODEX_AUTH_JSON }}
+        run: |
+          if [ -z "$CODEX_AUTH_JSON" ]; then
+            echo "CODEX_AUTH_JSON secret is not set -- run 'codex login' locally and add ~/.codex/auth.json as a repo secret"
+            exit 1
+          fi
+          mkdir -p ~/.codex && chmod 700 ~/.codex
+          printf '%s' "$CODEX_AUTH_JSON" > ~/.codex/auth.json
+          chmod 600 ~/.codex/auth.json
+
+      - name: Run codex
+        env:
+          PROMPT: |
+            You are codex answering a request in the MuteSky repository
+            (vanilla JS ES modules, no framework, browser-only code under js/,
+            GitHub Pages deployment -- see README.md). If this is a review
+            request, report findings most severe first, terse, as
+            `path:line -- problem -- fix`, and note missing tests. If this is
+            a comment on a pull request its head is checked out; diff against
+            origin/main to see the change. Your final message is posted back
+            to the thread, so write it for GitHub markdown.
+
+            Request from potatoqualitee:
+            ${{ github.event.comment.body || inputs.prompt }}
+        run: |
+          npm install -g @openai/codex
+          printf '%s' "$PROMPT" | codex exec \
+            -C "$GITHUB_WORKSPACE" \
+            --sandbox read-only \
+            --color never \
+            --model gpt-5.6-sol \
+            -c model_reasoning_effort="high" \
+            -o /tmp/codex-reply.md \
+            -
+
+      - name: Post reply
+        if: github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/codex-reply.md
+
+      - name: Show reply (manual run)
+        if: github.event_name == 'workflow_dispatch'
+        run: cat /tmp/codex-reply.md >> "$GITHUB_STEP_SUMMARY"

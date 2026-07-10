@@ -101,6 +101,34 @@ describe('getContextSelectionState', () => {
         state.selectedExceptions.add('Healthcare and Public Health');
         expect(getContextSelectionState('health')).toBe('none');
     });
+
+    it('ignores categories that are empty at the current filter level', () => {
+        // World Leaders is all weight 0 -- empty below Complete. It must not
+        // pin Global Affairs at partial when every selectable keyword is on.
+        state.filterLevel = 0;
+        state.activeKeywords.add('culture war'); // all of Political Rhetoric at level 0
+        expect(getContextSelectionState('world')).toBe('all');
+        syncDerivedContexts();
+        expect(state.selectedContexts.has('world')).toBe(true);
+    });
+
+    it('counts a level-empty category again once the level includes it', () => {
+        state.filterLevel = 3; // weight-0 keywords now in scope
+        keywordsOf('Political Rhetoric').forEach(k => state.activeKeywords.add(k));
+        expect(getContextSelectionState('world')).toBe('partial');
+
+        keywordsOf('World Leaders').forEach(k => state.activeKeywords.add(k));
+        expect(getContextSelectionState('world')).toBe('all');
+    });
+
+    it('follows explicit selection when every category is empty at this level', () => {
+        state.filterLevel = 0;
+        state.selectedExceptions.add('Political Rhetoric'); // only World Leaders left
+        expect(getContextSelectionState('world')).toBe('none');
+
+        state.selectedContexts.add('world');
+        expect(getContextSelectionState('world')).toBe('all');
+    });
 });
 
 describe('syncDerivedContexts', () => {

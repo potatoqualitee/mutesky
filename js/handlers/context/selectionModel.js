@@ -72,10 +72,22 @@ export function getContextSelectionState(contextId) {
 
     let sawAll = true;
     let sawAny = false;
+    let sawSelectable = false;
     for (const category of categories) {
+        // A category with no keywords at the current filter level (e.g. all
+        // weight-0, Complete-only keywords like World Leaders) can never
+        // become active, so it must not pin the context below 'all' -- that
+        // made the card unselectable AND undeselectable, since deselection
+        // requires reaching 'all' first
+        if (getAllKeywordsForCategory(category, true).length === 0) continue;
+        sawSelectable = true;
         const categoryState = getCategorySelectionState(category);
         if (categoryState !== 'all') sawAll = false;
         if (categoryState !== 'none') sawAny = true;
+    }
+    if (!sawSelectable) {
+        // Nothing selectable at this level: same rule as all-excepted above
+        return state.selectedContexts.has(contextId) ? 'all' : 'none';
     }
     if (sawAll) return 'all';
     return sawAny ? 'partial' : 'none';

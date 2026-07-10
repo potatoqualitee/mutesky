@@ -43,6 +43,25 @@ describe('context select/deselect', () => {
         expect(state.activeKeywords.size).toBe(0);
     });
 
+    it('toggles a context containing a level-empty category on and off', async () => {
+        // Global Affairs regression: World Leaders is empty below Complete,
+        // which used to pin the card at partial -- unselectable and, because
+        // deselection requires 'all', undeselectable too
+        state.filterLevel = 0;
+
+        await handleContextToggle('world');
+        await flushUpdates();
+        expect(state.selectedContexts.has('world')).toBe(true);
+        expect(getContextSelectionState('world')).toBe('all');
+        expect(state.activeKeywords.has('culture war')).toBe(true);
+
+        await handleContextToggle('world');
+        await flushUpdates();
+        expect(state.selectedContexts.has('world')).toBe(false);
+        expect(getContextSelectionState('world')).toBe('none');
+        expect(state.activeKeywords.has('culture war')).toBe(false);
+    });
+
     it('preserves keywords claimed by a sibling context sharing the category', async () => {
         await handleContextToggle('violence'); // Gun Policy
         await handleContextToggle('politics'); // Political Rhetoric + Gun Policy
