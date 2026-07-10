@@ -1,82 +1,38 @@
 {
-  "updatedAt": "2026-07-10T14:02:16.175Z",
+  "updatedAt": "2026-07-10T14:07:29.237Z",
   "phrases": {
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 77.74722364809689,
-      "peakHeat": 77.74722364809689,
-      "daysActive": 1,
-      "expiresAt": "2026-07-21T16:34:55.777Z",
-      "bipartisan": true,
-      "outlets": 11
-    },
     "graham platner": {
       "display": "Graham Platner",
       "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 45.0604444381327,
-      "peakHeat": 45.0604444381327,
+      "lastSeen": "2026-07-10T14:07:29.237Z",
+      "heat": 45.20998431304676,
+      "peakHeat": 45.20998431304676,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T06:19:05.042Z",
+      "expiresAt": "2026-07-20T06:36:27.151Z",
       "bipartisan": true,
       "outlets": 8
-    },
-    "maine": {
-      "display": "Maine",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 32.262834358772835,
-      "peakHeat": 32.262834358772835,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T10:20:14.909Z",
-      "bipartisan": true,
-      "outlets": 5
     },
     "air force one": {
       "display": "Air Force One",
       "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 13.37662548162146,
-      "peakHeat": 13.37662548162146,
+      "lastSeen": "2026-07-10T14:07:29.237Z",
+      "heat": 13.414586671261768,
+      "peakHeat": 13.414586671261768,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T11:13:09.866Z",
+      "expiresAt": "2026-07-17T11:26:30.855Z",
       "bipartisan": true,
       "outlets": 4
     },
-    "world cup": {
-      "display": "World Cup",
-      "firstSeen": "2026-07-10T03:28:11.147Z",
-      "lastSeen": "2026-07-10T13:53:00.400Z",
-      "heat": 11.711001830768152,
-      "peakHeat": 14.648442820070246,
+    "reflecting pool": {
+      "display": "Reflecting Pool",
+      "firstSeen": "2026-07-10T14:07:29.237Z",
+      "lastSeen": "2026-07-10T14:07:29.237Z",
+      "heat": 9,
+      "peakHeat": 9,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T15:28:02.554Z",
-      "bipartisan": true,
+      "expiresAt": "2026-07-14T14:07:29.237Z",
+      "bipartisan": false,
       "outlets": 3
-    },
-    "reveals": {
-      "display": "Reveals",
-      "firstSeen": "2026-07-10T13:09:32.200Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 7.726074635976503,
-      "peakHeat": 7.726074635976503,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T11:20:39.450Z",
-      "bipartisan": true,
-      "outlets": 4
-    },
-    "florida": {
-      "display": "Florida",
-      "firstSeen": "2026-07-10T13:09:32.200Z",
-      "lastSeen": "2026-07-10T14:02:16.175Z",
-      "heat": 7.023704214524093,
-      "peakHeat": 7.023704214524093,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T07:42:24.793Z",
-      "bipartisan": true,
-      "outlets": 5
     }
   }
 }
