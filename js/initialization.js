@@ -1,6 +1,6 @@
 import { elements } from './dom.js';
 import { state, loadState } from './state.js';
-import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords, ensureTrendingContext, ensureHolidaysCategory } from './api.js';
+import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig, fetchTrendingKeywords, ensureHolidaysCategory } from './api.js';
 import { syncMyKeywordsCategory } from './myKeywords.js';
 import { renderInterface } from './renderer.js';
 import { blueskyService } from './bluesky.js';
@@ -43,15 +43,15 @@ export async function init() {
             await Promise.all([
                 fetchDisplayConfig(),
                 fetchKeywordGroups(),
-                fetchContextGroups(),
-                fetchTrendingKeywords()
+                fetchContextGroups()
             ]);
-            // Bundled and user-defined categories go in before the trending
-            // re-merge so trending's overlap dedup can see their keywords
+            // Bundled and user-defined categories go in first, and trending
+            // merges last: its overlap dedup only excludes keywords that other
+            // categories already own at merge time, so merging it earlier
+            // (racing the fetches) would let duplicates through for good
             ensureHolidaysCategory();
             syncMyKeywordsCategory();
-            // Context groups may have loaded after trending; re-attach its card
-            ensureTrendingContext();
+            await fetchTrendingKeywords();
 
             await showApp();
             // Initialize keyword state after authentication

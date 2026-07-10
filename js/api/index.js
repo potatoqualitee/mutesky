@@ -1,6 +1,6 @@
 import { state, forceRefresh } from '../state.js';
 import { fetchKeywordGroups, fetchContextGroups, fetchDisplayConfig } from './fetchers.js';
-import { fetchTrendingKeywords, ensureTrendingContext } from './trending.js';
+import { fetchTrendingKeywords } from './trending.js';
 import { ensureHolidaysCategory } from './holidays.js';
 import { syncMyKeywordsCategory } from '../myKeywords.js';
 
@@ -27,8 +27,7 @@ export async function refreshAllData() {
         await Promise.all([
             fetchKeywordGroups(true),
             fetchContextGroups(true),
-            fetchDisplayConfig(true),
-            fetchTrendingKeywords()
+            fetchDisplayConfig(true)
         ]);
 
         // Restore previous state
@@ -47,12 +46,11 @@ export async function refreshAllData() {
         state.sessionMutedKeywords = sessionMutedKeywords;
 
         // AFTER restoring the snapshots: re-attach the bundled/user categories
-        // and the trending context, registering them in the (restored)
-        // selectedCategories set -- doing this earlier would be clobbered by
-        // the restore above
+        // (doing this earlier would be clobbered by the restore above), then
+        // merge trending last so its overlap dedup sees every other category
         ensureHolidaysCategory();
         syncMyKeywordsCategory();
-        ensureTrendingContext();
+        await fetchTrendingKeywords();
 
         console.debug('Data refreshed successfully');
     } catch (error) {

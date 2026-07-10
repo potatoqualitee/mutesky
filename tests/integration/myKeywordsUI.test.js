@@ -74,7 +74,7 @@ describe('My Keywords modal', () => {
         expect(list.textContent).toContain('"><img src=x onerror="hacked()">');
     });
 
-    it('removes a keyword via its chip handler and reports the pending unmute', () => {
+    it('removes a never-submitted keyword without promising an unmute', () => {
         handleMyKeywordsModalToggle();
         document.getElementById('my-keywords-input').value = 'spoilers';
         handleMyKeywordsAdd();
@@ -83,8 +83,21 @@ describe('My Keywords modal', () => {
 
         expect(document.querySelectorAll('.my-keyword-chip')).toHaveLength(0);
         expect(document.getElementById('my-keywords-feedback').textContent)
-            .toContain('Removed "spoilers"');
+            .toBe('Removed "spoilers"');
         expect(state.myKeywords.size).toBe(0);
+        expect(state.removedMyKeywords.size).toBe(0);
+    });
+
+    it('removes a muted keyword and reports the pending unmute', () => {
+        handleMyKeywordsModalToggle();
+        document.getElementById('my-keywords-input').value = 'spoilers';
+        handleMyKeywordsAdd();
+        state.originalMutedKeywords.add('spoilers');
+
+        handleMyKeywordsRemove('spoilers');
+
+        expect(document.getElementById('my-keywords-feedback').textContent)
+            .toContain('unmuted when you press Mute');
         expect(state.removedMyKeywords.has('spoilers')).toBe(true);
     });
 

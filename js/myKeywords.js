@@ -134,18 +134,24 @@ export function addMyKeywords(rawText) {
     return result;
 }
 
-// Delete a keyword from the list. It disappears from the UI now and is
-// unmuted on the next Mute submit via its tombstone; the manuallyUnchecked
-// entry keeps seedActiveFromMutedKeywords from re-checking it after a reload
-// that happens before that submit.
+// Delete a keyword from the list. If it ever reached Bluesky it is unmuted on
+// the next Mute submit via its tombstone, and the manuallyUnchecked entry
+// keeps seedActiveFromMutedKeywords from re-checking it after a reload that
+// happens before that submit. A keyword that was never muted gets no
+// tombstone: a lingering one could later delete an identical mute the user
+// creates in Bluesky itself.
 export function removeMyKeyword(keyword) {
     const cased = findCased(state.myKeywords, keyword);
     if (!cased) return false;
 
+    const lower = cased.toLowerCase();
     state.myKeywords.delete(cased);
-    state.removedMyKeywords.add(cased.toLowerCase());
-    state.manuallyUnchecked.add(cased);
     removeKeyword(cased);
+
+    if (state.originalMutedKeywords.has(lower) || state.sessionMutedKeywords.has(lower)) {
+        state.removedMyKeywords.add(lower);
+        state.manuallyUnchecked.add(cased);
+    }
 
     syncMyKeywordsCategory();
     saveState();

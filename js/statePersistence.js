@@ -51,6 +51,10 @@ export function loadState() {
         state.selectedExceptions.clear();
         state.selectedCategories.clear();
         // Don't clear manuallyUnchecked - let it persist
+        // My Keywords are per-DID: clear before loading so an account with no
+        // saved state never inherits (or tombstone-unmutes) another account's
+        state.myKeywords.clear();
+        state.removedMyKeywords.clear();
 
         const saved = localStorage.getItem(getStorageKey());
         if (saved) {

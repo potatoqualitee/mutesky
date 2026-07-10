@@ -66,6 +66,7 @@ describe('addMyKeywords', () => {
 
     it('re-adding a removed keyword clears its tombstone', () => {
         addMyKeywords('spoilers');
+        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         expect(state.removedMyKeywords.has('spoilers')).toBe(true);
 
@@ -76,8 +77,9 @@ describe('addMyKeywords', () => {
 });
 
 describe('removeMyKeyword', () => {
-    it('removes case-insensitively, unchecks, and tombstones', () => {
+    it('removes case-insensitively, unchecks, and tombstones a muted keyword', () => {
         addMyKeywords('Eras Tour');
+        state.originalMutedKeywords.add('eras tour');
         expect(removeMyKeyword('eras tour')).toBe(true);
 
         expect(state.myKeywords.size).toBe(0);
@@ -88,6 +90,17 @@ describe('removeMyKeyword', () => {
         expect(state.keywordGroups[MY_KEYWORDS_CATEGORY]).toBeUndefined();
     });
 
+    it('leaves no tombstone for a keyword that never reached Bluesky', () => {
+        // A lingering tombstone could later delete an identical mute the user
+        // creates in Bluesky itself
+        addMyKeywords('spoilers');
+        expect(removeMyKeyword('spoilers')).toBe(true);
+
+        expect(state.removedMyKeywords.size).toBe(0);
+        expect(state.manuallyUnchecked.has('spoilers')).toBe(false);
+        expect(state.activeKeywords.has('spoilers')).toBe(false);
+    });
+
     it('returns false for keywords not in the list', () => {
         expect(removeMyKeyword('never added')).toBe(false);
     });
@@ -96,6 +109,7 @@ describe('removeMyKeyword', () => {
 describe('submit plumbing', () => {
     it('getSubmittableKeywords filters tombstoned keywords out of the selection', () => {
         addMyKeywords('spoilers');
+        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         // Simulate mute seeding or Enable All re-activating the string
         state.activeKeywords.add('Spoilers');
@@ -127,6 +141,7 @@ describe('submit plumbing', () => {
 describe('persistence and sync', () => {
     it('round-trips myKeywords and tombstones through localStorage', async () => {
         addMyKeywords('spoilers, Eras Tour');
+        state.originalMutedKeywords.add('spoilers');
         removeMyKeyword('spoilers');
         await flushUpdates();
 
@@ -136,6 +151,21 @@ describe('persistence and sync', () => {
 
         expect(state.myKeywords).toEqual(new Set(['Eras Tour']));
         expect(state.removedMyKeywords).toEqual(new Set(['spoilers']));
+    });
+
+    it('never leaks keywords or tombstones into a DID with no saved state', async () => {
+        addMyKeywords('spoilers');
+        state.originalMutedKeywords.add('spoilers');
+        removeMyKeyword('spoilers');
+        addMyKeywords('Eras Tour');
+        await flushUpdates();
+
+        // A different account logs in and has nothing saved
+        state.did = 'did:plc:other-user';
+        loadState();
+
+        expect(state.myKeywords.size).toBe(0);
+        expect(state.removedMyKeywords.size).toBe(0);
     });
 
     it('syncMyKeywordsCategory rebuilds the category after keywordGroups are replaced', () => {

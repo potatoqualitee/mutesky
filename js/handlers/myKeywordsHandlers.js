@@ -48,7 +48,10 @@ export function handleMyKeywordsAdd() {
 export function handleMyKeywordsRemove(keyword) {
     if (!removeMyKeyword(keyword)) return;
 
-    setFeedback(`Removed "${keyword}" — it will be unmuted when you press Mute`);
+    const pendingUnmute = state.removedMyKeywords.has(keyword.toLowerCase());
+    setFeedback(pendingUnmute
+        ? `Removed "${keyword}" — it will be unmuted when you press Mute`
+        : `Removed "${keyword}"`);
     renderMyKeywordsModal();
     renderInterface();
     notifyKeywordChanges();
@@ -96,8 +99,11 @@ function renderKeywordList() {
 }
 
 // Approximate the muted-words payload the next submit would send, against the
-// PDS's ~150KB preferences cap (mute.js measures the real thing pre-flight;
-// this meter just keeps big list imports from becoming a surprise 413)
+// PDS's ~150KB preferences cap. It's an estimate covering the selected
+// keywords only — preserved unmanaged mutes and other preference entries
+// share the same cap, which is why mute.js still measures the real document
+// pre-flight. The meter just keeps big list imports from becoming a
+// surprise "too large" error.
 function renderUsageMeter() {
     const usage = document.getElementById('my-keywords-usage');
     if (!usage) return;
@@ -117,13 +123,15 @@ function renderUsageMeter() {
     const limitKb = Math.floor(MAX_PREFERENCES_BYTES / 1024);
 
     usage.classList.toggle('warning', percent >= 80);
+    usage.title = 'Estimate for your selected keywords only — the rest of your '
+        + 'Bluesky settings shares the same limit';
     usage.innerHTML = `
         <div class="usage-bar" role="progressbar" aria-valuenow="${percent}"
             aria-valuemin="0" aria-valuemax="100"
-            aria-label="Bluesky mute storage used">
+            aria-label="Estimated Bluesky mute storage used">
             <div class="usage-fill" style="width: ${percent}%"></div>
         </div>
         <span class="usage-text">${items.length.toLocaleString()} keywords selected
-            &middot; ~${usedKb} KB of Bluesky's ${limitKb} KB limit (${percent}%)</span>
+            &middot; est. ~${usedKb} KB of Bluesky's ${limitKb} KB settings limit (${percent}%)</span>
     `;
 }

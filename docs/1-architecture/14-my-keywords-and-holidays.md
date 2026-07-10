@@ -19,9 +19,12 @@ after every fetch/refresh, mirroring the trending merge:
   or ambiguous words ("turkey" the country, "holiday", "Lent") are weight 0 so
   they only mute at Complete.
 
-Call sites: `js/initialization.js` (after the initial fetches, before
-`ensureTrendingContext()` so trending's overlap dedup sees holiday keywords)
-and `refreshAllData()` in `js/api/index.js` (after the state restore).
+Call sites: `js/initialization.js` (after the initial fetches) and
+`refreshAllData()` in `js/api/index.js` (after the state restore). In both
+places `fetchTrendingKeywords()` deliberately runs **after** the holiday and
+My Keywords installs: trending's overlap dedup only excludes keywords other
+categories already own at merge time, so merging trending earlier would let
+duplicates through permanently.
 
 ## My Keywords
 
@@ -56,10 +59,14 @@ Deleting a chip must eventually *unmute* the keyword, but
 it muted-forever on Bluesky. So removal:
 
 1. deletes it from `myKeywords` (and the synthetic category),
-2. adds a lowercase tombstone to `removedMyKeywords`,
-3. adds it to `manuallyUnchecked` (so `seedActiveFromMutedKeywords()` cannot
-   re-check it after a reload that happens before the next submit),
-4. removes it from `activeKeywords`.
+2. removes it from `activeKeywords`,
+3. **only if the keyword ever reached Bluesky** (present in
+   `originalMutedKeywords`/`sessionMutedKeywords`): adds a lowercase tombstone
+   to `removedMyKeywords` and adds it to `manuallyUnchecked` (so
+   `seedActiveFromMutedKeywords()` cannot re-check it after a reload that
+   happens before the next submit). A never-submitted keyword gets no
+   tombstone — a lingering one could later delete an identical mute the user
+   creates in Bluesky's own UI.
 
 On submit, `getSubmittableKeywords()` filters tombstoned strings out of the
 selection and `getManagedKeywordsForSubmit()` appends the tombstones to the

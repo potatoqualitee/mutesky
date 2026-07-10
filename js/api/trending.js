@@ -119,8 +119,9 @@ export function mergeTrendingIntoState(appState, categoryData) {
     return true;
 }
 
-let lastFetched = null;
-
+// Callers run this after the calm-the-chaos fetches and synthetic-category
+// installs, so the merge sees every other category's keywords (the overlap
+// dedup only excludes what already exists) and can attach its card in one pass
 export async function fetchTrendingKeywords() {
     try {
         const response = await fetch(TRENDING_URL, { cache: 'no-store' });
@@ -128,17 +129,9 @@ export async function fetchTrendingKeywords() {
             console.debug('[Trending] No trending keywords available:', response.status);
             return;
         }
-        lastFetched = await response.json();
-        mergeTrendingIntoState(state, lastFetched);
+        mergeTrendingIntoState(state, await response.json());
     } catch (error) {
         // Trending is enrichment: the app must work fine without it
         console.debug('[Trending] Failed to fetch trending keywords:', error);
-    }
-}
-
-// Re-apply the merge after context groups load (they may overwrite the object)
-export function ensureTrendingContext() {
-    if (lastFetched) {
-        mergeTrendingIntoState(state, lastFetched);
     }
 }
