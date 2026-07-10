@@ -1,7 +1,7 @@
 {
   "Trending Controversies": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-10T03:13:11.825Z",
+    "updatedAt": "2026-07-10T03:19:18.554Z",
     "keywords": {
       "Trump": {
         "weight": 3,
@@ -9,7 +9,7 @@
       },
       "Platner": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-10)"
       },
       "Iran": {
         "weight": 3,
@@ -33,7 +33,7 @@
       },
       "Senate race": {
         "weight": 1,
-        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
       },
       "Kirk": {
         "weight": 1,
@@ -44,6 +44,10 @@
         "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       },
       "Air Force One": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+      },
+      "Israel": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-10)"
       }

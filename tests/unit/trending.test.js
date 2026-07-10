@@ -70,11 +70,11 @@ describe('extractPhrasesFromTitle', () => {
         expect(phrases.has('student loan')).toBe(true);
         expect(phrases.has('student loan plan')).toBe(true);
         // "supreme court" alone is on the evergreen blocklist
-        expect([...phrases].some(p => p.toLowerCase() === 'supreme court')).toBe(false);
+        expect([...phrases.keys()].some(p => p.toLowerCase() === 'supreme court')).toBe(false);
     });
 
     it('never emits stopword-bounded or generic phrases', () => {
-        const phrases = [...extractPhrasesFromTitle('Breaking News: the White House says a deal is near')];
+        const phrases = [...extractPhrasesFromTitle('Breaking News: the White House says a deal is near').keys()];
         const canon = phrases.map(p => p.toLowerCase());
         expect(canon).not.toContain('breaking news');
         expect(canon).not.toContain('white house');
@@ -84,9 +84,16 @@ describe('extractPhrasesFromTitle', () => {
 
     it('strips trailing outlet attribution', () => {
         const phrases = extractPhrasesFromTitle('Tariff fight escalates - CNN Politics');
-        const canon = [...phrases].map(p => p.toLowerCase());
+        const canon = [...phrases.keys()].map(p => p.toLowerCase());
         expect(canon).toContain('tariff fight');
         expect(canon).not.toContain('cnn politics');
+    });
+
+    it('marks phrases that only appear at the start of the headline', () => {
+        const phrases = extractPhrasesFromTitle('Strikes hit Tehran as Strikes continue');
+        expect(phrases.get('Strikes').atStart).toBe(false); // reappears mid-title
+        const onlyStart = extractPhrasesFromTitle('Strikes hit Tehran overnight');
+        expect(onlyStart.get('Strikes').atStart).toBe(true);
     });
 });
 
@@ -123,6 +130,19 @@ describe('scoreCandidates', () => {
         const canons = scored.map(s => s.canon);
         expect(canons).not.toContain('strikes');
         expect(canons).toContain('iran');
+    });
+
+    it('ignores sentence-initial capitalization as proper-noun evidence', () => {
+        // "Strikes" always leads the headline: capitalized every time, but
+        // that proves nothing -- must not qualify as a proper noun
+        const headlines = [
+            { title: 'Strikes rock the capital', source: 'left-0', lean: 'left' },
+            { title: 'Strikes escalate overnight', source: 'left-1', lean: 'left' },
+            { title: 'Strikes draw condemnation', source: 'right-0', lean: 'right' },
+            { title: 'Strikes continue for third day', source: 'center-0', lean: 'center' }
+        ];
+        const scored = scoreCandidates(extractCandidates(headlines));
+        expect(scored.map(s => s.canon)).not.toContain('strikes');
     });
 
     it('prefers the more specific phrase when scores are comparable', () => {

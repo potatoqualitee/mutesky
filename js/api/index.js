@@ -28,8 +28,6 @@ export async function refreshAllData() {
             fetchDisplayConfig(true),
             fetchTrendingKeywords()
         ]);
-        // Context groups may have been replaced wholesale; re-attach trending
-        ensureTrendingContext();
 
         // Restore previous state
         state.activeKeywords = activeKeywords;
@@ -45,6 +43,11 @@ export async function refreshAllData() {
         // Restore mute state
         state.originalMutedKeywords = originalMutedKeywords;
         state.sessionMutedKeywords = sessionMutedKeywords;
+
+        // AFTER restoring the snapshots: re-attach the trending context and
+        // register its category in the (restored) selectedCategories set --
+        // doing this earlier would be clobbered by the restore above
+        ensureTrendingContext();
 
         console.debug('Data refreshed successfully');
     } catch (error) {

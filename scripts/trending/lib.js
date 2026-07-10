@@ -147,10 +147,12 @@ function isUsableWord(word) {
 
 // Candidate phrases: 1-3 word n-grams whose boundary words carry meaning.
 // Cross-outlet frequency (not capitalization) decides what matters, which
-// keeps this robust against Title Case headlines.
+// keeps this robust against Title Case headlines. Returns a Map of
+// phrase -> { atStart } where atStart means every occurrence in this title
+// began the headline (sentence-initial capitalization proves nothing).
 export function extractPhrasesFromTitle(title) {
     const words = tokenize(title);
-    const phrases = new Set();
+    const phrases = new Map();
 
     for (let n = 1; n <= 3; n++) {
         for (let i = 0; i + n <= words.length; i++) {
@@ -161,7 +163,10 @@ export function extractPhrasesFromTitle(title) {
             if (phrase.length < 4) continue;
             const canon = phrase.toLowerCase();
             if (GENERIC_PHRASES.has(canon)) continue;
-            phrases.add(phrase);
+            const atStart = i === 0;
+            const existing = phrases.get(phrase);
+            // a non-initial occurrence anywhere in the title wins
+            phrases.set(phrase, { atStart: existing ? existing.atStart && atStart : atStart });
         }
     }
     return phrases;
@@ -171,7 +176,7 @@ export function extractPhrasesFromTitle(title) {
 export function extractCandidates(headlines) {
     const candidates = new Map(); // canon -> aggregate
     for (const { title, source, lean } of headlines) {
-        for (const phrase of extractPhrasesFromTitle(title)) {
+        for (const [phrase, { atStart }] of extractPhrasesFromTitle(title)) {
             const canon = phrase.toLowerCase();
             let entry = candidates.get(canon);
             if (!entry) {
@@ -180,7 +185,9 @@ export function extractCandidates(headlines) {
                     displayCounts: new Map(),
                     outlets: new Set(),
                     leans: { left: new Set(), center: new Set(), right: new Set() },
-                    mentions: 0
+                    mentions: 0,
+                    midSentenceTotal: 0,
+                    midSentenceCapitalized: 0
                 };
                 candidates.set(canon, entry);
             }
@@ -188,6 +195,12 @@ export function extractCandidates(headlines) {
             entry.outlets.add(source);
             if (entry.leans[lean]) entry.leans[lean].add(source);
             entry.mentions += 1;
+            // Only mid-headline occurrences are evidence of proper-noun-ness:
+            // any word gets capitalized when it starts the headline
+            if (!atStart) {
+                entry.midSentenceTotal += 1;
+                if (/^[A-Z]/.test(phrase)) entry.midSentenceCapitalized += 1;
+            }
         }
     }
     return candidates;
@@ -207,17 +220,13 @@ function mostCommonDisplay(displayCounts) {
 // A phrase is "the controversy of the day" when many outlets carry it AND
 // both wings of the press are shouting about it. One-sided stories score
 // a fraction of bipartisan ones.
-// A lone word only qualifies when it usually appears capitalized -- a proxy
-// for proper nouns (Trump, Iran, Epstein). Sentence-case outlets vote down
-// common nouns ("strikes", "replace") that Title Case outlets capitalize.
-function looksLikeProperNoun(displayCounts) {
-    let capitalized = 0;
-    let total = 0;
-    for (const [display, count] of displayCounts) {
-        total += count;
-        if (/^[A-Z]/.test(display)) capitalized += count;
-    }
-    return total > 0 && capitalized / total >= 0.7;
+// A lone word only qualifies when it usually appears capitalized in the
+// MIDDLE of headlines -- a proxy for proper nouns (Trump, Iran, Epstein).
+// Sentence-initial occurrences are ignored (anything is capitalized there),
+// and sentence-case outlets vote down common nouns Title Case outlets inflate.
+function looksLikeProperNoun(entry) {
+    if (entry.midSentenceTotal === 0) return false;
+    return entry.midSentenceCapitalized / entry.midSentenceTotal >= 0.7;
 }
 
 export function scoreCandidates(candidates, tuning = TUNING) {
@@ -225,7 +234,7 @@ export function scoreCandidates(candidates, tuning = TUNING) {
     for (const entry of candidates.values()) {
         const outlets = entry.outlets.size;
         if (outlets < tuning.minOutlets) continue;
-        if (!entry.canon.includes(' ') && !looksLikeProperNoun(entry.displayCounts)) continue;
+        if (!entry.canon.includes(' ') && !looksLikeProperNoun(entry)) continue;
 
         const left = entry.leans.left.size;
         const right = entry.leans.right.size;
