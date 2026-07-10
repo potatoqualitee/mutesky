@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-10T13:09:32.200Z",
+    "updatedAt": "2026-07-10T13:53:00.400Z",
     "keywords": {
       "Platner": {
         "weight": 3,
@@ -17,7 +17,7 @@
       },
       "World Cup": {
         "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-10)"
       },
       "Reveals": {
         "weight": 1,
