@@ -6,7 +6,7 @@
     <!-- connect-src stays https: because each user's PDS lives on an arbitrary host;
          script-src needs 'unsafe-inline' for the inline event handlers in rendered markup -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
     <meta name="referrer" content="no-referrer">
     <title>MuteSky — Mute in Bulk on Bluesky</title>
     
