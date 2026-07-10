@@ -9,6 +9,7 @@ import {
     getContextCategories,
     activateCategory,
     deactivateCategory,
+    keywordsClaimedBySelection,
     syncDerivedContexts
 } from './selectionModel.js';
 
@@ -29,10 +30,11 @@ export async function handleExceptionToggle(category) {
             activateCategory(category, { clearUnchecked: true });
         }
     } else {
-        // Excepting a topic: deactivate exactly that category's keywords.
-        // No wholesale rebuild -- other selections stay untouched.
+        // Excepting a topic: deactivate exactly that category's keywords,
+        // sparing any keyword other claimed categories share. No wholesale
+        // rebuild -- other selections stay untouched.
         state.selectedExceptions.add(category);
-        deactivateCategory(category);
+        deactivateCategory(category, { protect: keywordsClaimedBySelection() });
     }
 
     cache.invalidateCategory(category);

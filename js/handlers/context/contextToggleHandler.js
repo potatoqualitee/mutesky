@@ -10,6 +10,7 @@ import {
     getContextSelectionState,
     activateCategory,
     deactivateCategory,
+    keywordsClaimedBySelection,
     syncDerivedContexts
 } from './selectionModel.js';
 
@@ -39,10 +40,13 @@ export async function handleContextToggle(contextId) {
             for (const other of getContextCategories(otherId)) claimedElsewhere.add(other);
         }
 
+        // Individual keyword strings can appear in several categories, so also
+        // spare any keyword the remaining selection still claims
+        const protect = keywordsClaimedBySelection();
         for (const category of categories) {
             if (!claimedElsewhere.has(category)) {
                 state.selectedExceptions.delete(category);
-                deactivateCategory(category);
+                deactivateCategory(category, { protect });
             }
             cache.invalidateCategory(category);
         }

@@ -59,9 +59,16 @@ export function getCategorySelectionState(category) {
 
 // 'all' | 'partial' | 'none' across a context's non-excepted categories
 export function getContextSelectionState(contextId) {
-    const categories = getContextCategories(contextId)
+    const allCategories = getContextCategories(contextId);
+    const categories = allCategories
         .filter(category => !state.selectedExceptions.has(category));
-    if (categories.length === 0) return 'none';
+    if (categories.length === 0) {
+        // Every category excepted: keep an explicitly selected context selected,
+        // otherwise its exception tags disappear and can never be cleared
+        return allCategories.length > 0 && state.selectedContexts.has(contextId)
+            ? 'all'
+            : 'none';
+    }
 
     let sawAll = true;
     let sawAny = false;
@@ -103,10 +110,29 @@ export function activateCategory(category, { clearUnchecked = false } = {}) {
     }
 }
 
+// Keywords (lowercased) that the current selection still claims: every
+// non-excepted category of every selected context, at the current filter
+// level. Deactivation must never remove these -- keyword strings can appear
+// in more than one category.
+export function keywordsClaimedBySelection() {
+    const claimed = new Set();
+    for (const contextId of state.selectedContexts) {
+        for (const category of getContextCategories(contextId)) {
+            if (state.selectedExceptions.has(category)) continue;
+            for (const keyword of getAllKeywordsForCategory(category, true)) {
+                claimed.add(keyword.toLowerCase());
+            }
+        }
+    }
+    return claimed;
+}
+
 // Deactivate ALL of a category's keywords regardless of filter level, so
-// keywords activated at a broader level never linger as unremovable orphans
-export function deactivateCategory(category) {
+// keywords activated at a broader level never linger as unremovable orphans.
+// Pass protect (a lowercase Set) to spare keywords other categories claim.
+export function deactivateCategory(category, { protect = null } = {}) {
     for (const keyword of getAllKeywordsForCategory(category, false)) {
+        if (protect?.has(keyword.toLowerCase())) continue;
         removeKeyword(keyword);
     }
 }
@@ -123,12 +149,18 @@ export function applyFilterLevel() {
         }
     }
 
+    // Union across categories first: a keyword above the level in one category
+    // must survive if a sibling category still includes it at this level
+    const atLevelUnion = new Set();
     for (const category of categories) {
-        const atLevel = new Set(
-            getAllKeywordsForCategory(category, true).map(k => k.toLowerCase())
-        );
+        for (const keyword of getAllKeywordsForCategory(category, true)) {
+            atLevelUnion.add(keyword.toLowerCase());
+        }
+    }
+
+    for (const category of categories) {
         for (const keyword of getAllKeywordsForCategory(category, false)) {
-            if (atLevel.has(keyword.toLowerCase())) {
+            if (atLevelUnion.has(keyword.toLowerCase())) {
                 if (!isManuallyUnchecked(keyword)) addKeywordWithCase(keyword);
             } else {
                 removeKeyword(keyword);
