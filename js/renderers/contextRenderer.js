@@ -10,6 +10,11 @@ const TRAILING_CONTEXT_ORDER = [
     'Technology'
 ];
 
+const CONTEXT_DESCRIPTION_OVERRIDES = {
+    'Sports Events': 'Major recurring sports events',
+    Technology: 'Major tech companies, products, and AI'
+};
+
 export function getOrderedContextEntries(contextGroups) {
     const entries = Object.entries(contextGroups);
     const trailingTitles = new Set(TRAILING_CONTEXT_ORDER);
@@ -35,7 +40,7 @@ export function renderContextCards() {
                      data-context="${escapeHtml(id)}"
                      onclick="handleContextToggle('${escapeJsAttr(id)}')">
                     <h3>${escapeHtml(context.title)}</h3>
-                    <p>${escapeHtml(context.description)}</p>
+                    <p>${escapeHtml(CONTEXT_DESCRIPTION_OVERRIDES[context.title] || context.description)}</p>
                 </div>
             `;
         }).join('');
