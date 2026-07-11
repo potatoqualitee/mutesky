@@ -1,49 +1,60 @@
 {
-  "updatedAt": "2026-07-11T12:42:11.833Z",
+  "updatedAt": "2026-07-11T18:40:44.304Z",
   "phrases": {
     "housing bill": {
       "display": "housing bill",
       "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-11T12:42:11.833Z",
-      "heat": 37.78697371546894,
-      "peakHeat": 37.78697371546894,
+      "lastSeen": "2026-07-11T18:40:44.304Z",
+      "heat": 40.82954592109134,
+      "peakHeat": 40.82954592109134,
       "daysActive": 2,
-      "expiresAt": "2026-07-21T17:22:03.092Z",
+      "expiresAt": "2026-07-22T04:06:01.140Z",
       "bipartisan": true,
-      "outlets": 10
-    },
-    "graham platner": {
-      "display": "Graham Platner",
-      "firstSeen": "2026-07-11T12:42:11.833Z",
-      "lastSeen": "2026-07-11T12:42:11.833Z",
-      "heat": 18,
-      "peakHeat": 18,
-      "daysActive": 1,
-      "expiresAt": "2026-07-15T12:42:11.833Z",
-      "bipartisan": true,
-      "outlets": 16
+      "outlets": 9
     },
     "reflecting pool": {
       "display": "Reflecting Pool",
       "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-11T12:42:11.833Z",
-      "heat": 17.86148190103644,
-      "peakHeat": 17.86148190103644,
+      "lastSeen": "2026-07-11T18:40:44.304Z",
+      "heat": 18.39424057833235,
+      "peakHeat": 18.39424057833235,
       "daysActive": 2,
-      "expiresAt": "2026-07-19T21:57:48.222Z",
+      "expiresAt": "2026-07-20T05:32:03.610Z",
       "bipartisan": true,
-      "outlets": 7
+      "outlets": 4
     },
-    "bipartisan housing bill": {
-      "display": "Bipartisan housing bill",
-      "firstSeen": "2026-07-11T07:09:02.355Z",
-      "lastSeen": "2026-07-11T12:42:11.833Z",
-      "heat": 11.216949103454635,
-      "peakHeat": 11.216949103454635,
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-11T18:40:44.304Z",
+      "lastSeen": "2026-07-11T18:40:44.304Z",
+      "heat": 16,
+      "peakHeat": 16,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T10:11:00.253Z",
+      "expiresAt": "2026-07-15T18:40:44.304Z",
+      "bipartisan": true,
+      "outlets": 16
+    },
+    "israeli settlers": {
+      "display": "Israeli settlers",
+      "firstSeen": "2026-07-11T18:40:44.304Z",
+      "lastSeen": "2026-07-11T18:40:44.304Z",
+      "heat": 8,
+      "peakHeat": 8,
+      "daysActive": 1,
+      "expiresAt": "2026-07-15T18:40:44.304Z",
       "bipartisan": true,
       "outlets": 5
+    },
+    "air force one": {
+      "display": "Air Force One",
+      "firstSeen": "2026-07-11T18:40:44.304Z",
+      "lastSeen": "2026-07-11T18:40:44.304Z",
+      "heat": 6,
+      "peakHeat": 6,
+      "daysActive": 1,
+      "expiresAt": "2026-07-15T18:40:44.304Z",
+      "bipartisan": false,
+      "outlets": 6
     }
   }
 }

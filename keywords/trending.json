@@ -1,23 +1,27 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-11T12:42:11.833Z",
+    "updatedAt": "2026-07-11T18:40:44.304Z",
     "keywords": {
       "housing bill": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-10)"
-      },
-      "Graham Platner": {
-        "weight": 3,
-        "description": "In 16 outlets across the spectrum (since 2026-07-11)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-10)"
       },
       "Reflecting Pool": {
-        "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-10)"
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       },
-      "Bipartisan housing bill": {
-        "weight": 1,
+      "Graham Platner": {
+        "weight": 2,
+        "description": "In 16 outlets across the spectrum (since 2026-07-11)"
+      },
+      "Israeli settlers": {
+        "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-11)"
+      },
+      "Air Force One": {
+        "weight": 1,
+        "description": "In 6 outlets across the spectrum (since 2026-07-11)"
       }
     }
   }
