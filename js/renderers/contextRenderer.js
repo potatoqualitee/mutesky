@@ -3,10 +3,26 @@ import { state } from '../state.js';
 import { getContextSelectionState } from '../handlers/context/selectionModel.js';
 import { escapeHtml, escapeJsAttr } from '../utils/escape.js';
 
+const TRAILING_CONTEXT_ORDER = [
+    'New Developments',
+    'US Holidays',
+    'Sports Events',
+    'Technology'
+];
+
+export function getOrderedContextEntries(contextGroups) {
+    const entries = Object.entries(contextGroups);
+    const trailingTitles = new Set(TRAILING_CONTEXT_ORDER);
+    const regular = entries.filter(([, context]) => !trailingTitles.has(context.title));
+    const trailing = TRAILING_CONTEXT_ORDER.flatMap(title =>
+        entries.filter(([, context]) => context.title === title));
+    return [...regular, ...trailing];
+}
+
 export function renderContextCards() {
     if (!elements.contextOptions) return;
 
-    elements.contextOptions.innerHTML = Object.entries(state.contextGroups)
+    elements.contextOptions.innerHTML = getOrderedContextEntries(state.contextGroups)
         .map(([id, context]) => {
             // Honest tri-state display derived from actual keyword state:
             // fully selected, partially selected (some keywords active), or off
