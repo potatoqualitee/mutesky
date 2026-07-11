@@ -21,6 +21,7 @@ import {
     deactivateCategory,
     keywordsClaimedBySelection,
     applyFilterLevel,
+    applyFollowedContextUpdates,
     seedActiveFromMutedKeywords
 } from '../../js/handlers/context/selectionModel.js';
 
@@ -233,17 +234,76 @@ describe('applyFilterLevel', () => {
     });
 });
 
+describe('applyFollowedContextUpdates', () => {
+    it('stages new in-scope keywords for explicitly followed contexts', () => {
+        state.followedContexts.add('health');
+        state.filterLevel = 0;
+        activateCategory('Healthcare and Public Health');
+        state.keywordGroups['Healthcare and Public Health']['Healthcare and Public Health'].keywords['future health fight'] = { weight: 3 };
+        state.keywordGroups['Healthcare and Public Health']['Healthcare and Public Health'].keywords['low priority health'] = { weight: 1 };
+
+        applyFollowedContextUpdates();
+
+        expect(state.activeKeywords.has('future health fight')).toBe(true);
+        expect(state.activeKeywords.has('low priority health')).toBe(false);
+    });
+
+    it('does not claim an external mute that collides with a newly published keyword', () => {
+        state.followedContexts.add('health');
+        state.originalMutedKeywords.add('future health fight');
+        state.keywordGroups['Healthcare and Public Health']['Healthcare and Public Health']
+            .keywords['future health fight'] = { weight: 3 };
+
+        applyFollowedContextUpdates();
+
+        expect(state.activeKeywords.has('future health fight')).toBe(false);
+        expect(state.managedKeywordLedger.has('future health fight')).toBe(false);
+    });
+
+    it('respects category exceptions and sticky keyword opt-outs', () => {
+        state.followedContexts.add('politics');
+        state.selectedExceptions.add('Gun Policy');
+        state.manuallyUnchecked.add('future rhetoric');
+        state.keywordGroups['Political Rhetoric']['Political Rhetoric'].keywords['future rhetoric'] = { weight: 3 };
+
+        applyFollowedContextUpdates();
+
+        expect(state.activeKeywords.has('gun control')).toBe(false);
+        expect(state.activeKeywords.has('future rhetoric')).toBe(false);
+        expect(state.activeKeywords.has('culture war')).toBe(true);
+    });
+
+    it('does not turn a partial advanced selection into a subscription', () => {
+        state.activeKeywords.add('gun control');
+        syncDerivedContexts();
+        state.keywordGroups['Gun Policy']['Gun Policy'].keywords['future gun term'] = { weight: 3 };
+
+        applyFollowedContextUpdates();
+
+        expect(state.followedContexts.size).toBe(0);
+        expect(state.activeKeywords.has('future gun term')).toBe(false);
+    });
+});
+
 describe('seedActiveFromMutedKeywords', () => {
-    it('adds muted keywords with original casing unless opted out', () => {
+    it('seeds only recorded MuteSky ownership and respects opt-outs', () => {
         state.originalMutedKeywords.add('gun control');
         state.originalMutedKeywords.add('single payer');
+        state.originalMutedKeywords.add('external phrase');
+        state.managedKeywordLedger.set('gun control', { keyword: 'Gun Control', origin: 'catalog' });
+        state.managedKeywordLedger.set('single payer', { keyword: 'single payer', origin: 'catalog' });
         state.manuallyUnchecked.add('Single Payer');
 
-        const caseMap = new Map([['gun control', 'Gun Control']]);
+        const caseMap = new Map([
+            ['gun control', 'Gun Control'],
+            ['single payer', 'single payer'],
+            ['external phrase', 'External Phrase']
+        ]);
         seedActiveFromMutedKeywords(caseMap);
 
         expect(state.activeKeywords.has('Gun Control')).toBe(true);
         expect(state.activeKeywords.has('single payer')).toBe(false);
+        expect(state.activeKeywords.has('external phrase')).toBe(false);
     });
 
     it('does not duplicate already-active keywords', () => {

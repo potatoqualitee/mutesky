@@ -1,5 +1,11 @@
 import { state } from '../state.js';
-import { addMyKeywords, removeMyKeyword, getSubmittableKeywords } from '../myKeywords.js';
+import {
+    addMyKeywords,
+    removeMyKeyword,
+    getSubmittableKeywords,
+    getMyKeywordProvenance,
+    MY_KEYWORD_ORIGIN_RETIRED_DEFAULT
+} from '../myKeywords.js';
 import { measureJsonBytes, MAX_PREFERENCES_BYTES } from '../mute.js';
 import { loadMuteSettings, getExpirationDate } from '../settings/muteSettings.js';
 import { renderInterface } from '../renderer.js';
@@ -22,7 +28,7 @@ export function handleMyKeywordsAdd() {
     const input = document.getElementById('my-keywords-input');
     if (!input || !input.value.trim()) return;
 
-    const { added, activated, duplicates } = addMyKeywords(input.value);
+    const { added, activated, duplicates, provenanceChanged } = addMyKeywords(input.value);
 
     const parts = [];
     if (added.length > 0) {
@@ -36,7 +42,8 @@ export function handleMyKeywordsAdd() {
     }
     setFeedback(parts.length > 0 ? parts.join(' · ') : 'Nothing to add');
 
-    if (added.length > 0 || activated.length > 0) {
+    if (added.length > 0 || activated.length > 0
+        || provenanceChanged.length > 0) {
         input.value = '';
         renderMyKeywordsModal();
         renderInterface();
@@ -79,8 +86,8 @@ function renderKeywordList() {
     if (state.myKeywords.size === 0) {
         list.innerHTML = `
             <p class="my-keywords-empty">
-                No keywords yet. Anything you add is muted for you only — it never
-                changes MuteSky's shared lists.
+                No added or kept keywords yet. Anything you add is muted for you
+                only — it never changes MuteSky's shared lists.
             </p>
         `;
         return;
@@ -89,15 +96,25 @@ function renderKeywordList() {
     const keywords = Array.from(state.myKeywords)
         .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
-    list.innerHTML = keywords.map(keyword => `
-        <span class="my-keyword-chip">
-            ${escapeHtml(keyword)}
-            <button class="my-keyword-remove"
-                title="Remove and unmute"
-                aria-label="Remove ${escapeHtml(keyword)}"
-                onclick="window.myKeywordsHandlers.handleMyKeywordsRemove('${escapeJsAttr(keyword)}')">&times;</button>
-        </span>
-    `).join('');
+    list.innerHTML = keywords.map(keyword => {
+        const provenance = getMyKeywordProvenance(keyword);
+        const isRetired = provenance.origin === MY_KEYWORD_ORIGIN_RETIRED_DEFAULT;
+        const originTitle = provenance.replacement
+            ? `Kept when MuteSky retired this default. Replaced by "${provenance.replacement}".`
+            : 'Kept when MuteSky retired this default';
+        const originBadge = isRetired
+            ? '<span class="my-keyword-origin" title="' + escapeHtml(originTitle) + '">Retired default</span>'
+            : '';
+        return `
+            <span class="my-keyword-chip" data-origin="${escapeHtml(provenance.origin)}">
+                <span class="my-keyword-label">${escapeHtml(keyword)}</span>
+                ${originBadge}
+                <button class="my-keyword-remove"
+                    title="Remove and unmute" aria-label="Remove ${escapeHtml(keyword)}"
+                    onclick="window.myKeywordsHandlers.handleMyKeywordsRemove('${escapeJsAttr(keyword)}')">&times;</button>
+            </span>
+        `;
+    }).join('');
 }
 
 // Approximate the muted-words payload the next submit would send, against the

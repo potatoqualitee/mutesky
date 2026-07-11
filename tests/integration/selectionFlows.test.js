@@ -15,7 +15,10 @@ import { handleExceptionToggle } from '../../js/handlers/context/exceptionToggle
 import { updateSimpleModeState } from '../../js/handlers/context/simpleModeManager.js';
 import { handleKeywordToggle, handleCategoryToggle } from '../../js/handlers/keywords/core-handlers.js';
 import { handleEnableAll, handleDisableAll } from '../../js/handlers/keywords/bulk-handlers.js';
-import { getContextSelectionState } from '../../js/handlers/context/selectionModel.js';
+import {
+    applyFollowedContextUpdates,
+    getContextSelectionState
+} from '../../js/handlers/context/selectionModel.js';
 import { cache } from '../../js/handlers/context/contextCache.js';
 
 beforeEach(() => {
@@ -28,6 +31,7 @@ describe('context select/deselect', () => {
         await handleContextToggle('violence');
         await flushUpdates();
 
+        expect(state.followedContexts.has('violence')).toBe(true);
         expect(state.selectedContexts.has('violence')).toBe(true);
         keywordsOf('Gun Policy').forEach(k => {
             expect(state.activeKeywords.has(k)).toBe(true);
@@ -40,6 +44,7 @@ describe('context select/deselect', () => {
         await flushUpdates();
 
         expect(state.selectedContexts.has('violence')).toBe(false);
+        expect(state.followedContexts.has('violence')).toBe(false);
         expect(state.activeKeywords.size).toBe(0);
     });
 
@@ -121,6 +126,7 @@ describe('the partial-context loop that used to confuse everything', () => {
         await updateSimpleModeState();
         await flushUpdates();
 
+        expect(state.followedContexts.size).toBe(0);
         expect(state.activeKeywords.has('gun control')).toBe(true);
         expect(state.activeKeywords.has('culture war')).toBe(true);
         expect(getContextSelectionState('violence')).toBe('partial');
@@ -195,6 +201,7 @@ describe('bulk actions', () => {
         expect(state.selectedExceptions.size).toBe(0);
         for (const contextId of Object.keys(state.contextGroups)) {
             expect(state.selectedContexts.has(contextId)).toBe(true);
+            expect(state.followedContexts.has(contextId)).toBe(true);
         }
         keywordsOf('Gun Policy').forEach(k => {
             expect(state.activeKeywords.has(k)).toBe(true);
@@ -208,8 +215,36 @@ describe('bulk actions', () => {
         await flushUpdates();
 
         expect(state.activeKeywords.size).toBe(0);
+        expect(state.followedContexts.size).toBe(0);
         expect(state.selectedContexts.size).toBe(0);
         expect(state.selectedExceptions.size).toBe(0);
+    });
+
+    it('search-scoped bulk actions preserve and update sticky opt-outs', async () => {
+        state.followedContexts.add('violence');
+        state.activeKeywords.add('gun control');
+        state.activeKeywords.add('culture war');
+        state.manuallyUnchecked.add('public option');
+        state.searchTerm = 'gun control';
+
+        handleDisableAll();
+        await flushUpdates();
+
+        expect(state.activeKeywords.has('gun control')).toBe(false);
+        expect(state.activeKeywords.has('culture war')).toBe(true);
+        expect(state.manuallyUnchecked.has('gun control')).toBe(true);
+        expect(state.manuallyUnchecked.has('public option')).toBe(true);
+
+        state.searchTerm = '';
+        applyFollowedContextUpdates();
+        expect(state.activeKeywords.has('gun control')).toBe(false);
+
+        state.searchTerm = 'gun control';
+        handleEnableAll();
+        await flushUpdates();
+        expect(state.activeKeywords.has('gun control')).toBe(true);
+        expect(state.manuallyUnchecked.has('gun control')).toBe(false);
+        expect(state.manuallyUnchecked.has('public option')).toBe(true);
     });
 });
 

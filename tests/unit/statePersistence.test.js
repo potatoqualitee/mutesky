@@ -13,7 +13,7 @@ vi.mock('../../js/renderer.js', () => ({
     renderInterface: vi.fn()
 }));
 
-import { state, serializeState, getStorageKey } from '../../js/state.js';
+import { state, loadState, serializeState, getStorageKey } from '../../js/state.js';
 import { renderInterface } from '../../js/renderer.js';
 import { setupEventListeners } from '../../js/events.js';
 import { resetStateWithFixtures } from '../helpers/fixtures.js';
@@ -45,6 +45,71 @@ describe('serializeState', () => {
     });
 });
 
+
+describe('per-DID ownership persistence', () => {
+    it('round-trips followed intent, provenance, migrations, and managed ownership', () => {
+        state.followedContexts.add('violence');
+        state.myKeywords.add('Old Topic');
+        state.myKeywordProvenance.set('old topic', { origin: 'retired-default' });
+        state.appliedCatalogMigrations.add('2026.07.1:retire:old topic');
+        state.managedKeywordLedger.set('gun control', { keyword: 'gun control', origin: 'catalog' });
+
+        localStorage.setItem(getStorageKey(), serializeState());
+        loadState();
+
+        expect(state.followedContexts).toEqual(new Set(['violence']));
+        expect(state.myKeywordProvenance.get('old topic')).toEqual({ origin: 'retired-default' });
+        expect(state.appliedCatalogMigrations.has('2026.07.1:retire:old topic')).toBe(true);
+        expect(state.managedKeywordLedger.get('gun control'))
+            .toEqual({ keyword: 'gun control', origin: 'catalog' });
+    });
+
+    it('migrates legacy selected contexts only when followed intent is absent', () => {
+        const data = JSON.parse(serializeState());
+        data.selectedContexts = ['violence'];
+        delete data.followedContexts;
+        localStorage.setItem(getStorageKey(), JSON.stringify(data));
+
+        loadState();
+
+        expect(state.followedContexts).toEqual(new Set(['violence']));
+    });
+
+    it('preserves an explicitly empty followed list', () => {
+        const data = JSON.parse(serializeState());
+        data.selectedContexts = ['violence'];
+        data.followedContexts = [];
+        localStorage.setItem(getStorageKey(), JSON.stringify(data));
+
+        loadState();
+
+        expect(state.selectedContexts).toEqual(new Set(['violence']));
+        expect(state.followedContexts).toEqual(new Set());
+    });
+
+    it('does not leak sticky opt-outs into a DID with no saved state', () => {
+        state.manuallyUnchecked.add('gun control');
+        localStorage.setItem(getStorageKey(), serializeState());
+
+        state.did = 'did:plc:second-user';
+        loadState();
+
+        expect(state.manuallyUnchecked).toEqual(new Set());
+        expect(state.followedContexts).toEqual(new Set());
+        expect(state.managedKeywordLedger).toEqual(new Map());
+    });
+
+    it('keeps the successful global trending snapshot across tab-state reloads', () => {
+        state.currentTrendingKeywords.add('today topic');
+        state.trendingSnapshotLoaded = true;
+        localStorage.setItem(getStorageKey(), serializeState());
+
+        loadState();
+
+        expect(state.currentTrendingKeywords).toEqual(new Set(['today topic']));
+        expect(state.trendingSnapshotLoaded).toBe(true);
+    });
+});
 describe('visibilitychange refocus', () => {
     let events = 0;
 

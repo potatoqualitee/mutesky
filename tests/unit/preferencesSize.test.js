@@ -87,7 +87,12 @@ describe('MuteService.updateMutedKeywords size guard', () => {
                     {
                         $type: 'app.bsky.actor.defs#mutedWordsPref',
                         items: [
-                            { value: 'my-custom-word', targets: ['content'] },
+                            {
+                                value: 'my-custom-word',
+                                targets: ['content'],
+                                actorTarget: 'notFollowed',
+                                expires: '2026-08-01T00:00:00.000Z'
+                            },
                             { value: 'managed-1', targets: ['content', 'tag'] }
                         ]
                     }
@@ -105,6 +110,13 @@ describe('MuteService.updateMutedKeywords size guard', () => {
         expect(values).toContain('my-custom-word');  // user's own keyword kept
         expect(values).toContain('managed-2');       // newly selected
         expect(values).not.toContain('managed-1');   // deselected managed keyword
+        const custom = pref.items.find(item => item.value === 'my-custom-word');
+        expect(custom).toEqual({
+            value: 'my-custom-word',
+            targets: ['content'],
+            actorTarget: 'notFollowed',
+            expires: '2026-08-01T00:00:00.000Z'
+        });
     });
 
     it('throws PreferencesSizeError before sending an oversized payload', async () => {

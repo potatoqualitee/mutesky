@@ -1,5 +1,9 @@
 import { state } from './state.js';
 import { keywordCache } from './stateCache.js';
+import {
+    getExpiredTrendingKeywordKeys,
+    shouldManageCurrentKeyword
+} from './managedKeywords.js';
 
 // Helper to get all keywords from our list with their original case
 export function getKeywordsWithCase() {
@@ -47,6 +51,7 @@ export function canUnmuteKeyword(keyword) {
     const ourKeywords = getOurKeywords();
     const lowerKeyword = keyword.toLowerCase();
     return ourKeywords.has(lowerKeyword) &&
+           shouldManageCurrentKeyword(lowerKeyword) &&
            (state.originalMutedKeywords.has(lowerKeyword) || state.sessionMutedKeywords.has(lowerKeyword));
 }
 
@@ -70,6 +75,7 @@ export function getMuteUnmuteCounts() {
 
     // Only count keywords from our list
     for (const keyword of ourKeywords) {
+        if (!shouldManageCurrentKeyword(keyword)) continue;
         const isActive = activeLowerKeywords.has(keyword);
         const wasOriginallyMuted = originalLowerKeywords.has(keyword);
 
@@ -86,6 +92,17 @@ export function getMuteUnmuteCounts() {
     // is gone), but their tombstones still unmute them on the next submit
     for (const removed of state.removedMyKeywords) {
         if (!ourKeywords.has(removed) && originalLowerKeywords.has(removed)) {
+            toUnmute++;
+        }
+    }
+
+    // A successfully loaded trending snapshot can retire terms that MuteSky
+    // previously submitted. The ledger keeps them managed for one final
+    // unmute even though they no longer belong to a rendered category.
+    for (const expired of getExpiredTrendingKeywordKeys()) {
+        if (!ourKeywords.has(expired)
+            && !state.removedMyKeywords.has(expired)
+            && originalLowerKeywords.has(expired)) {
             toUnmute++;
         }
     }

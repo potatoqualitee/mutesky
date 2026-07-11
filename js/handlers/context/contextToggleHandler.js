@@ -31,12 +31,17 @@ export async function handleContextToggle(contextId) {
         && state.selectedContexts.has(contextId);
 
     if (isFullySelected) {
+        state.followedContexts.delete(contextId);
         state.selectedContexts.delete(contextId);
 
         // Categories any OTHER selected context claims (even excepted ones):
         // their keywords and exception status belong to the sibling now
         const claimedElsewhere = new Set();
-        for (const otherId of state.selectedContexts) {
+        const otherContexts = new Set([
+            ...state.selectedContexts,
+            ...state.followedContexts
+        ]);
+        for (const otherId of otherContexts) {
             for (const other of getContextCategories(otherId)) claimedElsewhere.add(other);
         }
 
@@ -46,11 +51,12 @@ export async function handleContextToggle(contextId) {
         for (const category of categories) {
             if (!claimedElsewhere.has(category)) {
                 state.selectedExceptions.delete(category);
-                deactivateCategory(category, { protect });
+                deactivateCategory(category, { protect, recordUnchecked: true });
             }
             cache.invalidateCategory(category);
         }
     } else {
+        state.followedContexts.add(contextId);
         state.selectedContexts.add(contextId);
 
         // Selecting a whole context is explicit intent: activate everything at

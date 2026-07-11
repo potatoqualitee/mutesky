@@ -10,9 +10,10 @@ export const myKeywordsTemplate = `
             <div class="modal-body">
                 <p class="my-keywords-intro">
                     Add your own words or phrases to mute — anything MuteSky's lists don't
-                    cover. Paste a whole list at once: one per line or separated by commas.
-                    Like everything else, they're applied when you press the Mute button,
-                    and you can uncheck them anytime under "My Keywords" in Advanced Mode.
+                    cover. When a shared default is retired, MuteSky keeps it here instead
+                    of silently dropping your mute. Paste a whole list at once: one per line
+                    or separated by commas. Changes are applied when you press Mute, and you
+                    can uncheck them anytime under "My Keywords" in Advanced Mode.
                 </p>
 
                 <div class="my-keywords-add">

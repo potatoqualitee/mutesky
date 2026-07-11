@@ -6,6 +6,9 @@ export async function fetchKeywordGroups(forceFresh = false) {
     try {
         // Get list of category files
         const categoryFiles = await listCategoryFiles();
+        if (!Array.isArray(categoryFiles) || categoryFiles.length === 0) {
+            throw new Error('Keyword catalog file list is empty');
+        }
         console.debug('Found category files:', categoryFiles);
 
         // Fetch and process each category file
@@ -14,19 +17,29 @@ export async function fetchKeywordGroups(forceFresh = false) {
             try {
                 const url = `${KEYWORDS_BASE_URL}/${fileName}`;
                 const response = await fetch(url, { cache: 'no-store' });
-                if (!response.ok) return;
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
                 const categoryData = await response.json();
                 const categoryName = Object.keys(categoryData)[0];
+                if (!categoryName || typeof categoryData[categoryName]?.keywords !== 'object') {
+                    throw new Error('Invalid category schema');
+                }
 
                 // Store the entire category data structure
                 keywordGroups[categoryName] = categoryData;
 
                 console.debug(`Loaded ${categoryName} with ${Object.keys(categoryData[categoryName].keywords).length} keywords`);
+                return categoryName;
             } catch (error) {
                 console.error(`Failed to load category ${fileName}:`, error);
+                throw error;
             }
         }));
+        const failures = results.filter(result => result.status === 'rejected');
+        if (failures.length > 0 || Object.keys(keywordGroups).length !== categoryFiles.length) {
+            throw new Error(`Keyword catalog incomplete (${failures.length} failed files)`);
+        }
+
 
         // Sort categories alphabetically and create a new ordered object
         const orderedKeywordGroups = {};

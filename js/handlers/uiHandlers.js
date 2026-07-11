@@ -4,6 +4,7 @@ import { renderInterface } from '../renderer.js';
 import { refreshAllData } from '../api.js';
 import { updateSimpleModeState } from './contextHandlers.js';
 import { updateStatusCounts, updateMuteButton, updateEnableDisableButtons, updateLastUpdate } from '../renderers/uiRenderer.js';
+import { initializeKeywordState } from './mute/muteOperations.js';
 
 // Function to ensure mode toggles always reflect current state
 export function updateModeToggles() {
@@ -63,6 +64,7 @@ export async function handleRefreshData() {
         refreshButton.disabled = true;
 
         await refreshAllData();
+        await initializeKeywordState({ forceCatalogMigrations: true });
 
         // Full rerender: refreshed data can add or remove whole categories
         // (e.g. new trending phrases), which targeted checkbox updates miss

@@ -149,10 +149,9 @@ export class MuteService {
             // Separate user's custom keywords (those not in our list)
             const userCustomKeywords = currentMutedPref.items
                 .filter(item => !ourKeywordsSet.has(item.value.toLowerCase()))
-                .map(item => ({
-                    value: item.value,
-                    targets: item.targets || ['content', 'tag']
-                }));
+                // Preserve the complete lexicon item. Reconstructing only
+                // value/targets silently stripped actorTarget and expires.
+                .map(item => ({ ...item }));
 
             // Load mute settings
             const settings = loadMuteSettings();

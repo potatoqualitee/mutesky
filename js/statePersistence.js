@@ -21,10 +21,14 @@ export function serializeState() {
         activeKeywords: Array.from(state.activeKeywords).sort(),
         selectedCategories: Array.from(state.selectedCategories).sort(),
         selectedContexts: Array.from(state.selectedContexts).sort(),
+        followedContexts: Array.from(state.followedContexts).sort(),
         selectedExceptions: Array.from(state.selectedExceptions).sort(),
         manuallyUnchecked: Array.from(state.manuallyUnchecked).sort(),
         myKeywords: Array.from(state.myKeywords).sort(),
+        myKeywordProvenance: Array.from(state.myKeywordProvenance.entries()).sort(([a], [b]) => a.localeCompare(b)),
         removedMyKeywords: Array.from(state.removedMyKeywords).sort(),
+        appliedCatalogMigrations: Array.from(state.appliedCatalogMigrations).sort(),
+        managedKeywordLedger: Array.from(state.managedKeywordLedger.entries()).sort(([a], [b]) => a.localeCompare(b)),
         mode: state.mode,
         lastModified: state.lastModified,
         filterLevel: state.filterLevel,
@@ -57,12 +61,20 @@ export function loadState() {
         state.activeKeywords.clear();
         state.selectedContexts.clear();
         state.selectedExceptions.clear();
+        state.followedContexts.clear();
         state.selectedCategories.clear();
-        // Don't clear manuallyUnchecked - let it persist
-        // My Keywords are per-DID: clear before loading so an account with no
-        // saved state never inherits (or tombstone-unmutes) another account's
+        // Every persisted preference below is per-DID. Clear before loading so
+        // an account with no saved state never inherits another account's
+        // opt-outs, ownership claims, or tombstone-unmutes.
+        state.manuallyUnchecked.clear();
         state.myKeywords.clear();
+        state.myKeywordProvenance.clear();
         state.removedMyKeywords.clear();
+        state.appliedCatalogMigrations.clear();
+        state.managedKeywordLedger.clear();
+        // Trending snapshot state is global catalog state, not per-DID state.
+        // Keep it across visibility-driven reloads; fetchTrendingKeywords owns
+        // clearing and replacing it when a network refresh actually starts.
 
         const saved = localStorage.getItem(getStorageKey());
         if (saved) {
@@ -80,6 +92,11 @@ export function loadState() {
             );
             state.selectedCategories = new Set(data.selectedCategories || []);
             state.selectedContexts = new Set(data.selectedContexts || []);
+            const hasFollowedContexts = Object.prototype.hasOwnProperty.call(data, 'followedContexts');
+            state.followedContexts = new Set(
+                hasFollowedContexts ? (data.followedContexts || []) : (data.selectedContexts || [])
+            );
+
             state.selectedExceptions = new Set(data.selectedExceptions || []);
             state.manuallyUnchecked = new Set(
                 (data.manuallyUnchecked || []).map(keyword => {
@@ -89,8 +106,32 @@ export function loadState() {
             );
             // Kept as saved: user case for their own keywords, lowercase tombstones
             state.myKeywords = new Set(data.myKeywords || []);
+            state.myKeywordProvenance = new Map(
+                (Array.isArray(data.myKeywordProvenance)
+                    ? data.myKeywordProvenance
+                    : Object.entries(data.myKeywordProvenance || {}))
+                    .filter(entry => Array.isArray(entry) && typeof entry[0] === 'string')
+                    .map(([keyword, metadata]) => [keyword.toLowerCase(), metadata || { origin: 'user' }])
+            );
+            // Saves predating provenance are user-authored by definition. A
+            // catalog migration may add metadata later, but must never steal
+            // ownership from an existing My Keywords entry.
+            for (const keyword of state.myKeywords) {
+                const lower = keyword.toLowerCase();
+                if (!state.myKeywordProvenance.has(lower)) {
+                    state.myKeywordProvenance.set(lower, { origin: 'user' });
+                }
+            }
             state.removedMyKeywords = new Set(
                 (data.removedMyKeywords || []).map(keyword => keyword.toLowerCase())
+            );
+            state.appliedCatalogMigrations = new Set(data.appliedCatalogMigrations || []);
+            state.managedKeywordLedger = new Map(
+                (Array.isArray(data.managedKeywordLedger)
+                    ? data.managedKeywordLedger
+                    : Object.entries(data.managedKeywordLedger || {}))
+                    .filter(entry => Array.isArray(entry) && typeof entry[0] === 'string')
+                    .map(([keyword, metadata]) => [keyword.toLowerCase(), metadata || {}])
             );
 
             // Load other state properties
@@ -140,6 +181,8 @@ export function resetState() {
     state.lastModified = null;
     state.filterLevel = 0;
     state.lastBulkAction = null;
+    state.currentTrendingKeywords.clear();
+    state.trendingSnapshotLoaded = false;
     keywordCache.clear();
 
     // Restore auth state

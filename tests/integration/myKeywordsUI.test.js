@@ -14,6 +14,7 @@ vi.mock('@atproto/api', () => ({
 }));
 
 import { state } from '../../js/state.js';
+import { MY_KEYWORD_ORIGIN_RETIRED_DEFAULT } from '../../js/myKeywords.js';
 import { resetStateWithFixtures } from '../helpers/fixtures.js';
 import '../../js/components/modals/keywords-modal.js';
 import {
@@ -42,7 +43,7 @@ describe('My Keywords modal', () => {
 
         expect(modal().classList.contains('visible')).toBe(true);
         expect(document.getElementById('my-keywords-list').textContent)
-            .toContain('No keywords yet');
+            .toContain('No added or kept keywords yet');
         expect(document.getElementById('my-keywords-usage').textContent)
             .toMatch(/0 keywords selected/);
     });
@@ -62,6 +63,23 @@ describe('My Keywords modal', () => {
         // Meter reflects the pending selection
         expect(document.getElementById('my-keywords-usage').textContent)
             .toMatch(/3 keywords selected/);
+    });
+
+    it('labels a kept default and explains an explicit rename', () => {
+        state.myKeywords.add('Tim Cast');
+        state.activeKeywords.add('Tim Cast');
+        state.myKeywordProvenance.set('tim cast', {
+            origin: MY_KEYWORD_ORIGIN_RETIRED_DEFAULT,
+            replacement: 'Timcast'
+        });
+
+        handleMyKeywordsModalToggle();
+
+        const chip = document.querySelector('.my-keyword-chip');
+        const badge = chip.querySelector('.my-keyword-origin');
+        expect(chip.dataset.origin).toBe(MY_KEYWORD_ORIGIN_RETIRED_DEFAULT);
+        expect(badge.textContent).toBe('Retired default');
+        expect(badge.title).toContain('Replaced by "Timcast"');
     });
 
     it('escapes hostile keyword text in the chip list', () => {

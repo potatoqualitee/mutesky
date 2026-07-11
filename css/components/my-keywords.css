@@ -94,6 +94,19 @@
     flex-shrink: 0;
 }
 
+.my-keyword-label {
+    min-width: 0;
+}
+
+.my-keyword-origin {
+    padding: 1px 6px;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--primary) 14%, transparent);
+    color: var(--primary);
+    font-size: calc(0.72rem * var(--font-scale, 1));
+    white-space: nowrap;
+}
+
 .my-keyword-remove:hover {
     background: var(--border);
 }

@@ -36,6 +36,9 @@ function phraseOverlaps(a, b) {
 // trending still surfaces.
 export function mergeTrendingIntoState(appState, categoryData) {
     const categoryName = Object.keys(categoryData || {})[0];
+    if (!(appState.currentTrendingKeywords instanceof Set)) {
+        appState.currentTrendingKeywords = new Set();
+    }
     const category = categoryName ? categoryData[categoryName] : null;
     if (!category?.keywords || Object.keys(category.keywords).length === 0) {
         return false;
@@ -66,6 +69,9 @@ export function mergeTrendingIntoState(appState, categoryData) {
         );
         for (const [keyword, entry] of fresh) {
             const current = byLower.get(keyword.toLowerCase());
+            if (!current) {
+                appState.currentTrendingKeywords.add(keyword.toLowerCase());
+            }
             if (current && current !== keyword) delete existing.keywords[current];
             existing.keywords[keyword] = entry;
         }
@@ -73,6 +79,10 @@ export function mergeTrendingIntoState(appState, categoryData) {
         appState.keywordGroups[categoryName] = {
             [categoryName]: { ...category, keywords: Object.fromEntries(fresh) }
         };
+
+        for (const [keyword] of fresh) {
+            appState.currentTrendingKeywords.add(keyword.toLowerCase());
+        }
 
         // Advanced mode only shows categories in selectedCategories once that
         // set is non-empty (persisted sessions), so register the new category
@@ -123,13 +133,27 @@ export function mergeTrendingIntoState(appState, categoryData) {
 // installs, so the merge sees every other category's keywords (the overlap
 // dedup only excludes what already exists) and can attach its card in one pass
 export async function fetchTrendingKeywords() {
+    state.currentTrendingKeywords.clear();
+    state.trendingSnapshotLoaded = false;
+
     try {
         const response = await fetch(TRENDING_URL, { cache: 'no-store' });
         if (!response.ok) {
             console.debug('[Trending] No trending keywords available:', response.status);
             return;
         }
-        mergeTrendingIntoState(state, await response.json());
+        const payload = await response.json();
+        const categoryName = Object.keys(payload || {})[0];
+        const category = categoryName ? payload[categoryName] : null;
+        if (!category || typeof category.keywords !== 'object' || Array.isArray(category.keywords)) {
+            console.debug('[Trending] Ignoring malformed snapshot');
+            return;
+        }
+        if (!mergeTrendingIntoState(state, payload)) {
+            console.debug('[Trending] Ignoring empty snapshot');
+            return;
+        }
+        state.trendingSnapshotLoaded = true;
     } catch (error) {
         // Trending is enrichment: the app must work fine without it
         console.debug('[Trending] Failed to fetch trending keywords:', error);

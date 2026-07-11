@@ -23,7 +23,11 @@ export async function handleExceptionToggle(category) {
         // Re-including a topic the user had excepted: activate it if any
         // selected context claims it. Explicit intent clears sticky opt-outs.
         state.selectedExceptions.delete(category);
-        const claimed = Array.from(state.selectedContexts).some(contextId =>
+        const claimingContexts = new Set([
+            ...state.selectedContexts,
+            ...state.followedContexts
+        ]);
+        const claimed = Array.from(claimingContexts).some(contextId =>
             getContextCategories(contextId).includes(category)
         );
         if (claimed) {

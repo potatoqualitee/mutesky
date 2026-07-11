@@ -117,3 +117,45 @@ sidebar, and a "Manage" button on the synthetic category's card.
 
 Tests: `tests/unit/myKeywords.test.js`, `tests/unit/holidaysMerge.test.js`,
 `tests/integration/myKeywordsUI.test.js`.
+
+## Catalog lifecycle and migrations
+
+Shared catalog entries should declare why they are expected to remain:
+
+- **Evergreen** concepts stay while the underlying topic exists.
+- **Tenure-bound** names stay only while the person holds the relevant role.
+- **Event-bound** phrases stay through the event and a short cooldown.
+
+The append-only `catalog-migrations.json` manifest is the authority for
+retirements and renames. MuteSky never infers a retirement from a missing
+file, a partial fetch, or a trending-feed diff. Category files and the
+manifest must publish together; a migration waits if the old term still
+appears in the freshly loaded catalog.
+
+After fresh Bluesky mute state is available, an explicit retirement moves an
+active or actually muted default into My Keywords with `retired-default`
+provenance. An explicit rename keeps the old spelling there and also stages
+the current replacement when present. Manual opt-outs win, user-authored
+provenance is never downgraded, and migration IDs are consumed once per DID.
+
+## Managed ownership and trending expiry
+
+`state.managedKeywordLedger` records the source of the exact selection from a
+successful MuteSky submit. That submit is the only event that establishes
+ownership; merely observing a same-named Bluesky mute does not. This prevents
+a new device from deleting or rewriting a mute the user created elsewhere.
+
+A prior ledger entry owned by the trending feed becomes a managed, unselected
+removal only after a later trending snapshot loads successfully without it.
+The expired phrase remains in the managed list for one submit so Bluesky
+actually removes it. Failed or malformed feed loads never expire anything.
+
+If a user types a currently live trend into My Keywords, its source is
+upgraded to user ownership. That pinned phrase survives after the feed drops
+it. My Keywords and retired-default sources outrank temporary trending
+appearances when the same string has multiple category entries.
+
+Existing Bluesky muted-word records that MuteSky does not own are preserved
+with their complete metadata. Unknown current-catalog collisions are not
+seeded or submitted as managed until a local action or ledger entry proves
+ownership.

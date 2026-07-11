@@ -2,6 +2,7 @@ import { state } from '../../state.js';
 import { getAllKeywordsForCategory } from '../../utils/categoryUtils.js';
 import { isKeywordActive, removeKeyword } from '../keywords/keyword-utils.js';
 
+import { hasRecordedManagedOwnership } from '../../managedKeywords.js';
 // Single source of truth for selection state:
 //
 //   state.activeKeywords     -- the keywords that will be muted on submit
@@ -111,8 +112,11 @@ export function syncDerivedContexts() {
 // clearUnchecked=true expresses explicit user intent ("select this whole
 // topic"), which un-sticks previous individual opt-outs -- without this a
 // context containing one manually unchecked keyword could never be selected.
-export function activateCategory(category, { clearUnchecked = false } = {}) {
+export function activateCategory(category, { clearUnchecked = false, skipUnknownMuted = false } = {}) {
     for (const keyword of getAllKeywordsForCategory(category, true)) {
+        const lower = keyword.toLowerCase();
+        if (skipUnknownMuted && state.originalMutedKeywords.has(lower)
+            && !hasRecordedManagedOwnership(lower)) continue;
         if (clearUnchecked) {
             clearManuallyUnchecked(keyword);
         } else if (isManuallyUnchecked(keyword)) {
@@ -128,7 +132,11 @@ export function activateCategory(category, { clearUnchecked = false } = {}) {
 // in more than one category.
 export function keywordsClaimedBySelection() {
     const claimed = new Set();
-    for (const contextId of state.selectedContexts) {
+    const claimingContexts = new Set([
+        ...state.selectedContexts,
+        ...state.followedContexts
+    ]);
+    for (const contextId of claimingContexts) {
         for (const category of getContextCategories(contextId)) {
             if (state.selectedExceptions.has(category)) continue;
             for (const keyword of getAllKeywordsForCategory(category, true)) {
@@ -142,9 +150,21 @@ export function keywordsClaimedBySelection() {
 // Deactivate ALL of a category's keywords regardless of filter level, so
 // keywords activated at a broader level never linger as unremovable orphans.
 // Pass protect (a lowercase Set) to spare keywords other categories claim.
-export function deactivateCategory(category, { protect = null } = {}) {
+// recordUnchecked captures only active, actually-muted words when a user
+// explicitly deselects a context. That narrow marker distinguishes deliberate
+// unmute intent from an untouched external same-name collision.
+export function deactivateCategory(category, {
+    protect = null,
+    recordUnchecked = false
+} = {}) {
     for (const keyword of getAllKeywordsForCategory(category, false)) {
-        if (protect?.has(keyword.toLowerCase())) continue;
+        const lower = keyword.toLowerCase();
+        if (protect?.has(lower)) continue;
+        if (recordUnchecked && isKeywordActive(keyword)
+            && state.originalMutedKeywords.has(lower)) {
+            clearManuallyUnchecked(keyword);
+            state.manuallyUnchecked.add(keyword);
+        }
         removeKeyword(keyword);
     }
 }
@@ -155,7 +175,11 @@ export function deactivateCategory(category, { protect = null } = {}) {
 // mode picks and existing Bluesky mutes.
 export function applyFilterLevel() {
     const categories = new Set();
-    for (const contextId of state.selectedContexts) {
+    const levelContexts = new Set([
+        ...state.selectedContexts,
+        ...state.followedContexts
+    ]);
+    for (const contextId of levelContexts) {
         for (const category of getContextCategories(contextId)) {
             if (!state.selectedExceptions.has(category)) categories.add(category);
         }
@@ -183,6 +207,21 @@ export function applyFilterLevel() {
     syncDerivedContexts();
 }
 
+// Stage newly published keywords for contexts the user explicitly follows.
+// This mutates local pending state only; Bluesky is untouched until Mute.
+// Individual opt-outs and whole-category exceptions remain authoritative.
+export function applyFollowedContextUpdates() {
+    for (const contextId of state.followedContexts) {
+        if (!state.contextGroups[contextId]) continue;
+        for (const category of getContextCategories(contextId)) {
+            if (state.selectedExceptions.has(category)) continue;
+            activateCategory(category, { skipUnknownMuted: true });
+        }
+    }
+
+    syncDerivedContexts();
+}
+
 // Reflect the user's real Bluesky mutes into the pending selection. Runs after
 // fetching muted keywords so mutes made elsewhere (or before this session)
 // show up checked, unless the user has stickily opted out of them here.
@@ -190,7 +229,10 @@ export function seedActiveFromMutedKeywords(keywordCaseMap = null) {
     for (const muted of state.originalMutedKeywords) {
         if (isManuallyUnchecked(muted)) continue;
         if (isKeywordActive(muted)) continue;
-        const cased = keywordCaseMap?.get(muted.toLowerCase()) || muted;
+        const lower = muted.toLowerCase();
+        if (!keywordCaseMap?.has(lower)) continue;
+        if (!hasRecordedManagedOwnership(lower)) continue;
+        const cased = keywordCaseMap.get(lower);
         state.activeKeywords.add(cased);
     }
 }

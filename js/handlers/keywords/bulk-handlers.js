@@ -5,17 +5,18 @@ import { keywordCache } from './cache.js';
 import { removeKeyword, isKeywordActive, processBatchKeywords } from './keyword-utils.js';
 import { updateSimpleModeState } from '../contextHandlers.js';
 import { renderInterface } from '../../renderer.js';
+import { clearManuallyUnchecked } from '../context/selectionModel.js';
 
 export function handleEnableAll() {
-    // Clear manually unchecked since this is an explicit enable all
-    state.manuallyUnchecked.clear();
-    // Set flag to indicate enable all was used
-    state.lastBulkAction = 'enable';
+    // Search-scoped actions must not erase unrelated sticky opt-outs.
+    if (!state.searchTerm) state.manuallyUnchecked.clear();
+    state.lastBulkAction = state.searchTerm ? null : 'enable';
 
     if (state.searchTerm) {
         // When searching, only enable filtered keywords
         const filteredGroups = filterKeywordGroups();
         processBatchKeywords(Object.values(filteredGroups).flat(), keyword => {
+            clearManuallyUnchecked(keyword);
             // First remove any existing case variations
             removeKeyword(keyword);
             // Then add with original case if not already active
@@ -33,6 +34,7 @@ export function handleEnableAll() {
         // Enable all contexts and drop exceptions -- "enable all" means all
         Object.keys(state.contextGroups).forEach(contextId => {
             state.selectedContexts.add(contextId);
+            state.followedContexts.add(contextId);
         });
         state.selectedExceptions.clear();
 
@@ -57,20 +59,22 @@ export function handleEnableAll() {
 }
 
 export function handleDisableAll() {
-    // Clear manually unchecked since this is an explicit disable all
-    state.manuallyUnchecked.clear();
-    // Set flag to indicate disable all was used
-    state.lastBulkAction = 'disable';
+    // Search-scoped actions preserve unrelated opt-outs and record their own.
+    if (!state.searchTerm) state.manuallyUnchecked.clear();
+    state.lastBulkAction = state.searchTerm ? null : 'disable';
 
     if (state.searchTerm) {
         // When searching, only disable filtered keywords
         const filteredGroups = filterKeywordGroups();
         processBatchKeywords(Object.values(filteredGroups).flat(), keyword => {
+            clearManuallyUnchecked(keyword);
+            state.manuallyUnchecked.add(keyword);
             removeKeyword(keyword);
         });
     } else {
         // Clear all contexts first
         state.selectedContexts.clear();
+        state.followedContexts.clear();
         state.selectedExceptions.clear();
 
         // When not searching, disable all keywords

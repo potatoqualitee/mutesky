@@ -15,8 +15,14 @@ export const state = {
     sessionMutedKeywords: new Set(),    // New keywords muted this session
     manuallyUnchecked: new Set(),       // Keywords that user has manually unchecked
     myKeywords: new Set(),              // User-added custom keywords (original case)
+    myKeywordProvenance: new Map(),     // lowercase keyword -> ownership/retirement metadata
     removedMyKeywords: new Set(),       // Deleted custom keywords awaiting unmute on next submit (lowercase)
+    appliedCatalogMigrations: new Set(),// Per-DID ids for append-only catalog migrations
+    managedKeywordLedger: new Map(),    // lowercase keyword -> last submitted MuteSky ownership
+    currentTrendingKeywords: new Set(), // Ephemeral lowercase set from the latest successful trending fetch
+    trendingSnapshotLoaded: false,      // Never expire ledger entries after a failed/missing fetch
     selectedContexts: new Set(),
+    followedContexts: new Set(),        // Explicit context subscriptions for future catalog additions
     selectedExceptions: new Set(),
     selectedCategories: new Set(),
     searchTerm: '',

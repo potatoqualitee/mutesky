@@ -97,10 +97,16 @@ export function resetStateWithFixtures({
     state.sessionMutedKeywords = new Set();
     state.manuallyUnchecked = new Set();
     state.myKeywords = new Set();
+    state.myKeywordProvenance = new Map();
     state.removedMyKeywords = new Set();
+    state.appliedCatalogMigrations = new Set();
+    state.managedKeywordLedger = new Map();
+    state.currentTrendingKeywords = new Set();
+    state.trendingSnapshotLoaded = false;
     state.selectedContexts = new Set();
     state.selectedExceptions = new Set();
     state.selectedCategories = new Set();
+    state.followedContexts = new Set();
     state.searchTerm = '';
     state.filterMode = 'all';
     state.menuOpen = false;

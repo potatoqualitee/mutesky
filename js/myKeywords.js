@@ -2,6 +2,10 @@ import { state, saveState } from './state.js';
 import { keywordCache } from './stateCache.js';
 import { removeKeyword } from './handlers/keywords/keyword-utils.js';
 import { muteCache } from './handlers/mute/muteCache.js';
+import {
+    getExpiredTrendingKeywordKeys,
+    shouldManageCurrentKeyword
+} from './managedKeywords.js';
 
 // statePersistence.js (part of the unbundled browser module graph via
 // state.js) imports this file, so it must never import anything that reaches
@@ -22,6 +26,20 @@ import { muteCache } from './handlers/mute/muteCache.js';
 // preserving it as an unmanaged word) while getSubmittableKeywords() filters
 // it out of the selection. Tombstones clear after a successful submit.
 export const MY_KEYWORDS_CATEGORY = 'My Keywords';
+export const MY_KEYWORD_ORIGIN_USER = 'user';
+export const MY_KEYWORD_ORIGIN_RETIRED_DEFAULT = 'retired-default';
+
+export function getMyKeywordProvenance(keyword, appState = state) {
+    const metadata = appState.myKeywordProvenance?.get(keyword.toLowerCase());
+    return metadata || { origin: MY_KEYWORD_ORIGIN_USER };
+}
+
+function setUserProvenance(keyword) {
+    const lower = keyword.toLowerCase();
+    const previous = getMyKeywordProvenance(keyword);
+    state.myKeywordProvenance.set(lower, { origin: MY_KEYWORD_ORIGIN_USER });
+    return previous.origin !== MY_KEYWORD_ORIGIN_USER;
+}
 
 // Matches the Bluesky lexicon cap for a muted word value
 const MAX_KEYWORD_LENGTH = 1000;
@@ -68,11 +86,16 @@ export function syncMyKeywordsCategory(appState = state) {
 
     const keywords = {};
     for (const keyword of appState.myKeywords) {
-        keywords[keyword] = { weight: 3, description: 'Added by you' };
+        const provenance = getMyKeywordProvenance(keyword, appState);
+        const isRetired = provenance.origin === MY_KEYWORD_ORIGIN_RETIRED_DEFAULT;
+        keywords[keyword] = {
+            weight: 3,
+            description: isRetired ? 'Kept from a retired MuteSky default' : 'Added by you'
+        };
     }
     appState.keywordGroups[MY_KEYWORDS_CATEGORY] = {
         [MY_KEYWORDS_CATEGORY]: {
-            description: 'Keywords you added yourself — muted at every filter level',
+            description: 'Keywords you added or kept — muted at every filter level',
             keywords
         }
     };
@@ -118,19 +141,46 @@ function getCuratedKeywordMap() {
 // checked immediately (the user's intent is to mute it); nothing reaches
 // Bluesky until the Mute button is pressed, like every other selection.
 export function addMyKeywords(rawText) {
-    const result = { added: [], activated: [], duplicates: [] };
+    const result = { added: [], activated: [], duplicates: [], provenanceChanged: [] };
     const curated = getCuratedKeywordMap();
 
     for (const keyword of parseKeywordInput(rawText)) {
         const lower = keyword.toLowerCase();
         state.removedMyKeywords.delete(lower);
 
-        if (findCased(state.myKeywords, keyword)) {
+        const existing = findCased(state.myKeywords, keyword);
+        const curatedCase = curated.get(lower);
+        const isLiveTrend = state.currentTrendingKeywords.has(lower);
+
+        // Typing a live trend into My Keywords is an explicit request to keep
+        // it after the feed expires. Give it user ownership instead of merely
+        // checking the temporary curated appearance.
+        if (isLiveTrend) {
+            const displayKeyword = existing || curatedCase || keyword;
+            const wasActive = Boolean(findCased(state.activeKeywords, displayKeyword));
+            if (!existing) {
+                state.myKeywords.add(displayKeyword);
+                result.added.push(displayKeyword);
+            } else {
+                result.duplicates.push(keyword);
+            }
+            if (setUserProvenance(displayKeyword)) {
+                result.provenanceChanged.push(displayKeyword);
+            }
+            clearUncheckedOptOut(displayKeyword);
+            activateKeyword(displayKeyword);
+            if (existing && !wasActive) result.activated.push(displayKeyword);
+            continue;
+        }
+
+        if (existing) {
+            if (setUserProvenance(existing)) {
+                result.provenanceChanged.push(existing);
+            }
             result.duplicates.push(keyword);
             continue;
         }
 
-        const curatedCase = curated.get(lower);
         if (curatedCase) {
             // Already in a curated list: check that one instead of creating a
             // duplicate entry with a second owner
@@ -141,12 +191,14 @@ export function addMyKeywords(rawText) {
         }
 
         state.myKeywords.add(keyword);
+        setUserProvenance(keyword);
         clearUncheckedOptOut(keyword);
         activateKeyword(keyword);
         result.added.push(keyword);
     }
 
-    if (result.added.length > 0 || result.activated.length > 0) {
+    if (result.added.length > 0 || result.activated.length > 0
+        || result.provenanceChanged.length > 0) {
         syncMyKeywordsCategory();
         saveState();
     }
@@ -165,6 +217,7 @@ export function removeMyKeyword(keyword) {
     if (!cased) return false;
 
     state.myKeywords.delete(cased);
+    state.myKeywordProvenance.delete(cased.toLowerCase());
     removeKeyword(cased);
     state.removedMyKeywords.add(cased.toLowerCase());
     state.manuallyUnchecked.add(cased);
@@ -199,14 +252,19 @@ export function scrubStaleTombstones() {
 // removed keyword can never ride along (even if Enable All or mute seeding
 // re-activated its string in the meantime)
 export function getSubmittableKeywords() {
+    const expiredTrending = getExpiredTrendingKeywordKeys();
     return Array.from(state.activeKeywords)
-        .filter(keyword => !state.removedMyKeywords.has(keyword.toLowerCase()));
+        .filter(keyword => !state.removedMyKeywords.has(keyword.toLowerCase()))
+        .filter(keyword => !expiredTrending.has(keyword.toLowerCase()));
 }
 
 // Managed list to submit: everything in our categories plus tombstones, so
 // Bluesky drops removed keywords instead of preserving them as unmanaged
 export function getManagedKeywordsForSubmit(ourKeywordsLower) {
-    return Array.from(new Set([...ourKeywordsLower, ...state.removedMyKeywords]));
+    const expiredTrending = getExpiredTrendingKeywordKeys();
+    const currentManaged = Array.from(ourKeywordsLower)
+        .filter(keyword => shouldManageCurrentKeyword(keyword));
+    return Array.from(new Set([...currentManaged, ...state.removedMyKeywords, ...expiredTrending]));
 }
 
 // After Bluesky accepts an update the removals are real; forget the tombstones

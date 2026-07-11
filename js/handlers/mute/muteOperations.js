@@ -5,8 +5,17 @@ import { showNotification } from '../../utils/notifications.js';
 import { muteCache } from './muteCache.js';
 import { debouncedUpdate } from './muteUIUtils.js';
 import { getKeywordsWithCase } from '../../keywordState.js';
-import { seedActiveFromMutedKeywords, syncDerivedContexts } from '../context/selectionModel.js';
+import {
+    applyFollowedContextUpdates,
+    seedActiveFromMutedKeywords,
+    syncDerivedContexts
+} from '../context/selectionModel.js';
 import { getSubmittableKeywords, getManagedKeywordsForSubmit, clearRemovedMyKeywords, scrubStaleTombstones } from '../../myKeywords.js';
+import { applyCatalogMigrations } from '../../api/catalogMigrations.js';
+import {
+    reconcileExpiredTrendingKeywords,
+    updateManagedKeywordLedgerAfterSubmit
+} from '../../managedKeywords.js';
 
 // Process all keywords immediately without batching
 function processKeywords(keywords, operation) {
@@ -37,6 +46,10 @@ export async function handleMuteSubmit() {
         console.debug('[handleMuteSubmit] Updating keywords on Bluesky');
         await blueskyService.mute.updateMutedKeywords(selectedKeywords, ourKeywords);
         console.debug('[handleMuteSubmit] Bluesky update complete');
+
+        // Commit ownership only after Bluesky accepts the exact selection.
+        // Replacing the ledger also forgets expired terms this submit removed.
+        updateManagedKeywordLedgerAfterSubmit(selectedKeywords);
 
         // Removals are live on Bluesky now; their tombstones are done
         clearRemovedMyKeywords();
@@ -105,7 +118,7 @@ export async function handleMuteSubmit() {
     }
 }
 
-export async function initializeKeywordState() {
+export async function initializeKeywordState({ forceCatalogMigrations = false } = {}) {
     try {
         console.debug('[initializeKeywordState] Starting initialization');
 
@@ -136,6 +149,15 @@ export async function initializeKeywordState() {
         // clear-and-rebuild path used to do this as a side effect) and
         // re-derive which context cards show selected
         seedActiveFromMutedKeywords(getKeywordsWithCase());
+
+        // Only a prior successful MuteSky submit establishes ownership. A
+        // same-named mute discovered on a new device remains user-owned.
+        reconcileExpiredTrendingKeywords();
+
+        // The shared manifest handles permanent catalog retirements only.
+        // It never infers removals from a missing category or trending diff.
+        await applyCatalogMigrations({ forceFresh: forceCatalogMigrations });
+        applyFollowedContextUpdates();
         syncDerivedContexts();
 
     } catch (error) {
