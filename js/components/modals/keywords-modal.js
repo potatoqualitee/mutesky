@@ -1,9 +1,9 @@
 import { myKeywordsTemplate } from './keywords-template.js';
 
-// Dumb shell like SettingsModal: this file is loaded unbundled by
-// components/index.js, so it must not import app state or handlers. All
-// behavior lives in js/handlers/myKeywordsHandlers.js (the bundle), reached
-// through window.myKeywordsHandlers at event time.
+// Dumb shell like SettingsModal: keep component upgrade independent of app
+// initialization and state mutations. All behavior lives in
+// js/handlers/myKeywordsHandlers.js, reached through window.myKeywordsHandlers
+// at event time.
 class MyKeywordsModal extends HTMLElement {
     constructor() {
         super();

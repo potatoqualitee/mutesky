@@ -101,13 +101,7 @@
     <appearance-modal></appearance-modal>
     <about-modal></about-modal>
 
-    <!-- Load Web Components before main bundle -->
-    <script type="module">
-        // Import and initialize components
-        import * as Components from './js/components/index.js';
-    </script>
-
-    <!-- Main application bundle -->
+    <!-- The bundle defines Web Components before initializing the app. -->
     <script type="module" src="./js/bundle.js"></script>
 </body>
 </html>

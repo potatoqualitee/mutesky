@@ -7,11 +7,10 @@ import {
     shouldManageCurrentKeyword
 } from './managedKeywords.js';
 
-// statePersistence.js (part of the unbundled browser module graph via
-// state.js) imports this file, so it must never import anything that reaches
-// a bare specifier like @atproto/api -- that's why the two selectionModel
-// helpers below are reimplemented here instead of imported (selectionModel
-// pulls in the render pipeline and blueskyService transitively).
+// statePersistence.js imports this file through state.js, so keep this module
+// free of imports that pull in the render pipeline or blueskyService. The two
+// selectionModel helpers below are reimplemented locally to keep persistence
+// cycle-safe and independent of UI/service initialization.
 
 // User-defined keywords live in state.myKeywords and are projected into
 // state.keywordGroups as the synthetic category below, so every existing

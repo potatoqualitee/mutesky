@@ -41,24 +41,7 @@ export function setupEventListeners() {
         });
     }
 
-    // Set up intersection observer for auth button visibility
-    if (elements.authButton) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    // Check if the button is being intersected (covered) by other elements
-                    const isVisible = entry.intersectionRatio === 1.0;
-                    elements.authButton.style.visibility = isVisible ? 'visible' : 'hidden';
-                });
-            },
-            {
-                threshold: 1.0, // Only trigger when button is fully visible/invisible
-                root: null // Use viewport as root
-            }
-        );
-
-        observer.observe(elements.authButton);
-    }
+    // Authentication remains available whenever its form is rendered.
 
     // Helper function to notify keyword changes
     function notifyKeywordChanges() {

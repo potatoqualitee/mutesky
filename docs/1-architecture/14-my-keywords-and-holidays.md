@@ -44,10 +44,10 @@ that replaces the `keywordGroups` object or the source sets: initial load,
 refresh, and inside `loadState()` itself, so switching DIDs can never leave a
 previous account's list in `keywordGroups` or the managed-keyword caches.
 
-Because `statePersistence.js` (reachable from `state.js`, which the unbundled
-components import) now imports `js/myKeywords.js`, that module must stay free
-of imports that reach bare specifiers — the two selectionModel helpers it
-needs are reimplemented locally for exactly this reason.
+Because `statePersistence.js` reaches `js/myKeywords.js` through `state.js`,
+that module stays free of imports that pull in the render pipeline or
+`blueskyService`. The two selectionModel helpers it needs are reimplemented
+locally to keep persistence cycle-safe and independent of UI initialization.
 
 ### Add semantics
 
@@ -88,10 +88,10 @@ counts pending tombstoned unmutes so the Mute button stays honest.
 ### UI
 
 The `<my-keywords-modal>` component is a dumb shell (like the settings modal):
-`index.html` loads `js/components/**` **unbundled** as native ESM, so
-component files must not import app state or anything that pulls bare
-specifiers like `@atproto/api`. All behavior lives in
-`js/handlers/myKeywordsHandlers.js` inside the bundle, reached via
+the main bundle defines the component before application initialization, while
+`refreshElements()` captures the controls it renders. Keeping the shell free
+of application state and service imports avoids initialization cycles. All
+behavior lives in `js/handlers/myKeywordsHandlers.js`, reached via
 `window.myKeywordsHandlers`. The handler renders the chip list (escaped with
 `escapeHtml`/`escapeJsAttr` — user keywords are hostile input) and a storage
 meter that estimates the next submit's muted-words payload against the PDS's

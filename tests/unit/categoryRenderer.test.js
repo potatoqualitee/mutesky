@@ -12,8 +12,9 @@ vi.mock('../../js/bluesky.js', () => ({
 import { state } from '../../js/state.js';
 import { resetStateWithFixtures, flushUpdates } from '../helpers/fixtures.js';
 
-// dom.js caches getElementById lookups at import time, so the containers must
-// exist before the renderer module graph loads — hence the dynamic imports
+// dom.js refreshes its stable lookup object on import, so mount the containers
+// before the renderer graph loads. main.js performs another refresh after Web
+// Component upgrade in the browser.
 let renderAdvancedMode, renderCategorySections, renderCategoryList;
 let handleKeywordToggle, handleCategoryToggle;
 
