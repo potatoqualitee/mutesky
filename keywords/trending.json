@@ -1,38 +1,30 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-11T00:55:08.094Z",
+    "updatedAt": "2026-07-11T07:09:02.355Z",
     "keywords": {
-      "Platner": {
-        "weight": 3,
-        "description": "In 23 outlets across the spectrum (since 2026-07-10)"
-      },
       "housing bill": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-10)"
-      },
-      "Air Force One": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-10)"
       },
       "Reflecting Pool": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-10)"
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-10)"
       },
-      "Florida airport": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-10)"
-      },
-      "Election Assistance Commission": {
+      "Russian oil": {
         "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-11)"
       },
       "E. Jean Carroll": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-10)"
       },
-      "Russian oil": {
-        "weight": 1,
+      "Maine Senate race": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-11)"
+      },
+      "Apple sues OpenAI": {
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-11)"
       }
     }

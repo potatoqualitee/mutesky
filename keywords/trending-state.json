@@ -1,91 +1,80 @@
 {
-  "updatedAt": "2026-07-11T00:55:08.094Z",
+  "updatedAt": "2026-07-11T07:09:02.355Z",
   "phrases": {
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-11T00:55:08.094Z",
-      "heat": 174.91558088025278,
-      "peakHeat": 174.91558088025278,
-      "daysActive": 2,
-      "expiresAt": "2026-07-25T09:02:34.187Z",
-      "bipartisan": true,
-      "outlets": 23
-    },
     "housing bill": {
       "display": "housing bill",
       "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-11T00:55:08.094Z",
-      "heat": 19.493469328321957,
-      "peakHeat": 19.493469328321957,
+      "lastSeen": "2026-07-11T07:09:02.355Z",
+      "heat": 29.18092890850808,
+      "peakHeat": 29.18092890850808,
       "daysActive": 2,
-      "expiresAt": "2026-07-19T14:57:14.319Z",
+      "expiresAt": "2026-07-20T20:15:49.864Z",
       "bipartisan": true,
-      "outlets": 8
-    },
-    "air force one": {
-      "display": "Air Force One",
-      "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 13.801439711293627,
-      "peakHeat": 16.998986773639565,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T13:31:14.424Z",
-      "bipartisan": false,
-      "outlets": 3
+      "outlets": 9
     },
     "reflecting pool": {
       "display": "Reflecting Pool",
       "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-11T00:55:08.094Z",
-      "heat": 10.764830624309855,
-      "peakHeat": 10.764830624309855,
+      "lastSeen": "2026-07-11T07:09:02.355Z",
+      "heat": 12.633582802333226,
+      "peakHeat": 12.633582802333226,
       "daysActive": 2,
-      "expiresAt": "2026-07-18T08:26:27.524Z",
+      "expiresAt": "2026-07-18T22:25:49.024Z",
       "bipartisan": false,
-      "outlets": 5
+      "outlets": 6
     },
-    "florida airport": {
-      "display": "Florida airport",
-      "firstSeen": "2026-07-10T14:32:31.880Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 8.403034483191218,
-      "peakHeat": 9.80276212495923,
+    "russian oil": {
+      "display": "Russian oil",
+      "firstSeen": "2026-07-11T00:55:08.094Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 8.258287274421287,
+      "peakHeat": 8.258287274421287,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T10:05:07.011Z",
+      "expiresAt": "2026-07-15T00:55:08.094Z",
       "bipartisan": false,
       "outlets": 3
     },
-    "election assistance commission": {
-      "display": "Election Assistance Commission",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-11T00:55:08.094Z",
-      "heat": 7.498281402189988,
-      "peakHeat": 7.498281402189988,
-      "daysActive": 2,
-      "expiresAt": "2026-07-17T16:21:42.991Z",
+    "bipartisan housing bill": {
+      "display": "Bipartisan housing bill",
+      "firstSeen": "2026-07-11T07:09:02.355Z",
+      "lastSeen": "2026-07-11T07:09:02.355Z",
+      "heat": 6.25,
+      "peakHeat": 6.25,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T03:18:25.395Z",
       "bipartisan": true,
-      "outlets": 3
+      "outlets": 5
     },
     "e. jean carroll": {
       "display": "E. Jean Carroll",
       "firstSeen": "2026-07-10T14:18:14.861Z",
       "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 3.418305838286814,
+      "heat": 2.53540094017734,
       "peakHeat": 5.670988378546031,
       "daysActive": 1,
       "expiresAt": "2026-07-16T06:51:30.049Z",
       "bipartisan": true,
       "outlets": 4
     },
-    "russian oil": {
-      "display": "Russian oil",
-      "firstSeen": "2026-07-11T00:55:08.094Z",
-      "lastSeen": "2026-07-11T00:55:08.094Z",
+    "maine senate race": {
+      "display": "Maine Senate race",
+      "firstSeen": "2026-07-11T07:09:02.355Z",
+      "lastSeen": "2026-07-11T07:09:02.355Z",
+      "heat": 10,
+      "peakHeat": 10,
+      "daysActive": 1,
+      "expiresAt": "2026-07-15T07:09:02.355Z",
+      "bipartisan": false,
+      "outlets": 4
+    },
+    "apple sues openai": {
+      "display": "Apple sues OpenAI",
+      "firstSeen": "2026-07-11T07:09:02.355Z",
+      "lastSeen": "2026-07-11T07:09:02.355Z",
       "heat": 8,
       "peakHeat": 8,
       "daysActive": 1,
-      "expiresAt": "2026-07-15T00:55:08.094Z",
+      "expiresAt": "2026-07-15T07:09:02.355Z",
       "bipartisan": false,
       "outlets": 3
     }
