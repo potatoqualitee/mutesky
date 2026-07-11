@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const fs = require('fs');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -48,31 +49,49 @@ module.exports = {
     },
     output: {
         filename: 'js/bundle.js',
+        chunkFilename: 'js/[name].[contenthash:8].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
         clean: {
-            keep: /\.git/
+            keep: /.git/
         }
     },
     devServer: devServerConfig,
     resolve: {
         extensions: ['.js']
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
+            }
+        ]
+    },
     plugins: [
         new webpack.ProvidePlugin({
             blueskyService: ['./js/bluesky.js', 'blueskyService']
         }),
+        new MiniCssExtractPlugin({
+            filename: 'css/landing.css',
+            chunkFilename: 'css/[name].[contenthash:8].css'
+        }),
         new CopyPlugin({
             patterns: [
-                { from: "index.html" },
-                { from: "css", to: "css" },
-                { from: "js", to: "js", globOptions: { ignore: ['**/main.js'] } },
-                { from: "CNAME" },
-                { from: "favicon.ico" },
-                { from: "images", to: "images" },
-                { from: "client-metadata.json" },
-                { from: "callback.html" }
+                { from: 'index.html' },
+                { from: 'css/base.css', to: 'css/base.css' },
+                { from: 'css/callback.css', to: 'css/callback.css' },
+                { from: 'js/themeInit.js', to: 'js/themeInit.js' },
+                { from: 'js/callback.js', to: 'js/callback.js' },
+                { from: 'CNAME' },
+                { from: 'favicon.ico' },
+                { from: 'images', to: 'images' },
+                { from: 'client-metadata.json' },
+                { from: 'callback.html' }
             ]
         })
     ]
-}
+};

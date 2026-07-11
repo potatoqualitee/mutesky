@@ -88,7 +88,7 @@ counts pending tombstoned unmutes so the Mute button stays honest.
 ### UI
 
 The `<my-keywords-modal>` component is a dumb shell (like the settings modal):
-the main bundle defines the component before application initialization, while
+the authenticated app chunk defines it before application initialization, while
 `refreshElements()` captures the controls it renders. Keeping the shell free
 of application state and service imports avoids initialization cycles. All
 behavior lives in `js/handlers/myKeywordsHandlers.js`, reached via

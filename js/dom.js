@@ -51,6 +51,6 @@ export function refreshElements() {
     return elements;
 }
 
-// Preserve the existing behavior for tests and modules imported after their
-// fixtures are mounted. main.js refreshes again after component upgrade.
+// Preserve import-time behavior for tests. Each browser loading stage refreshes
+// again after defining and upgrading the components it owns.
 refreshElements();

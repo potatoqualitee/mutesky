@@ -144,7 +144,7 @@ describe('visibilitychange refocus', () => {
         expect(renderInterface).toHaveBeenCalledTimes(1);
     });
 
-    it('re-renders when another tab changed the mode', () => {
+    it('re-renders when another tab changed the mode', async () => {
         const data = JSON.parse(serializeState());
         data.mode = 'advanced';
         localStorage.setItem(getStorageKey(), JSON.stringify(data));
@@ -152,7 +152,7 @@ describe('visibilitychange refocus', () => {
         refocus();
 
         expect(state.mode).toBe('advanced');
-        expect(renderInterface).toHaveBeenCalledTimes(1);
+        await vi.waitFor(() => expect(renderInterface).toHaveBeenCalledTimes(1));
     });
 
     it('still syncs storage that predates the serializer without a spurious render', () => {

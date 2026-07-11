@@ -5,43 +5,24 @@ import { debounce } from './utils.js';
 import { applyFilterLevel } from './handlers/context/selectionModel.js';
 import { blueskyService } from './bluesky.js';
 import {
-    handleAuth,
     handleLogout,
     handleMuteSubmit,
-    handleKeywordToggle,
-    handleCategoryToggle,
     handleMyKeywordsModalToggle,
     switchMode,
-    handleEnableAll,
-    handleDisableAll,
     handleRefreshData,
     showApp,
     initializeKeywordState,
     applyAppearanceSettings
 } from './handlers/index.js';
+import { loadAdvancedMode } from './advancedModeLoader.js';
 
 // Event Listeners
 export function setupEventListeners() {
-    elements.authButton?.addEventListener('click', handleAuth);
     elements.logoutButton?.addEventListener('click', handleLogout);
     elements.muteButton?.addEventListener('click', handleMuteSubmit);
     elements.navMuteButton?.addEventListener('click', handleMuteSubmit);
-    elements.enableAllBtn?.addEventListener('click', handleEnableAll);
-    elements.disableAllBtn?.addEventListener('click', handleDisableAll);
     elements.refreshButton?.addEventListener('click', handleRefreshData);
 
-    // Add Enter key handler for login input
-    const handleInput = document.getElementById('bsky-handle-input');
-    if (handleInput) {
-        handleInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                handleAuth();
-            }
-        });
-    }
-
-    // Authentication remains available whenever its form is rendered.
 
     // Helper function to notify keyword changes
     function notifyKeywordChanges() {
@@ -75,45 +56,63 @@ export function setupEventListeners() {
         }
     });
 
-    elements.sidebarSearch?.addEventListener('input', debounce((e) => {
-        state.searchTerm = e.target.value.toLowerCase();
+    const handleSidebarSearch = debounce(event => {
+        state.searchTerm = event.target.value.toLowerCase();
         renderInterface();
-    }, 300));
+    }, 300);
 
-    // Delegated listeners for the advanced-mode grid and sidebar. Their
-    // contents re-render wholesale, so per-checkbox inline handlers would be
-    // re-parsed on every render; the two containers themselves are static.
-    elements.categoriesGrid?.addEventListener('change', (event) => {
-        const keywordCheckbox = event.target.closest('input[data-keyword]');
-        if (keywordCheckbox) {
-            handleKeywordToggle(keywordCheckbox.dataset.keyword, keywordCheckbox.checked);
+    // Advanced Mode is defined after this listener setup, so delegate from the
+    // document and load its renderer/handlers only when those controls exist.
+    document.addEventListener('input', event => {
+        if (event.target.matches('#sidebar-search')) {
+            handleSidebarSearch(event);
         }
     });
 
-    // Category checkboxes read dataset.state, the render-time state, rather
-    // than the checked property the browser just flipped -- that keeps the
-    // tri-state cycle identical to the old inline handlers, which baked the
-    // pre-click state into their arguments at render time
-    const handleCategoryCheckboxClick = (event) => {
-        const categoryCheckbox = event.target.closest('input.category-checkbox');
-        if (!categoryCheckbox) return false;
-        handleCategoryToggle(categoryCheckbox.dataset.category, categoryCheckbox.dataset.state);
-        return true;
-    };
+    document.addEventListener('change', async event => {
+        const keywordCheckbox = event.target.closest('#categories-grid input[data-keyword]');
+        if (!keywordCheckbox) return;
 
-    elements.categoriesGrid?.addEventListener('click', (event) => {
-        if (handleCategoryCheckboxClick(event)) return;
-        if (event.target.closest('.my-keywords-manage')) {
+        const advanced = await loadAdvancedMode();
+        advanced.handleKeywordToggle(
+            keywordCheckbox.dataset.keyword,
+            keywordCheckbox.checked
+        );
+    });
+
+    document.addEventListener('click', async event => {
+        const bulkButton = event.target.closest('#enable-all, #disable-all');
+        if (bulkButton) {
+            const advanced = await loadAdvancedMode();
+            if (bulkButton.id === 'enable-all') {
+                advanced.handleEnableAll();
+            } else {
+                advanced.handleDisableAll();
+            }
+            return;
+        }
+
+        // Read dataset.state, the render-time state, rather than the checked
+        // property the browser has already flipped.
+        const categoryCheckbox = event.target.closest(
+            '#categories-grid input.category-checkbox, #category-list input.category-checkbox'
+        );
+        if (categoryCheckbox) {
+            const advanced = await loadAdvancedMode();
+            advanced.handleCategoryToggle(
+                categoryCheckbox.dataset.category,
+                categoryCheckbox.dataset.state
+            );
+            return;
+        }
+
+        if (event.target.closest('#categories-grid .my-keywords-manage')) {
             handleMyKeywordsModalToggle();
+            return;
         }
-    });
 
-    elements.categoryList?.addEventListener('click', (event) => {
-        if (handleCategoryCheckboxClick(event)) return;
-        const link = event.target.closest('a.category-name');
+        const link = event.target.closest('#category-list a.category-name');
         if (link) {
-            // Same as the old inline handler: smooth-scroll layered on the
-            // default hash navigation, and no-op if the section is filtered out
             const target = document.getElementById(link.getAttribute('href').slice(1));
             target?.scrollIntoView?.({ behavior: 'smooth' });
         }
@@ -125,7 +124,7 @@ export function setupEventListeners() {
     });
 
     // Handle visibility change to restore state when page becomes visible
-    document.addEventListener('visibilitychange', () => {
+    document.addEventListener('visibilitychange', async () => {
         if (document.visibilityState === 'visible' && state.did) {
             // loadState also re-syncs the projected My Keywords category, so
             // edits made in another tab are picked up here
@@ -139,7 +138,7 @@ export function setupEventListeners() {
 
             // switchMode re-applies mode visibility and ends with
             // renderInterface, so it is the single render on this path
-            switchMode(state.mode);
+            await switchMode(state.mode);
 
             // Update SimpleMode component with current state
             const simpleMode = document.querySelector('simple-mode');

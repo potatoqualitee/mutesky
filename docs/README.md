@@ -69,11 +69,11 @@ Technical documentation for developers.
    - Deferred UI updates
    - Response time improvements
 
-7. [Frontend Bootstrap and CTA Visibility](1-architecture/15-frontend-bootstrap.md)
-   - Single-graph Web Component initialization
-   - Refreshable DOM reference invariant
-   - Authentication CTA visibility policy
-   - Required regression checks
+7. [Frontend Bootstrap, Chunking, and CTA Visibility](1-architecture/15-frontend-bootstrap.md)
+   - Landing, authenticated-app, and Advanced Mode chunk boundaries
+   - Extracted landing/app/advanced stylesheets
+   - Shared OAuth and refreshable DOM-reference invariants
+   - Authentication CTA policy and regression checks
 
 ### 3. Development
 Implementation details and troubleshooting.

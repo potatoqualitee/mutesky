@@ -65,9 +65,9 @@ export async function init() {
                 updateSimpleModeState();
             }
             // Then switch to the correct mode
-            switchMode(state.mode);
+            await switchMode(state.mode);
             // Finally render the interface
-            renderInterface();
+            await renderInterface();
 
             // Update SimpleMode component with loaded state
             const simpleMode = document.querySelector('simple-mode');

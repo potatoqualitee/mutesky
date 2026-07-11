@@ -1,11 +1,11 @@
-import { AuthService } from './auth.js'
+import { authService } from './auth.js'
 import { ProfileService } from './profile.js'
 import { MuteService } from './mute.js'
 import { UIService } from './ui.js'
 
 class BlueskyService {
-    constructor() {
-        this.auth = new AuthService();
+    constructor(auth = authService) {
+        this.auth = auth;
         this.profile = new ProfileService(null);
         this.mute = new MuteService(null);
         this.ui = new UIService();
@@ -179,7 +179,6 @@ class BlueskyService {
 // Export singleton instance
 const blueskyService = new BlueskyService();
 
-// Initialize the service when the module loads
-blueskyService.setup().catch(console.error);
+// Setup is started explicitly by the authenticated application bootstrap.
 
 export { blueskyService };

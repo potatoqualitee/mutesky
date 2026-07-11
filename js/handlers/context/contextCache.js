@@ -1,6 +1,6 @@
 import { state } from '../../state.js';
 import { getAllKeywordsForCategory } from '../../categoryManager.js';
-import { isKeywordActive } from '../keywordHandlers.js';
+import { isKeywordActive } from '../keywords/keyword-utils.js';
 
 // Enhanced cache with memory management and performance optimizations
 export const cache = {

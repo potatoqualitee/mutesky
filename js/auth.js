@@ -4,10 +4,21 @@ export class AuthService {
     constructor() {
         this.client = null;
         this.session = null;
+        this.setupPromise = null;
         this.sessionInvalidatedCallbacks = new Set();
     }
 
     async setup() {
+        if (!this.setupPromise) {
+            this.setupPromise = this.initialize().catch(error => {
+                this.setupPromise = null;
+                throw error;
+            });
+        }
+        return this.setupPromise;
+    }
+
+    async initialize() {
         try {
             // Initialize the OAuth client with production configuration
             this.client = await BrowserOAuthClient.load({
@@ -93,6 +104,7 @@ export class AuthService {
                 console.debug('[Auth] Starting sign out...');
                 await this.session.signOut();
                 this.session = null;
+                this.setupPromise = null;
                 console.debug('[Auth] Sign out complete');
                 return true;
             } catch (error) {
@@ -128,3 +140,6 @@ export class AuthService {
         this.sessionInvalidatedCallbacks.add(callback);
     }
 }
+
+// Shared across the landing bootstrap and the authenticated application chunk.
+export const authService = new AuthService();

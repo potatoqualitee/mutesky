@@ -5,6 +5,7 @@ import { refreshAllData } from '../api.js';
 import { updateSimpleModeState } from './contextHandlers.js';
 import { updateStatusCounts, updateMuteButton, updateEnableDisableButtons, updateLastUpdate } from '../renderers/uiRenderer.js';
 import { initializeKeywordState } from './mute/muteOperations.js';
+import { loadAdvancedMode } from '../advancedModeLoader.js';
 
 // Function to ensure mode toggles always reflect current state
 export function updateModeToggles() {
@@ -14,9 +15,13 @@ export function updateModeToggles() {
 }
 
 // Single source of truth for mode management
-export function switchMode(mode) {
+export async function switchMode(mode) {
     if (mode !== 'simple' && mode !== 'advanced') {
         mode = 'simple'; // Default to simple mode if invalid
+    }
+
+    if (mode === 'advanced') {
+        await loadAdvancedMode();
     }
 
     // Update state
@@ -41,7 +46,7 @@ export function switchMode(mode) {
 
     // Always save state and update interface
     saveState();
-    renderInterface();
+    await renderInterface();
 }
 
 export async function handleRefreshData() {
@@ -101,12 +106,12 @@ export async function handleRefreshData() {
     }
 }
 
-export function showApp() {
+export async function showApp() {
     elements.landingPage.classList.add('hidden');
     elements.appInterface.classList.remove('hidden');
 
     // Ensure mode is set properly when showing app
-    switchMode(state.mode);
+    await switchMode(state.mode);
 }
 
 // Expose refreshData function to window object for use in settings modal

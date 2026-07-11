@@ -1,26 +1,28 @@
-import { updateBlueskyUI, updateEnableDisableButtons, updateLastUpdate, updateStatusCounts, updateMuteButton } from './uiRenderer.js';
+import {
+    updateBlueskyUI,
+    updateEnableDisableButtons,
+    updateLastUpdate,
+    updateStatusCounts,
+    updateMuteButton
+} from './uiRenderer.js';
 import { renderContextCards, renderExceptions } from './contextRenderer.js';
-import { renderAdvancedMode, renderCategoryList } from './categoryRenderer.js';
 import { state } from '../state.js';
-
-// Import the updateModeToggles function from uiHandlers
 import { updateModeToggles } from '../handlers/uiHandlers.js';
+import { loadAdvancedMode } from '../advancedModeLoader.js';
 
-export function renderInterface() {
-    // Update Bluesky-specific UI elements
+export async function renderInterface() {
     updateBlueskyUI();
 
     if (state.mode === 'simple') {
         renderContextCards();
         renderExceptions();
     } else {
-        renderAdvancedMode();
-        renderCategoryList();
+        const advanced = await loadAdvancedMode();
+        advanced.renderAdvancedMode();
+        advanced.renderCategoryList();
     }
 
-    // Ensure mode toggles always reflect current state
     updateModeToggles();
-
     updateStatusCounts();
     updateMuteButton();
     updateEnableDisableButtons();
