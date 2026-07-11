@@ -1,126 +1,93 @@
 {
-  "updatedAt": "2026-07-10T18:55:25.297Z",
+  "updatedAt": "2026-07-11T00:55:08.094Z",
   "phrases": {
     "platner": {
       "display": "Platner",
       "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 97.625,
-      "peakHeat": 97.625,
-      "daysActive": 1,
-      "expiresAt": "2026-07-23T00:10:14.119Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 174.91558088025278,
+      "peakHeat": 174.91558088025278,
+      "daysActive": 2,
+      "expiresAt": "2026-07-25T09:02:34.187Z",
       "bipartisan": true,
-      "outlets": 21
+      "outlets": 23
     },
-    "graham platner": {
-      "display": "Graham Platner",
-      "firstSeen": "2026-07-10T14:18:14.861Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 88.19360932883583,
-      "peakHeat": 88.19360932883583,
-      "daysActive": 1,
-      "expiresAt": "2026-07-22T17:29:41.218Z",
+    "housing bill": {
+      "display": "housing bill",
+      "firstSeen": "2026-07-10T18:55:25.297Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 19.493469328321957,
+      "peakHeat": 19.493469328321957,
+      "daysActive": 2,
+      "expiresAt": "2026-07-19T14:57:14.319Z",
       "bipartisan": true,
-      "outlets": 16
+      "outlets": 8
     },
     "air force one": {
       "display": "Air Force One",
       "firstSeen": "2026-07-10T14:18:14.861Z",
       "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 16.998986773639565,
+      "heat": 13.801439711293627,
       "peakHeat": 16.998986773639565,
       "daysActive": 1,
       "expiresAt": "2026-07-18T13:31:14.424Z",
-      "bipartisan": true,
-      "outlets": 6
+      "bipartisan": false,
+      "outlets": 3
     },
-    "nato": {
-      "display": "NATO",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 12,
-      "peakHeat": 12,
-      "daysActive": 1,
-      "expiresAt": "2026-07-14T18:55:25.297Z",
-      "bipartisan": true,
-      "outlets": 6
-    },
-    "housing bill": {
-      "display": "housing bill",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 10,
-      "peakHeat": 10,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T11:00:06.817Z",
-      "bipartisan": true,
-      "outlets": 8
+    "reflecting pool": {
+      "display": "Reflecting Pool",
+      "firstSeen": "2026-07-10T14:21:39.759Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 10.764830624309855,
+      "peakHeat": 10.764830624309855,
+      "daysActive": 2,
+      "expiresAt": "2026-07-18T08:26:27.524Z",
+      "bipartisan": false,
+      "outlets": 5
     },
     "florida airport": {
       "display": "Florida airport",
       "firstSeen": "2026-07-10T14:32:31.880Z",
       "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 9.80276212495923,
+      "heat": 8.403034483191218,
       "peakHeat": 9.80276212495923,
       "daysActive": 1,
       "expiresAt": "2026-07-17T10:05:07.011Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "reflecting pool": {
-      "display": "Reflecting Pool",
-      "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 9.354401167585086,
-      "peakHeat": 9.354401167585086,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T07:57:19.312Z",
       "bipartisan": false,
-      "outlets": 5
-    },
-    "ice shooting": {
-      "display": "ICE Shooting",
-      "firstSeen": "2026-07-10T14:32:31.880Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 8.652729053302892,
-      "peakHeat": 8.652729053302892,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T04:29:05.218Z",
-      "bipartisan": true,
-      "outlets": 4
+      "outlets": 3
     },
     "election assistance commission": {
       "display": "Election Assistance Commission",
       "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T06:55:25.297Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 7.498281402189988,
+      "peakHeat": 7.498281402189988,
+      "daysActive": 2,
+      "expiresAt": "2026-07-17T16:21:42.991Z",
       "bipartisan": true,
-      "outlets": 4
-    },
-    "victor marx": {
-      "display": "Victor Marx",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-10T18:55:25.297Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T06:55:25.297Z",
-      "bipartisan": true,
-      "outlets": 4
+      "outlets": 3
     },
     "e. jean carroll": {
       "display": "E. Jean Carroll",
       "firstSeen": "2026-07-10T14:18:14.861Z",
       "lastSeen": "2026-07-10T14:21:39.759Z",
-      "heat": 4.556696967125274,
+      "heat": 3.418305838286814,
       "peakHeat": 5.670988378546031,
       "daysActive": 1,
       "expiresAt": "2026-07-16T06:51:30.049Z",
       "bipartisan": true,
       "outlets": 4
+    },
+    "russian oil": {
+      "display": "Russian oil",
+      "firstSeen": "2026-07-11T00:55:08.094Z",
+      "lastSeen": "2026-07-11T00:55:08.094Z",
+      "heat": 8,
+      "peakHeat": 8,
+      "daysActive": 1,
+      "expiresAt": "2026-07-15T00:55:08.094Z",
+      "bipartisan": false,
+      "outlets": 3
     }
   }
 }
