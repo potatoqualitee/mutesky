@@ -1,170 +1,82 @@
 {
-  "updatedAt": "2026-07-12T00:59:50.474Z",
+  "updatedAt": "2026-07-12T07:16:18.913Z",
   "phrases": {
-    "housing bill": {
-      "display": "housing bill",
-      "firstSeen": "2026-07-10T18:55:25.297Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 44.53316560116139,
-      "peakHeat": 44.53316560116139,
-      "daysActive": 3,
-      "expiresAt": "2026-07-23T03:48:01.099Z",
-      "bipartisan": true,
-      "outlets": 10
-    },
-    "reflecting pool": {
-      "display": "Reflecting Pool",
-      "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 20.12073575341009,
-      "peakHeat": 20.12073575341009,
-      "daysActive": 3,
-      "expiresAt": "2026-07-21T04:47:00.716Z",
+    "bipartisan housing bill": {
+      "display": "Bipartisan housing bill",
+      "firstSeen": "2026-07-12T00:59:50.474Z",
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 11.58403399872343,
+      "peakHeat": 11.58403399872343,
+      "daysActive": 1,
+      "expiresAt": "2026-07-19T06:18:07.485Z",
       "bipartisan": true,
       "outlets": 5
     },
     "air force one": {
       "display": "Air Force One",
       "firstSeen": "2026-07-11T18:40:44.304Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 16.97720833056904,
-      "peakHeat": 16.97720833056904,
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 23.4783491148076,
+      "peakHeat": 23.4783491148076,
       "daysActive": 2,
-      "expiresAt": "2026-07-20T07:31:32.680Z",
-      "bipartisan": true,
-      "outlets": 8
-    },
-    "israeli": {
-      "display": "Israeli",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 13.5,
-      "peakHeat": 13.5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T07:35:54.840Z",
-      "bipartisan": true,
-      "outlets": 9
-    },
-    "york times": {
-      "display": "York Times",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 11.875,
-      "peakHeat": 11.875,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T01:13:55.034Z",
+      "expiresAt": "2026-07-21T07:44:43.674Z",
       "bipartisan": true,
       "outlets": 7
     },
-    "harry": {
-      "display": "Harry",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 8.125,
-      "peakHeat": 8.125,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T07:49:42.924Z",
+    "reflecting pool": {
+      "display": "Reflecting Pool",
+      "firstSeen": "2026-07-10T14:21:39.759Z",
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 21.388411407255475,
+      "peakHeat": 21.388411407255475,
+      "daysActive": 3,
+      "expiresAt": "2026-07-21T14:28:02.411Z",
       "bipartisan": true,
-      "outlets": 6
+      "outlets": 5
     },
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 7.5,
-      "peakHeat": 7.5,
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 13.995219308584044,
+      "peakHeat": 13.995219308584044,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T04:26:59.648Z",
+      "expiresAt": "2026-07-19T15:42:08.877Z",
       "bipartisan": true,
       "outlets": 6
     },
-    "bipartisan housing bill": {
-      "display": "bipartisan housing bill",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 6.875,
-      "peakHeat": 6.875,
+    "armed israeli settlers": {
+      "display": "Armed Israeli settlers",
+      "firstSeen": "2026-07-12T07:16:18.913Z",
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 16,
+      "peakHeat": 16,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T00:53:52.348Z",
+      "expiresAt": "2026-07-16T07:16:18.913Z",
       "bipartisan": true,
       "outlets": 5
     },
-    "times reporters": {
-      "display": "Times Reporters",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 6.75,
-      "peakHeat": 6.75,
+    "new york times journalists": {
+      "display": "New York Times journalists",
+      "firstSeen": "2026-07-12T07:16:18.913Z",
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 14,
+      "peakHeat": 14,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T00:09:54.252Z",
-      "bipartisan": true,
-      "outlets": 4
-    },
-    "tyler": {
-      "display": "Tyler",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5.625,
-      "peakHeat": 5.625,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T17:11:44.052Z",
+      "expiresAt": "2026-07-16T07:16:18.913Z",
       "bipartisan": true,
       "outlets": 3
     },
-    "detained by armed": {
-      "display": "detained by armed",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5,
-      "peakHeat": 5,
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-12T07:16:18.913Z",
+      "lastSeen": "2026-07-12T07:16:18.913Z",
+      "heat": 20,
+      "peakHeat": 20,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T12:59:50.474Z",
+      "expiresAt": "2026-07-16T07:16:18.913Z",
       "bipartisan": true,
-      "outlets": 4
-    },
-    "prince harry": {
-      "display": "Prince Harry",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T12:59:50.474Z",
-      "bipartisan": true,
-      "outlets": 4
-    },
-    "king charles": {
-      "display": "King Charles",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T12:59:50.474Z",
-      "bipartisan": true,
-      "outlets": 4
-    },
-    "trump&apos": {
-      "display": "Trump&apos",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T12:59:50.474Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "kane": {
-      "display": "Kane",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T00:59:50.474Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T12:59:50.474Z",
-      "bipartisan": true,
-      "outlets": 4
+      "outlets": 16
     }
   }
 }
