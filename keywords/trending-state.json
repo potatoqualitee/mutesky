@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-07-13T00:58:55.801Z",
+  "updatedAt": "2026-07-13T07:33:59.653Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-13T00:58:55.801Z",
-      "heat": 22.745851540531937,
-      "peakHeat": 22.745851540531937,
+      "lastSeen": "2026-07-13T07:33:59.653Z",
+      "heat": 23.35610272118493,
+      "peakHeat": 23.35610272118493,
       "daysActive": 2,
-      "expiresAt": "2026-07-21T23:39:04.416Z",
+      "expiresAt": "2026-07-22T07:44:31.973Z",
       "bipartisan": true,
       "outlets": 5
     },
@@ -16,40 +16,18 @@
       "display": "Air Force One reporting",
       "firstSeen": "2026-07-13T00:58:55.801Z",
       "lastSeen": "2026-07-13T00:58:55.801Z",
-      "heat": 10,
+      "heat": 7.2927640231957085,
       "peakHeat": 10,
       "daysActive": 1,
       "expiresAt": "2026-07-17T00:58:55.801Z",
       "bipartisan": false,
       "outlets": 3
     },
-    "israeli settlers": {
-      "display": "Israeli settlers",
-      "firstSeen": "2026-07-13T00:58:55.801Z",
-      "lastSeen": "2026-07-13T00:58:55.801Z",
-      "heat": 12,
-      "peakHeat": 12,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T00:58:55.801Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "graham platner": {
-      "display": "Graham Platner",
-      "firstSeen": "2026-07-13T00:58:55.801Z",
-      "lastSeen": "2026-07-13T00:58:55.801Z",
-      "heat": 10,
-      "peakHeat": 10,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T00:58:55.801Z",
-      "bipartisan": true,
-      "outlets": 4
-    },
     "bipartisan housing bill": {
       "display": "Bipartisan Housing Bill",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-12T12:42:33.566Z",
-      "heat": 6.866567952002374,
+      "heat": 5.007625972319154,
       "peakHeat": 12.367976172328692,
       "daysActive": 1,
       "expiresAt": "2026-07-19T14:56:16.609Z",
@@ -60,12 +38,34 @@
       "display": "New York Times Journalists",
       "firstSeen": "2026-07-12T07:16:18.913Z",
       "lastSeen": "2026-07-12T07:16:18.913Z",
-      "heat": 5.988877020440303,
+      "heat": 4.367546687401055,
       "peakHeat": 14,
       "daysActive": 1,
       "expiresAt": "2026-07-16T07:16:18.913Z",
       "bipartisan": true,
       "outlets": 3
+    },
+    "armed israeli settlers": {
+      "display": "Armed Israeli Settlers",
+      "firstSeen": "2026-07-13T07:33:59.653Z",
+      "lastSeen": "2026-07-13T07:33:59.653Z",
+      "heat": 10,
+      "peakHeat": 10,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T07:33:59.653Z",
+      "bipartisan": true,
+      "outlets": 4
+    },
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-13T07:33:59.653Z",
+      "lastSeen": "2026-07-13T07:33:59.653Z",
+      "heat": 10,
+      "peakHeat": 10,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T07:33:59.653Z",
+      "bipartisan": true,
+      "outlets": 4
     }
   }
 }
