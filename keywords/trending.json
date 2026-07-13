@@ -1,19 +1,23 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-12T18:42:06.698Z",
+    "updatedAt": "2026-07-13T00:58:55.801Z",
     "keywords": {
-      "Air Force One": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-11)"
-      },
       "Ro Khanna": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-12)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-12)"
       },
-      "Reflecting Pool": {
+      "Air Force One reporting": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-10)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-13)"
+      },
+      "Israeli settlers": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-13)"
+      },
+      "Graham Platner": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-13)"
       },
       "Bipartisan Housing Bill": {
         "weight": 1,
@@ -22,14 +26,6 @@
       "New York Times Journalists": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-12)"
-      },
-      "Graham Platner": {
-        "weight": 2,
-        "description": "In 11 outlets across the spectrum (since 2026-07-12)"
-      },
-      "Israeli settlers": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-12)"
       }
     }
   }

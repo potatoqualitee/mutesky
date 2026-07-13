@@ -1,36 +1,47 @@
 {
-  "updatedAt": "2026-07-12T18:42:06.698Z",
+  "updatedAt": "2026-07-13T00:58:55.801Z",
   "phrases": {
-    "air force one": {
-      "display": "Air Force One",
-      "firstSeen": "2026-07-11T18:40:44.304Z",
-      "lastSeen": "2026-07-12T18:42:06.698Z",
-      "heat": 34.34090595718947,
-      "peakHeat": 34.34090595718947,
-      "daysActive": 2,
-      "expiresAt": "2026-07-22T17:33:04.713Z",
-      "bipartisan": true,
-      "outlets": 8
-    },
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T18:42:06.698Z",
-      "heat": 21.953802155470242,
-      "peakHeat": 21.953802155470242,
-      "daysActive": 1,
-      "expiresAt": "2026-07-21T03:21:55.162Z",
+      "lastSeen": "2026-07-13T00:58:55.801Z",
+      "heat": 22.745851540531937,
+      "peakHeat": 22.745851540531937,
+      "daysActive": 2,
+      "expiresAt": "2026-07-21T23:39:04.416Z",
       "bipartisan": true,
-      "outlets": 7
+      "outlets": 5
     },
-    "reflecting pool": {
-      "display": "Reflecting Pool",
-      "firstSeen": "2026-07-10T14:21:39.759Z",
-      "lastSeen": "2026-07-12T12:42:33.566Z",
-      "heat": 15.80799074664139,
-      "peakHeat": 21.388411407255475,
-      "daysActive": 3,
-      "expiresAt": "2026-07-21T19:54:17.064Z",
+    "air force one reporting": {
+      "display": "Air Force One reporting",
+      "firstSeen": "2026-07-13T00:58:55.801Z",
+      "lastSeen": "2026-07-13T00:58:55.801Z",
+      "heat": 10,
+      "peakHeat": 10,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T00:58:55.801Z",
+      "bipartisan": false,
+      "outlets": 3
+    },
+    "israeli settlers": {
+      "display": "Israeli settlers",
+      "firstSeen": "2026-07-13T00:58:55.801Z",
+      "lastSeen": "2026-07-13T00:58:55.801Z",
+      "heat": 12,
+      "peakHeat": 12,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T00:58:55.801Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-13T00:58:55.801Z",
+      "lastSeen": "2026-07-13T00:58:55.801Z",
+      "heat": 10,
+      "peakHeat": 10,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T00:58:55.801Z",
       "bipartisan": true,
       "outlets": 4
     },
@@ -38,7 +49,7 @@
       "display": "Bipartisan Housing Bill",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-12T12:42:33.566Z",
-      "heat": 9.279302082722074,
+      "heat": 6.866567952002374,
       "peakHeat": 12.367976172328692,
       "daysActive": 1,
       "expiresAt": "2026-07-19T14:56:16.609Z",
@@ -49,34 +60,12 @@
       "display": "New York Times Journalists",
       "firstSeen": "2026-07-12T07:16:18.913Z",
       "lastSeen": "2026-07-12T07:16:18.913Z",
-      "heat": 8.093213290452102,
+      "heat": 5.988877020440303,
       "peakHeat": 14,
       "daysActive": 1,
       "expiresAt": "2026-07-16T07:16:18.913Z",
       "bipartisan": true,
       "outlets": 3
-    },
-    "graham platner": {
-      "display": "Graham Platner",
-      "firstSeen": "2026-07-12T18:42:06.698Z",
-      "lastSeen": "2026-07-12T18:42:06.698Z",
-      "heat": 16,
-      "peakHeat": 16,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T18:42:06.698Z",
-      "bipartisan": true,
-      "outlets": 11
-    },
-    "israeli settlers": {
-      "display": "Israeli settlers",
-      "firstSeen": "2026-07-12T18:42:06.698Z",
-      "lastSeen": "2026-07-12T18:42:06.698Z",
-      "heat": 12,
-      "peakHeat": 12,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T18:42:06.698Z",
-      "bipartisan": true,
-      "outlets": 5
     }
   }
 }
