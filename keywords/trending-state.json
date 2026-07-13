@@ -1,81 +1,37 @@
 {
-  "updatedAt": "2026-07-13T13:10:58.832Z",
+  "updatedAt": "2026-07-13T18:54:21.528Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-13T13:10:58.832Z",
-      "heat": 21.38339882576321,
+      "lastSeen": "2026-07-13T18:54:21.528Z",
+      "heat": 19.85156494437168,
       "peakHeat": 23.35610272118493,
       "daysActive": 2,
-      "expiresAt": "2026-07-22T13:21:31.152Z",
+      "expiresAt": "2026-07-22T19:04:53.848Z",
       "bipartisan": true,
       "outlets": 3
     },
-    "air force one reporting": {
-      "display": "Air Force One reporting",
-      "firstSeen": "2026-07-13T00:58:55.801Z",
-      "lastSeen": "2026-07-13T00:58:55.801Z",
-      "heat": 5.57109251232784,
-      "peakHeat": 10,
+    "graham's sister": {
+      "display": "Graham's sister",
+      "firstSeen": "2026-07-13T18:54:21.528Z",
+      "lastSeen": "2026-07-13T18:54:21.528Z",
+      "heat": 18,
+      "peakHeat": 18,
       "daysActive": 1,
-      "expiresAt": "2026-07-17T00:58:55.801Z",
+      "expiresAt": "2026-07-17T18:54:21.528Z",
+      "bipartisan": true,
+      "outlets": 8
+    },
+    "irs settlement": {
+      "display": "IRS settlement",
+      "firstSeen": "2026-07-13T18:54:21.528Z",
+      "lastSeen": "2026-07-13T18:54:21.528Z",
+      "heat": 12,
+      "peakHeat": 12,
+      "daysActive": 1,
+      "expiresAt": "2026-07-17T18:54:21.528Z",
       "bipartisan": false,
-      "outlets": 3
-    },
-    "bipartisan housing bill": {
-      "display": "Bipartisan Housing Bill",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-12T12:42:33.566Z",
-      "heat": 3.825428530279073,
-      "peakHeat": 12.367976172328692,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T14:56:16.609Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "new york times journalists": {
-      "display": "New York Times Journalists",
-      "firstSeen": "2026-07-12T07:16:18.913Z",
-      "lastSeen": "2026-07-12T07:16:18.913Z",
-      "heat": 3.336458792582724,
-      "peakHeat": 14,
-      "daysActive": 1,
-      "expiresAt": "2026-07-16T07:16:18.913Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "strait of hormuz": {
-      "display": "Strait of Hormuz",
-      "firstSeen": "2026-07-13T13:10:58.832Z",
-      "lastSeen": "2026-07-13T13:10:58.832Z",
-      "heat": 10,
-      "peakHeat": 10,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T13:10:58.832Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-13T13:10:58.832Z",
-      "lastSeen": "2026-07-13T13:10:58.832Z",
-      "heat": 8,
-      "peakHeat": 8,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T13:10:58.832Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "armed israeli settlers": {
-      "display": "Armed Israeli Settlers",
-      "firstSeen": "2026-07-13T13:10:58.832Z",
-      "lastSeen": "2026-07-13T13:10:58.832Z",
-      "heat": 6,
-      "peakHeat": 6,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T13:10:58.832Z",
-      "bipartisan": true,
       "outlets": 3
     }
   }
