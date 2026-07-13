@@ -1,11 +1,11 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-13T07:33:59.653Z",
+    "updatedAt": "2026-07-13T13:10:58.832Z",
     "keywords": {
       "Ro Khanna": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-12)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-12)"
       },
       "Air Force One reporting": {
         "weight": 1,
@@ -19,13 +19,17 @@
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-12)"
       },
-      "Armed Israeli Settlers": {
+      "Strait of Hormuz": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-13)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-13)"
       },
-      "Graham Platner": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-13)"
+      "Platner": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-13)"
+      },
+      "Armed Israeli Settlers": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-13)"
       }
     }
   }
