@@ -1,14 +1,25 @@
 {
-  "updatedAt": "2026-07-14T07:09:19.535Z",
+  "updatedAt": "2026-07-14T12:50:42.943Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 12.124351400113946,
+      "heat": 10.56657730529004,
       "peakHeat": 23.35610272118493,
       "daysActive": 2,
       "expiresAt": "2026-07-22T19:04:53.848Z",
+      "bipartisan": false,
+      "outlets": 4
+    },
+    "anti-weaponization fund": {
+      "display": "anti-weaponization fund",
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 7.09270037781419,
+      "peakHeat": 8,
+      "daysActive": 1,
+      "expiresAt": "2026-07-18T07:09:19.535Z",
       "bipartisan": false,
       "outlets": 3
     },
@@ -16,56 +27,12 @@
       "display": "Darline Graham Nordone",
       "firstSeen": "2026-07-14T07:09:19.535Z",
       "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 6.25,
+      "heat": 6.094804011994532,
       "peakHeat": 6.25,
       "daysActive": 1,
       "expiresAt": "2026-07-20T03:18:42.575Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "strait of hormuz": {
-      "display": "Strait of Hormuz",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 14,
-      "peakHeat": 14,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T07:09:19.535Z",
-      "bipartisan": true,
-      "outlets": 9
-    },
-    "graham platner": {
-      "display": "Graham Platner",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 11,
-      "peakHeat": 11,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T07:09:19.535Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "ice shooting": {
-      "display": "ICE shooting",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 9,
-      "peakHeat": 9,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T07:09:19.535Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "anti-weaponization fund": {
-      "display": "anti-weaponization fund",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 8,
-      "peakHeat": 8,
-      "daysActive": 1,
-      "expiresAt": "2026-07-18T07:09:19.535Z",
       "bipartisan": false,
-      "outlets": 3
+      "outlets": 4
     }
   }
 }
