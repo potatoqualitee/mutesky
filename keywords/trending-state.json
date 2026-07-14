@@ -1,22 +1,33 @@
 {
-  "updatedAt": "2026-07-14T12:50:42.943Z",
+  "updatedAt": "2026-07-14T18:46:46.367Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 10.56657730529004,
+      "heat": 9.336688248093857,
       "peakHeat": 23.35610272118493,
       "daysActive": 2,
       "expiresAt": "2026-07-22T19:04:53.848Z",
       "bipartisan": false,
       "outlets": 4
     },
+    "vehicle stops": {
+      "display": "vehicle stops",
+      "firstSeen": "2026-07-14T18:46:46.367Z",
+      "lastSeen": "2026-07-14T18:46:46.367Z",
+      "heat": 7.5,
+      "peakHeat": 7.5,
+      "daysActive": 1,
+      "expiresAt": "2026-07-20T22:13:55.541Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
     "anti-weaponization fund": {
       "display": "anti-weaponization fund",
       "firstSeen": "2026-07-14T07:09:19.535Z",
       "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 7.09270037781419,
+      "heat": 6.376371944421735,
       "peakHeat": 8,
       "daysActive": 1,
       "expiresAt": "2026-07-18T07:09:19.535Z",
@@ -27,11 +38,33 @@
       "display": "Darline Graham Nordone",
       "firstSeen": "2026-07-14T07:09:19.535Z",
       "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 6.094804011994532,
+      "heat": 5.625587773801415,
       "peakHeat": 6.25,
       "daysActive": 1,
       "expiresAt": "2026-07-20T03:18:42.575Z",
       "bipartisan": false,
+      "outlets": 3
+    },
+    "ice shooting": {
+      "display": "ICE shooting",
+      "firstSeen": "2026-07-14T18:46:46.367Z",
+      "lastSeen": "2026-07-14T18:46:46.367Z",
+      "heat": 7.5,
+      "peakHeat": 7.5,
+      "daysActive": 1,
+      "expiresAt": "2026-07-18T18:46:46.367Z",
+      "bipartisan": true,
+      "outlets": 4
+    },
+    "platner": {
+      "display": "Platner",
+      "firstSeen": "2026-07-14T18:46:46.367Z",
+      "lastSeen": "2026-07-14T18:46:46.367Z",
+      "heat": 6.5,
+      "peakHeat": 6.5,
+      "daysActive": 1,
+      "expiresAt": "2026-07-18T18:46:46.367Z",
+      "bipartisan": true,
       "outlets": 4
     }
   }

@@ -1,17 +1,29 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-14T12:50:42.943Z",
+    "updatedAt": "2026-07-14T18:46:46.367Z",
     "keywords": {
       "Ro Khanna": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-12)"
       },
-      "anti-weaponization fund": {
+      "vehicle stops": {
         "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-14)"
+      },
+      "anti-weaponization fund": {
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-14)"
       },
       "Darline Graham Nordone": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
+      },
+      "ICE shooting": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+      },
+      "Platner": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       }
