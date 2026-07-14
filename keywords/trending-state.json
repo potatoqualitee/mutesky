@@ -1,71 +1,71 @@
 {
-  "updatedAt": "2026-07-14T00:53:05.404Z",
+  "updatedAt": "2026-07-14T07:09:19.535Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 14.90377648623138,
+      "heat": 12.124351400113946,
       "peakHeat": 23.35610272118493,
       "daysActive": 2,
       "expiresAt": "2026-07-22T19:04:53.848Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "graham's sister": {
-      "display": "Graham's sister",
-      "firstSeen": "2026-07-13T18:54:21.528Z",
-      "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 13.513694134639206,
-      "peakHeat": 18,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T18:54:21.528Z",
-      "bipartisan": true,
-      "outlets": 8
-    },
-    "irs settlement": {
-      "display": "IRS settlement",
-      "firstSeen": "2026-07-13T18:54:21.528Z",
-      "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 11.2522823557732,
-      "peakHeat": 12,
-      "daysActive": 1,
-      "expiresAt": "2026-07-17T18:54:21.528Z",
       "bipartisan": false,
       "outlets": 3
     },
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-14T00:53:05.404Z",
-      "lastSeen": "2026-07-14T00:53:05.404Z",
-      "heat": 9,
-      "peakHeat": 9,
+    "darline graham nordone": {
+      "display": "Darline Graham Nordone",
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 6.25,
+      "peakHeat": 6.25,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T12:11:07.159Z",
+      "expiresAt": "2026-07-20T03:18:42.575Z",
       "bipartisan": true,
-      "outlets": 4
+      "outlets": 5
     },
     "strait of hormuz": {
       "display": "Strait of Hormuz",
-      "firstSeen": "2026-07-14T00:53:05.404Z",
-      "lastSeen": "2026-07-14T00:53:05.404Z",
-      "heat": 15.75,
-      "peakHeat": 15.75,
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 14,
+      "peakHeat": 14,
       "daysActive": 1,
-      "expiresAt": "2026-07-21T15:26:03.042Z",
+      "expiresAt": "2026-07-18T07:09:19.535Z",
       "bipartisan": true,
       "outlets": 9
     },
-    "ice shooting": {
-      "display": "ICE Shooting",
-      "firstSeen": "2026-07-14T00:53:05.404Z",
-      "lastSeen": "2026-07-14T00:53:05.404Z",
-      "heat": 5,
-      "peakHeat": 5,
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 11,
+      "peakHeat": 11,
       "daysActive": 1,
-      "expiresAt": "2026-07-19T12:53:05.404Z",
+      "expiresAt": "2026-07-18T07:09:19.535Z",
       "bipartisan": true,
-      "outlets": 4
+      "outlets": 3
+    },
+    "ice shooting": {
+      "display": "ICE shooting",
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 9,
+      "peakHeat": 9,
+      "daysActive": 1,
+      "expiresAt": "2026-07-18T07:09:19.535Z",
+      "bipartisan": true,
+      "outlets": 3
+    },
+    "anti-weaponization fund": {
+      "display": "anti-weaponization fund",
+      "firstSeen": "2026-07-14T07:09:19.535Z",
+      "lastSeen": "2026-07-14T07:09:19.535Z",
+      "heat": 8,
+      "peakHeat": 8,
+      "daysActive": 1,
+      "expiresAt": "2026-07-18T07:09:19.535Z",
+      "bipartisan": false,
+      "outlets": 3
     }
   }
 }

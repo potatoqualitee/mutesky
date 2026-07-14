@@ -1,31 +1,31 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-14T00:53:05.404Z",
+    "updatedAt": "2026-07-14T07:09:19.535Z",
     "keywords": {
       "Ro Khanna": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-12)"
       },
-      "Graham's sister": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-13)"
-      },
-      "IRS settlement": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-13)"
-      },
-      "Platner": {
+      "Darline Graham Nordone": {
         "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-14)"
       },
       "Strait of Hormuz": {
-        "weight": 2,
+        "weight": 3,
         "description": "In 9 outlets across the spectrum (since 2026-07-14)"
       },
-      "ICE Shooting": {
+      "Graham Platner": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
+      },
+      "ICE shooting": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
+      },
+      "anti-weaponization fund": {
         "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
       }
     }
   }
