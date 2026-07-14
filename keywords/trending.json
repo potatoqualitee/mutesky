@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-13T18:54:21.528Z",
+    "updatedAt": "2026-07-14T00:53:05.404Z",
     "keywords": {
       "Ro Khanna": {
         "weight": 3,
@@ -14,6 +14,18 @@
       "IRS settlement": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-13)"
+      },
+      "Platner": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+      },
+      "Strait of Hormuz": {
+        "weight": 2,
+        "description": "In 9 outlets across the spectrum (since 2026-07-14)"
+      },
+      "ICE Shooting": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       }
     }
   }

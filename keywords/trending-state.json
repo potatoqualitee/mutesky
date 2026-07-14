@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-13T18:54:21.528Z",
+  "updatedAt": "2026-07-14T00:53:05.404Z",
   "phrases": {
     "ro khanna": {
       "display": "Ro Khanna",
       "firstSeen": "2026-07-12T00:59:50.474Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 19.85156494437168,
+      "heat": 14.90377648623138,
       "peakHeat": 23.35610272118493,
       "daysActive": 2,
       "expiresAt": "2026-07-22T19:04:53.848Z",
@@ -16,7 +16,7 @@
       "display": "Graham's sister",
       "firstSeen": "2026-07-13T18:54:21.528Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 18,
+      "heat": 13.513694134639206,
       "peakHeat": 18,
       "daysActive": 1,
       "expiresAt": "2026-07-17T18:54:21.528Z",
@@ -27,12 +27,45 @@
       "display": "IRS settlement",
       "firstSeen": "2026-07-13T18:54:21.528Z",
       "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 12,
+      "heat": 11.2522823557732,
       "peakHeat": 12,
       "daysActive": 1,
       "expiresAt": "2026-07-17T18:54:21.528Z",
       "bipartisan": false,
       "outlets": 3
+    },
+    "platner": {
+      "display": "Platner",
+      "firstSeen": "2026-07-14T00:53:05.404Z",
+      "lastSeen": "2026-07-14T00:53:05.404Z",
+      "heat": 9,
+      "peakHeat": 9,
+      "daysActive": 1,
+      "expiresAt": "2026-07-20T12:11:07.159Z",
+      "bipartisan": true,
+      "outlets": 4
+    },
+    "strait of hormuz": {
+      "display": "Strait of Hormuz",
+      "firstSeen": "2026-07-14T00:53:05.404Z",
+      "lastSeen": "2026-07-14T00:53:05.404Z",
+      "heat": 15.75,
+      "peakHeat": 15.75,
+      "daysActive": 1,
+      "expiresAt": "2026-07-21T15:26:03.042Z",
+      "bipartisan": true,
+      "outlets": 9
+    },
+    "ice shooting": {
+      "display": "ICE Shooting",
+      "firstSeen": "2026-07-14T00:53:05.404Z",
+      "lastSeen": "2026-07-14T00:53:05.404Z",
+      "heat": 5,
+      "peakHeat": 5,
+      "daysActive": 1,
+      "expiresAt": "2026-07-19T12:53:05.404Z",
+      "bipartisan": true,
+      "outlets": 4
     }
   }
 }
