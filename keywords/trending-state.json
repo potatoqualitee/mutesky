@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-07-15T00:52:31.183Z",
+  "updatedAt": "2026-07-15T07:09:44.983Z",
   "phrases": {
     "vehicle stops": {
       "display": "vehicle stops",
       "firstSeen": "2026-07-14T18:46:46.367Z",
-      "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 16.24355775166913,
-      "peakHeat": 16.24355775166913,
+      "lastSeen": "2026-07-15T07:09:44.983Z",
+      "heat": 24.508356688800735,
+      "peakHeat": 24.508356688800735,
       "daysActive": 2,
-      "expiresAt": "2026-07-23T05:03:09.172Z",
+      "expiresAt": "2026-07-24T10:05:47.137Z",
       "bipartisan": true,
-      "outlets": 7
+      "outlets": 8
     },
     "ice shooting": {
-      "display": "ICE Shooting",
+      "display": "ICE shooting",
       "firstSeen": "2026-07-14T18:46:46.367Z",
       "lastSeen": "2026-07-15T00:52:31.183Z",
       "heat": 11.301546848551794,
@@ -48,57 +48,35 @@
     "darline graham": {
       "display": "Darline Graham",
       "firstSeen": "2026-07-15T00:52:31.183Z",
-      "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 9.75,
-      "peakHeat": 9.75,
+      "lastSeen": "2026-07-15T07:09:44.983Z",
+      "heat": 15.670819918976491,
+      "peakHeat": 15.670819918976491,
       "daysActive": 1,
-      "expiresAt": "2026-07-21T15:47:22.727Z",
+      "expiresAt": "2026-07-22T21:26:49.505Z",
       "bipartisan": true,
       "outlets": 6
-    },
-    "replace lindsey graham": {
-      "display": "Replace Lindsey Graham",
-      "firstSeen": "2026-07-15T00:52:31.183Z",
-      "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 5,
-      "peakHeat": 5,
-      "daysActive": 1,
-      "expiresAt": "2026-07-20T12:52:31.183Z",
-      "bipartisan": true,
-      "outlets": 3
-    },
-    "daylight saving time": {
-      "display": "daylight saving time",
-      "firstSeen": "2026-07-15T00:52:31.183Z",
-      "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 6.25,
-      "peakHeat": 6.25,
-      "daysActive": 1,
-      "expiresAt": "2026-07-20T21:01:54.223Z",
-      "bipartisan": true,
-      "outlets": 5
     },
     "e. jean carroll": {
       "display": "E. Jean Carroll",
       "firstSeen": "2026-07-15T00:52:31.183Z",
       "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 7.5,
+      "heat": 5.548081345392365,
       "peakHeat": 7.5,
       "daysActive": 1,
       "expiresAt": "2026-07-19T00:52:31.183Z",
       "bipartisan": true,
       "outlets": 5
     },
-    "new york times": {
-      "display": "New York Times",
-      "firstSeen": "2026-07-15T00:52:31.183Z",
-      "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 7.5,
-      "peakHeat": 7.5,
+    "data centers": {
+      "display": "data centers",
+      "firstSeen": "2026-07-15T07:09:44.983Z",
+      "lastSeen": "2026-07-15T07:09:44.983Z",
+      "heat": 5,
+      "peakHeat": 5,
       "daysActive": 1,
-      "expiresAt": "2026-07-19T00:52:31.183Z",
+      "expiresAt": "2026-07-20T19:09:44.983Z",
       "bipartisan": true,
-      "outlets": 5
+      "outlets": 4
     }
   }
 }

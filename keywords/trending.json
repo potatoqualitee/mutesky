@@ -1,13 +1,17 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-15T00:52:31.183Z",
+    "updatedAt": "2026-07-15T07:09:44.983Z",
     "keywords": {
       "vehicle stops": {
-        "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-14)"
+        "weight": 3,
+        "description": "In 8 outlets across the spectrum (since 2026-07-14)"
       },
-      "ICE Shooting": {
+      "Darline Graham": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-15)"
+      },
+      "ICE shooting": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       },
@@ -19,25 +23,13 @@
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-15)"
       },
-      "Darline Graham": {
-        "weight": 1,
-        "description": "In 6 outlets across the spectrum (since 2026-07-15)"
-      },
-      "Replace Lindsey Graham": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
-      },
-      "daylight saving time": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
-      },
       "E. Jean Carroll": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       },
-      "New York Times": {
+      "data centers": {
         "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-15)"
       }
     }
   }
