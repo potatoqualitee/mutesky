@@ -1,33 +1,29 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-15T12:52:56.836Z",
+    "updatedAt": "2026-07-15T18:45:45.468Z",
     "keywords": {
       "Vehicle Stops": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       },
-      "Todd Blanche": {
+      "Jay Clayton": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-15)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-15)"
       },
-      "Daylight Saving Time": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-15)"
+      "daylight saving time": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       },
       "E. Jean Carroll": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       },
-      "Strait of Hormuz": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
-      },
       "ICE shooting": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-15)"
       },
-      "Jay Clayton": {
+      "Strait of Hormuz": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-15)"
       }

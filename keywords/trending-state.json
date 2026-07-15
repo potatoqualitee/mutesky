@@ -1,47 +1,58 @@
 {
-  "updatedAt": "2026-07-15T12:52:56.836Z",
+  "updatedAt": "2026-07-15T18:45:45.468Z",
   "phrases": {
     "vehicle stops": {
       "display": "Vehicle Stops",
       "firstSeen": "2026-07-14T18:46:46.367Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 25.8255918507938,
+      "lastSeen": "2026-07-15T18:45:45.468Z",
+      "heat": 24.394368132644903,
       "peakHeat": 25.8255918507938,
       "daysActive": 2,
-      "expiresAt": "2026-07-24T18:50:26.257Z",
+      "expiresAt": "2026-07-25T00:43:14.889Z",
       "bipartisan": true,
-      "outlets": 6
-    },
-    "daylight saving time": {
-      "display": "Daylight Saving Time",
-      "firstSeen": "2026-07-15T12:52:56.836Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 8.125,
-      "peakHeat": 8.125,
-      "daysActive": 1,
-      "expiresAt": "2026-07-21T19:42:49.286Z",
-      "bipartisan": true,
-      "outlets": 6
-    },
-    "ice shooting": {
-      "display": "ICE shooting",
-      "firstSeen": "2026-07-15T12:52:56.836Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 8,
-      "peakHeat": 8,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T12:52:56.836Z",
-      "bipartisan": true,
-      "outlets": 5
+      "outlets": 4
     },
     "jay clayton": {
       "display": "Jay Clayton",
       "firstSeen": "2026-07-15T12:52:56.836Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 5,
-      "peakHeat": 5,
+      "lastSeen": "2026-07-15T18:45:45.468Z",
+      "heat": 14.82714721391871,
+      "peakHeat": 14.82714721391871,
       "daysActive": 1,
-      "expiresAt": "2026-07-21T00:52:56.836Z",
+      "expiresAt": "2026-07-23T06:09:41.513Z",
+      "bipartisan": true,
+      "outlets": 7
+    },
+    "daylight saving time": {
+      "display": "daylight saving time",
+      "firstSeen": "2026-07-15T12:52:56.836Z",
+      "lastSeen": "2026-07-15T18:45:45.468Z",
+      "heat": 12.885024431741876,
+      "peakHeat": 12.885024431741876,
+      "daysActive": 1,
+      "expiresAt": "2026-07-22T23:01:21.829Z",
+      "bipartisan": true,
+      "outlets": 5
+    },
+    "ice shooting": {
+      "display": "ICE shooting",
+      "firstSeen": "2026-07-15T18:45:45.468Z",
+      "lastSeen": "2026-07-15T18:45:45.468Z",
+      "heat": 9,
+      "peakHeat": 9,
+      "daysActive": 1,
+      "expiresAt": "2026-07-19T18:45:45.468Z",
+      "bipartisan": true,
+      "outlets": 6
+    },
+    "strait of hormuz": {
+      "display": "Strait of Hormuz",
+      "firstSeen": "2026-07-15T18:45:45.468Z",
+      "lastSeen": "2026-07-15T18:45:45.468Z",
+      "heat": 8,
+      "peakHeat": 8,
+      "daysActive": 1,
+      "expiresAt": "2026-07-19T18:45:45.468Z",
       "bipartisan": true,
       "outlets": 4
     },
@@ -49,32 +60,10 @@
       "display": "E. Jean Carroll",
       "firstSeen": "2026-07-15T00:52:31.183Z",
       "lastSeen": "2026-07-15T00:52:31.183Z",
-      "heat": 4.217308857884856,
+      "heat": 3.181205983059909,
       "peakHeat": 7.5,
       "daysActive": 1,
       "expiresAt": "2026-07-19T00:52:31.183Z",
-      "bipartisan": true,
-      "outlets": 5
-    },
-    "todd blanche": {
-      "display": "Todd Blanche",
-      "firstSeen": "2026-07-15T12:52:56.836Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 15,
-      "peakHeat": 15,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T12:52:56.836Z",
-      "bipartisan": true,
-      "outlets": 10
-    },
-    "strait of hormuz": {
-      "display": "Strait of Hormuz",
-      "firstSeen": "2026-07-15T12:52:56.836Z",
-      "lastSeen": "2026-07-15T12:52:56.836Z",
-      "heat": 8,
-      "peakHeat": 8,
-      "daysActive": 1,
-      "expiresAt": "2026-07-19T12:52:56.836Z",
       "bipartisan": true,
       "outlets": 5
     }
