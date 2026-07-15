@@ -1,33 +1,33 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-15T07:09:44.983Z",
+    "updatedAt": "2026-07-15T12:52:56.836Z",
     "keywords": {
-      "vehicle stops": {
+      "Vehicle Stops": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-14)"
       },
-      "Darline Graham": {
+      "Todd Blanche": {
         "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Daylight Saving Time": {
+        "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-15)"
+      },
+      "E. Jean Carroll": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Strait of Hormuz": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       },
       "ICE shooting": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
-      },
-      "Todd Blanche": {
-        "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       },
-      "Graham Platner": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
-      },
-      "E. Jean Carroll": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
-      },
-      "data centers": {
+      "Jay Clayton": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-15)"
       }
