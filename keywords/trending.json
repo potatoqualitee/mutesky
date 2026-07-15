@@ -1,31 +1,43 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-14T18:46:46.367Z",
+    "updatedAt": "2026-07-15T00:52:31.183Z",
     "keywords": {
-      "Ro Khanna": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-12)"
-      },
       "vehicle stops": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-14)"
       },
-      "anti-weaponization fund": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
-      },
-      "Darline Graham Nordone": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-14)"
-      },
-      "ICE shooting": {
+      "ICE Shooting": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       },
-      "Platner": {
+      "Todd Blanche": {
         "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Graham Platner": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Darline Graham": {
+        "weight": 1,
+        "description": "In 6 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Replace Lindsey Graham": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      },
+      "daylight saving time": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+      },
+      "E. Jean Carroll": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
+      },
+      "New York Times": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       }
     }
   }

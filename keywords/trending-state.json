@@ -1,71 +1,104 @@
 {
-  "updatedAt": "2026-07-14T18:46:46.367Z",
+  "updatedAt": "2026-07-15T00:52:31.183Z",
   "phrases": {
-    "ro khanna": {
-      "display": "Ro Khanna",
-      "firstSeen": "2026-07-12T00:59:50.474Z",
-      "lastSeen": "2026-07-13T18:54:21.528Z",
-      "heat": 9.336688248093857,
-      "peakHeat": 23.35610272118493,
-      "daysActive": 2,
-      "expiresAt": "2026-07-22T19:04:53.848Z",
-      "bipartisan": false,
-      "outlets": 4
-    },
     "vehicle stops": {
       "display": "vehicle stops",
       "firstSeen": "2026-07-14T18:46:46.367Z",
-      "lastSeen": "2026-07-14T18:46:46.367Z",
-      "heat": 7.5,
-      "peakHeat": 7.5,
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 16.24355775166913,
+      "peakHeat": 16.24355775166913,
+      "daysActive": 2,
+      "expiresAt": "2026-07-23T05:03:09.172Z",
+      "bipartisan": true,
+      "outlets": 7
+    },
+    "ice shooting": {
+      "display": "ICE Shooting",
+      "firstSeen": "2026-07-14T18:46:46.367Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 11.301546848551794,
+      "peakHeat": 11.301546848551794,
+      "daysActive": 2,
+      "expiresAt": "2026-07-22T10:42:56.715Z",
+      "bipartisan": true,
+      "outlets": 4
+    },
+    "todd blanche": {
+      "display": "Todd Blanche",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 8.25,
+      "peakHeat": 8.25,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T22:13:55.541Z",
+      "expiresAt": "2026-07-21T08:21:46.662Z",
       "bipartisan": true,
       "outlets": 5
     },
-    "anti-weaponization fund": {
-      "display": "anti-weaponization fund",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 6.376371944421735,
-      "peakHeat": 8,
+    "graham platner": {
+      "display": "Graham Platner",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 5,
+      "peakHeat": 5,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T07:09:19.535Z",
-      "bipartisan": false,
+      "expiresAt": "2026-07-20T12:52:31.183Z",
+      "bipartisan": true,
       "outlets": 3
     },
-    "darline graham nordone": {
-      "display": "Darline Graham Nordone",
-      "firstSeen": "2026-07-14T07:09:19.535Z",
-      "lastSeen": "2026-07-14T07:09:19.535Z",
-      "heat": 5.625587773801415,
+    "darline graham": {
+      "display": "Darline Graham",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 9.75,
+      "peakHeat": 9.75,
+      "daysActive": 1,
+      "expiresAt": "2026-07-21T15:47:22.727Z",
+      "bipartisan": true,
+      "outlets": 6
+    },
+    "replace lindsey graham": {
+      "display": "Replace Lindsey Graham",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 5,
+      "peakHeat": 5,
+      "daysActive": 1,
+      "expiresAt": "2026-07-20T12:52:31.183Z",
+      "bipartisan": true,
+      "outlets": 3
+    },
+    "daylight saving time": {
+      "display": "daylight saving time",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 6.25,
       "peakHeat": 6.25,
       "daysActive": 1,
-      "expiresAt": "2026-07-20T03:18:42.575Z",
-      "bipartisan": false,
-      "outlets": 3
+      "expiresAt": "2026-07-20T21:01:54.223Z",
+      "bipartisan": true,
+      "outlets": 5
     },
-    "ice shooting": {
-      "display": "ICE shooting",
-      "firstSeen": "2026-07-14T18:46:46.367Z",
-      "lastSeen": "2026-07-14T18:46:46.367Z",
+    "e. jean carroll": {
+      "display": "E. Jean Carroll",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
       "heat": 7.5,
       "peakHeat": 7.5,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T18:46:46.367Z",
+      "expiresAt": "2026-07-19T00:52:31.183Z",
       "bipartisan": true,
-      "outlets": 4
+      "outlets": 5
     },
-    "platner": {
-      "display": "Platner",
-      "firstSeen": "2026-07-14T18:46:46.367Z",
-      "lastSeen": "2026-07-14T18:46:46.367Z",
-      "heat": 6.5,
-      "peakHeat": 6.5,
+    "new york times": {
+      "display": "New York Times",
+      "firstSeen": "2026-07-15T00:52:31.183Z",
+      "lastSeen": "2026-07-15T00:52:31.183Z",
+      "heat": 7.5,
+      "peakHeat": 7.5,
       "daysActive": 1,
-      "expiresAt": "2026-07-18T18:46:46.367Z",
+      "expiresAt": "2026-07-19T00:52:31.183Z",
       "bipartisan": true,
-      "outlets": 4
+      "outlets": 5
     }
   }
 }
