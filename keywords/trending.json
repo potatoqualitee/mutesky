@@ -1,38 +1,34 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-16T00:54:35.095Z",
+    "updatedAt": "2026-07-16T07:11:59.133Z",
     "keywords": {
-      "Vehicle Stops": {
+      "York Times": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
+      },
+      "confirmation hearing": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
       "Jay Clayton": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-15)"
       },
-      "York Times": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
-      },
       "daylight saving time": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-15)"
       },
-      "confirmation hearing": {
+      "Vehicle Stops": {
         "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       },
       "traffic stops": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
-      },
-      "time permanent": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "AG Nominee": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Spain": {
@@ -50,6 +46,10 @@
       "Save": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "time permanent": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "E. Jean Carroll": {
         "weight": 1,
