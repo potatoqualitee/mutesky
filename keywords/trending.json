@@ -1,77 +1,53 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-16T12:56:23.825Z",
+    "updatedAt": "2026-07-16T18:46:49.479Z",
     "keywords": {
-      "Trump": {
-        "weight": 3,
-        "description": "In 26 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Iran": {
-        "weight": 3,
-        "description": "In 17 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Blanche": {
-        "weight": 3,
-        "description": "In 13 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Todd": {
-        "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-16)"
-      },
       "confirmation hearing": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
-      },
-      "York Times": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "Israel": {
-        "weight": 2,
-        "description": "In 11 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Epstein": {
-        "weight": 2,
-        "description": "In 9 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Hegseth": {
-        "weight": 2,
-        "description": "In 10 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Graham": {
-        "weight": 2,
-        "description": "In 11 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Jay Clayton": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      "York Times": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "traffic stops": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Jay Clayton": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      },
+      "Primetime Speech": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Biden": {
+      "daylight saving time": {
         "weight": 2,
-        "description": "In 9 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
       },
-      "Vance": {
+      "teleprompter operator": {
         "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
       },
       "AG Nominee": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "daylight saving time": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      "Hollywood": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Vehicle Stops": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
       },
-      "Pete": {
+      "Canadian": {
+        "weight": 1,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "AG pick": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
@@ -79,35 +55,19 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
+      "Darline Graham": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
       "Smith": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "Lindsey": {
-        "weight": 1,
-        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Hollywood": {
+      "Post": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Save": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "House Democrats": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
-      },
-      "attorney general": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "primetime speech": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Democrats vote": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
