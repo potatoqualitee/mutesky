@@ -1,27 +1,27 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-17T07:10:13.180Z",
+    "updatedAt": "2026-07-17T12:47:16.932Z",
     "keywords": {
-      "traffic stops": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
-      },
       "Truth": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-17)"
       },
-      "teleprompter operator": {
+      "traffic stops": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "primetime speech": {
         "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
+      "teleprompter operator": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
       "Confirmation Hearing": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "York Times": {
         "weight": 2,
@@ -29,11 +29,19 @@
       },
       "Social posts": {
         "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
-      "TV networks": {
+      "TV Networks": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "ICE traffic": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "AG Nominee": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "AG Pick": {
         "weight": 2,
@@ -43,17 +51,21 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "ICE traffic": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "AG Nominee": {
+      "Trump&apos": {
         "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "SAVE": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Canadian": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "British": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "Jay Clayton": {
         "weight": 1,
@@ -76,10 +88,6 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Smith": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Save": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
