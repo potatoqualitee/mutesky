@@ -1,71 +1,71 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-17T00:56:30.737Z",
+    "updatedAt": "2026-07-17T07:10:13.180Z",
     "keywords": {
       "traffic stops": {
         "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
-      "York Times": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "confirmation hearing": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
       "Truth": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-17)"
       },
       "teleprompter operator": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
-      "Primetime Speech": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      "primetime speech": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
-      "Hollywood": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      "Confirmation Hearing": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Canadian": {
+      "York Times": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "Jay Clayton": {
+      "Social posts": {
         "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
+      },
+      "TV networks": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "AG Pick": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "daylight saving time": {
+      "Hollywood": {
         "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "Social posts": {
-        "weight": 1,
-        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
+      "ICE traffic": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "AG Nominee": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "TV Networks": {
+      "Canadian": {
         "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Jay Clayton": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
+      },
+      "daylight saving time": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
       },
       "Vehicle Stops": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
-      },
-      "ICE traffic": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "Spain": {
         "weight": 1,
