@@ -1,35 +1,43 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-17T12:47:16.932Z",
+    "updatedAt": "2026-07-17T18:43:36.903Z",
     "keywords": {
       "Truth": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-17)"
-      },
-      "traffic stops": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
       },
       "primetime speech": {
         "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
+      "traffic stops": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
       "teleprompter operator": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Social posts": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
       "Confirmation Hearing": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
+      "Trump&apos": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
       "York Times": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "Social posts": {
+      "election security": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
       },
       "TV Networks": {
         "weight": 2,
@@ -43,29 +51,37 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "AG Pick": {
+      "Election Fraud": {
         "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "British": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Canada": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "AG Pick": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Reflecting Pool": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Canadian": {
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Hollywood": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Trump&apos": {
         "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "SAVE": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Canadian": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "British": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "Jay Clayton": {
         "weight": 1,
