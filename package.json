@@ -21,8 +21,8 @@
   "author": "Chrissy LeMaire",
   "license": "MIT",
   "dependencies": {
-    "@atproto/api": "^0.20.28",
-    "@atproto/oauth-client-browser": "^0.4.8"
+    "@atproto/api": "^0.20.29",
+    "@atproto/oauth-client-browser": "^0.4.9"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^14.0.0",
