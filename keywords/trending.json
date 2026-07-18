@@ -1,51 +1,43 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-18T07:04:54.261Z",
+    "updatedAt": "2026-07-18T12:40:53.796Z",
     "keywords": {
       "Canada": {
         "weight": 3,
         "description": "In 10 outlets across the spectrum (since 2026-07-17)"
       },
-      "Truth": {
+      "election security": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-17)"
       },
       "primetime speech": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "election security": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Social posts": {
+      "Truth": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
-      "Teleprompter Operator": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
       "Canadian": {
-        "weight": 2,
+        "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
       "Election Fraud": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Social posts": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
-      "traffic stops": {
+      "Darline": {
+        "weight": 2,
+        "description": "In 6 outlets across the spectrum (since 2026-07-18)"
+      },
+      "Teleprompter Operator": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Darline Graham": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Reflecting Pool": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "Trump&apos": {
         "weight": 2,
@@ -55,13 +47,21 @@
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-18)"
       },
-      "Confirmation Hearing": {
+      "traffic stops": {
         "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Reflecting Pool": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Olive Garden": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-18)"
+      },
+      "Confirmation Hearing": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "York Times": {
         "weight": 1,
