@@ -1,8 +1,12 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-18T00:53:53.524Z",
+    "updatedAt": "2026-07-18T07:04:54.261Z",
     "keywords": {
+      "Canada": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-17)"
+      },
       "Truth": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
@@ -11,56 +15,60 @@
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Canada": {
-        "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-17)"
-      },
-      "traffic stops": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Teleprompter Operator": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
       "election security": {
         "weight": 3,
         "description": "In 8 outlets across the spectrum (since 2026-07-17)"
       },
       "Social posts": {
-        "weight": 2,
+        "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
-      "election fraud": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+      "Teleprompter Operator": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Canadian": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
-      "Reflecting Pool": {
+      "Election Fraud": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
-      "Confirmation Hearing": {
+      "traffic stops": {
         "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Darline Graham": {
         "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
+      "Reflecting Pool": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
       "Trump&apos": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
-      "York Times": {
+      "registered to vote": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-18)"
+      },
+      "Confirmation Hearing": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "TV Networks": {
+      "Olive Garden": {
         "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-18)"
+      },
+      "York Times": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "TV Networks": {
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "ICE traffic": {
@@ -70,10 +78,6 @@
       "AG Nominee": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "registered to vote": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-18)"
       },
       "British": {
         "weight": 1,
