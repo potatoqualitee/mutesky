@@ -1,15 +1,15 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-19T07:15:57.462Z",
+    "updatedAt": "2026-07-19T12:41:42.078Z",
     "keywords": {
       "Canada": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-17)"
       },
       "election security": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Canadian": {
         "weight": 3,
@@ -23,17 +23,21 @@
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "Trump&apos": {
+      "Ralph Norman": {
         "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Troops Killed": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Trump&apos": {
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Primetime Speech": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Norman": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-19)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Election Fraud": {
         "weight": 2,
@@ -43,13 +47,13 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
+      "Argentina": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
+      },
       "Social posts": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Troops Killed": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Teleprompter Operator": {
         "weight": 2,
@@ -58,10 +62,6 @@
       "registered to vote": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-18)"
-      },
-      "Argentina": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "traffic stops": {
         "weight": 2,
