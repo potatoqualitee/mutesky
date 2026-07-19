@@ -1,11 +1,11 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-19T12:41:42.078Z",
+    "updatedAt": "2026-07-19T18:42:24.710Z",
     "keywords": {
       "Canada": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
       "election security": {
         "weight": 3,
@@ -13,27 +13,31 @@
       },
       "Canadian": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Olive Garden": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-18)"
-      },
-      "Darline Graham": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "Ralph Norman": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Olive Garden": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "Troops Killed": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Trump&apos": {
-        "weight": 2,
+        "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Darline Graham": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Argentina": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Primetime Speech": {
         "weight": 2,
@@ -47,24 +51,28 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
-      "Argentina": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
-      },
       "Social posts": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
+      "Ayanna": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
       "Teleprompter Operator": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Spain": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "registered to vote": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "traffic stops": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Reflecting Pool": {
@@ -118,10 +126,6 @@
       "Vehicle Stops": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-14)"
-      },
-      "Spain": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Smith": {
         "weight": 1,
