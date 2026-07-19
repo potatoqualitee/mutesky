@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-18T18:41:02.270Z",
+    "updatedAt": "2026-07-19T00:58:16.777Z",
     "keywords": {
       "Canada": {
         "weight": 3,
@@ -11,37 +11,37 @@
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
-      "primetime speech": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
       "Canadian": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Trump&apos": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Primetime Speech": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Darline Graham": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
       "Election Fraud": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Truth Social": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Trump&apos": {
-        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Social posts": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Darline Graham": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "Olive Garden": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-18)"
+      },
+      "Truth Social": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Social posts": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
       "Teleprompter Operator": {
         "weight": 2,
@@ -51,6 +51,10 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
+      "Norman": {
+        "weight": 2,
+        "description": "In 6 outlets across the spectrum (since 2026-07-19)"
+      },
       "traffic stops": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
@@ -59,11 +63,23 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
-      "Confirmation Hearing": {
+      "Troops Killed": {
         "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Argentina": {
+        "weight": 1,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Confirmation Hearing": {
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "York Times": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "SAVE": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
@@ -91,10 +107,6 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "SAVE": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
       "Jay Clayton": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-15)"
@@ -118,10 +130,6 @@
       "time permanent": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
-      },
-      "E. Jean Carroll": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-15)"
       }
     }
   }
