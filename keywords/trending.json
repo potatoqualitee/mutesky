@@ -1,19 +1,23 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-20T00:59:03.583Z",
+    "updatedAt": "2026-07-20T07:30:26.022Z",
     "keywords": {
       "Canada": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
-      "Canadian": {
+      "Usha": {
         "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-20)"
       },
-      "election security": {
+      "Spain": {
         "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Argentina": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Ralph Norman": {
         "weight": 3,
@@ -21,39 +25,35 @@
       },
       "Troops Killed": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "Trump&apos": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
-      "Argentina": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
-      },
-      "Spain": {
+      "baby boy": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-20)"
       },
-      "Usha": {
+      "Canadian": {
         "weight": 2,
-        "description": "In 9 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Olive Garden": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Ayanna": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
+      "election security": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Olive Garden": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
+      },
       "Darline Graham": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "baby boy": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-20)"
       },
       "Primetime Speech": {
         "weight": 2,
