@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-21T00:56:03.630Z",
+    "updatedAt": "2026-07-21T07:17:38.779Z",
     "keywords": {
       "Canada": {
         "weight": 3,
@@ -9,53 +9,61 @@
       },
       "Usha": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
       "Argentina": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-19)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
-      "Spain": {
+      "Canadian": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
       },
       "Air Force One": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
+      "Spain": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
       "Troy Jackson": {
         "weight": 3,
         "description": "In 6 outlets across the spectrum (since 2026-07-20)"
       },
-      "Trump&apos": {
+      "Graham sister": {
         "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Canadian": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       },
       "Prime Minister": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
+      "Trump&apos": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
       "Darline Graham": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Border Czar": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Burnham": {
+        "weight": 2,
+        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
+      },
+      "fourth child": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "soldiers killed": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
-      "Graham sister": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-21)"
-      },
       "baby boy": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "fourth child": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
@@ -71,17 +79,9 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
-      "Andy Burnham": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
-      },
       "election security": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Border Czar": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
       },
       "Warner": {
         "weight": 2,
@@ -94,6 +94,10 @@
       "British": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Reflecting Pool": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Primetime Speech": {
         "weight": 1,
@@ -122,10 +126,6 @@
       "traffic stops": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Reflecting Pool": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "SAVE": {
         "weight": 1,
