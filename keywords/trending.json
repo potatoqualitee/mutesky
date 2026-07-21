@@ -1,27 +1,19 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-21T12:53:34.701Z",
+    "updatedAt": "2026-07-21T18:51:15.027Z",
     "keywords": {
       "Canada": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Canadian": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
       },
       "Usha": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Canadian": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Spain": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Argentina": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Air Force One": {
         "weight": 3,
@@ -29,19 +21,31 @@
       },
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Prime Minister": {
-        "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
+      },
+      "Darline Graham": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Spain": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Burnham": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
-      "Darline": {
+      "Argentina": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Prime Minister": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-18)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
+      },
+      "Border Czar": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Trump&apos": {
         "weight": 2,
@@ -51,17 +55,29 @@
         "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       },
-      "Border Czar": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
-      },
       "fourth child": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
+      "Appeals court": {
+        "weight": 2,
+        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Norman": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
+      },
       "soldiers killed": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
+      },
+      "troops killed": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Post": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "York Times": {
         "weight": 2,
@@ -70,14 +86,6 @@
       "baby boy": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Ralph Norman": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
-      },
-      "Troops Killed": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "Ayanna": {
         "weight": 2,
@@ -88,7 +96,7 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Warner": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
       "Olive Garden": {
@@ -112,10 +120,6 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Truth Social": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Social posts": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
