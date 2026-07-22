@@ -1,31 +1,35 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-21T18:51:15.027Z",
+    "updatedAt": "2026-07-22T00:54:49.235Z",
     "keywords": {
       "Canada": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-17)"
       },
       "Canadian": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Darline Graham": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "Usha": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
-      "Air Force One": {
+      "Force One": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Post": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "Troy Jackson": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Darline Graham": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Spain": {
         "weight": 3,
@@ -36,7 +40,7 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Argentina": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Prime Minister": {
@@ -47,6 +51,10 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
+      "Appeals court": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+      },
       "Trump&apos": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
@@ -55,13 +63,13 @@
         "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       },
+      "Abdul El-Sayed": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-22)"
+      },
       "fourth child": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Appeals court": {
-        "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
       },
       "Norman": {
         "weight": 2,
@@ -75,10 +83,6 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
-      "Post": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
       "York Times": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
@@ -87,13 +91,21 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
-      "Ayanna": {
+      "Clayton": {
         "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Ayanna": {
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "election security": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "registered to vote": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "Warner": {
         "weight": 1,
@@ -127,10 +139,6 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "registered to vote": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
-      },
       "traffic stops": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
@@ -163,10 +171,6 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "Jay Clayton": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
-      },
       "daylight saving time": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-15)"
@@ -178,10 +182,6 @@
       "Smith": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "time permanent": {
-        "weight": 1,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       }
     }
   }
