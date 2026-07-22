@@ -1,11 +1,11 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-22T12:54:54.816Z",
+    "updatedAt": "2026-07-22T18:47:00.676Z",
     "keywords": {
       "Canada": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-17)"
       },
       "Canadian": {
         "weight": 3,
@@ -17,7 +17,15 @@
       },
       "Appeals court": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Argentina": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "Arizona governor": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
       "Post": {
         "weight": 3,
@@ -27,21 +35,25 @@
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
       },
-      "Arizona governor": {
+      "Arizona primaries": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-22)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
-      "Argentina": {
+      "Diarrhea Outbreak": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "Usha": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
       "Abdul El-Sayed": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
+      },
+      "troops killed": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
       },
       "Trump&apos": {
         "weight": 2,
@@ -62,14 +74,6 @@
       "Prime Minister": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Arizona primaries": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-22)"
-      },
-      "Diarrhea Outbreak": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
       "Border Czar": {
         "weight": 2,
@@ -94,10 +98,6 @@
       "soldiers killed": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "troops killed": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "York Times": {
         "weight": 1,
