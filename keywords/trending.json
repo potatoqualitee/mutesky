@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-22T00:54:49.235Z",
+    "updatedAt": "2026-07-22T07:18:10.249Z",
     "keywords": {
       "Canada": {
         "weight": 3,
@@ -13,30 +13,42 @@
       },
       "Darline Graham": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Usha": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Force One": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Post": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
+      "Force One": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Appeals court": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Usha": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-20)"
+      },
+      "Trump&apos": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
       "Troy Jackson": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
-      "Spain": {
+      "Arizona governor": {
         "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-22)"
+      },
+      "Spain": {
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Burnham": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Argentina": {
@@ -47,25 +59,21 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
+      "Abdul El-Sayed": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-22)"
+      },
       "Border Czar": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
-      },
-      "Appeals court": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
-      },
-      "Trump&apos": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Graham sister": {
         "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       },
-      "Abdul El-Sayed": {
+      "Clayton": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-22)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "fourth child": {
         "weight": 2,
@@ -88,12 +96,8 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "baby boy": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Clayton": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Ayanna": {
         "weight": 1,
