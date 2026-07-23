@@ -1,59 +1,71 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-23T00:57:25.006Z",
+    "updatedAt": "2026-07-23T07:16:54.762Z",
     "keywords": {
-      "Canadian": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
       "Canada": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
-      "Darline Graham": {
+      "nuclear deal": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Canadian": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Arizona governor": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
-      "nuclear deal": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Appeals court": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
-      },
-      "Argentina": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
-      },
       "Arizona primaries": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
-      "troops killed": {
+      "Found Dead": {
         "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Smith": {
+        "weight": 3,
+        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Darline Graham": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
+      },
+      "dignified transfer": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Women Sports": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Appeals court": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Argentina": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "troops killed": {
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "Post": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
       "Force One": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
       },
-      "Found Dead": {
+      "registered to vote": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
-      },
-      "dignified transfer": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "Diarrhea Outbreak": {
         "weight": 2,
@@ -63,10 +75,6 @@
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
-      "Women Sports": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
-      },
       "Abdul El-Sayed": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
@@ -74,6 +82,10 @@
       "Trump&apos": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "soldiers killed": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "Troy Jackson": {
         "weight": 2,
@@ -91,16 +103,12 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
-      "registered to vote": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
-      },
       "Border Czar": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Graham sister": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       },
       "Clayton": {
@@ -114,10 +122,6 @@
       "Norman": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
-      },
-      "soldiers killed": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "York Times": {
         "weight": 1,
@@ -198,10 +202,6 @@
       "Hollywood": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "daylight saving time": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-15)"
       }
     }
   }
