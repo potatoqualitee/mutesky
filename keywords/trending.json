@@ -1,19 +1,27 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-23T07:16:54.762Z",
+    "updatedAt": "2026-07-23T12:55:18.082Z",
     "keywords": {
-      "Canada": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
       "nuclear deal": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Canada": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Jack Smith": {
+        "weight": 3,
+        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
       },
       "Canadian": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Women Sports": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "Arizona governor": {
         "weight": 3,
@@ -27,29 +35,33 @@
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
-      "Smith": {
+      "Secret Service": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
       },
       "Darline Graham": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "dignified transfer": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Women Sports": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Appeals court": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
       },
+      "James Woolsey": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
       "Argentina": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
+      },
+      "registered to vote": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "troops killed": {
         "weight": 2,
@@ -62,10 +74,6 @@
       "Force One": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
-      },
-      "registered to vote": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "Diarrhea Outbreak": {
         "weight": 2,
@@ -96,11 +104,11 @@
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Burnham": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Prime Minister": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
       "Border Czar": {
@@ -110,6 +118,10 @@
       "Graham sister": {
         "weight": 1,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
+      },
+      "SAVE": {
+        "weight": 1,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Clayton": {
         "weight": 1,
@@ -175,10 +187,6 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
-      "SAVE": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
       "Confirmation Hearing": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
@@ -194,14 +202,6 @@
       "AG Nominee": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "AG Pick": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Hollywood": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       }
     }
   }
