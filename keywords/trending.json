@@ -1,9 +1,17 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-23T12:55:18.082Z",
+    "updatedAt": "2026-07-23T18:48:28.953Z",
     "keywords": {
       "nuclear deal": {
+        "weight": 3,
+        "description": "In 15 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Jack Smith": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Secret Service": {
         "weight": 3,
         "description": "In 8 outlets across the spectrum (since 2026-07-23)"
       },
@@ -11,49 +19,61 @@
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       },
-      "Jack Smith": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Canadian": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
       "Women Sports": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Arizona governor": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
+      "Abraham": {
+        "weight": 3,
+        "description": "In 9 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Canadian": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
       "Arizona primaries": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
-      "Found Dead": {
+      "James Woolsey": {
         "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
+      },
+      "SAVE": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Saudi nuclear": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+      },
+      "war powers": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Found Dead": {
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
-      "Secret Service": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
-      },
       "Darline Graham": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "dignified transfer": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
+      "Medical Advice": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
       "Appeals court": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
-      },
-      "James Woolsey": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Argentina": {
         "weight": 2,
@@ -80,27 +100,27 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "Usha": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
       "Abdul El-Sayed": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "Trump&apos": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "soldiers killed": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "Troy Jackson": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
       "Spain": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Burnham": {
@@ -118,14 +138,6 @@
       "Graham sister": {
         "weight": 1,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
-      },
-      "SAVE": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Clayton": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "fourth child": {
         "weight": 1,
@@ -178,30 +190,6 @@
       "Truth Social": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Teleprompter Operator": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "traffic stops": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Confirmation Hearing": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
-      },
-      "TV Networks": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "ICE traffic": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "AG Nominee": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       }
     }
   }
