@@ -1,59 +1,63 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-24T12:54:16.577Z",
+    "updatedAt": "2026-07-24T18:54:39.974Z",
     "keywords": {
       "nuclear deal": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret Service": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-23)"
       },
       "Jack Smith": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Saudi Nuclear": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
       },
       "Canada": {
         "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Saudi nuclear": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "York Times": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
+      "forced labor": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
       },
       "SAVE": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Women Sports": {
+      "data centers": {
         "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
+      },
+      "LeBron James": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
+      },
+      "Women Sports": {
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "York City": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "Abraham Accords": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Arizona governor": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
-      },
-      "forced labor": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
-      },
-      "data centers": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "Canadian": {
         "weight": 2,
@@ -91,16 +95,20 @@
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
+      "Abdul El-Sayed": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-22)"
+      },
       "dignified transfer": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "Medical Advice": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Appeals court": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-21)"
       },
       "Argentina": {
@@ -126,10 +134,6 @@
       "Usha": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Abdul El-Sayed": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "Trump&apos": {
         "weight": 1,
@@ -194,10 +198,6 @@
       "British": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Reflecting Pool": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       }
     }
   }
