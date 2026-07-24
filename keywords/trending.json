@@ -1,31 +1,35 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-24T00:54:15.314Z",
+    "updatedAt": "2026-07-24T07:16:44.001Z",
     "keywords": {
       "nuclear deal": {
         "weight": 3,
-        "description": "In 12 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Jack Smith": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret Service": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Jack Smith": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Saudi Nuclear": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
       },
       "Canada": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
+      "York Times": {
+        "weight": 3,
+        "description": "In 8 outlets across the spectrum (since 2026-07-16)"
+      },
       "Women Sports": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Saudi Nuclear": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
       },
       "SAVE": {
         "weight": 3,
@@ -40,8 +44,16 @@
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
       "Canadian": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
+      },
+      "York City": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
+      },
+      "Dodgers": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "Arizona primaries": {
         "weight": 2,
@@ -50,10 +62,6 @@
       "James Woolsey": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "York Times": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
       "Penn": {
         "weight": 2,
@@ -66,6 +74,10 @@
       "Found Dead": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Air Force One": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "Darline Graham": {
         "weight": 2,
@@ -91,12 +103,8 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
-      "Air Force One": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
       "troops killed": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "Post": {
@@ -190,10 +198,6 @@
       "Election Fraud": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Truth Social": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       }
     }
   }
