@@ -1,55 +1,63 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-23T18:48:28.953Z",
+    "updatedAt": "2026-07-24T00:54:15.314Z",
     "keywords": {
       "nuclear deal": {
         "weight": 3,
-        "description": "In 15 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 12 outlets across the spectrum (since 2026-07-23)"
       },
       "Jack Smith": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret Service": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-23)"
       },
       "Canada": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Women Sports": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Saudi Nuclear": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
+      },
+      "SAVE": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Abraham Accords": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Arizona governor": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
-      },
-      "Abraham": {
-        "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-23)"
       },
       "Canadian": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Arizona primaries": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "James Woolsey": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
-      "SAVE": {
+      "York Times": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
-      "Saudi nuclear": {
+      "Penn": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "war powers": {
         "weight": 2,
@@ -83,20 +91,20 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
+      "Air Force One": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
+      },
       "troops killed": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       },
       "Post": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Force One": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
-      },
       "Diarrhea Outbreak": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "Usha": {
@@ -146,10 +154,6 @@
       "Norman": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
-      },
-      "York Times": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "baby boy": {
         "weight": 1,
