@@ -1,47 +1,59 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-24T18:54:39.974Z",
+    "updatedAt": "2026-07-25T00:57:16.557Z",
     "keywords": {
       "nuclear deal": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret Service": {
         "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
       },
       "Jack Smith": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
       },
-      "Canada": {
+      "Saudi Nuclear": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Saudi nuclear": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "York Times": {
         "weight": 3,
         "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
+      "Canada": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+      },
       "forced labor": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
-      },
-      "SAVE": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
-      },
-      "data centers": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "LeBron James": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-24)"
+      },
+      "data centers": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
+      },
+      "Smithsonian": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Correspondents": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
+      },
+      "SAVE": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "Tony Romo arrested": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
       },
       "Women Sports": {
         "weight": 2,
@@ -92,15 +104,15 @@
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "Found Dead": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Abdul El-Sayed": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-22)"
       },
       "dignified transfer": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "Medical Advice": {
@@ -186,18 +198,6 @@
       "election security": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
-      "Warner": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Olive Garden": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
-      },
-      "British": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-17)"
       }
     }
   }
