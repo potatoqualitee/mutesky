@@ -1,47 +1,51 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-25T00:57:16.557Z",
+    "updatedAt": "2026-07-25T07:10:10.083Z",
     "keywords": {
+      "Secret": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+      },
       "nuclear deal": {
         "weight": 3,
         "description": "In 6 outlets across the spectrum (since 2026-07-23)"
       },
-      "Secret Service": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
-      },
       "Jack Smith": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Saudi Nuclear": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
+      "Smithsonian": {
+        "weight": 3,
+        "description": "In 9 outlets across the spectrum (since 2026-07-25)"
+      },
       "York Times": {
         "weight": 3,
         "description": "In 6 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Canada": {
-        "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
       "forced labor": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
-      "LeBron James": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-24)"
-      },
       "data centers": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-24)"
+      },
+      "LeBron James": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
-      "Smithsonian": {
+      "Tony Romo arrested": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Canada": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
       "Correspondents": {
         "weight": 2,
@@ -51,9 +55,13 @@
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-16)"
       },
-      "Tony Romo arrested": {
+      "Correspondents&apos": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
+      "WHCA dinner": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
       "Women Sports": {
         "weight": 2,
@@ -96,11 +104,11 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "Penn": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "war powers": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "Found Dead": {
@@ -194,10 +202,6 @@
       "Ayanna": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-19)"
-      },
-      "election security": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       }
     }
   }
