@@ -1,67 +1,71 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-25T12:45:25.322Z",
+    "updatedAt": "2026-07-25T18:43:13.508Z",
     "keywords": {
+      "Smithsonian": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-25)"
+      },
+      "nuclear deal": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
       "Secret": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
-      "nuclear deal": {
+      "Troy Jackson": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-20)"
       },
-      "Smithsonian": {
+      "Tony Romo arrested": {
         "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Saudi Nuclear": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 6 outlets across the spectrum (since 2026-07-25)"
       },
       "York Times": {
         "weight": 3,
         "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
-      "LeBron James": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
-      },
       "forced labor": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
-      "Jack Smith": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "data centers": {
+      "LeBron James": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
-      "Tony Romo arrested": {
+      "Data Centers": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
+      },
+      "Saudi Nuclear": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
       "Correspondents Dinner": {
         "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
       },
-      "Canada": {
+      "Jack Smith": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "signs outside": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
+      "Canada": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
+      },
+      "Trump&apos": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
       "WHCA dinner": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Troy Jackson": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
       "SAVE": {
         "weight": 2,
@@ -100,7 +104,7 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Dodgers": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "Arizona primaries": {
@@ -162,10 +166,6 @@
       "Usha": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Trump&apos": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "soldiers killed": {
         "weight": 1,
