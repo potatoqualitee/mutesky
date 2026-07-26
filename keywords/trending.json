@@ -1,31 +1,35 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-26T12:44:51.852Z",
+    "updatedAt": "2026-07-26T18:44:26.828Z",
     "keywords": {
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-20)"
       },
       "Smithsonian": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
       },
-      "Tony Romo arrested": {
+      "appeals court": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Appeals court": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
       },
       "Correspondents": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Tony Romo arrested": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Dinner": {
+        "weight": 3,
+        "description": "In 9 outlets across the spectrum (since 2026-07-26)"
       },
       "nuclear deal": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret": {
         "weight": 3,
@@ -40,7 +44,7 @@
         "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
       "data centers": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "forced labor": {
@@ -58,10 +62,6 @@
       "Jack Smith": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "WHCA dinner": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Canada": {
         "weight": 2,
@@ -190,10 +190,6 @@
       "fourth child": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Norman": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-19)"
       }
     }
   }
