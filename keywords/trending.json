@@ -1,11 +1,15 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-25T18:43:13.508Z",
+    "updatedAt": "2026-07-26T01:01:44.816Z",
     "keywords": {
       "Smithsonian": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Troy Jackson": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-20)"
       },
       "nuclear deal": {
         "weight": 3,
@@ -15,57 +19,57 @@
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
-      "Troy Jackson": {
-        "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-20)"
-      },
       "Tony Romo arrested": {
         "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-25)"
-      },
-      "York Times": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
-      },
-      "forced labor": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
       "LeBron James": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
+      "Correspondents Dinner": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
+      },
+      "forced labor": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+      },
+      "York Times": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-16)"
+      },
       "Data Centers": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-24)"
-      },
-      "Saudi Nuclear": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Correspondents Dinner": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Jack Smith": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "signs outside": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
+      "Saudi Nuclear": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Jack Smith": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Appeals court": {
+        "weight": 2,
+        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+      },
       "Canada": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
-      "Trump&apos": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
-      },
       "WHCA dinner": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Trump&apos": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "SAVE": {
         "weight": 2,
@@ -96,11 +100,11 @@
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
       "Canadian": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Darline Graham": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
       "Dodgers": {
@@ -139,17 +143,9 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
-      "Appeals court": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-21)"
-      },
       "Argentina": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-19)"
-      },
-      "registered to vote": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-18)"
       },
       "troops killed": {
         "weight": 1,
