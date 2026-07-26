@@ -1,7 +1,7 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-26T01:01:44.816Z",
+    "updatedAt": "2026-07-26T07:17:38.401Z",
     "keywords": {
       "Smithsonian": {
         "weight": 3,
@@ -11,6 +11,10 @@
         "weight": 3,
         "description": "In 10 outlets across the spectrum (since 2026-07-20)"
       },
+      "Tony Romo arrested": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
+      },
       "nuclear deal": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
@@ -18,10 +22,6 @@
       "Secret": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Tony Romo arrested": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
       "LeBron James": {
         "weight": 3,
@@ -31,21 +31,25 @@
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-25)"
       },
+      "Appeals court": {
+        "weight": 3,
+        "description": "In 6 outlets across the spectrum (since 2026-07-21)"
+      },
+      "signs outside": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
+      },
       "forced labor": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "York Times": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 6 outlets across the spectrum (since 2026-07-16)"
       },
       "Data Centers": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
-      },
-      "signs outside": {
         "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-24)"
       },
       "Saudi Nuclear": {
         "weight": 2,
@@ -55,17 +59,13 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
-      "Appeals court": {
+      "WHCA dinner": {
         "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Canada": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
-      },
-      "WHCA dinner": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Trump&apos": {
         "weight": 2,
