@@ -1,15 +1,19 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-27T13:24:22.052Z",
+    "updatedAt": "2026-07-27T18:54:24.838Z",
     "keywords": {
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
       "appeals court": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Fauci": {
+        "weight": 3,
+        "description": "In 11 outlets across the spectrum (since 2026-07-27)"
       },
       "Correspondents Dinner": {
         "weight": 3,
@@ -19,28 +23,36 @@
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
-      "Tony Romo arrested": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
-      },
       "SAVE": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
-      },
-      "data centers": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "food festival": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-27)"
       },
-      "nuclear deal": {
+      "data centers": {
         "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+      },
+      "Cracker Barrel": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-27)"
+      },
+      "Tony Romo arrested": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Berlin Pride": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-27)"
+      },
+      "nuclear deal": {
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Secret": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "LeBron James": {
@@ -88,15 +100,15 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Women Sports": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Air Force One": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "York City": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "Abraham Accords": {
@@ -182,14 +194,6 @@
       "Burnham": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
-      },
-      "Prime Minister": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Graham sister": {
-        "weight": 1,
-        "description": "In 6 outlets across the spectrum (since 2026-07-21)"
       }
     }
   }
