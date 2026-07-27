@@ -1,15 +1,11 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-27T01:01:24.950Z",
+    "updatedAt": "2026-07-27T07:37:38.360Z",
     "keywords": {
       "Troy Jackson": {
         "weight": 3,
         "description": "In 9 outlets across the spectrum (since 2026-07-20)"
-      },
-      "Smithsonian": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "appeals court": {
         "weight": 3,
@@ -17,7 +13,11 @@
       },
       "Dinner": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-26)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-26)"
+      },
+      "Smithsonian": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Correspondents": {
         "weight": 3,
@@ -47,6 +47,10 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
+      "border czar": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
+      },
       "forced labor": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
@@ -62,10 +66,6 @@
       "Jack Smith": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "border czar": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Canada": {
         "weight": 2,
