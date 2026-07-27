@@ -1,19 +1,23 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-26T18:44:26.828Z",
+    "updatedAt": "2026-07-27T01:01:24.950Z",
     "keywords": {
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 9 outlets across the spectrum (since 2026-07-20)"
       },
       "Smithsonian": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "appeals court": {
         "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-21)"
+      },
+      "Dinner": {
+        "weight": 3,
+        "description": "In 8 outlets across the spectrum (since 2026-07-26)"
       },
       "Correspondents": {
         "weight": 3,
@@ -22,10 +26,6 @@
       "Tony Romo arrested": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Dinner": {
-        "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-26)"
       },
       "nuclear deal": {
         "weight": 3,
@@ -63,6 +63,10 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
+      "border czar": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
+      },
       "Canada": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
@@ -92,11 +96,11 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "Abraham Accords": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
       "Arizona governor": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-22)"
       },
       "Canadian": {
@@ -179,17 +183,9 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-20)"
       },
-      "Border Czar": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
-      },
       "Graham sister": {
         "weight": 1,
         "description": "In 6 outlets across the spectrum (since 2026-07-21)"
-      },
-      "fourth child": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       }
     }
   }
