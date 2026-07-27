@@ -1,31 +1,39 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-27T07:37:38.360Z",
+    "updatedAt": "2026-07-27T13:24:22.052Z",
     "keywords": {
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 8 outlets across the spectrum (since 2026-07-20)"
       },
       "appeals court": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-21)"
+        "description": "In 5 outlets across the spectrum (since 2026-07-21)"
       },
-      "Dinner": {
+      "Correspondents Dinner": {
         "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-26)"
+        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
       },
       "Smithsonian": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
-      "Correspondents": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
-      },
       "Tony Romo arrested": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
+      "SAVE": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
+      "data centers": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+      },
+      "food festival": {
+        "weight": 3,
+        "description": "In 4 outlets across the spectrum (since 2026-07-27)"
       },
       "nuclear deal": {
         "weight": 3,
@@ -36,16 +44,12 @@
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
       },
       "LeBron James": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "signs outside": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
-      },
-      "data centers": {
         "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+        "description": "In 4 outlets across the spectrum (since 2026-07-25)"
       },
       "border czar": {
         "weight": 2,
@@ -67,13 +71,13 @@
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
       },
+      "WHCA dinner": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
+      },
       "Canada": {
         "weight": 2,
         "description": "In 5 outlets across the spectrum (since 2026-07-17)"
-      },
-      "SAVE": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Trump&apos": {
         "weight": 2,
