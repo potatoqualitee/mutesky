@@ -1,46 +1,50 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-27T18:54:24.838Z",
+    "updatedAt": "2026-07-28T00:53:56.251Z",
     "keywords": {
+      "Fauci": {
+        "weight": 3,
+        "description": "In 10 outlets across the spectrum (since 2026-07-27)"
+      },
       "Troy Jackson": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-20)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
       "appeals court": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
-      "Fauci": {
-        "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-27)"
-      },
       "Correspondents Dinner": {
         "weight": 3,
         "description": "In 7 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Smithsonian": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "SAVE": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
+      "Cracker Barrel": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-27)"
+      },
       "food festival": {
         "weight": 3,
         "description": "In 4 outlets across the spectrum (since 2026-07-27)"
+      },
+      "Smithsonian": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "data centers": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
-      "Cracker Barrel": {
+      "Border Czar": {
         "weight": 3,
-        "description": "In 5 outlets across the spectrum (since 2026-07-27)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Tony Romo arrested": {
-        "weight": 3,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Berlin Pride": {
@@ -50,6 +54,10 @@
       "nuclear deal": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
+      },
+      "Canada": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Secret": {
         "weight": 2,
@@ -62,10 +70,6 @@
       "signs outside": {
         "weight": 2,
         "description": "In 4 outlets across the spectrum (since 2026-07-25)"
-      },
-      "border czar": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "forced labor": {
         "weight": 2,
@@ -86,10 +90,6 @@
       "WHCA dinner": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
-      },
-      "Canada": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-17)"
       },
       "Trump&apos": {
         "weight": 2,
