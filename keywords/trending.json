@@ -1,47 +1,59 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-28T00:53:56.251Z",
+    "updatedAt": "2026-07-28T07:20:12.355Z",
     "keywords": {
       "Fauci": {
         "weight": 3,
-        "description": "In 10 outlets across the spectrum (since 2026-07-27)"
+        "description": "In 11 outlets across the spectrum (since 2026-07-27)"
       },
       "Troy Jackson": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-20)"
       },
+      "SAVE": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-16)"
+      },
       "appeals court": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
-      },
-      "Correspondents Dinner": {
-        "weight": 3,
-        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
-      },
-      "SAVE": {
-        "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-16)"
       },
       "Cracker Barrel": {
         "weight": 3,
         "description": "In 5 outlets across the spectrum (since 2026-07-27)"
       },
+      "El-Sayed": {
+        "weight": 3,
+        "description": "In 9 outlets across the spectrum (since 2026-07-28)"
+      },
       "food festival": {
         "weight": 3,
-        "description": "In 4 outlets across the spectrum (since 2026-07-27)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-27)"
+      },
+      "Correspondents Dinner": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-25)"
+      },
+      "Border Czar": {
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Smithsonian": {
         "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
-      "data centers": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
+      "Canada": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
-      "Border Czar": {
-        "weight": 3,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
+      "Savannah Guthrie": {
+        "weight": 2,
+        "description": "In 4 outlets across the spectrum (since 2026-07-28)"
+      },
+      "data centers": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-24)"
       },
       "Tony Romo arrested": {
         "weight": 2,
@@ -54,10 +66,6 @@
       "nuclear deal": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-23)"
-      },
-      "Canada": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Secret": {
         "weight": 2,
@@ -92,11 +100,11 @@
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Trump&apos": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
       },
       "Correspondents&apos": {
-        "weight": 2,
+        "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-25)"
       },
       "Women Sports": {
@@ -151,10 +159,6 @@
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-23)"
       },
-      "Abdul El-Sayed": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-22)"
-      },
       "dignified transfer": {
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-23)"
@@ -183,17 +187,9 @@
         "weight": 1,
         "description": "In 5 outlets across the spectrum (since 2026-07-20)"
       },
-      "soldiers killed": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
       "Spain": {
         "weight": 1,
         "description": "In 4 outlets across the spectrum (since 2026-07-16)"
-      },
-      "Burnham": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       }
     }
   }
