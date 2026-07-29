@@ -1,134 +1,62 @@
 {
   "New Developments": {
     "description": "Today's controversies from across the news spectrum, updated automatically",
-    "updatedAt": "2026-07-29T07:22:21.033Z",
+    "updatedAt": "2026-07-29T13:06:03.445Z",
     "keywords": {
-      "Trump": {
-        "weight": 3,
-        "description": "In 22 outlets across the spectrum (since 2026-07-29)"
-      },
       "Fauci": {
         "weight": 3,
-        "description": "In 14 outlets across the spectrum (since 2026-07-27)"
-      },
-      "Graham": {
-        "weight": 3,
-        "description": "In 18 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Iran": {
-        "weight": 3,
-        "description": "In 13 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Netanyahu": {
-        "weight": 3,
-        "description": "In 12 outlets across the spectrum (since 2026-07-29)"
-      },
-      "McConnell": {
-        "weight": 3,
-        "description": "In 9 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Biden": {
-        "weight": 3,
-        "description": "In 11 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Israel": {
-        "weight": 3,
-        "description": "In 6 outlets across the spectrum (since 2026-07-29)"
+        "description": "In 15 outlets across the spectrum (since 2026-07-27)"
       },
       "Jay Clayton": {
         "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Anthony": {
-        "weight": 3,
-        "description": "In 8 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Dems": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-29)"
-      },
-      "El-Sayed": {
-        "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-28)"
-      },
-      "Ukraine": {
-        "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Mamdani": {
-        "weight": 2,
-        "description": "In 5 outlets across the spectrum (since 2026-07-29)"
+        "description": "In 10 outlets across the spectrum (since 2026-07-29)"
       },
       "American original": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-28)"
-      },
-      "Russia": {
-        "weight": 2,
-        "description": "In 7 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Covid": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Troy Jackson": {
-        "weight": 2,
-        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
-      },
-      "China": {
-        "weight": 2,
-        "description": "In 4 outlets across the spectrum (since 2026-07-29)"
+        "weight": 3,
+        "description": "In 3 outlets across the spectrum (since 2026-07-28)"
       },
       "Trump&apos": {
-        "weight": 2,
+        "weight": 3,
         "description": "In 3 outlets across the spectrum (since 2026-07-17)"
+      },
+      "El-Sayed": {
+        "weight": 3,
+        "description": "In 7 outlets across the spectrum (since 2026-07-28)"
+      },
+      "Kentucky governor": {
+        "weight": 3,
+        "description": "In 5 outlets across the spectrum (since 2026-07-29)"
       },
       "teen lifeguard": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-29)"
       },
+      "Troy Jackson": {
+        "weight": 2,
+        "description": "In 3 outlets across the spectrum (since 2026-07-20)"
+      },
       "SAVE": {
         "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-16)"
       },
-      "Saudi": {
+      "Kaitlan Collins": {
         "weight": 2,
-        "description": "In 6 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Paul": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-29)"
+        "description": "In 3 outlets across the spectrum (since 2026-07-28)"
       },
       "Cracker Barrel": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-27)"
       },
       "Border Czar": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
-      "Kentucky governor": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Newsom": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-29)"
-      },
       "food festival": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-27)"
       },
-      "national intelligence": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-29)"
-      },
-      "Scott": {
-        "weight": 1,
-        "description": "In 4 outlets across the spectrum (since 2026-07-29)"
-      },
       "appeals court": {
-        "weight": 1,
+        "weight": 2,
         "description": "In 3 outlets across the spectrum (since 2026-07-21)"
       },
       "Correspondents Dinner": {
@@ -146,10 +74,6 @@
       "data centers": {
         "weight": 1,
         "description": "In 3 outlets across the spectrum (since 2026-07-24)"
-      },
-      "Kaitlan Collins": {
-        "weight": 1,
-        "description": "In 3 outlets across the spectrum (since 2026-07-28)"
       },
       "Savannah Guthrie": {
         "weight": 1,
