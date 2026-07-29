@@ -1,116 +1,127 @@
 # Trending Controversy System
 
-`scripts/trending/` automatically detects the day's political controversies
-from news headlines and publishes them as muted phrases. It runs on GitHub
-Actions every 6 hours (`.github/workflows/trending.yml`), commits
-`keywords/trending.json` + `keywords/trending-state.json`, and the app fetches
-the result from `raw.githubusercontent.com` at startup (see
-`js/api/trending.js`), merging the phrases into the existing **New
-Developments** category so that context card stays current automatically. If
-the upstream category or card is ever missing, the app installs a standalone
-fallback card instead.
+The engine that detects the day's political controversies lives in
+**calm-the-chaos**, not here. It reads political news feeds on a schedule and
+publishes the hot phrases to a gist; MuteSky fetches that gist at startup and
+folds the phrases into its existing **New Developments** category, so that
+card stays current without a deploy.
 
-## Pipeline (each run)
+For how phrases are detected, scored, retained and shaped — feeds, admission
+thresholds, variant collapsing, exclusions, weights, descriptions — see
+[the engine doc](https://github.com/potatoqualitee/calm-the-chaos/blob/main/docs/trending-system.md).
+This page covers only what MuteSky owns: the fetch and the merge, both in
+`js/api/trending.js`.
 
-1. **Fetch** — 15 political RSS/Atom feeds, each tagged `left`, `center`, or
-   `right` (`FEEDS` in `lib.js`). Failures are tolerated; if fewer than 20
-   headlines arrive the run aborts without touching state, so a network outage
-   can't wipe the list. With a `BRAVE_API_KEY` secret, Brave News search adds
-   extra headlines.
-2. **Extract** — headlines from the last 48h are tokenized into 1–3 word
-   n-grams. Boundary words must be meaningful (no stopwords), phrases matching
-   the evergreen/generic blocklist are dropped. Cross-outlet frequency — not
-   capitalization — decides what matters, which stays robust against Title
-   Case headlines.
-3. **Score** — for each candidate phrase:
+## Where the payload comes from
 
-   ```
-   base            = distinctOutlets + 0.5 * extraMentions
-   spectrumFactor  = bipartisan ? 1 + min(leftOutlets, rightOutlets) * 0.25
-                                : 0.35
-   score           = base * spectrumFactor
-   ```
+`TRENDING_URL` in `js/config.js` points at the raw gist
+(`3488593dcc622acc736055fa00a9745e`, file `new-development.json`) rather than
+a path in a repo, so new phrases go live without waiting for a Pages
+redeploy.
 
-   *bipartisan* means at least one left-leaning AND one right-leaning outlet
-   carried it — that's what makes something "the controversy of the day"
-   rather than one side's talking point. Shorter phrases are absorbed by
-   longer ones that contain them and score comparably ("biden laptop" folds
-   into "hunter biden laptop").
+The payload is a single-category object in the same shape as the rest of the
+catalog — normally named `New Developments`. The merge reads the category
+name off the payload instead of hardcoding it, so a rename upstream doesn't
+strand the phrases in a category nothing displays.
 
-## Retention: how long a phrase stays muted
+## Fetching is pure enrichment
 
-Every tracked phrase carries an exponentially decaying **heat**:
+`fetchTrendingKeywords` clears the previous snapshot's bookkeeping up front,
+then every failure path — non-`ok` response, non-object `keywords`, a payload
+the merge reports as empty, or a thrown error — logs at `console.debug` and
+returns without touching state further. `state.trendingSnapshotLoaded` flips
+to `true` only after a merge reports it changed something.
 
-```
-heat = heat * 0.75 + todayScore        (per run; ~14h half-life at 4 runs/day)
-```
+That is the whole contract: the app has to work normally when the gist is
+unreachable or malformed. Trending is enrichment, never a dependency, so it
+gets no user-visible error and no retry.
 
-Admission requires `score >= 6` **and** bipartisan coverage. Once in, the
-phrase's expiry is:
+The fetch uses `cache: 'no-store'`. A snapshot that refreshes every 6 hours
+served from an HTTP cache would show phrases that are already expired.
 
-```
-retentionDays = clamp(3 + 2*log2(1 + peakHeat/6) + daysActive/2,  3, 30)
-```
+Callers run this **after** the calm-the-chaos catalog and context-group
+fetches, so the merge sees every other category's keywords (the overlap dedup
+below only excludes what already exists) and can attach its card in one pass.
 
-- a one-day flap gets the 3-day minimum,
-- a story that burns hot (high `peakHeat`) or keeps making headlines on new
-  calendar days (`daysActive`) stretches toward the 30-day cap,
-- the expiry refreshes on every run where the phrase still scores ≥ 3, so a
-  story that stays in the news stays muted indefinitely,
-- once coverage stops, the phrase rides out its earned window and is dropped.
+## What the merge does
 
-The published list is capped at the 60 hottest phrases.
+`mergeTrendingIntoState(appState, categoryData)` is split out from the fetch
+so tests can drive it without network; `tests/unit/trendingMerge.test.js`
+covers each of the behaviors below.
 
-## Output
+### Overlap dedup, as an offline net
 
-`keywords/trending.json` uses the same category format as calm-the-chaos,
-named **New Developments** so the app folds it into that existing category.
-Before publishing, the list is deduplicated:
+Phrases already muted by another category's permanent list are noise here —
+muting "Kirk" adds nothing when "Charlie Kirk" is already muted. The engine
+excludes catalog names on its side, so this check is the net for a **stale
+snapshot**: a phrase that was novel when published but has since been
+promoted into the permanent catalog.
 
-- Phrases overlapping the permanent calm-the-chaos keywords are dropped —
-  "Trump", "Iran", and anything word-overlapping them ("Trumps",
-  "Kirk" vs "Charlie Kirk") are already muted by those lists. `update.js`
-  fetches the permanent lists each run (best-effort; the app also dedupes
-  client-side as a net).
-- Of trending phrases that word-overlap each other ("Maine" / "Maine
-  Senate"), only the hottest survives. Overlap is word-level with
-  singular/plural folding, so "art" never matches inside "martial law".
+Overlap is word-level with singular/plural folding, mirroring `lib.mjs` in
+calm-the-chaos: "Trumps" overlaps "Trump" and "data centers" folds with
+"data center", but "art" never matches inside "martial law". The folding is
+reimplemented rather than imported so the app never loads engine code; if the
+engine's rule changes, this copy has to follow.
 
-Weights map heat percentile to the app's filter levels: the top 20% get
-weight 3 (visible even at the "Minimal" level), the next 30% weight 2, the
-rest weight 1.
+Every `keywordGroups` category except the trending one is scanned, matched
+lowercased.
 
-## Codex curation pass
+### Trending wins collisions; curation keeps the description
 
-After the heuristic script runs, `trending.yml` hands the result to the
-codex CLI (`gpt-5.6-luna` at `medium` effort — the volume tier, light on
-plan limits at 4 runs/day) along with the raw headlines (`HEADLINES_OUT`
-dump from `update.js`). It removes trending-but-not-controversial topics
-(sports, entertainment) and over-broad terms, and adds controversies the
-n-gram extractor missed.
+Collisions are matched **case-insensitively**, like the rest of the mute
+pipeline. An incoming `Drone Sightings` replaces a curated `drone sightings`
+instead of sitting alongside it — two spellings of one phrase would mute the
+same thing twice and show up as a duplicate row.
 
-Auth uses the ChatGPT subscription, not an API key: `codex login` locally,
-then store `~/.codex/auth.json` as the `CODEX_AUTH_JSON` repo secret (also
-used by `codex.yml`, the `@codex` mention responder, which is locked to
-potatoqualitee and runs `gpt-5.6-sol` at `high` effort). Codex refreshes
-the tokens itself; if runs start failing with 401s, re-login and reseed the
-secret. The curation step is skipped when the secret is absent.
+Trending wins the keyword entry, because its weight and description are
+fresher than the catalog's. It does **not** win the category description:
+that's the text on the context card, and it stays whatever calm-the-chaos
+curated.
 
-Containment: the checkout persists no git credentials while codex runs, and
-afterwards the workflow copies the two keyword files aside, hard-resets the
-workspace (discarding any other writes, including a tampered validator),
-restores them, and runs `scripts/trending/validate.js`. The validator
-(`validateTrending` in `lib.js`, covered by
-`tests/unit/trendingValidate.test.js`) enforces the exact schema the
-heuristics emit — category name, description formats, weight range, no
-extra fields, ordered timestamps, published-phrase↔state correspondence —
-and any phrase codex added must literally appear in a fetched headline, so
-curation can't smuggle freeform content into the published list. On any validation
-failure the workflow falls back to the checkpointed heuristic output, and
-the codex step is `continue-on-error` so an outage never blocks publishing.
+Only keywords that weren't already in the category are recorded in
+`state.currentTrendingKeywords`; one that collided with a curated entry
+belongs to curation, not to this snapshot.
 
-## Tuning
+### The fallback card is conditional
 
-All knobs live in `TUNING` in `scripts/trending/lib.js`; false positives go
-in `GENERIC_PHRASES`. The logic is pure and covered by
-`tests/unit/trending.test.js`.
+Normally an upstream context group already shows New Developments and no card
+is needed. When none does, the merge installs its own group under
+`TRENDING_CONTEXT_ID` (`trending-controversies`) so the phrases are reachable
+in simple mode.
+
+The check ignores its own id and looks for any *other* group listing the
+category. When one is found, the fallback card is deleted along with any
+persisted selection of it — otherwise the same category would appear as two
+cards.
+
+This step runs last for a reason: `fetchContextGroups` replaces the whole
+`contextGroups` object, so a card installed earlier would be overwritten.
+When `contextGroups` is still empty (the fetches race), the card step is
+skipped entirely and a later merge attaches it.
+
+Installing a standalone category also registers it in `selectedCategories`,
+but only when that set is already non-empty. An empty set means "no persisted
+advanced-mode selection", where everything shows anyway; a populated one
+means the user has chosen, and adding to it is how a brand-new category
+becomes visible. When the category already existed, the set is left alone —
+a user who deliberately deselected New Developments stays deselected.
+
+### `updatedAt` overrides the "Keywords updated" stamp
+
+The sidebar stamp normally tracks the calm-the-chaos catalog, which changes
+rarely. Trending refreshes every 6 hours, so a newer `updatedAt` on the
+payload wins and is reformatted into the same display string. It only wins
+when it parses and is genuinely newer, so a malformed or backdated timestamp
+can't roll the stamp backwards.
+
+## Legacy category migration
+
+Before the overhaul this engine installed its own standalone **Trending
+Controversies** category, and sessions persisted that selection. The merge
+deletes that name from `selectedCategories` and adds the current category
+name in its place, so it doesn't linger as a ghost entry pointing at a
+category nobody publishes any more.
+
+The context-group id `trending-controversies` is deliberately reused from
+that era, which is why the fallback-card branch also has to clear a persisted
+selection of it when an upstream card takes over.

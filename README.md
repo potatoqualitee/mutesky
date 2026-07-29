@@ -121,16 +121,18 @@ And the [Calm the Chaos Browser extension](https://chromewebstore.google.com/det
 
 ## 📈 New Developments: Automatic Controversy Detection
 
-MuteSky scours political headlines from 15 news feeds across the spectrum
-(left, center, and right) every 6 hours and detects "the controversy of the
-day" — phrases that are hot on **both** sides of the press at once. Each
+Political headlines from 27 news feeds across the spectrum (nine each on the
+left, center, and right) are scoured every 6 hours to detect "the controversy
+of the day" — phrases that are hot on **both** sides of the press at once. Each
 detected phrase gets a retention window that scales with how big and how
 sustained the story is (a one-day flap expires in ~3 days; a major sustained
 story can stay muted for up to 30), and the phrases feed the app's
 **New Developments** context, keeping it current automatically.
 
-The engine lives in `scripts/trending/` and runs via GitHub Actions
-(`.github/workflows/trending.yml`). It needs no API keys; if a `BRAVE_API_KEY`
-repository secret is configured, Brave News search is used as an extra source.
-See [Trending System](docs/1-architecture/7-trending-system.md) for the
-algorithm details.
+The engine lives in
+[calm-the-chaos](https://github.com/potatoqualitee/calm-the-chaos), where it
+runs on a schedule and publishes to a gist that MuteSky fetches at startup.
+See [Trending System](docs/1-architecture/7-trending-system.md) for how the
+app fetches and merges that payload, and
+[the engine doc](https://github.com/potatoqualitee/calm-the-chaos/blob/main/docs/trending-system.md)
+for the algorithm details.

@@ -8,7 +8,8 @@ export const TRENDING_CONTEXT_ID = 'trending-controversies';
 const LEGACY_CATEGORY_NAME = 'Trending Controversies';
 
 // Word-level phrase overlap with singular/plural folding, mirroring
-// scripts/trending/lib.js (kept separate so the app never loads the engine):
+// scripts/trending/lib.mjs in calm-the-chaos (kept separate so the app never
+// loads the engine):
 // "Kirk" overlaps "Charlie Kirk", "Trumps" overlaps "Trump", but "art"
 // never matches inside "martial law"
 function tokenMatches(a, b) {
